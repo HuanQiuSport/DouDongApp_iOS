@@ -1,0 +1,7 @@
+# 方正胖娃简体_0 字体使用说明
+
+  
+//familyname FZPangWa-M18S
+//fontname FZPWJW--GB1-0
+
+[UIFont fontWithName:@"FZPWJW--GB1-0" size:30];
