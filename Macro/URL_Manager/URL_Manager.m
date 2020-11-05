@@ -24,12 +24,16 @@ static URL_Manager *static_URL_Manager = nil;
     return txt;
 }
 
+-(NSString *)baseUrl {
+    return @"222.186.150.148";
+}
+
 -(NSString *)BaseUrl_1{
-    return append(@"%@%@",HTTP,@"222.186.150.148/api");
+    return append(@"%@%@%@",HTTP,[self baseUrl], @"/api");
 }
 
 -(NSString *)BaseUrl_H5{
-    return append(@"%@%@",HTTP,@"222.186.150.148/taskpage");
+    return append(@"%@%@",HTTP,[self baseUrl]);
 }
 #pragma mark —— APP登录信息相关接口
 /// POST找回密码接口-修改密码
@@ -220,6 +224,12 @@ static URL_Manager *static_URL_Manager = nil;
 -(NSString *)MKVideoUploadVideoAppTempPOST{
     return @"/app/videos/uploadVideoAPPTemp";
 }
+
+//上传完视频通知服务器验证
+-(NSString *)uploadVideo {
+    return  @"/app/videos/uploadVideo";
+}
+
 ///GET 标签列表
 -(NSString *)MKVideosLabelListGET{
     return @"/app/videos/videoLabelList";
@@ -428,4 +438,11 @@ static URL_Manager *static_URL_Manager = nil;
 -(NSString *)ImgBaseURL{
     return @"";
 }
+
+#pragma mark —— App消息相关接口
+/// /app/message/noticeListapp公告列表
+-(NSString *)presignedUploadUrl{
+    return @"/app/videos/presignedUploadUrl";
+}
+
 @end

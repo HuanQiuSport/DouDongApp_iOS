@@ -138,7 +138,7 @@
     // 如果定时器没创建
     if (!_timer) {
         NSLog(@"初始定时器");
-        [self starTimer];
+//        [self starTimer];
     }
     else
     {

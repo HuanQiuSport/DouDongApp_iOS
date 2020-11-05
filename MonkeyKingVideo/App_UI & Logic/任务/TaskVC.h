@@ -9,6 +9,7 @@
 #import "BaseVC.h"
 @class MKPaoMaView;
 @class MKPMView;
+@class MKNoticeView;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TaskVC : BaseVC
@@ -34,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton *withdrawBtn;
 @property (nonatomic, strong) UIView *friendListView;
 @property (nonatomic, strong) UIButton *friendListBtn;
+@property (nonatomic, strong) MKNoticeView *noticeView;   // 通知视图
 
 @property (nonatomic, copy) NSString *signDay;
 @property (nonatomic, copy) NSString *signCoin;

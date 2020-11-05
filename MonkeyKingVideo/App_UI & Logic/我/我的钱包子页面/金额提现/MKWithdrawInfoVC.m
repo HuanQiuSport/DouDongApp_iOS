@@ -102,7 +102,7 @@
     contextLab.numberOfLines = 0;
     contextLab.textColor = kWhiteColor;
     contextLab.font = [UIFont boldSystemFontOfSize:16];
-    self.balance = @"9999.99";
+    self.balance = [self.balance stringByReplacingOccurrencesOfString:@"-" withString:@""];
     text = [NSString stringWithFormat:@"提现金额：\n￥%@",self.balance];
     attributedString = [[NSMutableAttributedString alloc] initWithString:text];
 
@@ -120,7 +120,7 @@
     contextLab2.numberOfLines = 0;
     contextLab2.textColor = kWhiteColor;
     contextLab2.font = [UIFont boldSystemFontOfSize:16];
-    self.time = @"2020-10-28 17:00:30";
+    self.time = self.time;
     text = [NSString stringWithFormat:@"提现日期：\n%@",self.time];
     attributedString = [[NSMutableAttributedString alloc] initWithString:text];
 

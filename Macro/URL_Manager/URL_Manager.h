@@ -227,6 +227,11 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 -(NSString *)ImgBaseURL;
 
+///  获取上传文件的链接
+-(NSString *)presignedUploadUrl;
+
+-(NSString *)uploadVideo;
+
 @end
 
 NS_ASSUME_NONNULL_END

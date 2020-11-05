@@ -12,6 +12,7 @@
 #import "MyCoinVC.h"
 #import "MKPaoMaView.h" // 跑马灯
 #import "MKPMView.h" // 跑马灯
+#import "MKNoticeView.h"
 
 @interface TaskVC ()<UIScrollViewDelegate>
 
@@ -26,7 +27,6 @@
 @property (nonatomic, strong) UIView *coinView;     // 金币视图
 @property (nonatomic, strong) UIButton *coinBtn;
 @property (nonatomic, strong) UIView *signView;     // 签到视图
-@property (nonatomic, strong) UIView *noticeView;   // 通知视图
 @property (nonatomic, strong) UIView *friendView;   // 好友视图
 @property (nonatomic, strong) UIView *withdrawView; // 银行卡视图
 @property (nonatomic, strong) UIView *rewardView; // 奖励视图
@@ -519,33 +519,33 @@
     }
     return _friendView;
 }
-- (UIView *)noticeView{
+- (MKNoticeView *)noticeView{
     if (!_noticeView) {
-        _noticeView = UIView.new;
+        _noticeView = [[MKNoticeView alloc] initWithFrame:CGRectZero];
         [self.bgview addSubview:_noticeView];
-        _noticeView.backgroundColor = HEXCOLOR(0x242a37);
-        _noticeView.layer.cornerRadius = 19.5;
-        _noticeView.layer.shadowColor = [UIColor blackColor].CGColor;
-        _noticeView.layer.shadowOffset = CGSizeMake(0,0);
-        _noticeView.layer.shadowOpacity = 0.5;
-        _noticeView.layer.shadowRadius = 20;
-        
-        
-        UIImageView *imgeV = UIImageView.new;
-        [_noticeView addSubview:imgeV];
-        [imgeV mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.noticeView.mas_centerY);
-            make.left.equalTo(self.noticeView).offset(48);
-            make.width.offset(16);
-            make.height.offset(16);
-        }];
-        imgeV.image = KIMG(@"icon_proclamation");
-        
-        _paomaView = [[MKPaoMaView alloc] initWithFrame:CGRectMake(67,0,SCREEN_W - 32 - 66 - 67,40) font:[UIFont systemFontOfSize:17] textColor:[UIColor redColor]];
-        _paomaView.textColor = [UIColor whiteColor];
-        _paomaView.font = [UIFont systemFontOfSize:13];// 字体大小
-        _paomaView.backgroundColor = kClearColor;
-        [_noticeView addSubview:_paomaView];
+//        _noticeView.backgroundColor = HEXCOLOR(0x242a37);
+//        _noticeView.layer.cornerRadius = 19.5;
+//        _noticeView.layer.shadowColor = [UIColor blackColor].CGColor;
+//        _noticeView.layer.shadowOffset = CGSizeMake(0,0);
+//        _noticeView.layer.shadowOpacity = 0.5;
+//        _noticeView.layer.shadowRadius = 20;
+//
+//
+//        UIImageView *imgeV = UIImageView.new;
+//        [_noticeView addSubview:imgeV];
+//        [imgeV mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.centerY.equalTo(self.noticeView.mas_centerY);
+//            make.left.equalTo(self.noticeView).offset(48);
+//            make.width.offset(16);
+//            make.height.offset(16);
+//        }];
+//        imgeV.image = KIMG(@"icon_proclamation");
+//
+//        _paomaView = [[MKPaoMaView alloc] initWithFrame:CGRectMake(67,0,SCREEN_W - 32 - 66 - 67,40) font:[UIFont systemFontOfSize:17] textColor:[UIColor redColor]];
+//        _paomaView.textColor = [UIColor whiteColor];
+//        _paomaView.font = [UIFont systemFontOfSize:13];// 字体大小
+//        _paomaView.backgroundColor = kClearColor;
+//        [_noticeView addSubview:_paomaView];
     }
     return _noticeView;
 }

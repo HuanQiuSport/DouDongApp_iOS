@@ -571,11 +571,12 @@ shouldChangeTextInRange:(NSRange)range
                                 view:self.view];
                             } else {
                                 NSString *urlString = [NSString stringWithFormat:@"file://%@",self.urlVideo];
-                                [self videosUploadNetworkingWithData:self.vedioData
-                                                                               videoArticle:self.textView.text
-                                                                                   urlAsset:self.urlAsset videoTime:[MKUploadingVC mh_getVideolength:[NSURL URLWithString:urlString]]];
+//                                [self videosUploadNetworkingWithData:self.vedioData
+//                                                                               videoArticle:self.textView.text
+//                                                                                   urlAsset:self.urlAsset videoTime:[MKUploadingVC mh_getVideolength:[NSURL URLWithString:urlString]]];
+                                NSString *filename = [NSString stringWithFormat:@"%.0f.mp4", [NSDate date].timeIntervalSince1970 * 1000];
+                                [self presignedUploadUrl:filename videoTitle:self.textView.text data:self.vedioData];
                             }
-                           
                     }else{
                         [NSObject Login];
                     }

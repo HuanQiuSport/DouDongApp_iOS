@@ -65,8 +65,8 @@ static inline UIWindow *getMainWindow(){
  @return YES 是该系列 NO 不是该系列
  */
 static inline BOOL isiPhoneX_series() {
-    if (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        return true;
+    if (UIDevice.currentDevice.userInterfaceIdiom != UIUserInterfaceIdiomPhone) {
+        return false;
     }
     BOOL iPhoneXSeries = NO;
     if (@available(iOS 11.0, *)) {

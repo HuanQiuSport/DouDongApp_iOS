@@ -149,7 +149,9 @@
         });
     }else{
 //        NSLog(@"加载状态改变暂停");
-        [self.sliderView startAnimating];
+        if(self.playBtn.isHidden) {
+            [self.sliderView startAnimating];
+        }
     }
 //    if ((state == ZFPlayerLoadStateStalled || state == ZFPlayerLoadStatePrepare || state == ZFPlayerLoadStateUnknown) && ) {
 //        [self.sliderView startAnimating];
@@ -274,14 +276,14 @@
                 }
                 break;
             case ZFPlayerPlayStatePaused:
+                [weakSelf.sliderView stopAnimating];
                 if (isload == YES) {
-                    [weakSelf.sliderView stopAnimating];
                     weakSelf.playerLoadStateChangedBlock(@"NO");
                 }
-                else
-                {
-                    [weakSelf.sliderView startAnimating];
-                }
+//                else
+//                {
+//                    [weakSelf.sliderView startAnimating];
+//                }
                 break;
             case ZFPlayerPlayStatePlayFailed:
                 [weakSelf.sliderView startAnimating];
@@ -361,6 +363,7 @@
         [self.player.currentPlayerManager pause];
         self.playBtn.hidden = NO;
         self.playerLoadStateChangedBlock(@"NO");
+        [self.sliderView stopAnimating];
         self.playBtn.transform = CGAffineTransformMakeScale(1.5f, 1.5f);
         [UIView animateWithDuration:0.2f delay:0
                             options:UIViewAnimationOptionCurveEaseIn animations:^{

@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '13.5'
+#platform :ios, '13.5'
 inhibit_all_warnings!
 
 install!'cocoapods',:deterministic_uuids=>false#解决与私有库的冲突

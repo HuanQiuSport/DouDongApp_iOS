@@ -1,16 +1,17 @@
 {
   "images" : [
     {
+      "filename" : "MKLaunch1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "MKLaunch@2x.png",
+      "filename" : "MKLaunch1@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "MKLaunch@3x.png",
+      "filename" : "MKLaunch1@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

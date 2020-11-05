@@ -16,6 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
                           videoArticle:(NSString *)videoArticle
                               urlAsset:(AVURLAsset *)urlAsset videoTime:(CGFloat)videoTime;
 
+- (void)presignedUploadUrl:(NSString *)fileName
+                videoTitle:(NSString *)videoTitle
+                    data:(NSData *)data;
+
 @end
 
 NS_ASSUME_NONNULL_END

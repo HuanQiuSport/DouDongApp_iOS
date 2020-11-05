@@ -7,6 +7,7 @@
 //
 
 #import "MKTaskPopView.h"
+#import "MKTaskVerticalView.h"
 @interface MKTaskPopView()
 {
     NSString *parameter;
@@ -15,6 +16,8 @@
 @property(nonatomic,strong)UIButton * closeBtn ;
 @property(nonatomic,strong)UIImageView * vipImgView ;
 @property(nonatomic,strong)UIButton * openVipBtn ;
+
+@property(nonatomic,strong) MKTaskVerticalView *taskVerticalView;
 
 @end
 @implementation MKTaskPopView
@@ -66,6 +69,7 @@
     [self.bgView addSubview:self.closeBtn];
     [self.bgView addSubview:self.vipImgView];
     [self.bgView addSubview:self.openVipBtn];
+    
 }
 
 -(UIView *)bgView{
@@ -151,5 +155,12 @@
     return _openVipBtn ;
 }
 
+
+-(MKTaskVerticalView *)taskVerticalView {
+    if(_taskVerticalView == nil) {
+        _taskVerticalView = [[MKTaskVerticalView alloc] initWithFrame:CGRectZero];
+    }
+    return  _taskVerticalView;
+}
 
 @end

@@ -139,7 +139,6 @@
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"本月剩余可提现 "];
     [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%.0f",info.drawBalance] attributes:@{NSForegroundColorAttributeName : kRedColor}]];
     [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@" 元" attributes:@{NSForegroundColorAttributeName : UIColor.whiteColor}]];
-    [attributedString appendString:@" 元"];
     self.canWithdrawLab.attributedText = attributedString;
     
     
@@ -158,20 +157,19 @@
     [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@" 次" attributes:@{NSForegroundColorAttributeName : UIColor.whiteColor}]];
     
     self.topRightLab3.attributedText = attributedString;
-    if(info.balance == 0) {
-        self.balanceCount.text = @"0";
+    int balance = (int)info.balance;
+    if(balance == info.balance) {
+        self.balanceCount.text = [NSString stringWithFormat:@"%.0f",info.balance];
     } else {
-        [NSString stringWithFormat:@"%.0f",info.balance];
+        self.balanceCount.text = [NSString stringWithFormat:@"%.2f",info.balance];
     }
-    
-   
-    if (info.drawBalance != 0) {
-        self.withdrawBtn.userInteractionEnabled = YES;
-    } else {
+    if(info.drawCount == 0) {
         self.withdrawBtn.userInteractionEnabled = NO;
         self.withdrawBtn.alpha = 0.4f;
+    } else {
+        self.withdrawBtn.userInteractionEnabled = YES;
+        self.withdrawBtn.alpha = 1.0f;
     }
-    
 }
 - (void)setWalletModel:(WalletInfoModel *)walletModel {
     _walletModel = walletModel;
@@ -213,6 +211,17 @@
                       targetVC:self
                   alertVCBlock:^(id data) {
                }];
+    } else if(self.walletModel.drawCount > 0 && self.walletModel.balance > 100 && self.walletModel.drawBalance > 100) {
+        tip = [NSString stringWithFormat:@"本月最多提现金额为100元，确认进行提现吗？", MIN(self.walletModel.balance, self.walletModel.drawBalance)];
+        [NSObject showSYSAlertViewTitle:@"提示"
+                        message:tip
+                isSeparateStyle:NO
+                    btnTitleArr:@[@"取消",@"确认"]
+                 alertBtnAction:@[@"",@"goWithdraw"]
+                       targetVC:self
+                   alertVCBlock:^(id data) {
+            
+        }];
     } else if(self.walletModel.drawCount > 0 && self.walletModel.balance >= 1 && self.walletModel.drawBalance >= 1) {
         tip = [NSString stringWithFormat:@"本次提现金额为%.0f元，确认进行提现吗？", MIN(self.walletModel.balance, self.walletModel.drawBalance)];
         [NSObject showSYSAlertViewTitle:@"提示"
@@ -370,6 +379,22 @@
     cell.model = self.dataArray[indexPath.row];
     return cell;
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    MKWalletMyFlowsListModel *model = self.dataArray[indexPath.row];
+//    if[(model.moneyType ])
+    if([model.moneyType isEqual:@"余额提现"]) {
+        NSString *createTime = model.createTime;
+        NSString *money = model.amount;
+        [MKWithdrawInfoVC ComingFromVC:self
+                             comingStyle:ComingStyle_PUSH
+                       presentationStyle:UIModalPresentationAutomatic
+                         requestParams:@{@"balance":money,@"time":createTime}
+                                 success:^(id data) {}
+                                animated:YES];
+    }
+}
+
 //- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
 //    NSString *title = @"快来将我填满吧";
 //    NSDictionary *attributes = @{
@@ -424,6 +449,7 @@
         }];
         self.withdrawBtn.layer.cornerRadius =SCALING_RATIO(11);
         self.withdrawBtn.layer.masksToBounds = 1;
+        
         [self.withdrawBtn setBackgroundImage:KIMG(@"gradualColor") forState:UIControlStateNormal];
         [self.withdrawBtn setTitle:@"余额提现" forState:UIControlStateNormal];
         [self.withdrawBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];

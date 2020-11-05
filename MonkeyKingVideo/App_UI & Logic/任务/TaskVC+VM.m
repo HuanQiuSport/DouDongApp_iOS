@@ -14,6 +14,7 @@
 #import "MKTaskPopView.h"
 #import "WPAlertControl.h"
 #import "WPView.h"
+#import "MKNoticeView.h"
 @implementation TaskVC (VM)
 
 -(void)getData{
@@ -59,7 +60,8 @@
                 self.paomav.marqueeContentArray = self.m_rewards;
                 [self.paomav start];
             }
-            self.paomaView.text = [self.m_notices componentsJoinedByString:@"  "];
+            self.noticeView.dataSource = self.m_notices;
+//            self.paomaView.text = [self.m_notices componentsJoinedByString:@"  "];
             
         } else {
             [[MKTools shared] showMBProgressViewOnlyTextInView:self.view
@@ -335,6 +337,7 @@
                 else
                 {
                     weak_self.friendListView.hidden = NO;
+                    [weak_self.friendListView removeAllSubviews];
                     weak_self.friendBtn.hidden = !weak_self.friendListView.hidden;
                     UIView *line = (UIView *)[self.view viewWithTag:999];
                     line.hidden = !weak_self.friendListView.hidden;

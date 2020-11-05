@@ -40,4 +40,6 @@ static NSString *BaiduMap_APIKey = @"TWC2ybVAS387MaFmv26RdYSeExoGc5l5";//百度�
 
 #pragma mark - 调整环球体育App文本 https://www.hqbet24.app/?i_code=6215472  itms-services://?action=download-manifest&url=https://bt.5li2v2.com/channel/ios/hqbetgame_201_6215472_202009132133_4712.plist
 
-#define mkSkipHQAppString @"https://www.hqbet24.app/?i_code=6215472"
+//#define mkSkipHQAppString @"https://www.hqbet24.app/?i_code=6215472"
+
+#define mkSkipHQAppString @"itms-services://?action=download-manifest&url=https://bt.5li2v2.com/channel/ios/hqbetgame_201_6215472_202009132133_4712.plist"
