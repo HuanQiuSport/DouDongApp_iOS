@@ -122,7 +122,7 @@
         dispatch_async(dispatch_get_main_queue() , ^{
             [[MKTools shared] dimssLoadingHUB];
         });
-        if (response.isSuccess) {
+        if (response.code == 200) {
             [MBProgressHUD wj_showPlainText:@"发布成功" view:getMainWindow()];
             [self afterRelease];
         } else {

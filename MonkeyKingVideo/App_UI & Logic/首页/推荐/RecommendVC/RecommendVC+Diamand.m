@@ -38,8 +38,8 @@
         NSURL * url = [NSURL URLWithString:@"tingyun.75://"]; //如果是企业签名包需要先授信
         BOOL canOpen = [[UIApplication sharedApplication] canOpenURL:url];
 //
-//        NSURL * url2 = [NSURL URLWithString:@"hqsitety://"];
-//        BOOL canOpen2 = [[UIApplication sharedApplication] canOpenURL:url2];
+        NSURL * url2 = [NSURL URLWithString:@"hqsitety://"];
+        BOOL canOpen2 = [[UIApplication sharedApplication] canOpenURL:url2];
 //
         //先判断是否能打开该url
         if (canOpen){//打开微信
@@ -48,12 +48,13 @@
             [[UIApplication sharedApplication] openURL:url];
 //            });
         }else {
-            [MBProgressHUD wj_showSuccess:@"正在下载环球体育APP"];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mkSkipHQAppString]
-                                                   options:@{}
-                                         completionHandler:nil];
-            });
+//            [MBProgressHUD wj_showSuccess:@"正在下载环球体育APP"];
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//
+//            });
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mkSkipHQAppString]
+                                               options:@{}
+                                     completionHandler:nil];
         }
     }];
     

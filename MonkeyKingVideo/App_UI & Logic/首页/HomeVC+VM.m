@@ -48,8 +48,8 @@
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         if (response.isSuccess) {
+            [self MKMessageNoticeListGET];
             if ([response.reqResult isKindOfClass:[NSDictionary class]]) {
-                [self MKMessageNoticeListGET];
                 NSLog(@"%@",response.reqResult[@"versionCode"]);
                 NSString *storeVersion = response.reqResult[@"versionCode"];
                 NSString *nativeVersion = HDAppVersion;

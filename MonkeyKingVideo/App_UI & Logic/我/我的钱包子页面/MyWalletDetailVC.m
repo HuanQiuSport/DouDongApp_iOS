@@ -211,7 +211,7 @@
                       targetVC:self
                   alertVCBlock:^(id data) {
                }];
-    } else if(self.walletModel.drawCount > 0 && self.walletModel.balance > 100 && self.walletModel.drawBalance > 100) {
+    } else if(self.walletModel.drawCount > 0 && self.walletModel.balance > 100 && self.walletModel.drawBalance >= 100) {
         tip = [NSString stringWithFormat:@"本月最多提现金额为100元，确认进行提现吗？", MIN(self.walletModel.balance, self.walletModel.drawBalance)];
         [NSObject showSYSAlertViewTitle:@"提示"
                         message:tip
@@ -223,7 +223,13 @@
             
         }];
     } else if(self.walletModel.drawCount > 0 && self.walletModel.balance >= 1 && self.walletModel.drawBalance >= 1) {
-        tip = [NSString stringWithFormat:@"本次提现金额为%.0f元，确认进行提现吗？", MIN(self.walletModel.balance, self.walletModel.drawBalance)];
+        CGFloat money = MIN(self.walletModel.balance, self.walletModel.drawBalance);
+        int intmoney = (int)money;
+        if(money == intmoney) {
+            tip = [NSString stringWithFormat:@"本次提现金额为%.0f元，确认进行提现吗？",money];
+        } else {
+            tip = [NSString stringWithFormat:@"本次提现金额为%.2f元，确认进行提现吗？",money];
+        }
         [NSObject showSYSAlertViewTitle:@"提示"
                         message:tip
                 isSeparateStyle:NO

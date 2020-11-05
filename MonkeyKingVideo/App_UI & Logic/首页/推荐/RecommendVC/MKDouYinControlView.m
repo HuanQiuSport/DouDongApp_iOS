@@ -264,13 +264,13 @@
             case ZFPlayerPlayStatePlaying:
                 if([videoPlayer.currentPlayerManager isPlaying]){
                     if (isload == YES) {
-                        [weakSelf.sliderView stopAnimating];
                         weakSelf.playerLoadStateChangedBlock(@"YES");
                     }
-                    else
-                    {
-                        [weakSelf.sliderView startAnimating];
-                    }
+                    [weakSelf.sliderView stopAnimating];
+//                    else
+//                    {
+//                        [weakSelf.sliderView startAnimating];
+//                    }
                 }else{
                     [weakSelf.sliderView startAnimating];
                 }
