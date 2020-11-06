@@ -91,7 +91,7 @@
         
     }else{
 //        NSLog(@"不在首页模块不播放");
-        return;
+//        return;
     }
     self.loadState = state;
 //    dispatch_async(dispatch_get_main_queue(), ^{
@@ -265,12 +265,10 @@
                 if([videoPlayer.currentPlayerManager isPlaying]){
                     if (isload == YES) {
                         weakSelf.playerLoadStateChangedBlock(@"YES");
+                        [weakSelf.sliderView stopAnimating];
+                    } else {
+                        [weakSelf.sliderView startAnimating];
                     }
-                    [weakSelf.sliderView stopAnimating];
-//                    else
-//                    {
-//                        [weakSelf.sliderView startAnimating];
-//                    }
                 }else{
                     [weakSelf.sliderView startAnimating];
                 }
