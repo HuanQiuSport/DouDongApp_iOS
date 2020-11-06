@@ -137,11 +137,14 @@
 - (void)updateData:(WalletInfoModel *)info {
     
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"本月剩余可提现 "];
-    [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%.0f",info.drawBalance] attributes:@{NSForegroundColorAttributeName : kRedColor}]];
+    int drawBalance = (int)info.drawBalance;
+    if(drawBalance == info.drawBalance) {
+        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%.0f",info.drawBalance] attributes:@{NSForegroundColorAttributeName : kRedColor}]];
+    } else {
+        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%.2f",info.drawBalance] attributes:@{NSForegroundColorAttributeName : kRedColor}]];
+    }
     [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@" 元" attributes:@{NSForegroundColorAttributeName : UIColor.whiteColor}]];
     self.canWithdrawLab.attributedText = attributedString;
-    
-    
     attributedString = [[NSMutableAttributedString alloc] initWithString:@"已连续签到 "];
     [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d",info.signCount] attributes:@{NSForegroundColorAttributeName : KYellowColor}]];
     [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@" 天" attributes:@{NSForegroundColorAttributeName : UIColor.whiteColor}]];
