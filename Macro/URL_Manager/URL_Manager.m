@@ -24,16 +24,12 @@ static URL_Manager *static_URL_Manager = nil;
     return txt;
 }
 
--(NSString *)baseUrl {
-    return @"222.186.150.148";
-}
-
 -(NSString *)BaseUrl_1{
-    return append(@"%@%@%@",HTTP,[self baseUrl], @"/api");
+    return append(@"%@%@",HTTP,@"222.186.150.148/api");
 }
 
 -(NSString *)BaseUrl_H5{
-    return append(@"%@%@",HTTP,[self baseUrl]);
+    return append(@"%@%@",HTTP,@"222.186.150.148");
 }
 #pragma mark —— APP登录信息相关接口
 /// POST找回密码接口-修改密码
