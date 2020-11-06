@@ -103,8 +103,10 @@
 }
 - (void)anno{
 //    NSString *content;
+    if(self.idx >= self.m_annoContents.count) {
+        return;
+    }
     @weakify(self)
-    
     WPView *view1 = [WPView viewWithTapClick:^(id other) {
         @strongify(self)
     }];
