@@ -667,6 +667,12 @@ didFinishSavingWithError:(NSError *)error
 //        dispatch_async(dispatch_get_main_queue(), ^{
 //        });
 //    });
+    if(visionContent == nil) {
+        visionContent = @"";
+    }
+    if(versionCode == nil) {
+        versionCode = @"";
+    }
     MBProgressHUD *hud =  [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.mode = MBProgressHUDModeCustomView;
     
@@ -741,6 +747,7 @@ didFinishSavingWithError:(NSError *)error
     btn.layer.masksToBounds = YES;
     [btn setTitle:@"更新" forState:UIControlStateNormal];
     [btn addAction:^(UIButton *btn) {
+        [MBProgressHUD hideHUDForView:view animated:true];
         NSURL * url = [NSURL URLWithString:@"tingyun.75://"];
         BOOL canOpen = [[UIApplication sharedApplication] canOpenURL:url];
         //先判断是否能打开该url
@@ -776,7 +783,7 @@ didFinishSavingWithError:(NSError *)error
     btn2.layer.borderWidth = 1;
     [btn2 setTitle:@"取消" forState:UIControlStateNormal];
     [btn2 addAction:^(UIButton *btn) {
-        
+        [MBProgressHUD hideHUDForView:view animated:true];
     }];
     
     [contentView mas_makeConstraints:^(MASConstraintMaker *make) {

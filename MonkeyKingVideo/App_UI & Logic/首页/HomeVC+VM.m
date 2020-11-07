@@ -55,21 +55,18 @@
                 NSString *nativeVersion = HDAppVersion;
                 if ([storeVersion intValue] > [nativeVersion intValue]) {
                     NSLog(@"本地版本与商店版本号相同，不需要更新");
-                }
-                else
-                {
+                } else {
                     // 检查更新
-                    [[MKTools shared] versionTip:weakSelf.view VisionContent:response.reqResult[@"versionContent"] versionCode:[NSString stringWithFormat:@"%@",response.reqResult[@"versionCode"]]];
+                    NSString *versionCode = response.reqResult[@"versionCode"];
+                    if(versionCode == nil) {
+                        versionCode = @"";
+                    }
+                    [[MKTools shared] versionTip:weakSelf.view VisionContent:response.reqResult[@"versionContent"] versionCode:[NSString stringWithFormat:@"%@",versionCode]];
                 }
-                
             }
-            
-        }
-        else
-        {
+        } else {
             [self MKMessageNoticeListGET];
         }
-        
     }];
 }
 
