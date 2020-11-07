@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) int drawCount;
 @property (nonatomic, assign) int friendCount;
 @property (nonatomic, assign) int signCount;
-
+@property (nonatomic, copy) NSString *qq;
 @end
 
 NS_ASSUME_NONNULL_END

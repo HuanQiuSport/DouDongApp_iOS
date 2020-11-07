@@ -118,7 +118,10 @@ NS_ASSUME_NONNULL_BEGIN
 +(Boolean)mkLoginIsYESWith:(UIViewController *)viewVC;
 
 #pragma - mark 提示更新
-- (void)versionTip:(UIView *)view VisionContent:(NSString *)visionContent versionCode:(NSString *)versionCode;
+- (void)versionTip:(UIView *)view
+     VisionContent:(NSString *)visionContent
+       versionCode:(NSString *)versionCode
+            appUrl:(NSString *)appUrl;
 
 ///  NO 已经登录 ｜  YES   没有登录
 +(Boolean)mkLoginIsLogin;

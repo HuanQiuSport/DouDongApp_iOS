@@ -129,10 +129,10 @@
     if(![MKTools mkLoginIsLogin]){
         [self goldNumSwitch];
     }
-    if (_mkShuaCoinView && _mkShuaCoinView.hidden == NO) {
-        // reset
-        [self.mkShuaCoinView cotinueAddCoin];
-    }
+//    if (_mkShuaCoinView && _mkShuaCoinView.hidden == NO) {
+//        // reset
+//        [self.mkShuaCoinView cotinueAddCoin];
+//    }
     [self mkSetNavi]; // 设置导航栏
     [self keyboard];
     [self isHomeVCInRecommendVC];
@@ -172,7 +172,7 @@
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
 //    [self.mkDiamondsView stopAddDiamond];
-    [self.mkShuaCoinView stopAddCoin];
+//    [self.mkShuaCoinView stopAddCoin];
 //    [self removeNotification]; // 避免重复通知
 //    [self addDidDisappearNotification]; // 由于删除了所有通知，所以要另外开启的通知
 }
@@ -202,6 +202,15 @@
     
 //    @weakify(self)
     __weak typeof(self) weakSelf = self;
+    
+    weakSelf.player.playerPlayTimeChanged = ^(id<ZFPlayerMediaPlayback>  _Nonnull asset, NSTimeInterval currentTime, NSTimeInterval duration) {
+//        NSLog(@"currentTime----%lf duration----- %lf",currentTime,duration);
+        if(weakSelf.isHome && self.mkFirstPlay && !self.mkShuaCoinView.hidden){
+            [self.mkShuaCoinView updateCurentPlayerTime:currentTime assetUrl:asset.assetURL.absoluteString];
+        }
+    };
+    
+    
     weakSelf.player.playerPlayStateChanged = ^(id<ZFPlayerMediaPlayback>  _Nonnull asset, ZFPlayerPlaybackState playState) {
 //        @strongify(self)
         NSLog(@"触发---%lu",(unsigned long)playState);
@@ -217,6 +226,7 @@
                     
                 case ZFPlayerPlayStateUnknown:
                     NSLog(@"视频未知");
+                    [weakSelf recoderEndPlay:model WithTime:manager.currentTime];
                     break;
                 case ZFPlayerPlayStatePlaying:{
                     NSLog(@"视频开始");
@@ -225,10 +235,9 @@
                         [weakSelf.player.currentPlayerManager pause];
                     }
                     // 看了3个视频并且没登录就弹出登录
-                    if(weakSelf.index > 3 && [MKTools mkLoginIsLogin]){
+                    if(weakSelf.index > 3 && [MKTools mkLoginIsLogin]) {
                           if (weakSelf.mkVideoListType == MKVideoListType_A) {
                               [weakSelf mkLoginAlert];
-
                           }
 
 //                        if ([MKTools mkLoginIsLogin]) {
@@ -242,6 +251,11 @@
 //                            }
 //                        }
                     }
+                    if([MKTools mkLoginIsLogin]){
+                        [weakSelf recoderEndPlay:model WithTime:manager.bufferTime];
+                    }else{
+                        [weakSelf recoderStartPlay:model WithTime:manager.totalTime];
+                    }
                     // 看了5个视频并且登录就弹出广告
                     if (![MKTools mkLoginIsLogin] && weakSelf.index > 10) {
 //                         [weakSelf gotoAD2];
@@ -252,9 +266,7 @@
 //                    }
                 }break;
                 case ZFPlayerPlayStatePaused:
-                    if(weakSelf.index > 3 && [MKTools mkLoginIsLogin]){return;}
-                    
-                    [weakSelf recoderEndPlay:model WithTime:manager.currentTime];
+                    NSLog(@"视频停止");
                     break;
                 case ZFPlayerPlayStatePlayFailed:
                     NSLog(@"视频错误");
@@ -284,11 +296,11 @@
             }
             [weakSelf.player.currentPlayerManager play]; // 自动播放关键
             
-            if([MKTools mkLoginIsLogin]){
-                [weakSelf recoderEndPlay:model WithTime:manager.bufferTime];
-            }else{
-                [weakSelf recoderStartPlay:model WithTime:manager.totalTime];
-            }
+//            if([MKTools mkLoginIsLogin]){
+//                [weakSelf recoderEndPlay:model WithTime:manager.bufferTime];
+//            }else{
+//                [weakSelf recoderStartPlay:model WithTime:manager.totalTime];
+//            }
         }else{
             [weakSelf.player.currentPlayerManager play];
         }
@@ -740,11 +752,11 @@
                         if ([str isEqualToString:@"YES"]) {
                             // 完成后时红包走
                             if (self.mkFirstPlay == YES) {
-                                [weakSelf.mkShuaCoinView cotinueAddCoin];
+//                                [weakSelf.mkShuaCoinView cotinueAddCoin];
                             }
                         } else {
                             // 缓冲时红包不走
-                            [weakSelf.mkShuaCoinView stopAddCoin];
+//                            [weakSelf.mkShuaCoinView stopAddCoin];
                         }
                     }
                 }
@@ -980,7 +992,7 @@
             return;
         }
         if (!self.mkShuaCoinView.hidden){
-             [self.mkShuaCoinView startAddCoin]; // 判断首次进来是否统计红包倒计时
+//             [self.mkShuaCoinView startAddCoin]; // 判断首次进来是否统计红包倒计时
         }
 //        if (!self.mkDiamondsView.hidden){
 //            [self.mkDiamondsView startAddDiamond];
@@ -1037,7 +1049,7 @@
         return;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.mkShuaCoinView stopAddCoin];
+//        [self.mkShuaCoinView stopAddCoin];
 //        [self.mkDiamondsView stopAddDiamond];
         [self.playRecordArray addObject:@{model.videoId:@(floatTime)}];
     });
@@ -1052,14 +1064,14 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.mkShuaCoinView.hidden) { }
         else{
-            [self.mkShuaCoinView stopAddCoin];
+//            [self.mkShuaCoinView stopAddCoin];
             [self.mkShuaCoinView resetTime];
         }
 //        if (self.mkDiamondsView.hidden) {}
 //        else{
 //            [self.mkDiamondsView stopAddDiamond];
 //            [self.mkDiamondsView resetTime];
-//           
+//
 //        }
     });
 }

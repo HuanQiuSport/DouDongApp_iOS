@@ -120,12 +120,18 @@ willConnectToSession:(UISceneSession *)session
 
 #pragma mark —— lazyLoad
 -(CustomSYSUITabBarController *)customSYSUITabBarController{
-    if (!_customSYSUITabBarController) {
-        _customSYSUITabBarController = CustomSYSUITabBarController.new;
-    }return _customSYSUITabBarController;
+    if (@available(iOS 13.0, *)) {
+        if (!_customSYSUITabBarController) {
+            _customSYSUITabBarController = CustomSYSUITabBarController.new;
+        }return _customSYSUITabBarController;
+    } else {
+        return [AppDelegate sharedInstance].customSYSUITabBarController;
+    }
+   
 }
 
 -(UINavigationController *)navigationController{
+    if (@available(iOS 13.0, *)) {
     if (!_navigationController) {
         //        _navigationController = [[UINavigationController alloc] initWithRootViewController:self.customSYSUITabBarController];
         //        _navigationController = [UINavigationController rootVC:self.customSYSUITabBarController
@@ -133,6 +139,9 @@ willConnectToSession:(UISceneSession *)session
         _navigationController = [UINavigationController rootVC:self.customSYSUITabBarController];
         _navigationController.navigationBar.hidden = YES;
     }return _navigationController;
+    } else {
+        return [AppDelegate sharedInstance].navigationController;
+    }
 }
 
 - (NSMutableArray *)selectIndexArr {

@@ -661,7 +661,10 @@ didFinishSavingWithError:(NSError *)error
       }];
 }
 #pragma - mark 提示更新
-- (void)versionTip:(UIView *)view VisionContent:(NSString *)visionContent versionCode:(NSString *)versionCode{
+- (void)versionTip:(UIView *)view
+     VisionContent:(NSString *)visionContent
+       versionCode:(NSString *)versionCode
+            appUrl:(NSString *)appUrl{
 
 //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //        dispatch_async(dispatch_get_main_queue(), ^{
@@ -748,15 +751,13 @@ didFinishSavingWithError:(NSError *)error
     [btn setTitle:@"更新" forState:UIControlStateNormal];
     [btn addAction:^(UIButton *btn) {
         [MBProgressHUD hideHUDForView:view animated:true];
-        NSURL * url = [NSURL URLWithString:@"tingyun.75://"];
-        BOOL canOpen = [[UIApplication sharedApplication] canOpenURL:url];
-        //先判断是否能打开该url
-        if (canOpen){//打开微信
-            [[UIApplication sharedApplication] openURL:url];
-        }else {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mkSkipHQAppString]
-                                               options:@{}
-                                     completionHandler:nil];
+        if(appUrl != nil) {
+            NSURL * url = [NSURL URLWithString:appUrl];
+            BOOL canOpen = [[UIApplication sharedApplication] canOpenURL:url];
+            //先判断是否能打开该url
+            if(canOpen) {
+                [[UIApplication sharedApplication] openURL:url];
+            }
         }
     }];
     

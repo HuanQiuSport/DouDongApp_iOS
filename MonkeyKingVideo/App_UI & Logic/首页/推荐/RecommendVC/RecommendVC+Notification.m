@@ -129,7 +129,7 @@ static BOOL isCreate = YES;
         if ([self mkIsCanGetCoin]) {
             self.lastIndex == self.index;
             [self.player.currentPlayerManager pause];
-            [self.mkShuaCoinView stopAddCoin];
+//            [self.mkShuaCoinView stopAddCoin];
 //            [self.mkDiamondsView stopAddDiamond];
             [self.mkshareview removeAllSubviews];
             [self.mkshareview removeFromSuperview];
@@ -152,7 +152,7 @@ static BOOL isCreate = YES;
 //                    [self.mkDiamondsView startAddDiamond];
 //                }
                 if (!self.mkShuaCoinView.hidden) {
-                    [self.mkShuaCoinView startAddCoin];
+//                    [self.mkShuaCoinView startAddCoin];
                 }
             }else{// 非 第一次播放
                 if(self.index == self.lastIndex ){
@@ -160,7 +160,7 @@ static BOOL isCreate = YES;
 //                        [self.mkDiamondsView stopAddDiamond];
 //                    }
                     if (!self.mkShuaCoinView.hidden) {
-                        [self.mkShuaCoinView stopAddCoin];
+//                        [self.mkShuaCoinView stopAddCoin];
                     }
                 }
             }

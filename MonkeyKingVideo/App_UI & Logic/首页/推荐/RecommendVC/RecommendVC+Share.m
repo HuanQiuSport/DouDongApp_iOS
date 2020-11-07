@@ -33,10 +33,10 @@
                     // 判断如果不是手动暂停就保持原来状态
                     if ([str isEqualToString:@"play"]) {
                         [self.player.currentPlayerManager play];
-                        if (self.mkFirstPlay) {
-                            [self.mkShuaCoinView startAddCoin];
+//                        if (self.mkFirstPlay) {
+//                            [self.mkShuaCoinView startAddCoin];
 //                            [self.mkDiamondsView startAddDiamond];
-                        }
+//                        }
                     }
                 };
             }

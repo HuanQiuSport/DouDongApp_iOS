@@ -14,110 +14,71 @@
 //@interface MKShuaCoinView()//<MZTimerLabelDelegate>
 @interface MKShuaCoinView()
 
-@property (nonatomic, assign)double count;
+//@property (nonatomic, assign)double count;
 @property (strong,nonatomic) UILabel *lblTimerExample3;
 @property (strong,nonatomic) MKProgressView *processView;
-/////   *timerExample3;
-//@property (strong,nonatomic) MZTimerLabel *timerExample3;
-
-///
+@property (assign,nonatomic) NSTimeInterval playerLastTime;
+@property (assign,nonatomic) NSTimeInterval countTotalTime;
+@property (copy,nonatomic) NSString *assetUrl;
 @property (assign,nonatomic) double timeNAL;
-
-@property (nonatomic, strong) NSTimer *timer;
 @end
 @implementation MKShuaCoinView
 #pragma mark - 定时器
 - (void)dealloc {
-    if (_timer) {
-        NSLog(@"定时器销毁1");
-        [_timer invalidate];
-        self.count = 0; // 当退出时时间重置
-    }
+    
 }
 - (void)removeFromSuperview{
-    if (_timer) {
-         NSLog(@"定时器销毁2");
-        [_timer invalidate];
-        _timer = nil;
-        self.count = 0; // 当退出时时间重置
-        [self.processView drawProgress:0]; // 退出清0
-    }
-    
+    self.countTotalTime = 0;
+    [self.processView drawProgress:0]; // 退出清0
     [super removeFromSuperview];
 }
 - (void)starTimer{
-    // 没有创建定时器且有时间
-    if (self.count != -1) {
-         NSLog(@"初始化setFireDate");
-        [self.timer setFireDate:[NSDate distantPast]];
-    }
-    
+
 }
-- (NSTimer *)timer
-{
-    if (!_timer) {
-        _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(action) userInfo:nil repeats:YES];
-    }
-    return _timer;
-}
+
 - (void)action
 {
-    self.count++;//时间累加
-//    NSLog(@"----圆: %f  -- %f",self.count/self.timeNAL,self.timeNAL);
-    [self.processView drawProgress:(self.count/self.timeNAL)];
-     if (self.count == self.timeNAL) {
-        // 倒计时结束 打开红包，调取接口来重置时间
-         [self opencoin];
-     }
-    
+
 }
+-(void)updateCurentPlayerTime:(NSTimeInterval)time assetUrl:(NSString *)assetUrl {
+    NSTimeInterval dur = 0;
+    if([self.assetUrl isEqual:assetUrl]) {
+        dur = MAX(time - self.playerLastTime,0);
+    } else {
+        dur = time;
+    }
+    self.assetUrl = assetUrl;
+    self.playerLastTime = time;
+    if(self.timeNAL == 0) {
+        return;
+    }
+    self.countTotalTime += dur;
+    [self.processView drawProgress:(self.countTotalTime/self.timeNAL)];
+    if(self.countTotalTime >= self.timeNAL) {
+        [self opencoin];
+        self.countTotalTime = 0;
+    }
+}
+
 // 开始
 - (void)startAddCoin{
     NSLog(@"startAddCoin");
-//     [ self.timerExample3 start];
-    if (!_timer) {
-        [self starTimer];
-    } else {
-        [self cotinueAddCoin];
-    }
-    
 }
 - (void)resetAddCoin{
-//     [ self.timerExample3 reset];
 }
 //暂停定时器(只是暂停,并没有销毁timer)
 -(void)stopAddCoin{
-//    [ self.timerExample3 pause];
-    if (_timer) {
-        [self.timer setFireDate:[NSDate distantFuture]];
-    }
+
 }
 //继续计时
 -(void)cotinueAddCoin{
     NSLog(@"cotinueAddCoin");
-    if([NSThread isMainThread]){
-       
-    }else{
-        
-    }
-
-    // 如果定时器没被销毁（退出登录状态）就重启，否则就重新加载
-    if (_timer) {
-        [self.timer setFireDate:[NSDate distantPast]];
-    }
-    
-//    [ self.timerExample3 start];
 }
 // 定时器销毁
 -(void)clearCoin{
     NSLog(@"开始定时器销毁");
-    if (_timer) {
-         NSLog(@"定时器销毁3");
-        [_timer invalidate];
-        _timer = nil;
-        self.count = -1; // 当退出时时间重置
-    }
-    
+    self.countTotalTime = 0;
+    [self.processView drawProgress:0]; // 退出清0
     [super removeFromSuperview];
 }
 #pragma - 接口控制开启定时器
@@ -128,22 +89,11 @@
     if (self.timeNAL == 0) {
         NSLog(@"初始化时间重置");
         self.timeNAL = timeFloatNumber.doubleValue; // 时间
-        self.count = 0;//self.timeNAL; 初始化时间重置
     }else{
         if(self.timeNAL == timeFloatNumber.doubleValue){ // 时间没有变化的时候
             return;
         }
         self.timeNAL = timeFloatNumber.doubleValue;
-    }
-    // 如果定时器没创建
-    if (!_timer) {
-        NSLog(@"初始定时器");
-//        [self starTimer];
-    }
-    else
-    {
-        NSLog(@"定时器继续");
-        [self cotinueAddCoin];
     }
 }
 #pragma - 打开红包
@@ -159,7 +109,6 @@
         self.mkHomeCoinView.frame = CGRectMake(0, 0,100,30);
         self.mkHomeCoinView.hidden = YES;
         [self.processView drawProgress:0]; // 开箱清0
-        [self.timer setFireDate:[NSDate distantFuture]]; // 定时器暂停
     });
 }
 - (instancetype)initWithFrame:(CGRect)frame
@@ -167,7 +116,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         NSLog(@"初始化self.count");
-        self.count = -1;
         [self mkAddSubView];
         [self mkLayOutView];
     }
@@ -249,9 +197,6 @@
 
 - (void)resetTime{
     NSLog(@"进废弃方法resetTime");
-//    [self.timerExample3 reset];
-//    [self.timerExample3 start];
-//    self.mkProgressView.progress = 0.001;
 }
 - (void)resetTime:(CGFloat)time{
    NSLog(@"进废弃方法resetTime");

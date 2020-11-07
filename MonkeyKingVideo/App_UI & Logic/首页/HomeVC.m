@@ -324,6 +324,7 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
         _childVCMutArr = NSMutableArray.array;
         [self.childVCMutArr addObject:AttentionVC.new];
         RecommendVC *vc = RecommendVC.new;
+        vc.isHome = true;
         vc.homeVC = self;
 //        NewRVC *vc = NewRVC.new;
         [self.childVCMutArr addObject:vc];

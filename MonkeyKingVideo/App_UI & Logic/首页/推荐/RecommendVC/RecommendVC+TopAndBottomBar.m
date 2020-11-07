@@ -53,9 +53,10 @@
     NSArray *array2 =  [[[[[[SceneDelegate sharedInstance].customSYSUITabBarController.navigationController.viewControllers.firstObject childViewControllers]
                            firstObject] childViewControllers] firstObject] childViewControllers];
     
-    NSArray *array3 = [SceneDelegate sharedInstance].customSYSUITabBarController.navigationController.viewControllers;
-    
-    
+    NSArray *array3 = [AppDelegate sharedInstance].customSYSUITabBarController.navigationController.viewControllers;
+    if (@available(iOS 13.0, *)) {
+        array3 = [SceneDelegate sharedInstance].customSYSUITabBarController.navigationController.viewControllers;
+    }
     NSArray *mkArray =  [[NSUserDefaults standardUserDefaults] objectForKey:@"HomeCurrentView"];
     NSNumber *mkHomeIndexView = mkArray.firstObject;
     BOOL mkIsHomeRecommend = [mkHomeIndexView boolValue];
