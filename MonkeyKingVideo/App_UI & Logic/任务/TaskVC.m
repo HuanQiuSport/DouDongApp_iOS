@@ -237,6 +237,7 @@
         _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [_scrollView setShowsVerticalScrollIndicator:NO];
         [_scrollView setShowsHorizontalScrollIndicator:NO];
+        _scrollView.bounces = false;
         [self.view addSubview:_scrollView];
     }
     return _scrollView;
@@ -249,6 +250,14 @@
     }
     return _bgview;
 }
+-(void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    CGFloat maxY = CGRectGetMaxY(self.rewardView.frame);
+    CGFloat tabbarHeight = isiPhoneX_series() ? (50 + isiPhoneX_seriesBottom) : 49;
+    self.bgview.mj_h = maxY + tabbarHeight + 5 + self.gk_navigationBar.size.height;
+    self.scrollView.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, self.bgview.mj_h);
+}
+
 - (UIView *)walletView{
     if (!_walletView) {
         _walletView = UIView.new;

@@ -34,6 +34,7 @@
         NSLog(@"%@ | %@",dic,dic[@"balance"]);
         vc.balance = dic[@"balance"];
         vc.time = dic[@"time"];
+        vc.qq = dic[@"qq"];
     }
     switch (comingStyle) {
         case ComingStyle_PUSH:{
@@ -86,11 +87,22 @@
     titleLab.numberOfLines = 0;
     titleLab.textColor = kWhiteColor;
     titleLab.font = [UIFont systemFontOfSize:15];
-    NSString *text = @"请下载环球体育APP，并用抖动的账号进行登录，通过游戏进行提现\n请加客服QQ号：254526327\n请联系客服进行充值\n于6小时内到账，请在环球体育app中查收";
+    NSString *text = @"请下载环球体育APP，并用抖动的账号进行登录，通过游戏进行提现\n请加客服QQ号：";
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];
-
+    NSAttributedString *qqAttr = [[NSAttributedString alloc] initWithString:self.qq attributes:@{
+        NSForegroundColorAttributeName: [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(100), 30)]]
+    }];
+    [attributedString appendAttributedString:qqAttr];
+    
     [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(100), 30)]] range:NSMakeRange(40, 9)];
+    
+    NSString *endText = @"\n请联系客服进行充值\n于6小时内到账，请在环球体育app中查收";
+    NSAttributedString *endTextAttr = [[NSAttributedString alloc] initWithString:endText attributes:@{
+        NSForegroundColorAttributeName: [UIColor whiteColor]
+    }];
+    [attributedString appendAttributedString:endTextAttr];
     titleLab.attributedText = attributedString;
+    
     
     UILabel *contextLab = UILabel.new;
     [self.view addSubview: contextLab];

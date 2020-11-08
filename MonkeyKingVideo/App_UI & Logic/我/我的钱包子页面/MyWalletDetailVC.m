@@ -286,11 +286,15 @@
         if (response.code == 200) {
             NSString *createTime = response.reqResult[@"createTime"];
             NSString *money = response.reqResult[@"money"];
+            NSString *qq = self.walletModel.qq;
+            if(self.walletModel.qq == nil){
+                qq = @"";
+            }
             @weakify(self)
             [MKWithdrawInfoVC ComingFromVC:weak_self
                                  comingStyle:ComingStyle_PUSH
                            presentationStyle:UIModalPresentationAutomatic
-                             requestParams:@{@"balance":money,@"time":createTime}
+                             requestParams:@{@"balance":money,@"time":createTime,@"qq":qq}
                                      success:^(id data) {}
                                     animated:YES];
             [self loadData];
@@ -395,10 +399,14 @@
     if([model.moneyType isEqual:@"余额提现"]) {
         NSString *createTime = model.createTime;
         NSString *money = model.amount;
+        NSString *qq = self.walletModel.qq;
+        if(self.walletModel.qq == nil){
+            qq = @"";
+        }
         [MKWithdrawInfoVC ComingFromVC:self
                              comingStyle:ComingStyle_PUSH
                        presentationStyle:UIModalPresentationAutomatic
-                         requestParams:@{@"balance":money,@"time":createTime}
+                         requestParams:@{@"balance":money,@"time":createTime,@"qq":qq}
                                  success:^(id data) {}
                                 animated:YES];
     }

@@ -47,7 +47,7 @@
 - (void)setModel:(MKWalletMyFlowsListModel *)model {
     self.content.text = model.moneyType;
     if([model.moneyType isEqual:@"余额提现"]) {
-        self.content.textColor = HEXCOLOR(0xF54B64);
+        self.content.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(60), 30)]];
     } else {
         self.content.textColor = UIColor.whiteColor;
     }
