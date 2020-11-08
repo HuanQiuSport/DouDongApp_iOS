@@ -62,6 +62,8 @@ static const CGFloat kAnimate = 0.3;
 
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
 
+@property (nonatomic, strong) NSLock *loadinglock;
+
 @end
 
 @implementation ZFSliderView
@@ -261,11 +263,19 @@ static const CGFloat kAnimate = 0.3;
     }
 }
 
+-(NSLock *)loadinglock {
+    if(_loadinglock == nil) {
+        _loadinglock = [[NSLock alloc] init];
+    }
+    return  _loadinglock;
+}
+
 /**
  *  Starts animation of the spinner.
  */
 - (void)startAnimating {
-    if (self.isLoading) return;
+    if (self.isLoading && self.loadingBarView.layer.animationKeys.count != 0) return;
+    [self.loadinglock lock];
     self.isLoading = YES;
     self.bufferProgressView.hidden = YES;
     self.sliderProgressView.hidden = YES;
@@ -291,6 +301,7 @@ static const CGFloat kAnimate = 0.3;
     
     [animationGroup setAnimations:@[scaleAnimation, alphaAnimation]];
     [self.loadingBarView.layer addAnimation:animationGroup forKey:@"loading"];
+    [self.loadinglock unlock];
 }
 
 /**

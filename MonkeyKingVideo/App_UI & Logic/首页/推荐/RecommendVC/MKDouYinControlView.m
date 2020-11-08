@@ -39,13 +39,7 @@
                                                  selector:@selector(reachabilityChanged:)
                                                      name:kReachabilityChangedNotification
                                                    object:nil];
-        ///添加 KVO 对进度监听
-//           [self.sliderView addObserver:self forKeyPath:@"value" options:NSKeyValueObservingOptionNew context:nil];
-        
-//        self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateLodaing)];
-        
         _displayLink = [CADisplayLink displayLinkWithTarget:[YYWeakProxy proxyWithTarget:self] selector:@selector(updateLodaing)];
-//        self.displayLink.paused = YES;
         [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
         
     }
@@ -56,8 +50,10 @@
     NSTimeInterval curentTime = [[NSDate date] timeIntervalSince1970];
     NSTimeInterval loadingTime = curentTime - self.lastPlayTime;
     if(self.playBtn.isHidden && loadingTime > 0.2) {
+        NSLog(@"startAnimating------%f",loadingTime);
         [self.sliderView startAnimating];
     } else {
+        NSLog(@"stopAnimating------%f",loadingTime);
         [self.sliderView stopAnimating];
     }
 }
@@ -213,6 +209,7 @@
 
 /// 播放进度改变回调
 - (void)videoPlayer:(ZFPlayerController *)videoPlayer currentTime:(NSTimeInterval)currentTime totalTime:(NSTimeInterval)totalTime {
+    NSLog(@"currentTime---%.2f",currentTime);
     self.sliderView.value = videoPlayer.progress;
     self.lastPlayTime = [[NSDate date] timeIntervalSince1970];
     [self.sliderView stopAnimating];
@@ -244,6 +241,18 @@
 //    [self.sliderView removeObserver:self forKeyPath:@"value"];
 //    self.sliderView = nil;
 }
+-(void)invalidateDisplayLink {
+    [self.displayLink invalidate];
+    self.displayLink = nil;
+}
+-(void)stopDisplayLink {
+    self.displayLink.paused = YES;
+}
+
+-(void)startDisplayLink {
+    self.displayLink.paused = NO;
+}
+
 
 ///// When the player prepare to play the video.
 //- (void)videoPlayer:(ZFPlayerController *)videoPlayer prepareToPlay:(NSURL *)assetURL{

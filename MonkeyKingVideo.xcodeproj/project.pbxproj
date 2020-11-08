@@ -8620,10 +8620,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "MonkeyKingVideo/抖动Debug.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2VXQZZYW38;
+				DEVELOPMENT_TEAM = 8TFQ3L3SMX;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -8782,9 +8782,9 @@
 					"-framework",
 					"\"YYKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.xingxing.mk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xingxingkkkk.mkkk;
 				PRODUCT_NAME = "抖动";
-				PROVISIONING_PROFILE_SPECIFIER = mk_dis;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -8796,10 +8796,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "MonkeyKingVideo/抖动.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2VXQZZYW38;
+				DEVELOPMENT_TEAM = 8TFQ3L3SMX;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -8958,9 +8958,9 @@
 					"-framework",
 					"\"YYKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.xingxing.mk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xingxingkkkk.mkkk;
 				PRODUCT_NAME = "抖动";
-				PROVISIONING_PROFILE_SPECIFIER = mk_dis;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

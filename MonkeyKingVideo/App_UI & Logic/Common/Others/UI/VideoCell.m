@@ -58,7 +58,7 @@
     switch (self.mkVideoType) {
         case MKVideoType_Attention:{
             
-            [self.mkBackImageView sd_setImageWithURL:[NSURL URLWithString:self.mkVideoModel.videoImg] placeholderImage:KIMG(@"videoFont")];
+//            [self.mkBackImageView sd_setImageWithURL:[NSURL URLWithString:self.mkVideoModel.videoImg] placeholderImage:KIMG(@"videoFont")];
             self.mkBackImageView.contentMode = UIViewContentModeScaleToFill;
 //            self.mkBackImageView.contentMode = UIViewContentModeRedraw;
             self.mkBackImageView.clipsToBounds = YES;
@@ -84,7 +84,7 @@
         }break;
         case MKVideoType_Like:{
             
-            [self.mkBackImageView sd_setImageWithURL:[NSURL URLWithString:self.mkVideoModel.videoImg]];
+//            [self.mkBackImageView sd_setImageWithURL:[NSURL URLWithString:self.mkVideoModel.videoImg] placeholderImage:KIMG(@"videoFont")];
             
             self.mkBotomBackView.alpha = 1;
             self.mkStopImageView.alpha = 1;
@@ -119,7 +119,7 @@
                 //审核不通过
                 self.mkVideoOfReviewType = MKVideoOfReviewType_fail;
             }
-            [self.mkBackImageView sd_setImageWithURL:[NSURL URLWithString:self.mkVideoModel.videoImg]];
+//            [self.mkBackImageView sd_setImageWithURL:[NSURL URLWithString:self.mkVideoModel.videoImg]];
             self.mkBackImageView.contentMode = UIViewContentModeScaleToFill;
             self.mkBackImageView.clipsToBounds = YES;
 //            self.mkBackImageView.contentScaleFactor = 0.5;
@@ -289,7 +289,7 @@
             self.mkBackImageView.contentMode = UIViewContentModeScaleToFill;
             self.mkBackImageView.clipsToBounds = YES;
 //            self.mkBackImageView.contentScaleFactor = 0.5;
-           [self.mkBackImageView sd_setImageWithURL:[NSURL URLWithString:self.mkVideoModel.videoImg]];
+//            [self.mkBackImageView sd_setImageWithURL:[NSURL URLWithString:self.mkVideoModel.videoImg] placeholderImage:KIMG(@"videoFont")];
             
             self.mkBackImageView.contentMode = UIViewContentModeScaleAspectFill ;
             
@@ -319,7 +319,7 @@
             self.mkBackImageView.contentMode = UIViewContentModeScaleToFill;
             self.mkBackImageView.clipsToBounds = YES;
 //            self.mkBackImageView.contentScaleFactor = 0.5;
-            [self.mkBackImageView sd_setImageWithURL:[NSURL URLWithString:self.mkVideoModel.videoImg]];
+//            [self.mkBackImageView sd_setImageWithURL:[NSURL URLWithString:self.mkVideoModel.videoImg] placeholderImage:KIMG(@"videoFont")];
             
             self.mkBackImageView.contentMode = UIViewContentModeScaleToFill;
             
@@ -347,7 +347,7 @@
             self.mkBackImageView.clipsToBounds = YES;
 //            self.mkBackImageView.contentScaleFactor = 0.5;
             
-            [self.mkBackImageView sd_setImageWithURL:[NSURL URLWithString:self.mkVideoModel.videoImg] placeholderImage:KIMG(@"videoFont")];
+//            [self.mkBackImageView sd_setImageWithURL:[NSURL URLWithString:self.mkVideoModel.videoImg] placeholderImage:KIMG(@"videoFont")];
             
             [self.mkVideoUserImageView sd_setImageWithURL:[NSURL URLWithString:self.mkVideoModel.headImage] placeholderImage:KIMG(@"videoFont")];
             
@@ -368,7 +368,7 @@
             
         }break;
     }
-    
+    [self.mkBackImageView sd_setImageWithURL:[NSURL URLWithString:self.mkVideoModel.videoImg] placeholderImage:KIMG(@"videoFont")];
 
     
     

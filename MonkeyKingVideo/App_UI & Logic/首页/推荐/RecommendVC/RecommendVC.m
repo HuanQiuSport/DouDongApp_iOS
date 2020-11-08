@@ -104,6 +104,14 @@
 - (void)videoPlayerPlayEnd:(ZFPlayerController *)videoPlayer {
     
 }
+
+// 目前这个控制器有内存泄漏，只有暂时在这儿关闭定时器
+-(void)didMoveToParentViewController:(UIViewController *)parent {
+    if(parent == nil) {
+        [self.controlView invalidateDisplayLink];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -160,6 +168,7 @@
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self sendNavibarToFront];
+    [self.controlView startDisplayLink];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -171,6 +180,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
+    [self.controlView stopDisplayLink];
 //    [self.mkDiamondsView stopAddDiamond];
 //    [self.mkShuaCoinView stopAddCoin];
 //    [self removeNotification]; // 避免重复通知
@@ -270,6 +280,7 @@
                     break;
                 case ZFPlayerPlayStatePlayFailed:
                     NSLog(@"视频错误");
+                    [weakSelf.player.currentPlayerManager reloadPlayer];
                     break;
                 case ZFPlayerPlayStatePlayStopped:
                     NSLog(@"视频停止");

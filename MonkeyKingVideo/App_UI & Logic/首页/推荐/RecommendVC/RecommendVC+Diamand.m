@@ -21,12 +21,15 @@
     [self.view addSubview:self.mkDiamondsView];
     
     self.mkDiamondsView.mkImageView.image = KIMG(@"筹码");
-    
+    CGFloat offsetY = KDeviceScale *62;
+    if( [UIScreen mainScreen].bounds.size.height <= 667) {
+        offsetY = 0;
+    }
     [self.mkDiamondsView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.right.equalTo(@(0*KDeviceScale));
         
-        make.centerY.equalTo(self.view.mas_centerY).offset(KDeviceScale *62);
+        make.centerY.equalTo(self.view.mas_centerY).offset(offsetY);
         
         make.width.height.equalTo(@(88*KDeviceScale));
         

@@ -18,7 +18,9 @@ typedef void (^MKDouYinControlViewBLOCK)(NSString *str);
 @property (nonatomic, assign) BOOL effectViewShow;
 @property (nonatomic, strong, readonly) UIImageView *coverImageView;
 - (void)resetControlView;
-
+-(void)invalidateDisplayLink;
+-(void)stopDisplayLink;
+-(void)startDisplayLink;
 - (void)showCoverViewWithUrl:(NSString *)coverUrl;
 
 @end
