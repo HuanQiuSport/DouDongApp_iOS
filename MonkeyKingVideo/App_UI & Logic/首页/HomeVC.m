@@ -18,9 +18,8 @@
 #import "WPView.h"
 @interface HomeVC ()<JXCategoryTitleViewDataSource,JXCategoryListContainerViewDelegate,JXCategoryViewDelegate>
 @property(nonatomic,assign) int idx;
-@property(nonatomic,strong)JXCategoryTitleView *categoryView;
+
 @property(nonatomic,strong)JXCategoryIndicatorLineView *lineView;
-@property(nonatomic,strong)JXCategoryListContainerView *listContainerView;
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 @property(nonatomic,strong)NSMutableArray *childVCMutArr;
 @property(nonatomic,strong)NSTimer *mytimer;
@@ -408,5 +407,6 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
                                                   repeats:YES];
     }return _mytimer;
 }
+
 
 @end

@@ -108,6 +108,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, assign) NSInteger page;
 @property (nonatomic, assign) NSInteger index;
+@property (nonatomic, assign) NSInteger playCount;
 ///记录进入后台播放时的index
 @property (nonatomic, assign) NSInteger lastIndex;
 @property (nonatomic, assign) BOOL isRecommend;
@@ -121,6 +122,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign,nonatomic) BOOL userHeardNoClick;
 
 @property (strong,nonatomic) NSMutableArray *playRecordArray;
+
+@property (strong,nonatomic) HomeAdView *homeAdView;
 
 
 

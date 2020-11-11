@@ -40,7 +40,7 @@
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
     [self.imageView sd_setImageWithURL:[NSURL URLWithString:@" "]
-                      placeholderImage:KIMG(@"用户头像")];
+                      placeholderImage:KIMG(@"默认头像2")];
     self.textLabel.text = @"Test";
     self.detailTextLabel.text = @"test";
 }

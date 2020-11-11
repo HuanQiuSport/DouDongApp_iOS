@@ -33,7 +33,7 @@
                 case WPAnimateDidDisappear:
                 {
                     [self.player.currentPlayerManager play];
-                    
+        
                     NSURL * url = [NSURL URLWithString:@"tingyun.75://"];
                     BOOL canOpen = [[UIApplication sharedApplication] canOpenURL:url];
                     //先判断是否能打开该url

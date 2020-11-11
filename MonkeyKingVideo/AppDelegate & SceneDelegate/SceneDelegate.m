@@ -84,9 +84,10 @@ willConnectToSession:(UISceneSession *)session
     // Called when the scene will move from an active state to an inactive state.
     // This may occur due to temporary interruptions (ex. an incoming phone call).
 //    NSLog(@"");
-    if (![MKTools mkLoginIsLogin]) {
-        [self userTimeEnd];
-    }
+    [self userTimeEnd];
+//    if (![MKTools mkLoginIsLogin]) {
+//
+//    }
     
 }
 

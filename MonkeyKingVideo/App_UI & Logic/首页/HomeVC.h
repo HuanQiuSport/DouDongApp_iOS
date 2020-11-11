@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HomeVC : BaseVC
 @property (nonatomic,strong) NSMutableArray *m_annoTitles;
 @property (nonatomic,strong) NSMutableArray *m_annoContents;
+@property(nonatomic,strong)JXCategoryTitleView *categoryView;
+@property(nonatomic,strong)JXCategoryListContainerView *listContainerView;
 - (void)anno;
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
                  comingStyle:(ComingStyle)comingStyle

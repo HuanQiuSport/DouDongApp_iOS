@@ -45,7 +45,13 @@
         }
             break;
         case UpdateUserInfoType_Remark:{
-            [easyDict setValue:userData forKey:@"remark"];
+           
+            if(userData == nil || userData.length == 0) {
+                NSString *userId = [MKPublickDataManager sharedPublicDataManage].mkLoginModel.uid;
+                [easyDict setValue:userData forKey:@"remark"];
+            } else {
+                [easyDict setValue:userData forKey:@"remark"];
+            }
         }
             break;
         case UpdateUserInfoType_Sex:{
@@ -139,7 +145,7 @@
             self.userInfoModel.sex = self.userInfoModel.sex.intValue ? @"女" :@"男";
             [self.headerBtn sd_setBackgroundImageWithURL:[NSURL URLWithString: self.userInfoModel.headImage]
                                                 forState:UIControlStateNormal
-                                        placeholderImage:KIMG(@"用户头像")];
+                                        placeholderImage:KIMG(@"默认头像2")];
             [self.tableView reloadData];
             [self.tableView.mj_header endRefreshing];
             [self.tableView.mj_footer endRefreshing];

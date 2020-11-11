@@ -161,7 +161,7 @@
         @"originType":@(originType),
         @"deviceId":UDID,
         @"version":HDAppVersion,
-        @"channelUrl":@""
+        @"channelUrl":[URL_Manager sharedInstance].channelUrl
     };
     ///
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST

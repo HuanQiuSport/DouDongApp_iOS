@@ -278,7 +278,7 @@
 #pragma mark - ButtonAction
 - (void)successCopy{
     UIPasteboard*pasteboard = [UIPasteboard generalPasteboard];
-    pasteboard.string = @"www.mituye.top/uat";//这个需要接口调动态数据，接口尚未开发成功
+    pasteboard.string = self.shareLink;//这个需要接口调动态数据，接口尚未开发成功
     [[MKTools shared] showMBProgressViewOnlyTextInView:self text:@"复制成功，赶快去分享吧" dissmissAfterDeley:2.0f];
     [self performSelector:@selector(exit) withObject:nil afterDelay:2.5f];
 }

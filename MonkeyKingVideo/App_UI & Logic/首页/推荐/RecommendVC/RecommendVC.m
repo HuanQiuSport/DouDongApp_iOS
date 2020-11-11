@@ -30,6 +30,8 @@
 
 
 @interface RecommendVC()<UITableViewDelegate,UITableViewDataSource,MKDouYinDelegate>
+@property(nonatomic,strong) NSIndexPath *lastindexPath;
+
 @end
 @implementation RecommendVC
 - (void)dealloc {
@@ -150,7 +152,7 @@
     [self.view addSubview:_commentPopUpVC.view];
     self.player.viewControllerDisappear = NO;
     if (self.mkVideoListType == MKVideoListType_A) {
-        
+        [self hideAd];
         // 首页加载视频的关键 这代码是重新加载请求
         [self.player zf_filterShouldPlayCellWhileScrolled:^(NSIndexPath *indexPath) {
             [self playTheVideoAtIndexPath:indexPath];
@@ -266,10 +268,6 @@
                     }else{
                         [weakSelf recoderStartPlay:model WithTime:manager.totalTime];
                     }
-                    // 看了5个视频并且登录就弹出广告
-                    if (![MKTools mkLoginIsLogin] && weakSelf.index > 10) {
-//                         [weakSelf gotoAD2];
-                    }
                     // 登录并统计视频观看时间
 //                    if (![MKTools mkLoginIsLogin]) {
 //                        [self.m_playRecordArray addObject:model];
@@ -332,21 +330,30 @@
             }else{
                 [weakSelf recoderEndPlay:model WithTime:manager.bufferTime];
             }
+            [weakSelf.player.currentPlayerManager replay];
         }else{
             [weakSelf.player.currentPlayerManager replay];
         }
-        [weakSelf.player.currentPlayerManager replay];
     };
     /// 停止的时候找出最合适的播放
     self.player.zf_scrollViewDidEndScrollingCallback = ^(NSIndexPath * _Nonnull indexPath) {
 //        @strongify(self)
-        if (self.player.playingIndexPath) return;
-        if (indexPath.row == self.mkRecommend.list.count - 1) {
+        NSIndexPath *oldIndexPath = weakSelf.lastindexPath;
+        weakSelf.lastindexPath = indexPath;
+        if (weakSelf.player.playingIndexPath) return;
+        if (indexPath.row == weakSelf.mkRecommend.list.count - 1) {
             /// 加载下一页数据
-            self.page++;
-            [self requestData:NO];
+            weakSelf.page++;
+            [weakSelf requestData:NO];
         }
-        [self playTheVideoAtIndexPath:indexPath];
+        if(weakSelf.mkVideoListType == MKVideoListType_A) {
+            NSUInteger count = labs(oldIndexPath.row - indexPath.row);
+            bool showad = [weakSelf showAdView:indexPath count:count];
+            if(showad) { return; }
+            [weakSelf playTheVideoAtIndexPath:indexPath];
+        } else {
+            [weakSelf playTheVideoAtIndexPath:indexPath];
+        }
     };
     [self  listRequestData];
     if (self.mkVideoListType == MKVideoListType_A) {
@@ -668,10 +675,8 @@
 
 /// play the video
 - (void)playTheVideoAtIndexPath:(NSIndexPath *)indexPath {
-    [self.controlView.sliderView  startAnimating];
     self.index = indexPath.row;
     MKVideoDemandModel *model = self.mkRecommend.list[indexPath.row];
-    
     self.videoDemandModel = model;
     NSURL *url = [NSURL URLWithString:[model.videoIdcUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
     [self.player playTheIndexPath:indexPath assetURL:url];
@@ -1107,5 +1112,70 @@
 - (void)emptyDataSet:(UIScrollView *)scrollView didTapView:(UIView *)view{
     [self pullToRefresh];
 }
+
+-(HomeAdView *)homeAdView {
+    if(_homeAdView == nil) {
+        _homeAdView = [[HomeAdView alloc] initWithFrame:CGRectZero];
+        @weakify(self)
+        _homeAdView.tapClickBlock = ^{
+            @strongify(self)
+            [self.player.currentPlayerManager play];
+            NSURL * url = [NSURL URLWithString:@"tingyun.75://"];
+            BOOL canOpen = [[UIApplication sharedApplication] canOpenURL:url];
+            //先判断是否能打开该url
+            if (canOpen){
+                [[UIApplication sharedApplication] openURL:url];
+            }else {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mkSkipHQAppString]
+                                                   options:@{}
+                                         completionHandler:nil];
+            }
+        };
+        _homeAdView.timerEndBlock = ^{
+            @strongify(self)
+            self.tableView.scrollEnabled = true;
+        };
+    }
+    return _homeAdView;
+}
+
+-(BOOL)showAdView:(NSIndexPath *)indexPath count:(NSUInteger)count {
+    if(self.mkVideoListType == MKVideoListType_A) {
+        if(count == 0 && self.playCount == 0) {
+            return true;
+        }
+        self.playCount = self.playCount + count;
+        [self hideAd];
+        // 看了10个视频并且登录就弹出广告
+        if (![MKTools mkLoginIsLogin] && self.playCount > 9) {
+             self.playCount = 0;
+            UIView *cell = [self.tableView zf_getCellForIndexPath:indexPath];
+            if(cell != nil) {
+                self.homeVC.categoryView.hidden = YES;
+                self.homeVC.listContainerView.scrollView.scrollEnabled = NO;
+                self.mkShuaCoinView.hidden = YES;
+                self.mkDiamondsView.hidden = YES;
+                self.tableView.scrollEnabled = NO;
+                
+                self.homeAdView.frame = cell.frame;
+                [self.homeAdView showTo:self.tableView];
+                self.lastindexPath = indexPath;
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+-(void)hideAd {
+    [self.homeAdView remove];
+    if (![MKTools mkLoginIsLogin]) {
+        self.mkShuaCoinView.hidden = NO;
+    }
+    self.mkDiamondsView.hidden = NO;
+    self.homeVC.categoryView.hidden = NO;
+    self.homeVC.listContainerView.scrollView.scrollEnabled = YES;
+}
+
 @end
 #pragma clang diagnostic pop

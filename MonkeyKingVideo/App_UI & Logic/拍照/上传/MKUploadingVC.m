@@ -560,14 +560,15 @@ shouldChangeTextInRange:(NSRange)range
                 if (self.urlVideo != nil) {
                     if ([MKPublickDataManager sharedPublicDataManage].mkLoginModel.token != nil) {
                         // 已经登录才可以上传视频
-    //                    double length = (double)self.vedioData.length;
+                        CGFloat length = (CGFloat)self.vedioData.length;
+                        CGFloat dataSize = length / (1024.0 * 1024.0);
     //                    if (length/1024/1024 <= 10.0f) {
                         
-                            if ([MKUploadingVC mh_getVideolength:[NSURL URLWithString:[NSString stringWithFormat:@"file://%@",self.urlVideo]]] <= 30.f) {
-                                [MBProgressHUD wj_showPlainText:@"请上传超过30秒的视频"
+                            if ([MKUploadingVC mh_getVideolength:[NSURL URLWithString:[NSString stringWithFormat:@"file://%@",self.urlVideo]]] <= 10.f) {
+                                [MBProgressHUD wj_showPlainText:@"请上传超过10秒的视频"
                                 view:self.view];
-                            } else if ([MKUploadingVC mh_getVideolength:[NSURL URLWithString:[NSString stringWithFormat:@"file://%@",self.urlVideo]]] > 300.f) {
-                                [MBProgressHUD wj_showPlainText:@"上传视频的时长不得超过5分钟"
+                            }  else if (dataSize > 300) {
+                                [MBProgressHUD wj_showPlainText:@"上传视频的不能超过300M"
                                 view:self.view];
                             } else {
                                 NSString *urlString = [NSString stringWithFormat:@"file://%@",self.urlVideo];

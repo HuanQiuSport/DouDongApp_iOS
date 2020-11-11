@@ -10,7 +10,7 @@
 //#import "VideoHandleTool.h"
 
 @interface AppDelegate ()
-
+@property(nonatomic,strong)RACSignal *reqSignal;
 
 @end
 
@@ -117,7 +117,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         self.window.rootViewController = self.navigationController;
         [self.window makeKeyAndVisible];
     }
-    
+    [self postChannle];
     return YES;
 }
 //系统版本低于iOS13.0的设备
@@ -276,6 +276,43 @@ didDiscardSceneSessions:(NSSet<UISceneSession *> *)sceneSessions  API_AVAILABLE(
                                                transitionScale:NO];
         _navigationController.navigationBar.hidden = YES;
     }return _navigationController;
+}
+
+#pragma mark
+- (void)postChannle{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:@{
+        @"deviceId":UDID,
+        @"origin":@(originType_Apple),
+        @"version":HDAppVersion,
+        @"channelUrl":[URL_Manager sharedInstance].channelUrl
+    }];
+    if([self isFristpostChannle]) {
+        [dic setValue:@"1" forKey:@"frist"];
+    }
+    dispatch_async(dispatch_queue_create("startTime", DISPATCH_QUEUE_SERIAL), ^{
+        FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                               path:[URL_Manager sharedInstance].MKStartTimePOST
+                                                         parameters:dic];
+        self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+        [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+            NSLog(@"%@",response.reqResult);
+            if(response.code == 200) {
+                [self completeFristpostChannle];
+            }
+        }];
+    });
+}
+
+-(BOOL)isFristpostChannle {
+    NSString *frist = [[NSUserDefaults standardUserDefaults] valueForKey:@"fristpostChannle"];
+    if(frist == nil) {
+        return true;
+    }
+    return false;
+}
+
+-(void)completeFristpostChannle {
+    [[NSUserDefaults standardUserDefaults] setValue:@"fristpostChannle" forKey:@"fristpostChannle"];
 }
 
 @end
