@@ -319,6 +319,7 @@
 		5E6ACA3425270809002218B7 /* RecommendVC+ActiveUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6ACA3325270809002218B7 /* RecommendVC+ActiveUser.m */; };
 		5E965A7C251B8826008AA438 /* MKWithdrawSucessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E965A7B251B8826008AA438 /* MKWithdrawSucessView.m */; };
 		5EFE8C8B2511D9F2002AAB71 /* MKRevisePasswordViewController+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE8C8A2511D9F1002AAB71 /* MKRevisePasswordViewController+VM.m */; };
+		6E56E08B255C19E300FD2738 /* VideoPlayCountUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E56E08A255C19E300FD2738 /* VideoPlayCountUtil.m */; };
 		6EB0C95C2556A29300F3E036 /* iph_X.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6EB0C9582556A0F500F3E036 /* iph_X.mp4 */; };
 		6EB0C9602556A29700F3E036 /* 非iph_X.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6EB0C9572556A0F500F3E036 /* 非iph_X.mp4 */; };
 		6EB6FA8E254D6D9800D4F579 /* WalletInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB6FA8D254D6D9800D4F579 /* WalletInfoModel.m */; };
@@ -1661,6 +1662,8 @@
 		5E965A7B251B8826008AA438 /* MKWithdrawSucessView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKWithdrawSucessView.m; sourceTree = "<group>"; };
 		5EFE8C892511D9F1002AAB71 /* MKRevisePasswordViewController+VM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKRevisePasswordViewController+VM.h"; sourceTree = "<group>"; };
 		5EFE8C8A2511D9F1002AAB71 /* MKRevisePasswordViewController+VM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKRevisePasswordViewController+VM.m"; sourceTree = "<group>"; };
+		6E56E089255C19E300FD2738 /* VideoPlayCountUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoPlayCountUtil.h; sourceTree = "<group>"; };
+		6E56E08A255C19E300FD2738 /* VideoPlayCountUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoPlayCountUtil.m; sourceTree = "<group>"; };
 		6EB0C9572556A0F500F3E036 /* 非iph_X.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "非iph_X.mp4"; sourceTree = "<group>"; };
 		6EB0C9582556A0F500F3E036 /* iph_X.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = iph_X.mp4; sourceTree = "<group>"; };
 		6EB6FA8C254D6D9800D4F579 /* WalletInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WalletInfoModel.h; sourceTree = "<group>"; };
@@ -3637,6 +3640,15 @@
 			path = "金额提现";
 			sourceTree = "<group>";
 		};
+		6E56E088255C19B700FD2738 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				6E56E089255C19E300FD2738 /* VideoPlayCountUtil.h */,
+				6E56E08A255C19E300FD2738 /* VideoPlayCountUtil.m */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
 		6EB6FA8B254D6D6D00D4F579 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -3885,6 +3897,7 @@
 		C509EAA924A2049100C10D2F /* 推荐 */ = {
 			isa = PBXGroup;
 			children = (
+				6E56E088255C19B700FD2738 /* Util */,
 				41A2C4A6252743AE0003BE12 /* NewRVC */,
 				C54F105024C4880800EE1E67 /* RecommendVC */,
 				C54F104F24C487FB00EE1E67 /* 评论页 CommentPopUpVC */,
@@ -8216,6 +8229,7 @@
 				416EF20125023293009F4EA2 /* RecommendVC+MKMoney.m in Sources */,
 				C557DC2724C831E400754760 /* MKWalletMyFlowsModel.m in Sources */,
 				C5AA48FE250C7C56009F583F /* NSObject+SYSAlertController.m in Sources */,
+				6E56E08B255C19E300FD2738 /* VideoPlayCountUtil.m in Sources */,
 				C590006124CB123D0095DC69 /* RBCLikeButton.m in Sources */,
 				41BBF74E2529CB6F00FC87AA /* UIViewController+ZFPlayerRotation.m in Sources */,
 				CAC061172515D47100E102DC /* TZPhotoPreviewController.m in Sources */,
@@ -8590,10 +8604,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "MonkeyKingVideo/抖动Debug.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8TFQ3L3SMX;
+				DEVELOPMENT_TEAM = 2VXQZZYW38;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -8752,9 +8766,9 @@
 					"-framework",
 					"\"YYKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.xingxingkkkk.mkkkkk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xingxing.mk;
 				PRODUCT_NAME = "抖动";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = mk_dis;
 				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -8766,10 +8780,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "MonkeyKingVideo/抖动.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8TFQ3L3SMX;
+				DEVELOPMENT_TEAM = 2VXQZZYW38;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -8928,9 +8942,9 @@
 					"-framework",
 					"\"YYKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.xingxingkkkk.mkkkkk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xingxing.mk;
 				PRODUCT_NAME = "抖动";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = mk_dis;
 				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
