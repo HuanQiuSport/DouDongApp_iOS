@@ -24,6 +24,7 @@
 #import "MKPersonMadeVideoModel.h"
 #import "MKPersonalLikeModel.h"
 #import "MKDiamondsView.h"
+#import "VideoPlayCountUtil.h"
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
 #pragma clang diagnostic ignored "-Wundeclared-selector"
@@ -214,9 +215,7 @@
     
 //    @weakify(self)
     __weak typeof(self) weakSelf = self;
-    
     weakSelf.player.playerPlayTimeChanged = ^(id<ZFPlayerMediaPlayback>  _Nonnull asset, NSTimeInterval currentTime, NSTimeInterval duration) {
-//        NSLog(@"currentTime----%lf duration----- %lf",currentTime,duration);
         if(weakSelf.isHome && self.mkFirstPlay && !self.mkShuaCoinView.hidden){
             [self.mkShuaCoinView updateCurentPlayerTime:currentTime assetUrl:asset.assetURL.absoluteString];
         }
@@ -246,23 +245,7 @@
                     if([SceneDelegate sharedInstance].customSYSUITabBarController.selectedIndex == 4){
                         [weakSelf.player.currentPlayerManager pause];
                     }
-                    // 看了3个视频并且没登录就弹出登录
-                    if(weakSelf.index > 3 && [MKTools mkLoginIsLogin]) {
-                          if (weakSelf.mkVideoListType == MKVideoListType_A) {
-                              [weakSelf mkLoginAlert];
-                          }
-
-//                        if ([MKTools mkLoginIsLogin]) {
-//                            if (weakSelf.index > 4) {
-//                                [weakSelf gotoAD2];
-//                            }else{
-//                                if (weakSelf.mkVideoListType == MKVideoListType_A) {
-//                                    [weakSelf mkLoginAlert];
-//
-//                                }
-//                            }
-//                        }
-                    }
+                    
                     if([MKTools mkLoginIsLogin]){
                         [weakSelf recoderEndPlay:model WithTime:manager.bufferTime];
                     }else{
@@ -278,15 +261,24 @@
                     break;
                 case ZFPlayerPlayStatePlayFailed:
                     NSLog(@"视频错误");
-                    [weakSelf.player.currentPlayerManager reloadPlayer];
                     break;
                 case ZFPlayerPlayStatePlayStopped:
                     NSLog(@"视频停止");
                     break;
             }
-        }else{
-            
         }
+        // 提示登陆逻辑
+        if(playState == ZFPlayerPlayStatePlaying) {
+            // 看了3个视频并且没登录就弹出登录
+            self.controlView.playBtn.hidden = YES;
+            if([MKTools mkLoginIsLogin] && [[VideoPlayCountUtil util] needLogin]) {
+                [weakSelf mkLoginAlert];
+            }
+        } else if(playState == ZFPlayerPlayStatePlayFailed) {
+            NSLog(@"视频错误");
+            [weakSelf.player.currentPlayerManager reloadPlayer];
+        }
+        
     };
     weakSelf.player.playerLoadStateChanged = ^(id<ZFPlayerMediaPlayback>  _Nonnull asset, ZFPlayerLoadState loadState) {
         NSLog(@"加载情况 %ld",loadState);
@@ -356,24 +348,6 @@
         }
     };
     [self  listRequestData];
-    if (self.mkVideoListType == MKVideoListType_A) {
-//            weakSelf.controlView.playerLoadStateChangedBlock = ^(NSString * _Nonnull str) {
-//            NSLog(@"view回调 %@",str);
-//            if(![MKTools mkLoginIsLogin]){
-//                
-//                if ([str isEqualToString:@"YES"]) {
-//                    // 完成后时红包走
-//                    if (self.mkFirstPlay == YES) {
-//                        [weakSelf.mkShuaCoinView cotinueAddCoin];
-//                    }
-//                } else {
-//                    // 缓冲时红包不走
-//                    [weakSelf.mkShuaCoinView stopAddCoin];
-//                }
-//            }
-//        };
-    }
-
 }
 
 #pragma mark  -cell 点击代理事件 cellDelegate
@@ -676,31 +650,13 @@
 /// play the video
 - (void)playTheVideoAtIndexPath:(NSIndexPath *)indexPath {
     self.index = indexPath.row;
+    [[VideoPlayCountUtil util] increase];
     MKVideoDemandModel *model = self.mkRecommend.list[indexPath.row];
     self.videoDemandModel = model;
     NSURL *url = [NSURL URLWithString:[model.videoIdcUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
     [self.player playTheIndexPath:indexPath assetURL:url];
     [self.controlView resetControlView];
-    @weakify(self)
     dispatch_async(dispatch_get_main_queue(), ^{
-        [weak_self.controlView.sliderView startAnimating];
-        if ([MKTools mkLoginIsLogin]) {
-            @strongify(self)
-            if (self.index > 3) {
-                if (self.index > 4) {
-//                        [self gotoAD2];
-                }else{
-                    if (self.mkVideoListType  == MKVideoListType_A) {
-                        #pragma mark - 首页弹出登录窗
-                        [self mkLoginAlert];
-                    }
-                }
-            }
-            if (self.index > 2 && self.mkVideoListType  == MKVideoListType_D) {
-                [self mkLoginAlert];
-            }
-             
-        }
         if (self.mkVideoListType == MKVideoListType_A) {
             [MKPublickDataManager sharedPublicDataManage].currentVideoString = model.videoId.mutableCopy;
             [MKPublickDataManager sharedPublicDataManage].currentVideoUserString = model.authorId.mutableCopy;
@@ -1059,14 +1015,11 @@
 }
 - (void)recoderEndPlay:(MKVideoDemandModel *)model WithTime:(double)floatTime{
     // 暂停播放
-    
     if([self mkIsCanGetCoin]){
     }else{
         return;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
-//        [self.mkShuaCoinView stopAddCoin];
-//        [self.mkDiamondsView stopAddDiamond];
         [self.playRecordArray addObject:@{model.videoId:@(floatTime)}];
     });
 }

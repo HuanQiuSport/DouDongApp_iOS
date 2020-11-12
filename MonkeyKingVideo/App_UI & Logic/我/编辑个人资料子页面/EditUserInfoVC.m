@@ -508,21 +508,21 @@ heightForHeaderInSection:(NSInteger)section {
             SPAlertController *alert = [SPAlertController alertControllerWithTitle:@"" message:@"" preferredStyle:SPAlertControllerStyleActionSheet];
 
             SPAlertAction *action1 = [SPAlertAction actionWithTitle:@"拍照" style:SPAlertActionStyleDefault handler:^(SPAlertAction * _Nonnull action) {
-//                [self Photo];
+                [self Photo];
                 // 打开相机 获取访问权限
-                UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-                imagePickerController.delegate = self;
-                imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-
-                [self presentViewController:imagePickerController animated:YES completion:nil];
+//                UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+//                imagePickerController.delegate = self;
+//                imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+//
+//                [self presentViewController:imagePickerController animated:YES completion:nil];
             }];
             SPAlertAction *action2 = [SPAlertAction actionWithTitle:@"从相册选择" style:SPAlertActionStyleDefault handler:^(SPAlertAction * _Nonnull action) {
                 [self byPhotoAlbum];
                 // 打开相册
-                UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-                imagePickerController.delegate = self;
-                imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                [self presentViewController:imagePickerController animated:YES completion:nil];
+//                UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+//                imagePickerController.delegate = self;
+//                imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//                [self presentViewController:imagePickerController animated:YES completion:nil];
             }];
             SPAlertAction *action3 = [SPAlertAction actionWithTitle:@"取消" style:SPAlertActionStyleCancel handler:^(SPAlertAction * _Nonnull action) {}];
 
