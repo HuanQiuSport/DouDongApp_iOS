@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong,nonatomic) NSString *type;
 /// 1  ： 我   ｜  2 ：其他用户
 @property (strong,nonatomic) NSString *type2;
+
+@property (nonatomic,strong) NSMutableSet *videidsSet;
 - (void)refrushData;
 - (void)requestData;
 @end

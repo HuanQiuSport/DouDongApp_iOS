@@ -59,8 +59,9 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:KLoginSuccessNotifaction object:nil];
                     [self overUI];
                     [self backBtnClickEvent:nil];
-                    [SceneDelegate sharedInstance].customSYSUITabBarController.selectedIndex = 0;
-                    
+                    if([SceneDelegate sharedInstance].customSYSUITabBarController.selectedIndex != 0) {
+                        [SceneDelegate sharedInstance].customSYSUITabBarController.selectedIndex = 0;
+                    }
                     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
                     [userDefault setObject:model.nickName forKey:@"nickName"];
                     [userDefault setObject:model.uid forKey:@"UID"];

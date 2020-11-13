@@ -393,5 +393,11 @@
     return _noDataLab;
 }
 
+-(NSMutableSet *)videidsSet {
+    if(_videidsSet == nil) {
+        _videidsSet = [[NSMutableSet alloc] init];
+    }
+    return  _videidsSet;
+}
 
 @end

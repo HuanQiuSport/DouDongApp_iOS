@@ -240,12 +240,12 @@ static BOOL isCreate = YES;
     [self.mkShuaCoinView removeFromSuperview];
     [self.tableView removeFromSuperview];
     self.index = 0; // 登录之后重置未0
-    self.mkRecommend = nil;
-    self.videoDemandModel = nil;
+//    self.mkRecommend = nil;
+//    self.videoDemandModel = nil;
     [self.player.currentPlayerManager pause];
     [self.player.currentPlayerManager stop];
     [self.view addSubview:self.tableView];
-    [self initPlayer];
+//    [self initPlayer];
     [self mkSetNavi];
     if([MKTools mkLoginIsLogin]){
         
