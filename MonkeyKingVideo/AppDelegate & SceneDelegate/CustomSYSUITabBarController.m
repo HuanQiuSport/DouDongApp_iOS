@@ -24,9 +24,11 @@ LZBTabBarVCDelegate
 @property(nonatomic,strong)NSMutableArray<UIImage *> *customSelectedImgMutArr;
 @property(nonatomic,strong)NSMutableArray<NSString *> *titleStrMutArr;
 @property(nonatomic,strong)NSMutableArray<UIViewController *> *viewControllerMutArr;
-@property(nonatomic,strong)NSMutableArray<NSString *> *lottieJsonNameStrMutArr;
 @property(nonatomic,strong)NSMutableArray *mutArr;
 
+@property(nonatomic,strong)NSMutableArray <LZBTabBarItem *>*humpTabBarItems;
+
+@property(nonatomic,strong)NSMutableArray <LZBTabBarItem *>*flattabBarItems;
 @end
 
 CGFloat LZB_TABBAR_HEIGHT;
@@ -50,19 +52,28 @@ CGFloat LZB_TABBAR_HEIGHT;
 - (void)viewDidLoad {
     LZB_TABBAR_HEIGHT = isiPhoneX_series() ? (50 + isiPhoneX_seriesBottom) : 49;
     [super viewDidLoad];
-    
     self.gk_navigationBar.hidden = YES;
     self.navigationController.navigationBar.hidden = NO;
-    
-    self.lzb_tabBar.tabBarStyleType = LZBTabBarStyleType_sysNormal;
-    self.lzb_tabBar.topLine.alpha = 0;//TabBar顶部分割线
-//    self.lzb_tabBar.lottieJsonNameStrMutArr = self.lottieJsonNameStrMutArr;
-
+    self.isShouldAnimation = YES;
     [self p_setUpAllChildViewController];
-   
     
-//    [self Badge];
+    if([SkinManager manager].skin == MKSkinWhite) {
+        [self switchTabBar:LZBTabBarStyleType_middleItemUp];
+    } else {
+        [self switchTabBar:LZBTabBarStyleType_sysNormal];
+    }
 }
+
+-(void)switchTabBar:(LZBTabBarStyleType)type {
+    if(type == LZBTabBarStyleType_middleItemUp) {
+        self.items = self.humpTabBarItems;
+        self.lzb_tabBar.tabBarStyleType = LZBTabBarStyleType_middleItemUp;
+    } else {
+        self.items = self.flattabBarItems;
+        self.lzb_tabBar.tabBarStyleType = LZBTabBarStyleType_sysNormal;
+    }
+}
+
 ///右上角角标
 -(void)Badge{
     LZBTabBarItem *tabBarItem = self.lzb_tabBar.lzbTabBarItemsArr[0];
@@ -90,8 +101,6 @@ CGFloat LZB_TABBAR_HEIGHT;
                                      SelectImage:(UIImage *)self.customSelectedImgMutArr[i]
                                    NnSelectImage:(UIImage *)self.customUnselectedImgMutArr[i]];
     }
-    self.lzb_tabBar.backgroundColor = [UIColor blackColor];
-    self.isShouldAnimation = YES;
 }
 
 -(void)p_setupCustomTBCWithViewController:(UIViewController *)vc
@@ -188,17 +197,101 @@ CGFloat LZB_TABBAR_HEIGHT;
     }return _viewControllerMutArr;
 }
 
--(NSMutableArray<NSString *> *)lottieJsonNameStrMutArr{
-    if (!_lottieJsonNameStrMutArr) {
-        _lottieJsonNameStrMutArr = NSMutableArray.array;
+
+-(NSMutableArray<LZBTabBarItem *> *)humpTabBarItems{
+    if (!_humpTabBarItems) {
         
-//        [_lottieJsonNameStrMutArr addObject:@"首页选中.json"];
-//        [_lottieJsonNameStrMutArr addObject:@"首页选中.json"];
-//        [_lottieJsonNameStrMutArr addObject:@"首页选中.json"];
-//        [_lottieJsonNameStrMutArr addObject:@"首页选中.json"];
-//        [_lottieJsonNameStrMutArr addObject:@"首页选中.json"];
+        _humpTabBarItems = NSMutableArray.array;
+        NSDictionary *unselectTitleAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize:12],
+                                     NSForegroundColorAttributeName: UIColor.grayColor,};
+        NSDictionary *selectTitleAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize:12],
+                                   NSForegroundColorAttributeName:[UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(24.5), 14)]]};
         
-    }return _lottieJsonNameStrMutArr;
+        LZBTabBarItem *item1 = LZBTabBarItem.new;
+        item1.title = @"首页";
+        item1.selectImage = [UIImage imageNamed:@"Home_selected"];
+        item1.unSelectImage = [UIImage imageNamed:@"Home_unselected"];
+        item1.unselectTitleAttributes = unselectTitleAttributes;
+        item1.selectTitleAttributes = selectTitleAttributes;
+        
+        LZBTabBarItem *item2 = LZBTabBarItem.new;
+        item2.title = @"社区";
+        item2.selectImage = [UIImage imageNamed:@"community_selected"];
+        item2.unSelectImage = [UIImage imageNamed:@"community_unselected"];
+        item2.unselectTitleAttributes = unselectTitleAttributes;
+        item2.selectTitleAttributes = selectTitleAttributes;
+        
+        LZBTabBarItem *item3 = LZBTabBarItem.new;
+        item3.title = @"拍照与上传";
+        item3.selectImage = [UIImage imageNamed:@"whtie_录视频"];
+        item3.unSelectImage = [UIImage imageNamed:@"whtie_录视频"];
+        item3.unselectTitleAttributes = unselectTitleAttributes;
+        item3.selectTitleAttributes = selectTitleAttributes;
+        
+        LZBTabBarItem *item4 = LZBTabBarItem.new;
+        item4.title = @"赚币";
+        item4.selectImage = [UIImage imageNamed:@"task_selected"];
+        item4.unSelectImage = [UIImage imageNamed:@"task_unselected"];
+        item4.unselectTitleAttributes = unselectTitleAttributes;
+        item4.selectTitleAttributes = selectTitleAttributes;
+        
+        LZBTabBarItem *item5 = LZBTabBarItem.new;
+        item5.title = @"我的";
+        item5.selectImage = [UIImage imageNamed:@"My_selected"];
+        item5.unSelectImage = [UIImage imageNamed:@"My_unselected"];
+        item5.unselectTitleAttributes = unselectTitleAttributes;
+        item5.selectTitleAttributes = selectTitleAttributes;
+        [_humpTabBarItems addObjectsFromArray:@[item1,item2,item3,item4,item5]];
+    }
+    return _humpTabBarItems;
+}
+
+-(NSMutableArray<LZBTabBarItem *> *)flattabBarItems{
+    if (!_flattabBarItems) {
+        
+        _flattabBarItems = NSMutableArray.array;
+        NSDictionary *unselectTitleAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize:12],
+                                     NSForegroundColorAttributeName: UIColor.whiteColor,};
+        NSDictionary *selectTitleAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize:12],
+                                   NSForegroundColorAttributeName:[UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(24.5), 14)]]};
+        
+        LZBTabBarItem *item1 = LZBTabBarItem.new;
+        item1.title = @"首页";
+        item1.selectImage = [UIImage imageNamed:@"Home_selected"];
+        item1.unSelectImage = [UIImage imageNamed:@"Home_unselected"];
+        item1.unselectTitleAttributes = unselectTitleAttributes;
+        item1.selectTitleAttributes = selectTitleAttributes;
+        
+        LZBTabBarItem *item2 = LZBTabBarItem.new;
+        item2.title = @"社区";
+        item2.selectImage = [UIImage imageNamed:@"community_selected"];
+        item2.unSelectImage = [UIImage imageNamed:@"community_unselected"];
+        item2.unselectTitleAttributes = unselectTitleAttributes;
+        item2.selectTitleAttributes = selectTitleAttributes;
+        
+        LZBTabBarItem *item3 = LZBTabBarItem.new;
+        item3.title = @"";
+        item3.selectImage = [UIImage imageNamed:@"whtie_录视频"];
+        item3.unSelectImage = [UIImage imageNamed:@"whtie_录视频"];
+        item3.unselectTitleAttributes = unselectTitleAttributes;
+        item3.selectTitleAttributes = selectTitleAttributes;
+        
+        LZBTabBarItem *item4 = LZBTabBarItem.new;
+        item4.title = @"赚币";
+        item4.selectImage = [UIImage imageNamed:@"task_selected"];
+        item4.unSelectImage = [UIImage imageNamed:@"task_unselected"];
+        item4.unselectTitleAttributes = unselectTitleAttributes;
+        item4.selectTitleAttributes = selectTitleAttributes;
+        
+        LZBTabBarItem *item5 = LZBTabBarItem.new;
+        item5.title = @"我的";
+        item5.selectImage = [UIImage imageNamed:@"My_selected"];
+        item5.unSelectImage = [UIImage imageNamed:@"My_unselected"];
+        item5.unselectTitleAttributes = unselectTitleAttributes;
+        item5.selectTitleAttributes = selectTitleAttributes;
+        [_flattabBarItems addObjectsFromArray:@[item1,item2,item3,item4,item5]];
+    }
+    return _flattabBarItems;
 }
 
 

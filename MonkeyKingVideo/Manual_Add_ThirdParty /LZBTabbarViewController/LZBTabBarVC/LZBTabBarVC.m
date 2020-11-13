@@ -12,7 +12,7 @@
 
 @interface LZBTabBarVC ()<LZBTabBarDelegate>
 
-@property(nonatomic,strong)NSMutableArray <LZBTabBarItem *>*tabBarItems;
+
 
 @end
 
@@ -56,16 +56,21 @@
         [viewController.view removeFromSuperview];
         [viewController removeFromParentViewController];
     }
-    
     _viewControllers = viewControllers;
     for (UIViewController *viewController in viewControllers) {
-        LZBTabBarItem *tabBarItem = LZBTabBarItem.new;
-        [tabBarItem setTitle:viewController.title];
-        [self.tabBarItems addObject:tabBarItem];
+//        LZBTabBarItem *tabBarItem = LZBTabBarItem.new;
+//        [tabBarItem setTitle:viewController.title];
+//        [self.tabBarItems addObject:tabBarItem];
         viewController.lzb_tabBarController = self;
     }
-    [self.lzb_tabBar setLzbTabBarItemsArr:self.tabBarItems];
 }
+
+
+-(void)setItems:(NSArray<LZBTabBarItem *> *)items {
+     _items = items;
+    [self.lzb_tabBar setLzbTabBarItemsArr:_items];
+}
+
 
 - (void)setSelectedIndex:(NSUInteger)selectedIndex{
     [self setSelectedIndex:selectedIndex
@@ -233,20 +238,14 @@ didSelectItemAtIndex:(NSInteger)index{
                                    UIViewAutoresizingFlexibleLeftMargin|
                                    UIViewAutoresizingFlexibleRightMargin|
                                    UIViewAutoresizingFlexibleBottomMargin;
-        extern CGFloat LZB_TABBAR_HEIGHT;
-        _lzb_tabBar.frame = CGRectMake(0,
-                                       self.contentView.frame.size.height - LZB_TABBAR_HEIGHT,
-                                       [UIScreen mainScreen].bounds.size.width,
-                                       LZB_TABBAR_HEIGHT);
+       
+       
         _lzb_tabBar.delegate = self;
     }return _lzb_tabBar;
 }
 
--(NSMutableArray<LZBTabBarItem *> *)tabBarItems{
-    if (!_tabBarItems) {
-        _tabBarItems = NSMutableArray.array;
-    }return _tabBarItems;
-}
+
+
 
 @end
 

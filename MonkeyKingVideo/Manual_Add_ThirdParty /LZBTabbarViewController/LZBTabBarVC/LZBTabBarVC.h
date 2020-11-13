@@ -30,6 +30,10 @@ NS_ASSUME_NONNULL_BEGIN
  *  子控制数组
  */
 @property(nonatomic,strong)NSArray <UIViewController *>*viewControllers;//NSMutableArray
+
+
+@property(nonatomic,strong) NSArray<LZBTabBarItem *> *items;
+
 /**
  *  当前选中的控制器
  */

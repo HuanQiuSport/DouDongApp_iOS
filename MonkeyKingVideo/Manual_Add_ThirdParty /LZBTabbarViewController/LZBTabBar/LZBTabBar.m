@@ -15,8 +15,11 @@
 
 @interface LZBTabBar()
 
-@property(nonatomic,assign)CGFloat itemWidth;
-@property(nonatomic,assign)BOOL isAnimation;
+@property(nonatomic,assign) CGFloat itemWidth;
+@property(nonatomic,assign) BOOL isAnimation;
+
+@property(nonatomic,assign) CGFloat radius;
+@property(nonatomic,strong) UIBezierPath *path;
 
 @end
 
@@ -28,38 +31,60 @@
 
 - (instancetype)init{
     if (self = [super init]) {
-  
+        _radius = 30;
+        self.backgroundColor = UIColor.clearColor;
     }return self;
 }
 
 -(void)drawRect:(CGRect)rect{
     [super drawRect:rect];
-    [self setupUI];
-    [self layoutIfNeeded];
+    if(_tabBarStyleType == LZBTabBarStyleType_middleItemUp) {
+        [self drawCenter:rect];
+    }
 }
 
-- (void)setupUI{
-    self.backgroundView.alpha = 1;
-    self.topLine.alpha = 1;
+-(void)drawCenter:(CGRect)rect {
+    CGFloat height = rect.size.height;
+    CGFloat width = rect.size.width;
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, UIColor.whiteColor.CGColor);
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    self.path = path;
+    [path moveToPoint:CGPointMake(0, height)];
+    [path addLineToPoint:CGPointMake(0, _radius)];
+    [path addLineToPoint:CGPointMake(width / 2 - _radius,_radius)];
+    CGFloat arcAdjust = 4;
+    CGFloat startAngle = asin(sin(arcAdjust/_radius));
+    [path addArcWithCenter:CGPointMake(width / 2, _radius + arcAdjust) radius:_radius startAngle:M_PI + startAngle endAngle:-startAngle clockwise:YES];
+    [path addLineToPoint:CGPointMake(width, _radius)];
+    [path addLineToPoint:CGPointMake(width, height)];
+    [path closePath];
+    [path fill];
+    UIGraphicsPopContext();
+}
+
+
+- (void)setupCenter {
     NSInteger index = 0;
-    Boolean isOddItems = self.lzbTabBarItemsArr.count % 2;//items为奇数个，那么就最中间的作为突出的大头
-    int y = (int)ceil(self.lzbTabBarItemsArr.count / 2.0);//向上取整，求中位数
     self.itemWidth = self.bounds.size.width / self.lzbTabBarItemsArr.count;
     for (LZBTabBarItem *item in self.lzbTabBarItemsArr) {
-        CGFloat itemHeight = [item itemHeight];
-        if(!itemHeight)
-            itemHeight = self.bounds.size.height;
+        [item removeFromSuperview];
+        [item mas_remakeConstraints:^(MASConstraintMaker *make) {
+        }];
+    }
+    for (LZBTabBarItem *item in self.lzbTabBarItemsArr) {
         CGFloat itemW = self.itemWidth;
-        CGFloat itemH = itemHeight;
-        
+        CGFloat itemH = 49;
+        item.unselectTitleAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize:13],
+                                         NSForegroundColorAttributeName: UIColor.grayColor};
         [self addSubview:item];
-        
-        if (isOddItems && y == index + 1 && self.tabBarStyleType) {
+        if (index == 2) {
+            item.titleOffest = UIOffsetMake(0, 5);
             [item mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(itemW, itemH * 4 / 3));
+                make.size.mas_equalTo(CGSizeMake(itemW, itemH + 20));
                 LZBTabBarItem *item_ = (LZBTabBarItem *)self.lzbTabBarItemsArr[index - 1];
                 make.left.equalTo(item_.mas_right);
-                make.bottom.equalTo(self);
+                make.top.equalTo(self).offset(8);
             }];
         }else{
             [item mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -70,36 +95,37 @@
                     LZBTabBarItem *item = (LZBTabBarItem *)self.lzbTabBarItemsArr[index - 1];
                     make.left.equalTo(item.mas_right);
                 }
-                make.bottom.equalTo(self);
+                make.top.equalTo(self).offset(_radius + 3);
             }];
         }
         [item setNeedsDisplay];
-        {
-            //Lottie 初始化
-            if (_lottieJsonNameStrMutArr) {
-                LOTAnimationView *animationView = [LOTAnimationView animationNamed:self.lottieJsonNameStrMutArr[index]];
-    //            animation.userInteractionEnabled = YES;
-    //            animation.loopAnimation//是否循环
-    //            animation.animationProgress//动画的进度
-    //            animation.animationDuration//动画时长
-    //            animation.isAnimationPlaying//动画是否在执行
-                animationView.animationSpeed = 3;//放慢动画播放速度?
-                animationView.userInteractionEnabled = YES;
-                animationView.contentMode = UIViewContentModeScaleAspectFill;
-                item.animationView = animationView;
-                [item addSubview:animationView];
-                [animationView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.edges.equalTo(item);
-                }];
+        index++;
+    }
+}
 
-                if (animationView.animationProgress == 0) {
-                    [animationView playToProgress:0.5
-                                   withCompletion:^(BOOL animationFinished) {
-                        NSLog(@"pressButtonAction isSelected animation");
-                    }];
-                }
+- (void)setupUI {
+    NSInteger index = 0;
+    self.itemWidth = self.bounds.size.width / self.lzbTabBarItemsArr.count;
+    for (LZBTabBarItem *item in self.lzbTabBarItemsArr) {
+        [item removeFromSuperview];
+        [item mas_remakeConstraints:^(MASConstraintMaker *make) {
+        }];
+    }
+    for (LZBTabBarItem *item in self.lzbTabBarItemsArr) {
+        CGFloat itemW = self.itemWidth;
+        CGFloat itemH = 50;
+        [self addSubview:item];
+        [item mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(itemW, itemH));
+            if (index == 0) {
+                make.left.equalTo(self);
+            }else{
+                LZBTabBarItem *item = (LZBTabBarItem *)self.lzbTabBarItemsArr[index - 1];
+                make.left.equalTo(item.mas_right);
             }
-        }
+            make.top.equalTo(self).offset(3);
+        }];
+        [item setNeedsDisplay];
         index++;
     }
 }
@@ -151,15 +177,28 @@
     }else{
         _tabBarStyleType = tabBarStyleType;
     }
+    CGFloat screenHeight = UIScreen.mainScreen.bounds.size.height;
+    CGFloat screenWidth = UIScreen.mainScreen.bounds.size.width;
+    CGFloat tabbarHeight =  isiPhoneX_series() ? (50 + isiPhoneX_seriesBottom) : 50;
+    if(_tabBarStyleType == LZBTabBarStyleType_middleItemUp) {
+        tabbarHeight = tabbarHeight + 30;
+        self.backgroundColor = UIColor.clearColor;
+        [self setupCenter];
+    } else {
+        self.backgroundColor = UIColor.blackColor;
+        [self setupUI];
+    }
+    self.frame = CGRectMake(0,screenHeight - tabbarHeight, screenWidth, tabbarHeight);
+    [self setNeedsDisplay];
 }
 
 - (void)setLzbTabBarItemsArr:(NSArray<LZBTabBarItem *> *)lzbTabBarItemsArr{
-    _lzbTabBarItemsArr = lzbTabBarItemsArr;
-    if(_lzbTabBarItemsArr.count == 0) return;
-    //移除所有子控件
     for (LZBTabBarItem *item in _lzbTabBarItemsArr){
         [item removeFromSuperview];
     }
+    _lzbTabBarItemsArr = lzbTabBarItemsArr;
+    if(_lzbTabBarItemsArr.count == 0) return;
+    //移除所有子控件
     for (int i = 0; i < _lzbTabBarItemsArr.count; i++) {
         [self addSubview:_lzbTabBarItemsArr[i]];
         LZBTabBarItem *item = _lzbTabBarItemsArr[i];
@@ -206,6 +245,7 @@
             }
         }];
     }
+    [self setNeedsDisplay];
 }
 
 - (void)setCurrentSelectItem:(LZBTabBarItem *)currentSelectItem{
