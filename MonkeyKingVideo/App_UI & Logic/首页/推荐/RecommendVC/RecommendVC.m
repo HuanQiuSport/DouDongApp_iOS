@@ -112,6 +112,7 @@
 -(void)didMoveToParentViewController:(UIViewController *)parent {
     if(parent == nil) {
         [self.controlView invalidateDisplayLink];
+        [self.player stop];
     }
 }
 
@@ -560,7 +561,7 @@
 }
 - (void)playTheIndex:(NSInteger)index {
     @weakify(self)
-    /// 指定到某一行播放
+    /// 指定到某一行播放    
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
     if(self.mkRecommend.list.count == 0){
         return;

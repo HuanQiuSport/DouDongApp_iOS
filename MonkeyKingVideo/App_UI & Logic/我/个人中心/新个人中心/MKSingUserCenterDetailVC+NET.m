@@ -41,12 +41,12 @@
                  if (error == nil) {
                      
                      if (pageNumber == 1) {
+//                         weak_self.mkLikeModel = model;
+                         [weak_self handleFristData:model];
+                     } else {
                          
-                         weak_self.mkLikeModel = model;
-
-                     }else{
-                         
-                         [weak_self.mkLikeModel.list addObjectsFromArray:model.list];
+                         [weak_self handleData:model];
+//                         [weak_self.mkLikeModel.list addObjectsFromArray:model.list];
                          
                      }
                      
@@ -86,6 +86,31 @@
          }
      }];
 }
+
+-(void)handleFristData:(MKPersonalLikeModel *)model {
+    [self.videidsSet removeAllObjects];
+    NSMutableArray *tempArray = [[NSMutableArray array] init];
+    for(NSUInteger index = 0; index < model.list.count; index++ ) {
+        MKVideoDemandModel *item =  model.list[index];
+        if(![self.videidsSet containsObject:item.videoId]) {
+            [self.videidsSet addObject:item.videoId];
+            [tempArray addObject:item];
+        }
+    }
+    self.mkLikeModel = model;
+    self.mkLikeModel.list = tempArray;
+}
+
+-(void)handleData:(MKPersonalLikeModel *)model {
+    for(NSUInteger index = 0; index < model.list.count; index++ ) {
+        MKVideoDemandModel *item =  model.list[index];
+        if(![self.videidsSet containsObject:item.videoId]) {
+            [self.videidsSet addObject:item.videoId];
+            [self.mkLikeModel.list addObject:item];
+        }
+    }
+}
+
 // POST /app/videos/delAppVideo
 - (void)MKDelAppVideo_POST_ViedoID:(NSString *)viedoID{
     //[MKPublickDataManager sharedPublicDataManage].mkLoginModel.token
