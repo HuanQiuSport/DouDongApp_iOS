@@ -262,7 +262,7 @@
                                                      parameters:easyDict];
     RACSignal *reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
     [reqSignal subscribeNext:^(FMHttpResonse *response) {
-//        NSLog(@"%@",response.reqResult);
+//        NSLog(@"userTimeEnd------%@",response.reqResult);
     }];
 }
 #pragma mark -  版本更新

@@ -48,7 +48,7 @@
            
             if(userData == nil || userData.length == 0) {
                 NSString *userId = [MKPublickDataManager sharedPublicDataManage].mkLoginModel.uid;
-                [easyDict setValue:userData forKey:@"remark"];
+                [easyDict setValue:userId forKey:@"remark"];
             } else {
                 [easyDict setValue:userData forKey:@"remark"];
             }
