@@ -68,7 +68,23 @@
             _noDataLab.text = @"TA还未收藏作品";
         }
     }
+    [self refreshSkin];
 }
+
+-(void)refreshSkin {
+    if([SkinManager manager].skin == MKSkinWhite) {
+        self.view.backgroundColor = UIColor.whiteColor;
+        self.mkCollectionView.backgroundColor = UIColor.whiteColor;
+        self.mkCollectionView.tintColor =  UIColor.whiteColor;
+        self.noDataLab.textColor = HEXCOLOR(0x999999);
+    } else {
+        self.view.backgroundColor = MKBakcColor;
+        self.noDataLab.textColor = RGBCOLOR(131, 145, 175);
+        self.mkCollectionView.backgroundColor = MKBakcColor;
+        self.mkCollectionView.tintColor =  MKBakcColor;
+    }
+}
+
 - (void)addNotifaction {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logout) name:KLoginOutNotifaction object:nil];
 }

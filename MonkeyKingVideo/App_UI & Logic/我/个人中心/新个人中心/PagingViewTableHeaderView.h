@@ -13,4 +13,5 @@
 @property (nonatomic, strong) UIImageView *imageView;
 - (void)scrollViewDidScroll:(CGFloat)contentOffsetY;
 
+-(void)refreshSkin;
 @end

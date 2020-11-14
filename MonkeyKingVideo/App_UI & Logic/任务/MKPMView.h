@@ -19,4 +19,5 @@ typedef void (^JCKMarqueeViewBlock) (NSInteger);
 @property(nonatomic,assign)CGFloat pauseDuration;//停顿时间
 
 - (void)start;
+-(void)refreshSkin;
 @end

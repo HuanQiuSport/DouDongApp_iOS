@@ -31,7 +31,11 @@
 @property (nonatomic, strong) UIView *withdrawView; // 银行卡视图
 @property (nonatomic, strong) UIView *rewardView; // 奖励视图
 
+@property (nonatomic,strong) UILabel *walletTitleLab;
+@property (nonatomic,strong) UILabel *coinTitleLab;
 
+@property (nonatomic,strong) UILabel *invitetitleLab;
+@property (nonatomic,strong) UILabel  *invitelineView;
 
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIView *bgview;
@@ -151,7 +155,63 @@
     self.view.backgroundColor = HEXCOLOR(0x242a37);
     [self addViews];
     [self addNotifaction];
-    
+    [self refreshSkin];
+}
+
+-(void)refreshSkin {
+    if ([SkinManager manager].skin == MKSkinWhite) {
+        self.view.backgroundColor = UIColor.groupTableViewBackgroundColor;
+        self.walletView.backgroundColor = UIColor.whiteColor;
+        self.coinView.backgroundColor =  UIColor.whiteColor;
+        self.walletTitleLab.textColor = UIColor.blackColor;
+        self.coinTitleLab.textColor = UIColor.blackColor;
+        self.walletLab.textColor = UIColor.blackColor;
+        self.coinLab.textColor = UIColor.blackColor;
+        self.walletView.layer.shadowColor = [UIColor clearColor].CGColor;
+        self.coinView.layer.shadowColor = [UIColor clearColor].CGColor;
+        // ---------------
+        self.signView.backgroundColor = UIColor.whiteColor;
+        self.signView.layer.shadowColor = [UIColor clearColor].CGColor;
+        self.signTitleLab.textColor = UIColor.blackColor;
+        self.signLab.textColor = UIColor.blackColor;
+        //-----
+        self.friendView.backgroundColor = UIColor.whiteColor;
+        self.friendView.layer.shadowColor = [UIColor clearColor].CGColor;
+        self.invitetitleLab.textColor = UIColor.blackColor;
+        self.friendLab.textColor = HEXCOLOR(0x8391AF);
+        self.invitelineView.backgroundColor = COLOR_HEX(0x000000, 0.2);
+        //----
+        self.rewardView.backgroundColor = UIColor.whiteColor;
+        self.rewardView.layer.shadowColor = [UIColor clearColor].CGColor;
+    } else {
+        // ---------------
+        self.view.backgroundColor = HEXCOLOR(0x242a37);
+        self.walletView.backgroundColor = HEXCOLOR(0x242a37);
+        self.coinView.backgroundColor = HEXCOLOR(0x242a37);
+        self.walletTitleLab.textColor = RGBCOLOR(131,145,175);
+        self.coinTitleLab.textColor = RGBCOLOR(131,145,175);
+        self.walletLab.textColor = kWhiteColor;
+        self.coinLab.textColor = kWhiteColor;
+        self.walletView.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.coinView.layer.shadowColor = [UIColor blackColor].CGColor;
+        // ---------------
+        self.signView.backgroundColor = HEXCOLOR(0x242a37);
+        self.signView.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.signTitleLab.textColor = kWhiteColor;
+        self.signLab.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(40), 30)]];
+        //------
+        self.friendView.backgroundColor = HEXCOLOR(0x242a37);
+        self.friendView.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.invitetitleLab.textColor = UIColor.whiteColor;
+        self.friendLab.textColor = RGBCOLOR(131,145,175);
+        self.invitelineView.backgroundColor = kBlackColor;
+        //----
+        self.rewardView.backgroundColor = HEXCOLOR(0x242a37);
+        self.rewardView.layer.shadowColor = [UIColor blackColor].CGColor;
+        
+    }
+    [self.noticeView refreshSkin];
+    [self.paomav refreshSkin];
 }
 
 
@@ -270,6 +330,7 @@
         _walletView.layer.shadowRadius = 20;
         
         UILabel *titleLab = UILabel.new;
+        _walletTitleLab = titleLab;
         [_walletView addSubview:titleLab];
         [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.walletView).offset(12);
@@ -352,6 +413,7 @@
         _coinView.layer.shadowRadius = 20;
         
         UILabel *titleLab = UILabel.new;
+        _coinTitleLab = titleLab;
         [_coinView addSubview:titleLab];
         [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.coinView).offset(12);
@@ -435,6 +497,7 @@
         
         
         UILabel *titleLab = UILabel.new;
+        _invitetitleLab = titleLab;
         [_friendView addSubview:titleLab];
         [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.friendView).offset(12);
@@ -474,7 +537,7 @@
             make.height.offset(1);
         }];
         line.backgroundColor = kBlackColor;
-        
+        _invitelineView = line;
         
         _friendBtn = UIButton.new;
         [_friendView addSubview:_friendBtn];
@@ -636,10 +699,15 @@
                 make.left.equalTo(signImgeV).offset(0);
             }];
             
+            UIColor *textColor = kWhiteColor;
+            if([SkinManager manager].skin == MKSkinWhite) {
+                textColor = UIColor.blackColor;
+            }
+            
             UILabel *titleLab2 = UILabel.new;
             [_signView addSubview:titleLab2];
             titleLab2.text = [NSString stringWithFormat:@"%d天",i+1];
-            titleLab2.textColor = kWhiteColor;
+            titleLab2.textColor = textColor;
             titleLab2.font = [UIFont systemFontOfSize:10];
             titleLab2.textAlignment = NSTextAlignmentCenter;
             [titleLab2 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -653,7 +721,7 @@
             UILabel *titleLab3 = UILabel.new;
             [_signView addSubview:titleLab3];
             titleLab3.text = @"连续签到7天并且邀请1位好友可以获得一次提现资格";
-            titleLab3.textColor = kWhiteColor;
+            titleLab3.textColor = textColor;
             titleLab3.font = [UIFont systemFontOfSize:12];
             titleLab3.textAlignment = NSTextAlignmentCenter;
             [titleLab3 mas_makeConstraints:^(MASConstraintMaker *make) {

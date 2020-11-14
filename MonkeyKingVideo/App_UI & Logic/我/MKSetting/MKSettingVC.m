@@ -25,6 +25,7 @@ UITableViewDelegate
 /// 版本信息
 @property(strong,nonatomic)MKAppVersionView *mkVersionView;
 @property(strong,nonatomic)UILabel *cacheLab;
+@property(strong,nonatomic)UIView *botV;
 @end
 
 @implementation MKSettingVC
@@ -36,6 +37,25 @@ UITableViewDelegate
     self.gk_backStyle = GKNavigationBarBackStyleWhite;
     [self mkAddSubView];
     [self mkLayOutView];
+    [self refreshSkin];
+}
+
+-(void)refreshSkin {
+    if([SkinManager manager].skin == MKSkinWhite) {
+        self.gk_backStyle = GKNavigationBarBackStyleBlack;
+        self.view.backgroundColor  = UIColor.groupTableViewBackgroundColor;
+        self.gk_navTitleColor = UIColor.blackColor;
+        self.gk_navBackgroundColor = UIColor.whiteColor;
+        self.mkTableview.backgroundColor = UIColor.groupTableViewBackgroundColor;
+        self.botV.backgroundColor = UIColor.groupTableViewBackgroundColor;
+    } else {
+        self.gk_backStyle = GKNavigationBarBackStyleWhite;
+        self.view.backgroundColor  = MKBakcColor;
+        self.gk_navTitleColor = UIColor.whiteColor;
+        self.gk_navBackgroundColor = MKBakcColor;
+        self.mkTableview.backgroundColor = RGBCOLOR(30, 36, 50);
+        self.botV.backgroundColor = RGBCOLOR(30, 36, 50);
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -80,7 +100,7 @@ UITableViewDelegate
 - (void)mkLayOutView{
     [self.mkTableview mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.top.equalTo(self.view);
-        make.top.equalTo(self.gk_navigationBar.mas_bottom);
+        make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(([SkinManager manager].skin == MKSkinWhite) ? 10 : 0);
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
         make.height.equalTo(@(KDeviceScale * 50 * 3));
@@ -88,6 +108,7 @@ UITableViewDelegate
     
 
     UIView *botV = UIView.new;
+    self.botV = botV;
     [self.view addSubview:botV];
     [botV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.bottom.left.offset(0);
@@ -123,7 +144,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                                     reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
     switch (indexPath.row) {
         case 0:
             cell.mkSettingView.mkLeftLabel.text = @"清理缓存";
@@ -147,6 +167,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         default:
             break;
     }
+    [cell refreshSkin];
     return cell;
 }
 

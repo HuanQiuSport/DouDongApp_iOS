@@ -27,6 +27,17 @@
     
     return self;
 }
+
+-(void)refreshSkin {
+    if ([SkinManager manager].skin == MKSkinWhite) {
+        self.mkLeftLabel.textColor = UIColor.blackColor;
+        self.mkRightLabel.textColor = UIColor.blackColor;
+    } else {
+        self.mkLeftLabel.textColor = UIColor.whiteColor;
+        self.mkRightLabel.textColor = UIColor.whiteColor;
+    }
+}
+
 #pragma mark - 添加子视图
 - (void)mkAddSubView{
     

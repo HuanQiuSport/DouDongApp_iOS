@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 ///  按钮
 @property (strong,nonatomic) UIButton *mkButton;
+
+-(void)refreshSkin;
 @end
 
 NS_ASSUME_NONNULL_END

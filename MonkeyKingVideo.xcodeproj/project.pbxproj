@@ -329,15 +329,19 @@
 		6EB8F2E225502A6B005F6231 /* MKTaskVerticalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB8F2E125502A6B005F6231 /* MKTaskVerticalView.m */; };
 		6EB8F2EC25503033005F6231 /* MKNoticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB8F2EB25503033005F6231 /* MKNoticeView.m */; };
 		6EB8F2F625503FC5005F6231 /* UploadTokenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB8F2F525503FC5005F6231 /* UploadTokenModel.m */; };
-		6EBF3A98255D56A600E52870 /* white_我的@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EBF3A92255D56A500E52870 /* white_我的@3x.png */; };
-		6EBF3A99255D56A600E52870 /* whtie_录视频@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EBF3A93255D56A500E52870 /* whtie_录视频@3x.png */; };
-		6EBF3A9A255D56A600E52870 /* white_录视频@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EBF3A94255D56A500E52870 /* white_录视频@2x.png */; };
-		6EBF3A9B255D56A600E52870 /* white__我的@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EBF3A95255D56A500E52870 /* white__我的@2x.png */; };
-		6EBF3A9C255D56A600E52870 /* white_社区选中@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EBF3A96255D56A500E52870 /* white_社区选中@2x.png */; };
-		6EBF3A9D255D56A600E52870 /* white_社区选中@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EBF3A97255D56A500E52870 /* white_社区选中@3x.png */; };
 		6EBF3AA3255D6EEE00E52870 /* LZBTabBarItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EBF3AA2255D6EEE00E52870 /* LZBTabBarItemModel.m */; };
 		6EBF3AAA255D7F2B00E52870 /* SkinManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EBF3AA9255D7F2B00E52870 /* SkinManager.m */; };
 		6EC53654255059AA00A75EDD /* MKHTTPTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EC53653255059AA00A75EDD /* MKHTTPTool.m */; };
+		6ED68A61255EC7D20081AA51 /* white_tabbar_录视频@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ED68A57255EC7D20081AA51 /* white_tabbar_录视频@2x.png */; };
+		6ED68A62255EC7D20081AA51 /* white_tabbar_nor_社区选中@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ED68A58255EC7D20081AA51 /* white_tabbar_nor_社区选中@3x.png */; };
+		6ED68A63255EC7D20081AA51 /* white_tabbar_录视频@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ED68A59255EC7D20081AA51 /* white_tabbar_录视频@3x.png */; };
+		6ED68A64255EC7D20081AA51 /* white_tabbar_nor_社区选中@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ED68A5A255EC7D20081AA51 /* white_tabbar_nor_社区选中@2x.png */; };
+		6ED68A65255EC7D20081AA51 /* white_tabbar_nor_赚币@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ED68A5B255EC7D20081AA51 /* white_tabbar_nor_赚币@3x.png */; };
+		6ED68A66255EC7D20081AA51 /* white_tabbar_nor_赚币@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ED68A5C255EC7D20081AA51 /* white_tabbar_nor_赚币@2x.png */; };
+		6ED68A67255EC7D20081AA51 /* white_tabbar_首页@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ED68A5D255EC7D20081AA51 /* white_tabbar_首页@2x.png */; };
+		6ED68A68255EC7D20081AA51 /* white_tabbar_nor_我的@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ED68A5E255EC7D20081AA51 /* white_tabbar_nor_我的@2x.png */; };
+		6ED68A69255EC7D20081AA51 /* white_tabbar_nor_我的@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ED68A5F255EC7D20081AA51 /* white_tabbar_nor_我的@3x.png */; };
+		6ED68A6A255EC7D20081AA51 /* white_tabbar_首页@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6ED68A60255EC7D20081AA51 /* white_tabbar_首页@3x.png */; };
 		6EE1D374255961AC0022A32B /* HomeAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EE1D373255961AC0022A32B /* HomeAdView.m */; };
 		6EE1D37F25596B920022A32B /* 广告图.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EE1D37E25596B920022A32B /* 广告图.png */; };
 		840265EE2515DDDE00290172 /* icon_upload_imge.png in Resources */ = {isa = PBXBuildFile; fileRef = 840265ED2515DDDE00290172 /* icon_upload_imge.png */; };
@@ -1685,18 +1689,22 @@
 		6EB8F2EB25503033005F6231 /* MKNoticeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKNoticeView.m; sourceTree = "<group>"; };
 		6EB8F2F425503FC5005F6231 /* UploadTokenModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadTokenModel.h; sourceTree = "<group>"; };
 		6EB8F2F525503FC5005F6231 /* UploadTokenModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadTokenModel.m; sourceTree = "<group>"; };
-		6EBF3A92255D56A500E52870 /* white_我的@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_我的@3x.png"; sourceTree = "<group>"; };
-		6EBF3A93255D56A500E52870 /* whtie_录视频@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whtie_录视频@3x.png"; sourceTree = "<group>"; };
-		6EBF3A94255D56A500E52870 /* white_录视频@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_录视频@2x.png"; sourceTree = "<group>"; };
-		6EBF3A95255D56A500E52870 /* white__我的@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white__我的@2x.png"; sourceTree = "<group>"; };
-		6EBF3A96255D56A500E52870 /* white_社区选中@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_社区选中@2x.png"; sourceTree = "<group>"; };
-		6EBF3A97255D56A500E52870 /* white_社区选中@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_社区选中@3x.png"; sourceTree = "<group>"; };
 		6EBF3AA1255D6EEE00E52870 /* LZBTabBarItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LZBTabBarItemModel.h; sourceTree = "<group>"; };
 		6EBF3AA2255D6EEE00E52870 /* LZBTabBarItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LZBTabBarItemModel.m; sourceTree = "<group>"; };
 		6EBF3AA8255D7F2B00E52870 /* SkinManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SkinManager.h; sourceTree = "<group>"; };
 		6EBF3AA9255D7F2B00E52870 /* SkinManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SkinManager.m; sourceTree = "<group>"; };
 		6EC53652255059AA00A75EDD /* MKHTTPTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKHTTPTool.h; sourceTree = "<group>"; };
 		6EC53653255059AA00A75EDD /* MKHTTPTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKHTTPTool.m; sourceTree = "<group>"; };
+		6ED68A57255EC7D20081AA51 /* white_tabbar_录视频@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_tabbar_录视频@2x.png"; sourceTree = "<group>"; };
+		6ED68A58255EC7D20081AA51 /* white_tabbar_nor_社区选中@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_tabbar_nor_社区选中@3x.png"; sourceTree = "<group>"; };
+		6ED68A59255EC7D20081AA51 /* white_tabbar_录视频@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_tabbar_录视频@3x.png"; sourceTree = "<group>"; };
+		6ED68A5A255EC7D20081AA51 /* white_tabbar_nor_社区选中@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_tabbar_nor_社区选中@2x.png"; sourceTree = "<group>"; };
+		6ED68A5B255EC7D20081AA51 /* white_tabbar_nor_赚币@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_tabbar_nor_赚币@3x.png"; sourceTree = "<group>"; };
+		6ED68A5C255EC7D20081AA51 /* white_tabbar_nor_赚币@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_tabbar_nor_赚币@2x.png"; sourceTree = "<group>"; };
+		6ED68A5D255EC7D20081AA51 /* white_tabbar_首页@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_tabbar_首页@2x.png"; sourceTree = "<group>"; };
+		6ED68A5E255EC7D20081AA51 /* white_tabbar_nor_我的@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_tabbar_nor_我的@2x.png"; sourceTree = "<group>"; };
+		6ED68A5F255EC7D20081AA51 /* white_tabbar_nor_我的@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_tabbar_nor_我的@3x.png"; sourceTree = "<group>"; };
+		6ED68A60255EC7D20081AA51 /* white_tabbar_首页@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_tabbar_首页@3x.png"; sourceTree = "<group>"; };
 		6EE1D372255961AC0022A32B /* HomeAdView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeAdView.h; sourceTree = "<group>"; };
 		6EE1D373255961AC0022A32B /* HomeAdView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeAdView.m; sourceTree = "<group>"; };
 		6EE1D37E25596B920022A32B /* 广告图.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "广告图.png"; sourceTree = "<group>"; };
@@ -3699,22 +3707,9 @@
 		6EBF3A90255D56A500E52870 /* icon_withe */ = {
 			isa = PBXGroup;
 			children = (
-				6EBF3A91255D56A500E52870 /* tabbar */,
+				6ED68A56255EC7D20081AA51 /* tabbar */,
 			);
 			path = icon_withe;
-			sourceTree = "<group>";
-		};
-		6EBF3A91255D56A500E52870 /* tabbar */ = {
-			isa = PBXGroup;
-			children = (
-				6EBF3A92255D56A500E52870 /* white_我的@3x.png */,
-				6EBF3A93255D56A500E52870 /* whtie_录视频@3x.png */,
-				6EBF3A94255D56A500E52870 /* white_录视频@2x.png */,
-				6EBF3A95255D56A500E52870 /* white__我的@2x.png */,
-				6EBF3A96255D56A500E52870 /* white_社区选中@2x.png */,
-				6EBF3A97255D56A500E52870 /* white_社区选中@3x.png */,
-			);
-			path = tabbar;
 			sourceTree = "<group>";
 		};
 		6EBF3AA7255D7F1C00E52870 /* util */ = {
@@ -3733,6 +3728,23 @@
 				6EC53653255059AA00A75EDD /* MKHTTPTool.m */,
 			);
 			path = NetWork;
+			sourceTree = "<group>";
+		};
+		6ED68A56255EC7D20081AA51 /* tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				6ED68A57255EC7D20081AA51 /* white_tabbar_录视频@2x.png */,
+				6ED68A58255EC7D20081AA51 /* white_tabbar_nor_社区选中@3x.png */,
+				6ED68A59255EC7D20081AA51 /* white_tabbar_录视频@3x.png */,
+				6ED68A5A255EC7D20081AA51 /* white_tabbar_nor_社区选中@2x.png */,
+				6ED68A5B255EC7D20081AA51 /* white_tabbar_nor_赚币@3x.png */,
+				6ED68A5C255EC7D20081AA51 /* white_tabbar_nor_赚币@2x.png */,
+				6ED68A5D255EC7D20081AA51 /* white_tabbar_首页@2x.png */,
+				6ED68A5E255EC7D20081AA51 /* white_tabbar_nor_我的@2x.png */,
+				6ED68A5F255EC7D20081AA51 /* white_tabbar_nor_我的@3x.png */,
+				6ED68A60255EC7D20081AA51 /* white_tabbar_首页@3x.png */,
+			);
+			path = tabbar;
 			sourceTree = "<group>";
 		};
 		840265E42515329400290172 /* 环形动画 */ = {
@@ -7312,7 +7324,6 @@
 				84DE0D6A24FFA6ED00F2C018 /* icon_link.png in Resources */,
 				4140936A24BAB40C008E04FF /* softLight.png in Resources */,
 				CA53BA592507577E00D68324 /* unframe@3x.png in Resources */,
-				6EBF3A9C255D56A600E52870 /* white_社区选中@2x.png in Resources */,
 				413E152324DFF6BE000056D3 /* av.png in Resources */,
 				C5B5EF37250CE85900DCDA93 /* di_4@2x.png in Resources */,
 				C54AEB0F24C9AA9B00121233 /* gif_header_33@2x.png in Resources */,
@@ -7326,8 +7337,10 @@
 				419B1FA925060A640045C92B /* icon_play_pause@2x.png in Resources */,
 				4111189624BF377C00C6CE4D /* 邀请好友@3x.png in Resources */,
 				CAF40174251B173400AFE40A /* sd_preview_text_delete_icon@2x.png in Resources */,
+				6ED68A68255EC7D20081AA51 /* white_tabbar_nor_我的@2x.png in Resources */,
 				C55886E32498A53C00C8A3E7 /* iOS小技巧：用runtime 解决UIButton 重复点击问题 in Resources */,
 				84731D582540919300C46EA2 /* imge_announcementHUB_nor.png in Resources */,
+				6ED68A69255EC7D20081AA51 /* white_tabbar_nor_我的@3x.png in Resources */,
 				CAB32D76252466E800CB8C99 /* day_like_red@3x.png in Resources */,
 				419B1FEF25074F010045C92B /* mk_红包@3x.png in Resources */,
 				CA5BE0C6250A5744002DE821 /* 清理缓存@2x.png in Resources */,
@@ -7346,6 +7359,7 @@
 				4140934824BAB40C008E04FF /* hefeMetal.png in Resources */,
 				4140935F24BAB40C008E04FF /* kelvinMap.png in Resources */,
 				C5FAC36A24C5B20D00372BCD /* 编辑@2x.png in Resources */,
+				6ED68A63255EC7D20081AA51 /* white_tabbar_录视频@3x.png in Resources */,
 				C54AEA9C24C98AE600121233 /* gif_header_10@3x.png in Resources */,
 				C5FAC37324C5B2EA00372BCD /* 粉丝@2x.png in Resources */,
 				C54AEB2824C9AA9B00121233 /* gif_header_35@2x.png in Resources */,
@@ -7359,7 +7373,6 @@
 				84DE0D4324FD018400F2C018 /* login_close.png in Resources */,
 				C52E88F1250F51640070356F /* HASH in Resources */,
 				C5B5EF6C250CE86B00DCDA93 /* 验证ICON@3x.png in Resources */,
-				6EBF3A98255D56A600E52870 /* white_我的@3x.png in Resources */,
 				84D2E163251F24D200B92BBD /* icon_task_baoxiang@3x.png in Resources */,
 				C54AEAF724C9AA9B00121233 /* gif_header_10@2x.png in Resources */,
 				CA53BA572507577E00D68324 /* frame.png in Resources */,
@@ -7410,7 +7423,6 @@
 				C55886D02498A53C00C8A3E7 /* 电话号码国家选择器 in Resources */,
 				C54AEA9424C98AE600121233 /* gif_header_18@3x.png in Resources */,
 				C52D2A5624E59EDD0048FEFF /* 删除@3x.png in Resources */,
-				6EBF3A9A255D56A600E52870 /* white_录视频@2x.png in Resources */,
 				5E562BCE251B4CEC0013477E /* withdraw_time@3x.png in Resources */,
 				41BAB42424B422B90038FA73 /* 喜欢-点击@3x.png in Resources */,
 				84DE0D7E2500016300F2C018 /* bg_share_save.png in Resources */,
@@ -7498,6 +7510,7 @@
 				C54AEB1C24C9AA9B00121233 /* gif_header_42@2x.png in Resources */,
 				C54AEAA624C98AE600121233 /* gif_header_24@3x.png in Resources */,
 				84D2E158251F0FF500B92BBD /* icon_withdraw.png in Resources */,
+				6ED68A64255EC7D20081AA51 /* white_tabbar_nor_社区选中@2x.png in Resources */,
 				C54AEB1024C9AA9B00121233 /* gif_header_27@2x.png in Resources */,
 				84DE0D81250005CA00F2C018 /* imge_successTip.png in Resources */,
 				419B1FF525075D4C0045C92B /* mk_coin@3x.png in Resources */,
@@ -7509,7 +7522,6 @@
 				C5B5EF59250CE86B00DCDA93 /* 记住密码@2x.png in Resources */,
 				CA5BE0C2250A56F4002DE821 /* 退出登录@3x.png in Resources */,
 				84DE0D4A24FD0AAB00F2C018 /* return.png in Resources */,
-				6EBF3A9D255D56A600E52870 /* white_社区选中@3x.png in Resources */,
 				CA5BE0C5250A5744002DE821 /* 清理缓存@3x.png in Resources */,
 				C54AEB2124C9AA9B00121233 /* gif_header_25@2x.png in Resources */,
 				C54AEA8724C98AE600121233 /* gif_header_50@3x.png in Resources */,
@@ -7540,6 +7552,7 @@
 				C5FAC34224C57FB200372BCD /* 查看箭头@3x.png in Resources */,
 				419B1FF425075D4C0045C92B /* mk_coin@2x.png in Resources */,
 				84D2E150251CFBCD00B92BBD /* icon_proclamation.png in Resources */,
+				6ED68A65255EC7D20081AA51 /* white_tabbar_nor_赚币@3x.png in Resources */,
 				41BAB4A024B7155E0038FA73 /* 画板@2x.png in Resources */,
 				C54AEAB224C98AE600121233 /* gif_header_32@3x.png in Resources */,
 				4140936224BAB40C008E04FF /* edgeBurn.png in Resources */,
@@ -7563,7 +7576,6 @@
 				CAF40175251B173400AFE40A /* sd_commom_return_icon@3x.png in Resources */,
 				CAF40167251B173400AFE40A /* sd_preview_alignment_right@3x.png in Resources */,
 				5E562BD1251B4CEC0013477E /* withdraw_money@3x.png in Resources */,
-				6EBF3A9B255D56A600E52870 /* white__我的@2x.png in Resources */,
 				4140934924BAB40C008E04FF /* brannanLuma.png in Resources */,
 				C54AEAFF24C9AA9B00121233 /* gif_header_11@2x.png in Resources */,
 				C54AEAB624C98AE600121233 /* gif_header_12@3x.png in Resources */,
@@ -7572,6 +7584,7 @@
 				C5B5EF5A250CE86B00DCDA93 /* 手机ICON@2x.png in Resources */,
 				C54AEB0924C9AA9B00121233 /* gif_header_3@2x.png in Resources */,
 				CAD6F2A724EF793E002D59DA /* Close@3x.png in Resources */,
+				6ED68A61255EC7D20081AA51 /* white_tabbar_录视频@2x.png in Resources */,
 				41A4F1A524EA7A4700F2BB11 /* MK0邀请好友@3x.png in Resources */,
 				C54AEA8324C98AE600121233 /* gif_header_28@3x.png in Resources */,
 				418E3459250C999600785422 /* baoxiang@3x.png in Resources */,
@@ -7595,6 +7608,7 @@
 				C54AEB1D24C9AA9B00121233 /* gif_header_38@2x.png in Resources */,
 				C54AEA8F24C98AE600121233 /* gif_header_21@3x.png in Resources */,
 				41BAB40B24B374340038FA73 /* 红包积分@3x.png in Resources */,
+				6ED68A62255EC7D20081AA51 /* white_tabbar_nor_社区选中@3x.png in Resources */,
 				41BAB46E24B5B9270038FA73 /* 暂停播放@3x.png in Resources */,
 				4140933E24BAB40C008E04FF /* sutroMetal.png in Resources */,
 				C5F0D2A324AA0EAB001B01D8 /* back_black.png in Resources */,
@@ -7678,6 +7692,7 @@
 				C54AEA9724C98AE600121233 /* gif_header_33@3x.png in Resources */,
 				C54AEB2224C9AA9B00121233 /* gif_header_46@2x.png in Resources */,
 				C5FAC34124C57FB200372BCD /* 查看箭头@2x.png in Resources */,
+				6ED68A6A255EC7D20081AA51 /* white_tabbar_首页@3x.png in Resources */,
 				CAF40168251B173400AFE40A /* sd_corp_drag_icon@3x.png in Resources */,
 				41C94B8224FCC4860018E3BC /* 消息number@2x.png in Resources */,
 				84DE0D6F24FFB08000F2C018 /* icon_share_close@2x.png in Resources */,
@@ -7687,6 +7702,7 @@
 				C5E5C67A2509111D001E69DA /* 保存视频@2x.png in Resources */,
 				4140936424BAB40C008E04FF /* 1977map.png in Resources */,
 				C5B5EF66250CE86B00DCDA93 /* 没有记住密码@3x.png in Resources */,
+				6ED68A66255EC7D20081AA51 /* white_tabbar_nor_赚币@2x.png in Resources */,
 				419B1FDB25074A3B0045C92B /* mk_baohe.png in Resources */,
 				84D2E164251F24D200B92BBD /* icon_task_baoxiang.png in Resources */,
 				C54AEAB424C98AE600121233 /* gif_header_35@3x.png in Resources */,
@@ -7794,6 +7810,7 @@
 				CAF4016F251B173400AFE40A /* sd_preview_color_bg@3x.png in Resources */,
 				CAF40170251B173400AFE40A /* sd_preview_color_alpha@3x.png in Resources */,
 				C557DC2424C822FF00754760 /* 金币.png in Resources */,
+				6ED68A67255EC7D20081AA51 /* white_tabbar_首页@2x.png in Resources */,
 				C54C06E724B2179E00DCB4A3 /* task_selected@3x.png in Resources */,
 				C558875E2498A55400C8A3E7 /* 专治UITableView相应链断裂 in Resources */,
 				C53B183624FFB17A000019F2 /* 倒计时 开启状态@3x.png in Resources */,
@@ -7820,7 +7837,6 @@
 				C5B5EF57250CE86B00DCDA93 /* 空白图.png in Resources */,
 				C54C06E924B2179E00DCB4A3 /* task_unselected@3x.png in Resources */,
 				8417256925048CB20093594B /* bg_icon@2x.png in Resources */,
-				6EBF3A99255D56A600E52870 /* whtie_录视频@3x.png in Resources */,
 				4111189424BF377C00C6CE4D /* 邀请好友@2x.png in Resources */,
 				C54AEB0D24C9AA9B00121233 /* gif_header_43@2x.png in Resources */,
 				4140938424BAB40C008E04FF /* MHFilter.json in Resources */,

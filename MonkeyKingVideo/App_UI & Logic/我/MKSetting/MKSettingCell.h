@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MKSettingCell : UITableViewCell
 ///  set 子视图
 @property (strong,nonatomic) MKSetingView *mkSettingView;
+-(void)refreshSkin;
 @end
 
 NS_ASSUME_NONNULL_END

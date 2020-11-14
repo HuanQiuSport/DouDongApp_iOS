@@ -67,6 +67,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addOherView;
 - (void)setNoLoginData;
+
+-(void)refreshSkin;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 //@property(nonatomic,strong)UIImageView *titleLabel;
 @property(nonatomic,strong)UILabel *contentLabel;
 @property(nonatomic,strong)UIButton *infoBtn;
+-(void)refreshSkin;
 @end
 
 NS_ASSUME_NONNULL_END

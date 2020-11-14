@@ -34,6 +34,15 @@
     return self;
 }
 
+-(void)refreshSkin {
+    if ([SkinManager manager].skin == MKSkinWhite) {
+        self.imageView.image = [UIImage imageWithColor:UIColor.whiteColor];
+    } else {
+        self.imageView.image = [UIImage imageWithColor:MKBakcColor];
+    }
+    [self.mkPersonView refreshSkin];
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.imageViewFrame = self.bounds;

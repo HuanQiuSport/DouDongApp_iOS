@@ -17,6 +17,17 @@
 
 @implementation MKNoticeView
 
+-(void)refreshSkin {
+    if ([SkinManager manager].skin == MKSkinWhite) {
+        self.backgroundColor = UIColor.whiteColor;
+        self.layer.shadowColor = [UIColor clearColor].CGColor;
+    } else {
+        self.backgroundColor = HEXCOLOR(0x242a37);
+        self.layer.shadowColor = [UIColor blackColor].CGColor;
+    }
+    [self.contentView refreshSkin];
+}
+
 - (instancetype)initWithFrame:(CGRect)frame {
     if(self = [super initWithFrame:frame]) {
         self.backgroundColor = HEXCOLOR(0x242a37);

@@ -19,12 +19,30 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = MKBakcColor;
-        self.mkDataTitleArray = @[@"我的余额",@"我的抖币",@"邀请好友",@"填写邀请码"];
+         self.mkDataTitleArray = @[@"我的余额",@"我的抖币",@"邀请好友",@"填写邀请码"];
          self.mkDataImageArray = @[@"MK0我的余额",@"MK0我的金币",@"MK0邀请好友",@"MK0填写邀请码"];
         self.mkCollectionView.alpha = 1;
     }
     return self;
 }
+
+-(void)refreshSkin {
+    if ([SkinManager manager].skin == MKSkinWhite) {
+        self.backgroundColor = UIColor.whiteColor;
+        self.mkCollectionView.backgroundColor = UIColor.whiteColor;
+        self.mkCollectionView.tintColor =  UIColor.whiteColor;
+        self.mkDataTitleArray = @[@"我的余额",@"我的抖币",@"邀请好友",@"填写邀请码"];
+        self.mkDataImageArray = @[@"MK0我的余额",@"MK0我的金币",@"MK0邀请好友",@"MK0填写邀请码"];
+    } else {
+        self.backgroundColor = MKBakcColor;
+        self.mkCollectionView.backgroundColor = MKBakcColor;
+        self.mkCollectionView.tintColor =  MKBakcColor;
+        self.mkDataTitleArray = @[@"我的余额",@"我的抖币",@"邀请好友",@"填写邀请码"];
+        self.mkDataImageArray = @[@"MK0我的余额",@"MK0我的金币",@"MK0邀请好友",@"MK0填写邀请码"];
+    }
+    [self.mkCollectionView reloadData];
+}
+
 - (UICollectionView *)mkCollectionView{
     
     if (!_mkCollectionView) {
@@ -64,7 +82,11 @@
     MKMenueCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MKMenueCell" forIndexPath:indexPath];
     cell.mKIMGaeView.mkTitleLable.text = self.mkDataTitleArray[indexPath.item];
     cell.mKIMGaeView.mkButton.hidden = YES;
-    cell.mKIMGaeView.mkTitleLable.textColor = [UIColor whiteColor];
+    if([SkinManager manager].skin == MKSkinWhite) {
+        cell.mKIMGaeView.mkTitleLable.textColor = [UIColor blackColor];
+    } else {
+        cell.mKIMGaeView.mkTitleLable.textColor = [UIColor whiteColor];
+    }
     cell.mKIMGaeView.mkImageView.image = KIMG(self.mkDataImageArray[indexPath.item]);
     return cell;
 }

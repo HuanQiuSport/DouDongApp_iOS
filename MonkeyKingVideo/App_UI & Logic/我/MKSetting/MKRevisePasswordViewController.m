@@ -20,13 +20,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = MKBakcColor;
-    self.gk_backStyle = GKNavigationBarBackStyleWhite;
     self.gk_navTitleColor = kWhiteColor;
+    self.gk_backStyle = GKNavigationBarBackStyleWhite;
     self.gk_navTitle = @"修改密码";
     self.gk_navLineHidden = YES;
     [self initUI];
-           
+    [self refreshSkin];
 }
+
+-(void)refreshSkin {
+    if ([SkinManager manager].skin == MKSkinWhite) {
+        self.view.backgroundColor = UIColor.whiteColor;
+        self.gk_navTitleColor = UIColor.blackColor;
+        self.gk_backStyle = GKNavigationBarBackStyleBlack;
+    } else {
+        self.view.backgroundColor = MKBakcColor;
+        self.gk_navTitleColor = kWhiteColor;
+        self.gk_backStyle = GKNavigationBarBackStyleWhite;
+    }
+}
+
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -34,8 +47,30 @@
 }
 
 - (void)initUI {
+    
+    UIColor *labColor = UIColor.whiteColor;
+    UIColor *lineColor = HEXCOLOR(0x4C525F);
+    UIColor *filedColor = UIColor.whiteColor;
+    UIColor *filedHolderColor = HEXCOLOR(0x4C525F);
+    UIColor *topLineViewColor = UIColor.clearColor;
+    if ([SkinManager manager].skin == MKSkinWhite) {
+        labColor = UIColor.blackColor;
+        lineColor = COLOR_HEX(0xA2A2A2,0.2);
+        filedColor = UIColor.blackColor;
+        filedHolderColor = HEXCOLOR(0x999999);
+        topLineViewColor = COLOR_HEX(0xA2A2A2,0.2);
+    }
     NSArray *titles = @[@"原密码",@"新密码",@"确认新密码"];
     NSArray *placeholders = @[@"请输入原密码",@"请输入6-12位字母或数字的组合密码",@"请再次输入密码"];
+    UIView *topLineView = UIView.new;
+    [self.view addSubview:topLineView];
+    topLineView.backgroundColor = topLineViewColor;
+    [topLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.offset(0);
+        make.right.offset(0);
+        make.height.mas_equalTo(5);
+        make.top.mas_equalTo(self.gk_navigationBar.mas_bottom).offset(0);
+    }];
     for (int i = 0; i < titles.count; i++) {
         UILabel *lab = UILabel.new;
         [self.view addSubview:lab];
@@ -46,7 +81,7 @@
         }];
         lab.text = titles[i];
         lab.font = [UIFont systemFontOfSize:15];
-        lab.textColor = UIColor.whiteColor;
+        lab.textColor = labColor;
         UITextField *field = UITextField.new;
         [self.view addSubview:field];
         [field mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -56,12 +91,12 @@
             make.right.offset(-20);
         }];
         NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:placeholders[i] attributes:
-           @{NSForegroundColorAttributeName:HEXCOLOR(0x4C525F),
+           @{NSForegroundColorAttributeName:filedHolderColor,
              NSFontAttributeName:[UIFont systemFontOfSize:17]}
            ];
         field.attributedPlaceholder = attrString;
         
-        field.textColor = UIColor.whiteColor;
+        field.textColor = filedColor;
         field.font = [UIFont systemFontOfSize:17];
         
         [field addTarget:self
@@ -83,7 +118,7 @@
             make.height.offset(1);
             make.top.mas_equalTo(field.mas_bottom).offset(0);
         }];
-        line.backgroundColor = HEXCOLOR(0x4C525F);
+        line.backgroundColor = lineColor;
     }
     UIButton *btn = UIButton.new;
     [self.view addSubview:btn];

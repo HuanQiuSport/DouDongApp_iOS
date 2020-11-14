@@ -97,6 +97,17 @@
     }
     return self;
 }
+
+-(void)refreshSkin {
+    [self.customView1 refreshSkin];
+    [self.customView2 refreshSkin];
+    [self.customView3 refreshSkin];
+    [self.customView4 refreshSkin];
+    [self.customView5 refreshSkin];
+    [self.customView6 refreshSkin];
+}
+
+
 - (void)setupView {
     
     // 设置Label的frame

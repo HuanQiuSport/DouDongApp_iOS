@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MKNoticeView : UIView
 @property(nonatomic,strong) NSArray<NSString *> *dataSource;
+-(void)refreshSkin;
 @end
 
 NS_ASSUME_NONNULL_END

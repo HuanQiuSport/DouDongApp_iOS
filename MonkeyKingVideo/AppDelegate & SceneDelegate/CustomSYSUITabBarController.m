@@ -209,7 +209,7 @@ CGFloat LZB_TABBAR_HEIGHT;
         
         LZBTabBarItem *item1 = LZBTabBarItem.new;
         item1.title = @"首页";
-        item1.selectImage = [UIImage imageNamed:@"Home_selected"];
+        item1.selectImage = [UIImage imageNamed:@"white_tabbar_首页"];
         item1.unSelectImage = [UIImage imageNamed:@"Home_unselected"];
         item1.unselectTitleAttributes = unselectTitleAttributes;
         item1.selectTitleAttributes = selectTitleAttributes;
@@ -217,28 +217,28 @@ CGFloat LZB_TABBAR_HEIGHT;
         LZBTabBarItem *item2 = LZBTabBarItem.new;
         item2.title = @"社区";
         item2.selectImage = [UIImage imageNamed:@"community_selected"];
-        item2.unSelectImage = [UIImage imageNamed:@"community_unselected"];
+        item2.unSelectImage = [UIImage imageNamed:@"white_tabbar_nor_社区选中"];
         item2.unselectTitleAttributes = unselectTitleAttributes;
         item2.selectTitleAttributes = selectTitleAttributes;
         
         LZBTabBarItem *item3 = LZBTabBarItem.new;
         item3.title = @"拍照与上传";
-        item3.selectImage = [UIImage imageNamed:@"whtie_录视频"];
-        item3.unSelectImage = [UIImage imageNamed:@"whtie_录视频"];
+        item3.selectImage = [UIImage imageNamed:@"white_tabbar_录视频"];
+        item3.unSelectImage = [UIImage imageNamed:@"white_tabbar_录视频"];
         item3.unselectTitleAttributes = unselectTitleAttributes;
         item3.selectTitleAttributes = selectTitleAttributes;
         
         LZBTabBarItem *item4 = LZBTabBarItem.new;
         item4.title = @"赚币";
         item4.selectImage = [UIImage imageNamed:@"task_selected"];
-        item4.unSelectImage = [UIImage imageNamed:@"task_unselected"];
+        item4.unSelectImage = [UIImage imageNamed:@"white_tabbar_nor_赚币"];
         item4.unselectTitleAttributes = unselectTitleAttributes;
         item4.selectTitleAttributes = selectTitleAttributes;
         
         LZBTabBarItem *item5 = LZBTabBarItem.new;
         item5.title = @"我的";
         item5.selectImage = [UIImage imageNamed:@"My_selected"];
-        item5.unSelectImage = [UIImage imageNamed:@"My_unselected"];
+        item5.unSelectImage = [UIImage imageNamed:@"white_tabbar_nor_我的"];
         item5.unselectTitleAttributes = unselectTitleAttributes;
         item5.selectTitleAttributes = selectTitleAttributes;
         [_humpTabBarItems addObjectsFromArray:@[item1,item2,item3,item4,item5]];
@@ -271,8 +271,8 @@ CGFloat LZB_TABBAR_HEIGHT;
         
         LZBTabBarItem *item3 = LZBTabBarItem.new;
         item3.title = @"";
-        item3.selectImage = [UIImage imageNamed:@"whtie_录视频"];
-        item3.unSelectImage = [UIImage imageNamed:@"whtie_录视频"];
+        item3.selectImage = [UIImage imageNamed:@"Camera"];
+        item3.unSelectImage = [UIImage imageNamed:@"Camera"];
         item3.unselectTitleAttributes = unselectTitleAttributes;
         item3.selectTitleAttributes = selectTitleAttributes;
         

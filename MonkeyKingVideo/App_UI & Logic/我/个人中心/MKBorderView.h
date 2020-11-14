@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong,nonatomic) NSArray *mkDataImageArray;
 ///  delegate
 @property (weak,nonatomic) id<MKMineDidDelegate> mkDelegate;
+
+-(void)refreshSkin;
 @end
 
 NS_ASSUME_NONNULL_END

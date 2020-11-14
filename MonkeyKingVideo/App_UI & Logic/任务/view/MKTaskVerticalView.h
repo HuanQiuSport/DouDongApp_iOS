@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong) NSArray<NSString *> *dataSource;
 
 -(instancetype)initWithFrame:(CGRect)frame;
-
+-(void)refreshSkin;
 @end
 
 NS_ASSUME_NONNULL_END

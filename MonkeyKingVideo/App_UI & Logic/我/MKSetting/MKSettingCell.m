@@ -34,6 +34,15 @@
     return self;
 }
 
+-(void)refreshSkin {
+    if([SkinManager manager].skin == MKSkinWhite) {
+        self.backgroundColor = UIColor.whiteColor;
+    } else {
+        self.backgroundColor = RGBCOLOR(30, 36, 50);
+    }
+    [self.mkSettingView refreshSkin];
+}
+
 #pragma mark - 添加子视图
 - (void)mkAddSubView{
     

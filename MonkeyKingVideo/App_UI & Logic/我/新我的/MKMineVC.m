@@ -92,9 +92,41 @@
   
      [self mkAddView];
     [self addNotifaction];
-   
     
+    [self refreshSkin];
 }
+
+-(void)refreshSkin {
+    if ([SkinManager manager].skin == MKSkinWhite) {
+        UIColor *backColor = UIColor.whiteColor;
+        self.view.backgroundColor = backColor;
+        self.categoryView.backgroundColor = backColor;//
+        self.categoryView.titleColor = HEXCOLOR(0x8F8F94);
+        self.categoryView.titleSelectedColor = UIColor.blackColor;
+        self.userHeaderView.backgroundColor = backColor;
+        self.pagerView.backgroundColor = backColor;
+        self.pagerView.mainTableView.backgroundColor = backColor;
+        self.categoryView.subviews.firstObject.backgroundColor = backColor;
+        self.pagerView.mainTableView.backgroundColor = backColor;
+        self.pagerView.listContainerView.listCellBackgroundColor = backColor;
+        self.gk_navBackgroundColor = backColor;
+    } else {
+        self.view.backgroundColor = MKBakcColor;
+        self.categoryView.backgroundColor = MKBakcColor;//
+        self.categoryView.titleColor = MKNoSelectColor;
+        self.categoryView.titleSelectedColor = UIColor.redColor;
+        self.userHeaderView.backgroundColor = MKBakcColor;
+        self.pagerView.backgroundColor = MKBakcColor;
+        self.pagerView.mainTableView.backgroundColor = MKBakcColor;
+        self.categoryView.subviews.firstObject.backgroundColor = MKBakcColor;
+        self.pagerView.mainTableView.backgroundColor = MKBakcColor;
+        self.pagerView.listContainerView.listCellBackgroundColor = MKBakcColor;
+        self.gk_navBackgroundColor = MKBakcColor;
+    }
+    [self.userHeaderView refreshSkin];
+}
+
+
 
 - (void)addNotifaction {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccess) name:KLoginSuccessNotifaction object:nil];

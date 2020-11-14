@@ -20,6 +20,28 @@
     }
     return self;
 }
+-(void)refreshSkin {
+    if ([SkinManager manager].skin == MKSkinWhite) {
+        self.loginLab.textColor = HEXCOLOR(0x000000);
+        self.mkUserLabel.textColor = HEXCOLOR(0x000000);
+        [self.mkSexAge setTitleColor:HEXCOLOR(0x000000) forState:UIControlStateNormal];
+        self.mkArea.textColor = HEXCOLOR(0x000000);
+        self.mkConstellationLab.textColor = HEXCOLOR(0x000000);
+        self.mkDetailLabel.textColor = HEXCOLOR(0x000000);
+    } else {
+        self.loginLab.textColor = UIColor.whiteColor;
+        self.mkUserLabel.textColor = [UIColor whiteColor];
+        [self.mkSexAge setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        self.mkArea.textColor =  [UIColor whiteColor];
+        self.mkConstellationLab.textColor = [UIColor whiteColor];
+        self.mkDetailLabel.textColor = [UIColor whiteColor];
+    }
+    [self.mkAttentionNumView refreshSkin];
+    [self.mkFansNumView refreshSkin];
+    [self.mkZanNumView refreshSkin];
+    [self.mkMultiBtnView refreshSkin];
+    
+}
 
 #pragma mark - 添加子视图
 - (void)mkAddSubView{

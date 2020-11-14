@@ -105,8 +105,8 @@ UITableViewDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = HEXCOLOR(0x242A37);
     
+    self.view.backgroundColor = HEXCOLOR(0x242A37);
     self.gk_navLeftBarButtonItem = self.scanBtnItem;
     self.gk_navRightBarButtonItems = @[self.msgBtnItem,self.settingBtnItem];
     self.gk_navTitle = @"";
@@ -114,13 +114,9 @@ UITableViewDelegate
     self.navigationController.navigationBar.hidden = YES;
     [SceneDelegate sharedInstance].customSYSUITabBarController.gk_navigationBar.hidden = YES;
     self.tableView.alpha = 1;
-    
     [self addNotification];
-    
     self.settingBtnItem.badge.text = self.myVCModel.msgNum.stringValue;
-    
     self.settingBtnItem.badgeBGColor = [UIColor redColor];
-
     self.interactivePushGestureEnabled = NO; // 设置成YES会导致整个app变卡，估计是手势冲突
     self.interactivePushGestureDelegate = self;
 }

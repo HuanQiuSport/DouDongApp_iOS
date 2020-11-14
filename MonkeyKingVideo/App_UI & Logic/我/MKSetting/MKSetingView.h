@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 右边图片
 @property (strong,nonatomic) UIImageView *mkRightImageView;
+
+-(void)refreshSkin;
 @end
 
 NS_ASSUME_NONNULL_END

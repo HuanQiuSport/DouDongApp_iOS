@@ -17,6 +17,16 @@
     }
     return self;
 }
+-(void)refreshSkin {
+    if ([SkinManager manager].skin == MKSkinWhite) {
+        self.mkNumberLabel.textColor = HEXCOLOR(0x8F8F94);
+        self.mkTitleLabel.textColor = HEXCOLOR(0x8F8F94);
+    } else {
+        self.mkNumberLabel.textColor = [UIColor whiteColor];
+        self.mkTitleLabel.textColor = MKTextColor;
+    }
+}
+
 #pragma mark - 添加子视图
 - (void)mkAddSubView{
     self.mkNumberLabel.alpha = 1;

@@ -14,7 +14,7 @@
 @interface MKTaskVerticalViewCell1 : UIView
 
 @property(nonatomic,strong) UILabel *lable;
-
+-(void)refreshSkin;
 @end
 
 
@@ -34,10 +34,22 @@
     if(_lable == nil) {
         _lable = UILabel.new;
         _lable.font = [UIFont systemFontOfSize:13];
+        _lable.backgroundColor = [UIColor clearColor];
         _lable.textColor = [UIColor whiteColor];
     }
     return  _lable;
 }
+-(void)refreshSkin {
+    if ([SkinManager manager].skin == MKSkinWhite) {
+        self.lable.textColor = UIColor.blackColor;
+        self.lable.font = [UIFont systemFontOfSize:14 weight:UIFontWeightMedium];
+    } else {
+        self.lable.textColor = [UIColor whiteColor];
+        self.lable.font = [UIFont systemFontOfSize:13];
+    }
+}
+
+
 @end
 
 @interface MKTaskVerticalViewCell : UITableViewCell
@@ -115,6 +127,12 @@
 - (void)setDataSource:(NSArray<NSString *> *)dataSource {
     _dataSource = dataSource;
     [self initSubView];
+}
+
+-(void)refreshSkin {
+    for (MKTaskVerticalViewCell1 *view1 in self.subViewArray) {
+        [view1 refreshSkin];
+    }
 }
 
 -(void)initSubView {

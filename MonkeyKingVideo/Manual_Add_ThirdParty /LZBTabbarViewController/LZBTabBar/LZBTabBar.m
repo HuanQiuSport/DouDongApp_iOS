@@ -36,6 +36,24 @@
     }return self;
 }
 
+// 点击的覆盖方法，点击时判断点是否在path内，YES则响应，NO则不响应
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
+{
+    BOOL res = [super pointInside:point withEvent:event];
+    if(self.path == nil) {
+        return res;
+    }
+    if (res)
+    {
+        if ([self.path containsPoint:point])
+        {
+            return YES;
+        }
+        return NO;
+    }
+    return NO;
+}
+
 -(void)drawRect:(CGRect)rect{
     [super drawRect:rect];
     if(_tabBarStyleType == LZBTabBarStyleType_middleItemUp) {
@@ -101,6 +119,14 @@
         [item setNeedsDisplay];
         index++;
     }
+    // 阴影颜色
+    self.layer.shadowColor = UIColor.grayColor.CGColor;
+       // 阴影偏移，默认(0, -3)
+    self.layer.shadowOffset = CGSizeMake(0,0);
+       // 阴影透明度，默认0
+    self.layer.shadowOpacity = 0.5;
+       // 阴影半径，默认3
+    self.layer.shadowRadius = 5;
 }
 
 - (void)setupUI {
@@ -128,6 +154,15 @@
         [item setNeedsDisplay];
         index++;
     }
+    self.path = nil;
+    // 阴影颜色
+    self.layer.shadowColor = UIColor.clearColor.CGColor;
+       // 阴影偏移，默认(0, -3)
+    self.layer.shadowOffset = CGSizeMake(0,0);
+       // 阴影透明度，默认0
+    self.layer.shadowOpacity = 0;
+       // 阴影半径，默认3
+    self.layer.shadowRadius = 0;
 }
 #pragma mark —— API
 ///点击事件
