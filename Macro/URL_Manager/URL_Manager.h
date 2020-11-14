@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (URL_Manager *)sharedInstance;
 
+-(NSString *)channelUrl;
+
 -(NSString *)BaseUrl_1;
 -(NSString *)BaseUrl_H5;
 #pragma mark —— APP登录信息相关接口

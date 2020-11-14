@@ -244,14 +244,15 @@ shouldChangeTextInRange:(NSRange)range
         @weakify(self)
         [[_sureBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self)
-            if (![NSString isNullString:self.textView.text]) {
-                if (self.changePersonalizedSignatureBlock) {
-                    self.changePersonalizedSignatureBlock(self.textView);
-                }
-            }else{
-                [MBProgressHUD wj_showPlainText:@"总的写点什么吧"
-                                           view:nil];
-            }
+            self.changePersonalizedSignatureBlock(self.textView);
+//            if (![NSString isNullString:self.textView.text]) {
+//                if (self.changePersonalizedSignatureBlock) {
+//
+//                }
+//            }else{
+//                [MBProgressHUD wj_showPlainText:@"总的写点什么吧"
+//                                           view:nil];
+//            }
         }];
     }
     return _sureBtn;
