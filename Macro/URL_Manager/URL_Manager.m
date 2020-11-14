@@ -24,12 +24,26 @@ static URL_Manager *static_URL_Manager = nil;
     return txt;
 }
 
+-(NSString *)channelUrl {
+    return @"doudong00.cn";
+}
+
+-(BOOL)testMode {
+    return false;
+}
+
 -(NSString *)BaseUrl_1{
-    return append(@"%@%@",HTTP,@"222.186.150.148/api");
+    if([self testMode]) {
+        return @"http://222.186.150.148/api/";
+    }
+    return @"";
 }
 
 -(NSString *)BaseUrl_H5{
-    return append(@"%@%@",HTTP,@"222.186.150.148");
+    if([self testMode]) {
+        return @"http://222.186.150.148/taskpage";
+    }
+    return @"";
 }
 #pragma mark —— APP登录信息相关接口
 /// POST找回密码接口-修改密码
@@ -400,35 +414,35 @@ static URL_Manager *static_URL_Manager = nil;
 #pragma mark —— H5那一套
 /// 帮助中心
 -(NSString *)MKH5HelpCenter{
-    return @"/taskpage/#/helpCenter"; 
+    return @"/#/helpCenter";
 }
 /// 填写邀请码
 -(NSString *)MKH5InvitationCode{
-    return @"/taskpage/#/invitationcode";
+    return @"/#/invitationcode";
 }
 /// 邀请好友
 -(NSString *)MKH5Invit{
-    return @"/taskpage/#/invit";
+    return @"/#/invit";
 }
 /// 银行卡
 -(NSString *)MKH5BankCard{
-    return @"/taskpage/#/bandcard";
+    return @"/#/bandcard";
 }
 /// 上传须知
 -(NSString *)MKH5UploadNotice{
-    return @"/taskpage/#/uolodNotice";
+    return @"/#/uolodNotice";
 }
 /// 开屏广告
 -(NSString *)MKH5OpenScrennAD{
-    return @"/taskpage/#/adverti";
+    return @"/#/adverti";
 }
 /// 任务
 -(NSString *)MKH5Task{
-    return @"/taskpage/#/task";
+    return @"/#/task";
 }
 /// 绑卡
 -(NSString *)MKH5bandalipay{
-    return @"/taskpage/#/bandalipay";
+    return @"/#/bandalipay";
 }
 ///
 -(NSString *)ImgBaseURL{
