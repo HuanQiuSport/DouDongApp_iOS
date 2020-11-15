@@ -15,7 +15,7 @@
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import "MKLoopProgressHUD.h"
 @interface MKTools()
-
+@property(nonatomic,assign) BOOL isShowUpdate;
 @end
 
 @implementation MKTools
@@ -670,6 +670,12 @@ didFinishSavingWithError:(NSError *)error
 //        dispatch_async(dispatch_get_main_queue(), ^{
 //        });
 //    });
+    if(self.isShowUpdate) {
+        return;
+    } else {
+        self.isShowUpdate = true;
+    }
+    
     if(visionContent == nil) {
         visionContent = @"";
     }
@@ -713,11 +719,12 @@ didFinishSavingWithError:(NSError *)error
         make.right.equalTo(bgview).offset(0);
     }];
     lab.textColor = RGBCOLOR(58, 58, 58);
-    lab.text = [NSString stringWithFormat:@"V%@",versionCode];
+    if(versionCode.length == 0) {
+        lab.text = [NSString stringWithFormat:@"%@",versionCode];
+    } else {
+        lab.text = [NSString stringWithFormat:@"V%@",versionCode];
+    }
     lab.font = [UIFont systemFontOfSize:11];
-    
-    
-    
     UITextView *contentView = UITextView.new;
     [bgview addSubview:contentView];
     
@@ -751,6 +758,7 @@ didFinishSavingWithError:(NSError *)error
     [btn setTitle:@"更新" forState:UIControlStateNormal];
     [btn addAction:^(UIButton *btn) {
         [MBProgressHUD hideHUDForView:view animated:true];
+        self.isShowUpdate = false;
         if(appUrl != nil) {
             NSURL * url = [NSURL URLWithString:appUrl];
             BOOL canOpen = [[UIApplication sharedApplication] canOpenURL:url];
@@ -785,6 +793,7 @@ didFinishSavingWithError:(NSError *)error
     [btn2 setTitle:@"取消" forState:UIControlStateNormal];
     [btn2 addAction:^(UIButton *btn) {
         [MBProgressHUD hideHUDForView:view animated:true];
+        self.isShowUpdate = false;
     }];
     
     [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
