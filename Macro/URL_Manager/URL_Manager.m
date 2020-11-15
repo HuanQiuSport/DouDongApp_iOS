@@ -29,7 +29,7 @@ static URL_Manager *static_URL_Manager = nil;
 }
 
 -(BOOL)testMode {
-    return false;
+    return YES;
 }
 
 -(NSString *)BaseUrl_1{
