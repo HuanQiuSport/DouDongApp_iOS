@@ -253,7 +253,7 @@
     self.userHeaderView.mkPersonView.mkAttentionBtn.selected = [self.mkPernalModel.attention isEqualToString:@"1"]?YES:NO;
     //[self.mkPernalModel.areSelf isEqualToString:@"1"]?YES:NO
     self.userHeaderView.mkPersonView.mkAttentionBtn.hidden = YES;
-    self.userHeaderView.mkPersonView.mkUserVIPImageView.hidden =  [self.mkPernalModel.isVip isEqualToString:@"0"]?YES:NO;
+    self.userHeaderView.mkPersonView.mkUserVIPImageView.hidden = YES;
     [_userHeaderView.mkPersonView setAtttionStyle:_userHeaderView.mkPersonView.mkAttentionBtn.selected];
     if ([self.mkPernalModel.headImage rangeOfString:@"headimg"].location != NSNotFound) {
         _userHeaderView.mkPersonView.mkUserImageView.image = KIMG(@"默认头像2");

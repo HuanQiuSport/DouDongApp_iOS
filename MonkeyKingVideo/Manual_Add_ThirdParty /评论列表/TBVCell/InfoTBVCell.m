@@ -48,7 +48,7 @@
 
         self.name.text = [NSString stringWithFormat:@"@%@",self.childCommentModel.nickname];
         self.supportBtn.userInteractionEnabled = 1;
-        self.vipImageView.hidden =  ![self.childCommentModel.isVip boolValue];
+        self.vipImageView.hidden = YES; //  ![self.childCommentModel.isVip boolValue];
         NSString *replyString = self.childCommentModel.toReplyUserName.length ? @"回复 " : @"";
         NSString *nameString = self.childCommentModel.toReplyUserName.length ? [NSString stringWithFormat:@"%@:",self.childCommentModel.toReplyUserName] : @"";
         NSString *contentString = self.childCommentModel.content;

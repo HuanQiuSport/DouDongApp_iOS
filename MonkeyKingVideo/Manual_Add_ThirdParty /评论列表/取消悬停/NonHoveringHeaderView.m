@@ -46,7 +46,7 @@
             self.titleLab.alpha = 1;
             self.contentLab.alpha = 1;
             
-            self.vipImageView.hidden =  ![self.firstCommentModel.isVip boolValue];
+            self.vipImageView.hidden =  YES; // ![self.firstCommentModel.isVip boolValue];
             //            [self.LikeBtn setThumbWithSelected:self.firstCommentModel.isPraise.boolValue thumbNum:self.firstCommentModel.praiseNum.integerValue animation:NO];
             self.heartIcon.image = KIMG(self.firstCommentModel.isPraise.boolValue ? @"喜欢-红心":@"喜欢-白心");
             self.countLab.text = [NSString stringWithFormat:@"%d",self.firstCommentModel.praiseNum.intValue];

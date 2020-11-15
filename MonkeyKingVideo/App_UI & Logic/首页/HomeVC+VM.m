@@ -44,7 +44,8 @@
     WeakSelf
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_GET
                                                            path:[URL_Manager sharedInstance].MKVersionInfoGET
-                                                     parameters:@{@"originType":@"0"}];
+                                                     parameters:@{@"originType":@"0",
+                                                                  @"channelUrl":[URL_Manager sharedInstance].channelUrl}];
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         if (response.isSuccess) {
@@ -53,9 +54,8 @@
                 NSLog(@"%@",response.reqResult[@"versionCode"]);
                 NSString *storeVersion = response.reqResult[@"versionCode"];
                 NSString *nativeVersion = HDAppVersion;
-                if ([storeVersion intValue] > [nativeVersion intValue]) {
+                if ([storeVersion floatValue] > [nativeVersion floatValue]) {
                     NSLog(@"本地版本与商店版本号相同，不需要更新");
-                } else {
                     // 检查更新
                     NSString *versionCode = response.reqResult[@"versionCode"];
                     if(versionCode == nil) {

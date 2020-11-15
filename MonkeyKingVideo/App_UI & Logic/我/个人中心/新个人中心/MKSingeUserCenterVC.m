@@ -154,7 +154,7 @@
 - (void)MKaddValue{
     
     self.userHeaderView.mkPersonView.mkAttentionBtn.selected = [self.mkPernalModel.attention isEqualToString:@"1"]?YES:NO;
-    self.userHeaderView.mkPersonView.mkUserVIPImageView.hidden = [self.mkPernalModel.isVip isEqualToString:@"0"]?YES:NO;
+    self.userHeaderView.mkPersonView.mkUserVIPImageView.hidden = YES;
     self.userHeaderView.mkPersonView.mkAttentionBtn.hidden = [self.mkPernalModel.areSelf isEqualToString:@"1"]?YES:NO;
     [_userHeaderView.mkPersonView setAtttionStyle:_userHeaderView.mkPersonView.mkAttentionBtn.selected];
     [_userHeaderView.mkPersonView.mkUserImageView sd_setImageWithURL:[NSURL URLWithString:self.mkPernalModel.headImage]];
