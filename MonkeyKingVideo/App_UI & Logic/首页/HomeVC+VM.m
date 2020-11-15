@@ -53,9 +53,8 @@
                 NSLog(@"%@",response.reqResult[@"versionCode"]);
                 NSString *storeVersion = response.reqResult[@"versionCode"];
                 NSString *nativeVersion = HDAppVersion;
-                if ([storeVersion intValue] > [nativeVersion intValue]) {
+                if ([storeVersion floatValue] > [nativeVersion floatValue]) {
                     NSLog(@"本地版本与商店版本号相同，不需要更新");
-                } else {
                     // 检查更新
                     NSString *versionCode = response.reqResult[@"versionCode"];
                     if(versionCode == nil) {
