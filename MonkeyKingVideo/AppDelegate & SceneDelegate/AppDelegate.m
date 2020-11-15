@@ -86,9 +86,9 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         configure.gk_scaleX = 0.90;
         configure.gk_scaleY = 0.92;
         // 导航栏背景色
-        configure.backgroundColor = kClearColor;
+        configure.backgroundColor = UIColor.whiteColor;
         // 导航栏标题颜色
-        configure.titleColor = kWhiteColor;
+        configure.titleColor = UIColor.blackColor;
         // 导航栏标题字体
         configure.titleFont = [UIFont systemFontOfSize:18.0f];
         // 导航栏返回按钮样式
