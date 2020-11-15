@@ -89,15 +89,16 @@ UINavigationControllerDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = HEXCOLOR(0x242A37);
     self.gk_navTitle = @"个人资料";
-    self.gk_navTitleColor = kWhiteColor;
     self.gk_statusBarHidden = NO;
-    self.gk_navLineHidden = 1;
-    self.gk_backStyle = GKNavigationBarBackStyleWhite;
+    self.gk_navLineHidden = YES;
     self.tableView.alpha = 1;
     self.headerBtn.alpha = 1;
     self.addressPickerView.pickerMode = BRAddressPickerModeProvince;
+    self.view.backgroundColor = HEXCOLOR(0xFAFAFA);
+    self.gk_navTitleColor = UIColor.blackColor;
+    self.gk_navBackgroundColor = UIColor.whiteColor;
+    self.gk_backStyle = GKNavigationBarBackStyleBlack;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -405,7 +406,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (UIView *)tableView:(UITableView *)tableView
 viewForHeaderInSection:(NSInteger)section {
     UIView *view = UIView.new;
-    view.backgroundColor = HEXCOLOR(0x20242F);
+    view.backgroundColor = HEXCOLOR(0xFAFAFA);
     UILabel *lab = UILabel.new;
     [view addSubview:lab];
     [lab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -413,7 +414,7 @@ viewForHeaderInSection:(NSInteger)section {
         make.top.bottom.offset(0);
     }];
     lab.text = @"账号与安全";
-    lab.textColor = HEXCOLOR(0xA7A7A7);
+    lab.textColor = HEXCOLOR(0x8F8F94);
     lab.font = [UIFont systemFontOfSize:13];
     return view;
 }
@@ -432,23 +433,23 @@ heightForHeaderInSection:(NSInteger)section {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             cell.rightLab.text = self.userInfoModel.nickName.length ? self.userInfoModel.nickName : @"未填写";
-            cell.rightLab.textColor = self.userInfoModel.nickName.length ? UIColor.whiteColor : HEXCOLOR(0xA7A7A7);
+            cell.rightLab.textColor = self.userInfoModel.nickName.length ? UIColor.blackColor : HEXCOLOR(0x999999);
             [cell hideIcon:0];
         } else if (indexPath.row == 1) {
             cell.rightLab.text = self.userInfoModel.remark.length ? self.userInfoModel.remark : @"未填写";
-            cell.rightLab.textColor = self.userInfoModel.remark.length ? UIColor.whiteColor : HEXCOLOR(0xA7A7A7);
+            cell.rightLab.textColor = self.userInfoModel.remark.length ? UIColor.blackColor : HEXCOLOR(0x999999);
             [cell hideIcon:0];
         } else if (indexPath.row == 2) {
             cell.rightLab.text = self.userInfoModel.sex.length ? self.userInfoModel.sex : @"未选择";
-            cell.rightLab.textColor = self.userInfoModel.sex.length ? UIColor.whiteColor : HEXCOLOR(0xA7A7A7);
+            cell.rightLab.textColor = self.userInfoModel.sex.length ? UIColor.blackColor : HEXCOLOR(0x999999);
             [cell hideIcon:0];
         } else if (indexPath.row == 3) {
             cell.rightLab.text = self.userInfoModel.birthday.length ? self.userInfoModel.birthday : @"未选择";
-            cell.rightLab.textColor = self.userInfoModel.birthday.length ? UIColor.whiteColor : HEXCOLOR(0xA7A7A7);
+            cell.rightLab.textColor = self.userInfoModel.birthday.length ? UIColor.blackColor : HEXCOLOR(0x999999);
             [cell hideIcon:0];
         } else if (indexPath.row == 4) {
             cell.rightLab.text = self.userInfoModel.area.length ? self.userInfoModel.area : @"未选择";
-            cell.rightLab.textColor = self.userInfoModel.area.length ? UIColor.whiteColor : HEXCOLOR(0xA7A7A7);
+            cell.rightLab.textColor = self.userInfoModel.area.length ? UIColor.blackColor : HEXCOLOR(0x999999);
             [cell hideIcon:0];
         }
     } else {
@@ -473,7 +474,7 @@ heightForHeaderInSection:(NSInteger)section {
 -(UITableView *)tableView{
     if (!_tableView) {
         _tableView = UITableView.new;
-        _tableView.backgroundColor = kClearColor;
+        _tableView.backgroundColor =  HEXCOLOR(0xFAFAFA);
         _tableView.pagingEnabled = YES;//这个属性为YES会使得Tableview一格一格的翻动
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
@@ -481,10 +482,10 @@ heightForHeaderInSection:(NSInteger)section {
         _tableView.dataSource = self;
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.gk_navigationBar.mas_bottom);
+            make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(10);
             make.left.right.equalTo(self.view);
             extern CGFloat LZB_TABBAR_HEIGHT;
-            make.bottom.equalTo(self.view).offset(-LZB_TABBAR_HEIGHT);
+            make.bottom.equalTo(self.view).offset(0);
         }];
         _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         _tableView.estimatedRowHeight = 0;
@@ -553,17 +554,18 @@ heightForHeaderInSection:(NSInteger)section {
 -(UIView *)tableViewHeaderView{
     if (!_tableViewHeaderView) {
         _tableViewHeaderView = UIView.new;
+        _tableViewHeaderView.backgroundColor = UIColor.whiteColor;
         _tableViewHeaderView.frame = CGRectMake(0,
                                                 0,
                                                 SCREEN_WIDTH,
-                                                _imageHeight+60+20+7);
-        UIView *botView = UIView.new;
-        [_tableViewHeaderView addSubview:botView];
-        [botView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.bottom.left.offset(0);
-            make.height.offset(7);
-        }];
-        botView.backgroundColor = HEXCOLOR(0x20242F);
+                                                _imageHeight+20 + 20);
+//        UIView *botView = UIView.new;
+//        [_tableViewHeaderView addSubview:botView];
+//        [botView mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.right.bottom.left.offset(0);
+//            make.height.offset(7);
+//        }];
+//        botView.backgroundColor = HEXCOLOR(0x20242F);
     }
     return _tableViewHeaderView;
 }

@@ -13,7 +13,7 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.contentView.backgroundColor = HEXCOLOR(0x242A37);
+        self.contentView.backgroundColor = UIColor.whiteColor;
         self.selectionStyle = 0;
         [self.contentView addSubview:self.leftLab];
         [self.contentView addSubview:self.rightLab];
@@ -62,7 +62,7 @@
 - (UILabel *)leftLab {
     if (!_leftLab) {
         _leftLab = UILabel.new;
-        _leftLab.textColor = UIColor.whiteColor;
+        _leftLab.textColor = UIColor.blackColor;
         _leftLab.font = [UIFont systemFontOfSize:15];
     }
     return _leftLab;
@@ -70,7 +70,7 @@
 - (UILabel *)rightLab {
     if (!_rightLab) {
         _rightLab = UILabel.new;
-        _rightLab.textColor = COLOR_HEX(0xffffff, 0.5);
+        _rightLab.textColor = UIColor.blackColor;
         _rightLab.font = [UIFont systemFontOfSize:15];
         _rightLab.numberOfLines = 0;
         _rightLab.textAlignment = NSTextAlignmentRight;
@@ -80,14 +80,14 @@
 - (UIView *)line {
     if (!_line) {
         _line = UIView.new;
-        _line.backgroundColor = RGBA_COLOR(0, 0, 0, 0.2);
+        _line.backgroundColor = RGBA_COLOR(0xA2, 0xA2, 0xA2, 0.2);
     }
     return _line;
 }
 - (UIImageView *)icon {
     if (!_icon) {
         _icon = UIImageView.new;
-        _icon.image = KIMG(@"WhiteRightArrow");
+        _icon.image = KIMG(@"white_未打开");
     }
     return _icon;
 }

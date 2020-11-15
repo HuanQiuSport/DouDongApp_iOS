@@ -65,13 +65,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:KIMG(@"nodata")];
+    self.view.backgroundColor = HEXCOLOR(0xF8F8F8);
+    self.gk_navLineHidden = YES;
     self.backView.alpha = 1;
     self.textView.alpha = 1;
     self.choosePicBtn.alpha = 1;
     self.tipsLab.alpha = 1;
-    
-
     self.agreementView.alpha = 1;
     [IQKeyboardManager sharedManager].enable = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationPhoto:) name:MKPhotoPushNotification object:nil];
@@ -274,7 +273,7 @@
     } else {
         self.releaseBtn.userInteractionEnabled = NO;
         self.releaseBtn.alpha = 0.4;
-        self.releaseBtn.backgroundColor = KLightGrayColor;
+//        self.releaseBtn.backgroundColor = KLightGrayColor;
     }
 }
 ///选择相册文件 imagePickerVc.allowPickingVideo
@@ -449,11 +448,11 @@ shouldChangeTextInRange:(NSRange)range
 -(UIView *)backView{
     if (!_backView) {
         _backView = UIView.new;
-        _backView.backgroundColor = kClearColor;
+        _backView.backgroundColor = UIColor.whiteColor;
         _backView.layer.masksToBounds = YES;
         _backView.layer.cornerRadius = 5;
-        _backView.layer.borderColor = [UIColor colorWithHexString:@"606060"].CGColor;
-        _backView.layer.borderWidth = 1.0;
+//        _backView.layer.borderColor = [UIColor colorWithHexString:@"606060"].CGColor;
+//        _backView.layer.borderWidth = 1.0;
         [self.view addSubview:_backView];
         [_backView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(32);
@@ -471,9 +470,9 @@ shouldChangeTextInRange:(NSRange)range
         _textView.delegate = self;
         _textView.attributedPlaceholder = [[NSMutableAttributedString alloc] initWithString:@"主人来两句嘛！"
                                                                                  attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15 weight:UIFontWeightRegular],
-                                                                                              NSForegroundColorAttributeName:[UIColor colorWithHexString:@"606060"]}];
-        _textView.placeholderTextColor = [UIColor colorWithHexString:@"606060"];
-        _textView.textColor = kWhiteColor;
+                                                                                              NSForegroundColorAttributeName:[UIColor colorWithHexString:@"999999"]}];
+        _textView.placeholderTextColor = [UIColor colorWithHexString:@"999999"];
+        _textView.textColor = UIColor.blackColor;
         _textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0];
         [self.backView addSubview:_textView];
         [_textView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -549,6 +548,7 @@ shouldChangeTextInRange:(NSRange)range
         _releaseBtn.userInteractionEnabled = NO;
 //        _releaseBtn.alpha = 1;
         [_releaseBtn setTitleColor:[UIColor colorWithWhite:1 alpha:0.6] forState:UIControlStateNormal];
+        [_releaseBtn setBackgroundImage:KIMG(@"gradualColor") forState:UIControlStateNormal];
         _releaseBtn.backgroundColor = [UIColor colorWithHexString:@"20242f"];
         @weakify(self)
         [[_releaseBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {

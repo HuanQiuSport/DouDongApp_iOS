@@ -32,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 底部分割线
 @property (strong,nonatomic) UIView *mkLineView;
+
+-(void)rightButtton:(BOOL)isSelect;
+
 @end
 
 NS_ASSUME_NONNULL_END

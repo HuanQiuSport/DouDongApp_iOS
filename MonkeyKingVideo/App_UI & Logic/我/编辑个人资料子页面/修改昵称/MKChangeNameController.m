@@ -84,11 +84,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = HEXCOLOR(0x242a37);
-    self.gk_navTitleColor = kWhiteColor;
+    self.view.backgroundColor = HEXCOLOR(0xF8f8f8);
+    self.gk_navTitleColor = UIColor.blackColor;
     self.gk_statusBarHidden = NO;
     self.gk_navLineHidden = 1;
-    self.gk_backStyle = GKNavigationBarBackStyleWhite;
+    self.gk_backStyle = GKNavigationBarBackStyleBlack;
+    self.gk_navBackgroundColor = UIColor.whiteColor;
     self.gk_navTitle = @"修改昵称";
     
     [SceneDelegate sharedInstance].customSYSUITabBarController.gk_navigationBar.hidden = YES;
@@ -120,14 +121,15 @@
         make.right.offset(0);
         make.left.mas_equalTo(0);
         make.height.offset(44);
-        if (iPhoneScreen_XR |
-            iPhoneScreen_X_XS |
-            iPhoneScreen_XSMAX |
-            iPhoneX) {
-            make.top.mas_equalTo(13+88);
-        } else {
-            make.top.mas_equalTo(13+64);
-        }
+        make.top.mas_equalTo(self.gk_navigationBar.mas_bottom).offset(10);
+//        if (iPhoneScreen_XR |
+//            iPhoneScreen_X_XS |
+//            iPhoneScreen_XSMAX |
+//            iPhoneX) {
+//            make.top.mas_equalTo(13+88);
+//        } else {
+//            make.top.mas_equalTo(13+64);
+//        }
       }];
     [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
            make.left.offset(14*SCREEN_W/375);
@@ -201,7 +203,7 @@ replacementString:(NSString *)string {
 - (UITextField *)textField {
     if (!_textField) {
         _textField = UITextField.new;
-        _textField.textColor = UIColor.whiteColor;
+        _textField.textColor = UIColor.blackColor;
         _textField.returnKeyType = UIReturnKeySend;
         _textField.keyboardAppearance = UIKeyboardAppearanceAlert;
         _textField.delegate = self;
@@ -209,7 +211,7 @@ replacementString:(NSString *)string {
         _textField.delegate = self;
         _textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请输入新的昵称"
                                                                           attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:17],
-                                                                                       NSForegroundColorAttributeName:[UIColor colorWithHexString:@"4C525F"]}];
+                                                                                       NSForegroundColorAttributeName:[UIColor colorWithHexString:@"999999"]}];
     }return _textField;
 }
 
@@ -229,7 +231,7 @@ replacementString:(NSString *)string {
 - (UIView *)backView {
     if (!_backView) {
         _backView = UIView.new;
-        _backView.backgroundColor = HEXCOLOR(0x212632);
+        _backView.backgroundColor = UIColor.whiteColor;
     }return _backView;
 }
 

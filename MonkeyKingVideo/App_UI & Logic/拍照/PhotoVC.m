@@ -361,7 +361,7 @@ didScrollSelectedItemAtIndex:(NSInteger)index{
         _cameraBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_cameraBtn setTitle:@"拍摄" forState:UIControlStateNormal];
         _cameraBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-        [_cameraBtn setTitleColor:[UIColor colorWithHexString:@"c4c1c1"] forState:UIControlStateNormal];
+        [_cameraBtn setTitleColor:[UIColor colorWithHexString:@"999999"] forState:UIControlStateNormal];
     }
     return _cameraBtn;
 }
@@ -371,7 +371,7 @@ didScrollSelectedItemAtIndex:(NSInteger)index{
         _uploadBtn = [UIButton buttonWithType:UIButtonTypeCustom];
           [_uploadBtn setTitle:@"上传" forState:UIControlStateNormal];
             _uploadBtn.titleLabel.font = [UIFont systemFontOfSize:20];
-            [_uploadBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [_uploadBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
     return _uploadBtn;
 }

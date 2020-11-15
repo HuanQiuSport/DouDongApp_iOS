@@ -100,11 +100,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = HEXCOLOR(0x242A37);
-    self.gk_navTitleColor = kWhiteColor;
+    self.view.backgroundColor = HEXCOLOR(0xF8F8F8);
+    self.gk_navTitleColor = UIColor.blackColor;
     self.gk_statusBarHidden = NO;
     self.gk_navLineHidden = 1;
-    self.gk_backStyle = GKNavigationBarBackStyleWhite;
+    self.gk_backStyle = GKNavigationBarBackStyleBlack;
+    self.gk_navBackgroundColor = UIColor.whiteColor;
     self.gk_navTitle = @"绑定手机号";
     
     [SceneDelegate sharedInstance].customSYSUITabBarController.gk_navigationBar.hidden = YES;
@@ -260,14 +261,14 @@ replacementString:(NSString *)string {
 -(UITextField *)textField{
     if (!_textField) {
         _textField = UITextField.new;
-        _textField.textColor = UIColor.whiteColor;
+        _textField.textColor = UIColor.blackColor;
         _textField.keyboardType = UIKeyboardTypeNumberPad;
         _textField.returnKeyType = UIReturnKeyDone;
         _textField.keyboardAppearance = UIKeyboardAppearanceAlert;
         _textField.delegate = self;
         _textField.font = [UIFont systemFontOfSize:15.0 weight:UIFontWeightRegular];
         _textField.delegate = self;
-        _textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请输入手机号码" attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:17], NSForegroundColorAttributeName:[UIColor colorWithHexString:@"4C525F"]}];
+        _textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请输入手机号码" attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:17], NSForegroundColorAttributeName:[UIColor colorWithHexString:@"999999"]}];
     }return _textField;
 }
 
@@ -330,7 +331,7 @@ replacementString:(NSString *)string {
     if (!_iphoneLabel) {
         _iphoneLabel = [[UILabel alloc] init];
         _iphoneLabel.text = @"手机号码";
-        _iphoneLabel.textColor  = [UIColor whiteColor];
+        _iphoneLabel.textColor  = [UIColor blackColor];
         _iphoneLabel.font = [UIFont systemFontOfSize:15 weight:UIFontWeightRegular];
         
     }return _iphoneLabel;
@@ -340,7 +341,7 @@ replacementString:(NSString *)string {
     if (!_verCodeLabel) {
         _verCodeLabel = [[UILabel alloc] init];
         _verCodeLabel.text = @"验证码";
-        _verCodeLabel.textColor  = [UIColor whiteColor];
+        _verCodeLabel.textColor  = [UIColor blackColor];
         _verCodeLabel.font = [UIFont systemFontOfSize:15 weight:UIFontWeightRegular];
     }return _verCodeLabel;
 }
@@ -348,27 +349,27 @@ replacementString:(NSString *)string {
 - (UILabel *)lineLabel {
     if (!_lineLabel) {
         _lineLabel = [[UILabel alloc] init];
-        _lineLabel.backgroundColor = [UIColor colorWithHexString:@"4C525F"];
+        _lineLabel.backgroundColor = COLOR_HEX(0xA2A2A2, 0.2);
     }return _lineLabel;
 }
 
 - (UILabel *)lineLabel2 {
     if (!_lineLabel2) {
         _lineLabel2 = [[UILabel alloc] init];
-        _lineLabel2.backgroundColor = [UIColor colorWithHexString:@"4C525F"];
+        _lineLabel2.backgroundColor = COLOR_HEX(0xA2A2A2, 0.2);
     }return _lineLabel2;
 }
 
 - (UITextField *)verCodeTextFeild {
     if (!_verCodeTextFeild) {
         _verCodeTextFeild = [[UITextField alloc] init];
-        _verCodeTextFeild.textColor = UIColor.whiteColor;
+        _verCodeTextFeild.textColor = UIColor.blackColor;
         _verCodeTextFeild.keyboardType=UIKeyboardTypeNumberPad;
         _verCodeTextFeild.delegate = self;
         _verCodeTextFeild.font = [UIFont systemFontOfSize:15.0 weight:UIFontWeightRegular];
         _verCodeTextFeild.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"请输入验证码"
                                                                                  attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:17],
-                                                                                              NSForegroundColorAttributeName:[UIColor colorWithHexString:@"4C525F"]}];
+                                                                                              NSForegroundColorAttributeName:[UIColor colorWithHexString:@"999999"]}];
         [_verCodeTextFeild setDelegate:self];
     }return _verCodeTextFeild;
 }

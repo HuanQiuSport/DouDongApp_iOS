@@ -24,7 +24,7 @@
     
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
-        self.contentView.backgroundColor = MKBakcColor;
+        self.contentView.backgroundColor = UIColor.whiteColor;
         self.layer.cornerRadius= 5.0f;
         self.layer.masksToBounds=YES;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -35,13 +35,13 @@
     }
     return self;
 }
--(void)setFrame:(CGRect)frame
-{
-  frame.origin.x = 2;//这里间距为10，可以根据自己的情况调整
-  frame.size.width -= frame.origin.x;
-  frame.size.height -= 5 * frame.origin.x;
-  [super setFrame:frame];
-}
+//-(void)setFrame:(CGRect)frame
+//{
+//  frame.origin.x = 2;//这里间距为10，可以根据自己的情况调整
+//  frame.size.width -= frame.origin.x;
+//  frame.size.height -= 5 * frame.origin.x;
+//  [super setFrame:frame];
+//}
 #pragma mark - 添加子视图
 - (void)mkAddSubView{
     
@@ -101,11 +101,11 @@
     
     [self.mkLineView mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.left.equalTo(self.mKIMGageView.mas_right).offset(10*KDeviceScale);
-        
         make.right.equalTo(self.mas_right);
         
-        make.height.equalTo(@(0.5));
+        make.left.equalTo(self.mas_left);
+        
+        make.height.equalTo(@(1));
         
         make.bottom.equalTo(self.mas_bottom);
     }];
@@ -131,6 +131,40 @@
     }];
     
 }
+-(void)rightButtton:(BOOL)isSelect {
+    UIButton *sender = _mkOutListButton;
+    
+    if (isSelect) {
+        
+        [sender setBackgroundImage:[UIImage imageWithColor:UIColor.whiteColor] forState:UIControlStateNormal];
+        
+        sender.layer.cornerRadius = 13.5 *KDeviceScale;
+        
+        sender.layer.masksToBounds = YES;
+        
+        sender.layer.borderColor = HEXCOLOR(0x999999).CGColor;
+        
+        sender.layer.borderWidth = 1;
+        
+        [sender setTitleColor:HEXCOLOR(0x999999) forState:UIControlStateNormal];
+    
+    }else{
+        [sender setBackgroundImage:KIMG(@"画板") forState:UIControlStateNormal];
+        
+        sender.layer.cornerRadius = 13.5 *KDeviceScale;
+        
+        sender.layer.masksToBounds = YES;
+        
+        sender.layer.borderColor = MKBorderColor.CGColor;
+        
+        sender.layer.borderWidth = 0;
+        
+        [sender setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    }
+    
+    
+}
+
 #pragma mark - setter
 
 - (UIImageView *)mKIMGageView{
@@ -171,7 +205,7 @@
         _mkTitleLable = [[UILabel alloc]init];
         
         _mkTitleLable.text = @"系统消息";
-        _mkTitleLable.textColor = UIColor.whiteColor;
+        _mkTitleLable.textColor = UIColor.blackColor;
         _mkTitleLable.font = [UIFont systemFontOfSize:16];
     }
     return _mkTitleLable;
@@ -184,7 +218,7 @@
         _mkDecripLabel = [[UILabel alloc]init];
         
         _mkDecripLabel.text = @"发布违规信息或者广告，平台有权处理";
-        _mkDecripLabel.textColor = RGBCOLOR(78, 88, 110);
+        _mkDecripLabel.textColor = HEXCOLOR(0x8E8E92);
         _mkDecripLabel.font = [UIFont systemFontOfSize:13];
     }
     return _mkDecripLabel;
@@ -195,7 +229,7 @@
         
         _mkLineView = [[UIView alloc]init];
         
-        _mkLineView.backgroundColor = [UIColor lightGrayColor];
+        _mkLineView.backgroundColor = COLOR_HEX(0xA2A2A2, 0.2);
         
     }
     
@@ -208,9 +242,9 @@
         
         _mkFansLabel = [[UILabel alloc]init];
         _mkFansLabel.text = @"粉丝 25W";
-        _mkFansLabel.textColor = [UIColor whiteColor];
+        _mkFansLabel.textColor = HEXCOLOR(0x999999);
         
-        _mkFansLabel.font = [UIFont systemFontOfSize:9];
+        _mkFansLabel.font = [UIFont systemFontOfSize:12];
     }
     
     return _mkFansLabel;

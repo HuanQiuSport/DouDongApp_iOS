@@ -85,14 +85,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = HEXCOLOR(0x242A37);
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.BackBtn];
     self.gk_navTitle = @"修改个性签名";
-    self.gk_navTitleColor = UIColor.whiteColor;
+    [SceneDelegate sharedInstance].customSYSUITabBarController.gk_navigationBar.hidden = YES;
+    
+    self.view.backgroundColor = HEXCOLOR(0xF8f8f8);
+    self.gk_navTitleColor = UIColor.blackColor;
     self.gk_statusBarHidden = NO;
     self.gk_navLineHidden = 1;
-    self.gk_backStyle = GKNavigationBarBackStyleWhite;
-    [SceneDelegate sharedInstance].customSYSUITabBarController.gk_navigationBar.hidden = YES;
+    self.gk_backStyle = GKNavigationBarBackStyleBlack;
+    self.gk_navBackgroundColor = UIColor.whiteColor;
+
+    
+    
     self.backView.alpha = 1;
     self.textView.alpha = 1;
     self.tipsLab.alpha = 1;
@@ -186,7 +191,7 @@ shouldChangeTextInRange:(NSRange)range
 -(UIView *)backView{
     if (!_backView) {
         _backView = UIView.new;
-        _backView.backgroundColor = HEXCOLOR(0x212632);
+        _backView.backgroundColor = UIColor.whiteColor;
         [self.view addSubview:_backView];
         [_backView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.offset(11);
@@ -202,11 +207,11 @@ shouldChangeTextInRange:(NSRange)range
 -(SZTextView *)textView{
     if (!_textView) {
         _textView = SZTextView.new;
-        _textView.backgroundColor = HEXCOLOR(0x212632);
+        _textView.backgroundColor = UIColor.whiteColor;
         _textView.delegate = self;
-        _textView.placeholderTextColor = HEXCOLOR(0x8391AF);
+        _textView.placeholderTextColor = HEXCOLOR(0x999999);
         _textView.placeholder = @"填写个性签名更容易获得别人的关注哦";
-        _textView.textColor = kWhiteColor;
+        _textView.textColor = UIColor.blackColor;
         _textView.font = [UIFont systemFontOfSize:15];
         [self.backView addSubview:_textView];
         [_textView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -219,10 +224,10 @@ shouldChangeTextInRange:(NSRange)range
 -(UILabel *)tipsLab{
     if (!_tipsLab) {
         _tipsLab = UILabel.new;
-        _tipsLab.textColor = kWhiteColor;//
+        _tipsLab.textColor = HEXCOLOR(0x999999);//
         _tipsLab.attributedText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"还可以输入%d个字符",self.inputLimit]
                                                                          attributes:@{NSFontAttributeName:[UIFont fontWithName:@"PingFangSC" size: 15],
-                                                                                      NSForegroundColorAttributeName:HEXCOLOR(0x242A37)}];
+                                                                                      NSForegroundColorAttributeName:HEXCOLOR(0x999999)}];
         [self.backView addSubview:_tipsLab];
         [_tipsLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.offset(-19);

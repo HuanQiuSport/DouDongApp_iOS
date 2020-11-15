@@ -106,9 +106,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     /// 0 我的关注 ｜ 1 我的粉丝    ｜   2  他的关注 ｜  3  他的粉丝
-    self.view.backgroundColor = MKBakcColor;
-    self.gk_backStyle = GKNavigationBarBackStyleWhite;
-    self.gk_navTitleColor = kWhiteColor;
+    self.view.backgroundColor = HEXCOLOR(0xF8F8F8);
+    self.gk_backStyle = GKNavigationBarBackStyleBlack;
+    self.gk_navTitleColor = UIColor.blackColor;
+    self.gk_navBackgroundColor = UIColor.whiteColor;
+    self.gk_navLineHidden = YES;
     switch (self.mkType) {
         case 0:
             self.gk_navTitle = @"我的关注";
@@ -171,7 +173,7 @@
         
         make.right.equalTo(self.view);
         
-        make.top.equalTo(self.view.mas_top).offset(kNavigationBarHeight+kStatusBarHeight);
+        make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(10);
         
         make.bottom.equalTo(self.view);
     }];
@@ -194,7 +196,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    cell.backgroundColor = MKBakcColor;
+    cell.backgroundColor = UIColor.whiteColor;
     MKAttentionSubModel *model  = self.mkAttionModel.list[indexPath.row];
     DLog(@"会员%@",model.isVip);
     cell.vipImgage.hidden =  ![model.isVip boolValue];
@@ -202,7 +204,7 @@
     cell.mkTitleLable.text = model.nickName;
     cell.mkDecripLabel.text = [NSString ensureNonnullString:model.remark ReplaceStr:@"这个家伙很懒，还没有写签名"];
     cell.mkFansLabel.text = [NSString  stringWithFormat:@"粉丝 %@ ",[NSString ensureNonnullString:model.fansNum ReplaceStr:@"0"]];
-    cell.mkLineView.backgroundColor = MKBakcColor;
+//    cell.mkLineView.backgroundColor = MKBakcColor;
     [cell.mKIMGageView sd_setImageWithURL:[NSURL URLWithString:model.headImage] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         
         if (error == nil) {
@@ -220,7 +222,9 @@
          [cell.mkOutListButton setTitle:@"已关注" forState:UIControlStateSelected];
          [cell.mkOutListButton setTitle:@"关 注" forState:UIControlStateNormal];
          cell.mkOutListButton.selected = [model.attention isEqualToString:@"1"]?YES:NO; // 0 是没关注 1是关注
-         [[MKTools shared] setAtttionStyle:cell.mkOutListButton.selected ToButton:cell.mkOutListButton];
+//        [cell rightButtton:cell.mkOutListButton.selected];
+        
+//         [[MKTools shared] setAtttionStyle:cell.mkOutListButton.selected ToButton:cell.mkOutListButton];
     }
     else if (self.mkType == 2 || self.mkType == 3 ) {
         
@@ -232,7 +236,7 @@
         [[MKTools shared] setAtttionStyle:cell.mkOutListButton.selected ToButton:cell.mkOutListButton];
         
     }
-
+    [cell rightButtton:cell.mkOutListButton.selected];
     WeakSelf
     @weakify(cell)
     [cell.mkOutListButton addAction:^(UIButton *btn) {
@@ -637,7 +641,7 @@
         _mkBackImageView = [[UIImageView alloc]init];
         
         
-        _mkBackImageView.image = [UIImage imageWithColor:MKBakcColor];
+//        _mkBackImageView.image = [UIImage imageWithColor:MKBakcColor];
         
         _mkBackImageView.contentMode = UIViewContentModeScaleToFill;
         

@@ -319,6 +319,7 @@
 		5E6ACA3425270809002218B7 /* RecommendVC+ActiveUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6ACA3325270809002218B7 /* RecommendVC+ActiveUser.m */; };
 		5E965A7C251B8826008AA438 /* MKWithdrawSucessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E965A7B251B8826008AA438 /* MKWithdrawSucessView.m */; };
 		5EFE8C8B2511D9F2002AAB71 /* MKRevisePasswordViewController+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE8C8A2511D9F1002AAB71 /* MKRevisePasswordViewController+VM.m */; };
+		6E3D9B51256013DF003E48DD /* white_未打开@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E3D9B50256013DF003E48DD /* white_未打开@3x.png */; };
 		6E56E08B255C19E300FD2738 /* VideoPlayCountUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E56E08A255C19E300FD2738 /* VideoPlayCountUtil.m */; };
 		6EB0C95C2556A29300F3E036 /* iph_X.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6EB0C9582556A0F500F3E036 /* iph_X.mp4 */; };
 		6EB0C9602556A29700F3E036 /* 非iph_X.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6EB0C9572556A0F500F3E036 /* 非iph_X.mp4 */; };
@@ -1674,6 +1675,7 @@
 		5E965A7B251B8826008AA438 /* MKWithdrawSucessView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKWithdrawSucessView.m; sourceTree = "<group>"; };
 		5EFE8C892511D9F1002AAB71 /* MKRevisePasswordViewController+VM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKRevisePasswordViewController+VM.h"; sourceTree = "<group>"; };
 		5EFE8C8A2511D9F1002AAB71 /* MKRevisePasswordViewController+VM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKRevisePasswordViewController+VM.m"; sourceTree = "<group>"; };
+		6E3D9B50256013DF003E48DD /* white_未打开@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_未打开@3x.png"; sourceTree = "<group>"; };
 		6E56E089255C19E300FD2738 /* VideoPlayCountUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoPlayCountUtil.h; sourceTree = "<group>"; };
 		6E56E08A255C19E300FD2738 /* VideoPlayCountUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoPlayCountUtil.m; sourceTree = "<group>"; };
 		6EB0C9572556A0F500F3E036 /* 非iph_X.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "非iph_X.mp4"; sourceTree = "<group>"; };
@@ -3666,6 +3668,14 @@
 			path = "金额提现";
 			sourceTree = "<group>";
 		};
+		6E3D9B4F256013DF003E48DD /* profile */ = {
+			isa = PBXGroup;
+			children = (
+				6E3D9B50256013DF003E48DD /* white_未打开@3x.png */,
+			);
+			path = profile;
+			sourceTree = "<group>";
+		};
 		6E56E088255C19B700FD2738 /* Util */ = {
 			isa = PBXGroup;
 			children = (
@@ -3707,6 +3717,7 @@
 		6EBF3A90255D56A500E52870 /* icon_withe */ = {
 			isa = PBXGroup;
 			children = (
+				6E3D9B4F256013DF003E48DD /* profile */,
 				6ED68A56255EC7D20081AA51 /* tabbar */,
 			);
 			path = icon_withe;
@@ -7346,6 +7357,7 @@
 				CA5BE0C6250A5744002DE821 /* 清理缓存@2x.png in Resources */,
 				C54AEAA424C98AE600121233 /* gif_header_20@3x.png in Resources */,
 				C55886E12498A53C00C8A3E7 /* 仿iOS图标抖动、iOS删除App效果 in Resources */,
+				6E3D9B51256013DF003E48DD /* white_未打开@3x.png in Resources */,
 				C5B5EF5D250CE86B00DCDA93 /* closeCircle@2x.png in Resources */,
 				418E3468250CFE4A00785422 /* 方正胖娃简体_0.ttf in Resources */,
 				8417256B25048CB20093594B /* bg_icon.png in Resources */,
