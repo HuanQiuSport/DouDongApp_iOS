@@ -25,6 +25,8 @@ typedef NS_ENUM(NSUInteger, HTTPResponseCode) {//KKK
     HTTPResponseCodeAnomalous = 550,
     ///后台代码异常 999
     HTTPResponseCodeError = 999,
+    ///app 更新提示
+    HTTPResponseCodeUpdateApp = 990,
 };
 
 NSString *const HTTPServiceErrorDomain = @"HTTPServiceErrorDomain";/// The Http request error domain
@@ -234,7 +236,10 @@ static FMARCNetwork *static_FMARCNetwork = nil;
                     if (statusCode == HTTPResponseCodeNotLogin ||//401
                         statusCode == HTTPResponseCodeAnomalous ||//550
                         statusCode == HTTPResponseCodeError ||//999
-                        statusCode == HTTPResponseCodeFailureToken){//402
+                        statusCode == HTTPResponseCodeFailureToken || //402
+                        statusCode == HTTPResponseCodeUpdateApp) // 更新app
+                    
+                    {
                         if (statusCode == HTTPResponseCodeNotLogin) {
                             [NSObject Login];
                         }
@@ -251,11 +256,19 @@ static FMARCNetwork *static_FMARCNetwork = nil;
                             [alert addAction:action1];
                             [[[MKTools shared] getCurrentVC] presentViewController: alert animated:YES completion:^{}];
                         }
-                        if(statusCode != HTTPResponseCodeNotLogin || statusCode != HTTPResponseCodeFailureToken){
+                        if((statusCode != HTTPResponseCodeNotLogin || statusCode != HTTPResponseCodeFailureToken) && statusCode != HTTPResponseCodeUpdateApp){
                             if (![responseObject[HTTPServiceResponseMsgKey] isEqualToString:@"请登录"]) {
                                 [MBProgressHUD wj_showPlainText:responseObject[HTTPServiceResponseMsgKey] view:nil];
                             }
                             
+                        }
+                        if(statusCode == HTTPResponseCodeUpdateApp) {
+                            NSString *url = @"";
+                            NSDictionary *dict = responseObject[HTTPServiceResponseDataKey];
+                            if([dict isKindOfClass:[NSDictionary class]]) {
+                                url = dict[@"url"];
+                            }
+                            [[MKTools shared] versionTip:getMainWindow() VisionContent:responseObject[HTTPServiceResponseMsgKey] versionCode:@"" appUrl:url];
                         }
                         FMHttpResonse *response = [[FMHttpResonse alloc] initWithResponseSuccess:responseObject[HTTPServiceResponseMsgKey]
                                                                                             code:statusCode];
@@ -264,9 +277,10 @@ static FMARCNetwork *static_FMARCNetwork = nil;
                         [subscriber sendCompleted];
                     }else{//抛其他异常
 #pragma mark - 抛其他异常
-                        [MBProgressHUD wj_showPlainText:responseObject[HTTPServiceResponseMsgKey]
-                                                   view:nil];
-                        
+                        if(statusCode != HTTPResponseCodeUpdateApp) {
+                            [MBProgressHUD wj_showPlainText:responseObject[HTTPServiceResponseMsgKey]
+                                                       view:nil];
+                        }
                         NSLog(@"异常接口路径 %@  %@ ",request.URL.absoluteString,responseObject[HTTPServiceResponseMsgKey]);
                         
                         FMHttpResonse *response = [[FMHttpResonse alloc] initWithResponseSuccess:responseObject[HTTPServiceResponseMsgKey]
