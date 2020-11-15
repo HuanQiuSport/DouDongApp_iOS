@@ -72,6 +72,7 @@
     self.choosePicBtn.alpha = 1;
     self.tipsLab.alpha = 1;
     self.agreementView.alpha = 1;
+    self.gk_navBackgroundColor = UIColor.clearColor;
     [IQKeyboardManager sharedManager].enable = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationPhoto:) name:MKPhotoPushNotification object:nil];
   
@@ -105,7 +106,7 @@
         UIButton *btn = UIButton.new;
 //        [btn pp_addDotWithColor:[UIColor redColor]];
         btn.frame = CGRectMake(0,  0, 24,  44);
-        [btn setImage:KIMG(@"return")
+        [btn setImage:KIMG(@"white_后退")
              forState:UIControlStateNormal];
         [btn addTarget:self
                 action:@selector(returnBtnClickEvent)
@@ -223,7 +224,7 @@
 ///发布成功以后做的事情
 -(void)afterRelease{
 //    [self deleteButtonRemoveSelf:self.choosePicBtn];
-    [self.choosePicBtn setImage:KIMG(@"invalidName")
+    [self.choosePicBtn setImage:KIMG(@"white_upload_add")
               forState:UIControlStateNormal];
       self.choosePicBtn.iconBtn.hidden = YES;
       self.choosePicBtn.shaking = NO;
@@ -369,7 +370,7 @@
 }
 #pragma mark - DZDeleteButtonDelegate
 - (void)deleteButtonRemoveSelf:(LGiOSBtn *_Nonnull)button{
-    [button setImage:KIMG(@"invalidName")
+    [button setImage:KIMG(@"white_upload_add")
             forState:UIControlStateNormal];
     button.iconBtn.hidden = YES;
     button.shaking = NO;

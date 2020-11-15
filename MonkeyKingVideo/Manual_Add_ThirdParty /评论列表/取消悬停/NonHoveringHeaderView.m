@@ -161,7 +161,7 @@
     if (!_titleLab) {
         _titleLab = UILabel.new;
         _titleLab.font = [UIFont systemFontOfSize:15];
-        _titleLab.textColor = HEXCOLOR(0x8391af);
+        _titleLab.textColor = HEXCOLOR(0x999999);
         [self.contentView addSubview:_titleLab];
         _titleLab.text = self.titleStr;
         [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -183,8 +183,8 @@
         NSMutableAttributedString *textString = [[NSMutableAttributedString alloc] initWithString:string];
         NSRange contentRange = [string rangeOfString:contentString];
         NSRange dateRange = [string rangeOfString:dateString];
-        [textString setColor:UIColor.whiteColor range:contentRange];
-        [textString setColor:HEXCOLOR(0x8391af) range:dateRange];
+        [textString setColor:HEXCOLOR(0x101010) range:contentRange];
+        [textString setColor:HEXCOLOR(0x999999) range:dateRange];
         [textString setFont:[UIFont systemFontOfSize:15] range:contentRange];
         [textString setFont:[UIFont systemFontOfSize:13] range:dateRange];
         _contentLab.attributedText = textString;

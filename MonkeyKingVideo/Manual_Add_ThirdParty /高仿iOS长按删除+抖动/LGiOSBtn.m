@@ -29,7 +29,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        [self setImage:KIMG(@"invalidName")
+        [self setImage:KIMG(@"white_upload_add")
               forState:UIControlStateNormal];
         [self addLongPressGestureRecognizer];
         self.iconBtn.hidden = YES;
@@ -38,7 +38,7 @@
 
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
-        [self setImage:KIMG(@"invalidName")
+        [self setImage:KIMG(@"white_upload_add")
               forState:UIControlStateNormal];
         [self addLongPressGestureRecognizer];
         self.iconBtn.hidden = YES;
@@ -47,7 +47,7 @@
 
 - (instancetype)init{
     if (self = [super init]) {
-        [self setImage:KIMG(@"invalidName")
+        [self setImage:KIMG(@"white_upload_add")
               forState:UIControlStateNormal];
         [self addLongPressGestureRecognizer];
         self.iconBtn.hidden = YES;
@@ -94,7 +94,7 @@
 }
 
 - (void)longClick {
-    if (![self.imageView.image isEqual:KIMG(@"invalidName")]) {
+    if (![self.imageView.image isEqual:KIMG(@"white_upload_add")]) {
         if (self.shaking) return;
         self.shaking = YES;
     }

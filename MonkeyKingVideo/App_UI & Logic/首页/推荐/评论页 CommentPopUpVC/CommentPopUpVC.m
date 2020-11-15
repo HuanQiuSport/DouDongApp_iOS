@@ -575,7 +575,7 @@ forHeaderFooterViewReuseIdentifier:NSStringFromClass(HoveringHeaderView.class)];
         }];
         
         UIView *line = [[UIView alloc]init];
-        line.backgroundColor = COLOR_HEX(0x475571, 1);
+        line.backgroundColor = COLOR_HEX(0x999999, 1);
         [self.view addSubview:line];
         [line mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.left.offset(0);
@@ -588,7 +588,7 @@ forHeaderFooterViewReuseIdentifier:NSStringFromClass(HoveringHeaderView.class)];
 -(UIButton *)closeBtn{
     if (!_closeBtn) {
         _closeBtn = UIButton.new;
-        [_closeBtn setImage:KIMG(@"Close")
+        [_closeBtn setImage:KIMG(@"coment_close_white")
                    forState:UIControlStateNormal];
         [_closeBtn addTarget:self
                       action:@selector(closeBtnClickEvent:)
@@ -606,8 +606,18 @@ forHeaderFooterViewReuseIdentifier:NSStringFromClass(HoveringHeaderView.class)];
 - (UIView *)keyboardTopView {
     if (!_keyboardTopView) {
         _keyboardTopView = UIView.new;
-        _keyboardTopView.backgroundColor = HEXCOLOR(0x20242f);
+        _keyboardTopView.backgroundColor = HEXCOLOR(0xFFFFFF);
         _keyboardTopView.alpha = 0;
+        
+        // 阴影颜色
+        _keyboardTopView.layer.shadowColor = UIColor.grayColor.CGColor;
+           // 阴影偏移，默认(0, -3)
+        _keyboardTopView.layer.shadowOffset = CGSizeMake(0,0);
+           // 阴影透明度，默认0
+        _keyboardTopView.layer.shadowOpacity = 0.2;
+           // 阴影半径，默认3
+        _keyboardTopView.layer.shadowRadius = 2;
+        
 //        if (self.isRecommend) {
 //            [self.homeVC.view addSubview:_keyboardTopView];
 //        } else {
@@ -629,8 +639,8 @@ forHeaderFooterViewReuseIdentifier:NSStringFromClass(HoveringHeaderView.class)];
 - (UITextField *)field{
     if(!_field){
         _field = UITextField.new;
-        _field.backgroundColor = COLOR_HEX(0x4d4f5b, 1);
-        _field.textColor = HEXCOLOR(0x8391af);
+        _field.backgroundColor = COLOR_HEX(0xEFEFF4, 1);
+        _field.textColor = HEXCOLOR(0x000000);
         _field.delegate = self;
         [_field addTarget:self action:@selector(changedTextField:) forControlEvents:UIControlEventEditingChanged];
         _field.font = [UIFont systemFontOfSize:17];
@@ -638,7 +648,7 @@ forHeaderFooterViewReuseIdentifier:NSStringFromClass(HoveringHeaderView.class)];
         _field.frame = CGRectMake(64, 14, SCREEN_W-64-20, 34);
         _field.returnKeyType = UIReturnKeySend;
         
-        NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:@"我也说几句" attributes:@{NSForegroundColorAttributeName:HEXCOLOR(0x8391af),
+        NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:@"我也说几句" attributes:@{NSForegroundColorAttributeName:HEXCOLOR(0x999999),
                                    NSFontAttributeName:_field.font
         }];
         _field.attributedPlaceholder = attrString;
@@ -655,12 +665,21 @@ forHeaderFooterViewReuseIdentifier:NSStringFromClass(HoveringHeaderView.class)];
 - (UIView *)botView {
     if (!_botView) {
         _botView = UIView.new;
-        _botView.backgroundColor = HEXCOLOR(0x20242f);
+        _botView.backgroundColor = HEXCOLOR(0xFFFFFF);
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(alertField)];
         [_botView addGestureRecognizer:tap];
         
+        // 阴影颜色
+        _botView.layer.shadowColor = UIColor.grayColor.CGColor;
+           // 阴影偏移，默认(0, -3)
+        _botView.layer.shadowOffset = CGSizeMake(0,0);
+           // 阴影透明度，默认0
+        _botView.layer.shadowOpacity = 0.2;
+           // 阴影半径，默认3
+        _botView.layer.shadowRadius = 2;
+        
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake(64, SCALING_RATIO(14), SCREEN_WIDTH-64-20, SCALING_RATIO(34))];
-        view.backgroundColor = COLOR_HEX(0x4d4f5b, 1);
+        view.backgroundColor = COLOR_HEX(0xEFEFF4, 1);
         view.layer.cornerRadius = SCALING_RATIO(17);
         [_botView addSubview:view];
     }
@@ -681,7 +700,7 @@ forHeaderFooterViewReuseIdentifier:NSStringFromClass(HoveringHeaderView.class)];
 - (UILabel *)botLab {
     if (!_botLab) {
         _botLab = UILabel.new;
-        _botLab.textColor = HEXCOLOR(0x8391af);
+        _botLab.textColor = HEXCOLOR(0x999999);
         _botLab.text = @"我也说几句";
         _botLab.font = [UIFont systemFontOfSize:17];
         _botLab.frame = CGRectMake(87, 0, SCREEN_W - 87-13, SCALING_RATIO(62));
@@ -691,7 +710,7 @@ forHeaderFooterViewReuseIdentifier:NSStringFromClass(HoveringHeaderView.class)];
 - (UIView *)coverKeyboardView {
     if (!_coverKeyboardView) {
         _coverKeyboardView = UIView.new;
-        _coverKeyboardView.backgroundColor = UIColor.blackColor;
+        _coverKeyboardView.backgroundColor = UIColor.whiteColor;
         _coverKeyboardView.alpha = 0;
 //        if (self.isRecommend) {
 //            [self.homeVC.view addSubview:_coverKeyboardView];

@@ -20,7 +20,7 @@
     if (self) {
         self.backgroundColor = MKBakcColor;
          self.mkDataTitleArray = @[@"我的余额",@"我的抖币",@"邀请好友",@"填写邀请码"];
-         self.mkDataImageArray = @[@"MK0我的余额",@"MK0我的金币",@"MK0邀请好友",@"MK0填写邀请码"];
+         self.mkDataImageArray = @[@"withe_profile_blance",@"white_profile_金币",@"white_profile_邀请好友",@"white_profile_invite"];
         self.mkCollectionView.alpha = 1;
     }
     return self;
@@ -32,13 +32,13 @@
         self.mkCollectionView.backgroundColor = UIColor.whiteColor;
         self.mkCollectionView.tintColor =  UIColor.whiteColor;
         self.mkDataTitleArray = @[@"我的余额",@"我的抖币",@"邀请好友",@"填写邀请码"];
-        self.mkDataImageArray = @[@"MK0我的余额",@"MK0我的金币",@"MK0邀请好友",@"MK0填写邀请码"];
+        self.mkDataImageArray = @[@"withe_profile_blance",@"white_profile_金币",@"white_profile_邀请好友",@"white_profile_invite"];
     } else {
         self.backgroundColor = MKBakcColor;
         self.mkCollectionView.backgroundColor = MKBakcColor;
         self.mkCollectionView.tintColor =  MKBakcColor;
         self.mkDataTitleArray = @[@"我的余额",@"我的抖币",@"邀请好友",@"填写邀请码"];
-        self.mkDataImageArray = @[@"MK0我的余额",@"MK0我的金币",@"MK0邀请好友",@"MK0填写邀请码"];
+        self.mkDataImageArray = @[@"withe_profile_blance",@"white_profile_金币",@"white_profile_邀请好友",@"white_profile_invite"];
     }
     [self.mkCollectionView reloadData];
 }

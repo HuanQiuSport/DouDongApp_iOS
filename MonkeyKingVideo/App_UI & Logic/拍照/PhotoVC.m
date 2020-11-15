@@ -93,6 +93,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.gk_backStyle = GKNavigationBarBackStyleBlack;
 }
 
 -(void)viewWillAppear:(BOOL)animated{

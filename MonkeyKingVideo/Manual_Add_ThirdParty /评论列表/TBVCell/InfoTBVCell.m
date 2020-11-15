@@ -63,7 +63,7 @@
         [textString setColor:HEXCOLOR(0x8391af) range:nameRange];
         [textString setFont:[UIFont systemFontOfSize:15] range:replyRange];
         [textString setFont:[UIFont systemFontOfSize:15] range:nameRange];
-        [textString setColor:UIColor.whiteColor range:contentRange];
+        [textString setColor:HEXCOLOR(0x101010) range:contentRange];
         [textString setColor:HEXCOLOR(0x8391af) range:dateRange];
         [textString setFont:[UIFont systemFontOfSize:15] range:contentRange];
         [textString setFont:[UIFont systemFontOfSize:13] range:dateRange];
@@ -165,7 +165,6 @@
 - (UILabel *)name {
     if (!_name) {
         _name = UILabel.new;
-        _name.textColor = UIColor.whiteColor;
         _name.font = [UIFont systemFontOfSize:15];
         [self.contentView addSubview:_name];
         [_name mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -174,7 +173,7 @@
             make.height.offset(30);
             make.width.mas_lessThanOrEqualTo(150);
         }];
-        _name.textColor = HEXCOLOR(0x8391af);
+        _name.textColor = HEXCOLOR(0x999999);
     }
     return _name;
 }
