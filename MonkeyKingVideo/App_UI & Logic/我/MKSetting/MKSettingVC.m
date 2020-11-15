@@ -45,6 +45,7 @@ UITableViewDelegate
         self.gk_backStyle = GKNavigationBarBackStyleBlack;
         self.view.backgroundColor  = UIColor.groupTableViewBackgroundColor;
         self.gk_navTitleColor = UIColor.blackColor;
+        self.gk_navLineHidden = YES;
         self.gk_navBackgroundColor = UIColor.whiteColor;
         self.mkTableview.backgroundColor = UIColor.groupTableViewBackgroundColor;
         self.botV.backgroundColor = UIColor.groupTableViewBackgroundColor;
@@ -150,19 +151,19 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             self.cacheLab = cell.mkSettingView.mkRightLabel;
             cell.mkSettingView.mkRightImageView.hidden = YES;
             cell.mkSettingView.mkRightLabel.text = [NSString stringWithFormat:@"%.2fM",[MKCacheTool cacheSize]];
-            cell.mkSettingView.mkLeftImageView.image = KIMG(@"清理缓存");
+            cell.mkSettingView.mkLeftImageView.image = KIMG(@"white_清理缓存");
             break;
         case 1:
             cell.mkSettingView.mkLeftLabel.text = @"修改密码";
             cell.mkSettingView.mkRightImageView.hidden = NO;
             cell.mkSettingView.mkRightLabel.hidden = YES;
-            cell.mkSettingView.mkLeftImageView.image = KIMG(@"修改密码");
+            cell.mkSettingView.mkLeftImageView.image = KIMG(@"white_changepassword");
             break;
         case 2:
             cell.mkSettingView.mkLeftLabel.text = @"退出登录";
             cell.mkSettingView.mkRightImageView.hidden = YES;
             cell.mkSettingView.mkRightLabel.hidden = YES;
-            cell.mkSettingView.mkLeftImageView.image = KIMG(@"退出登录");
+            cell.mkSettingView.mkLeftImageView.image = KIMG(@"white_logout");
             break;
         default:
             break;

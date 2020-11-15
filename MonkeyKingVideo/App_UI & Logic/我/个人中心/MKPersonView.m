@@ -618,7 +618,7 @@
         
         _mkEditorBtn = [[UIButton alloc]init];
         
-        [_mkEditorBtn setImage:[UIImage imageNamed:@"MK编辑"] forState:UIControlStateNormal];
+        [_mkEditorBtn setImage:[UIImage imageNamed:@"white_editpersoninfo"] forState:UIControlStateNormal];
         
         [_mkEditorBtn setImageEdgeInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
         

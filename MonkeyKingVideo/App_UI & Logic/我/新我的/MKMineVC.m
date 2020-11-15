@@ -571,7 +571,7 @@
     if (!_msgBtnItem) {
         UIButton *btn = UIButton.new;
         btn.frame = CGRectMake(0, 0, 44,44);
-        [btn setImage:KIMG(@"设置")
+        [btn setImage:KIMG(@"white_profile_设置")
              forState:UIControlStateNormal];
         [btn addTarget:self
                 action:@selector(settingBtnClickEvent:)

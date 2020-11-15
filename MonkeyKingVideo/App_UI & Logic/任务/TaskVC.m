@@ -152,6 +152,7 @@
     [SceneDelegate sharedInstance].customSYSUITabBarController.gk_navigationBar.hidden = YES;
     self.gk_statusBarHidden = NO;
     self.gk_navLineHidden = YES;
+    self.gk_navBackgroundColor = UIColor.clearColor;
     self.view.backgroundColor = HEXCOLOR(0x242a37);
     [self addViews];
     [self addNotifaction];
@@ -160,6 +161,7 @@
 
 -(void)refreshSkin {
     if ([SkinManager manager].skin == MKSkinWhite) {
+        self.gk_navBackgroundColor = UIColor.clearColor;
         self.view.backgroundColor = UIColor.groupTableViewBackgroundColor;
         self.walletView.backgroundColor = UIColor.whiteColor;
         self.coinView.backgroundColor =  UIColor.whiteColor;

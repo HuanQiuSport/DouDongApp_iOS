@@ -210,13 +210,13 @@ CGFloat LZB_TABBAR_HEIGHT;
         LZBTabBarItem *item1 = LZBTabBarItem.new;
         item1.title = @"首页";
         item1.selectImage = [UIImage imageNamed:@"white_tabbar_首页"];
-        item1.unSelectImage = [UIImage imageNamed:@"Home_unselected"];
+        item1.unSelectImage = [UIImage imageNamed:@"white_tabbar_nor_首页"];
         item1.unselectTitleAttributes = unselectTitleAttributes;
         item1.selectTitleAttributes = selectTitleAttributes;
         
         LZBTabBarItem *item2 = LZBTabBarItem.new;
         item2.title = @"社区";
-        item2.selectImage = [UIImage imageNamed:@"community_selected"];
+        item2.selectImage = [UIImage imageNamed:@"white_tabbar_社区"];
         item2.unSelectImage = [UIImage imageNamed:@"white_tabbar_nor_社区选中"];
         item2.unselectTitleAttributes = unselectTitleAttributes;
         item2.selectTitleAttributes = selectTitleAttributes;
@@ -230,14 +230,14 @@ CGFloat LZB_TABBAR_HEIGHT;
         
         LZBTabBarItem *item4 = LZBTabBarItem.new;
         item4.title = @"赚币";
-        item4.selectImage = [UIImage imageNamed:@"task_selected"];
+        item4.selectImage = [UIImage imageNamed:@"white_tabbar_赚币"];
         item4.unSelectImage = [UIImage imageNamed:@"white_tabbar_nor_赚币"];
         item4.unselectTitleAttributes = unselectTitleAttributes;
         item4.selectTitleAttributes = selectTitleAttributes;
         
         LZBTabBarItem *item5 = LZBTabBarItem.new;
         item5.title = @"我的";
-        item5.selectImage = [UIImage imageNamed:@"My_selected"];
+        item5.selectImage = [UIImage imageNamed:@"white_tabbar_我的"];
         item5.unSelectImage = [UIImage imageNamed:@"white_tabbar_nor_我的"];
         item5.unselectTitleAttributes = unselectTitleAttributes;
         item5.selectTitleAttributes = selectTitleAttributes;

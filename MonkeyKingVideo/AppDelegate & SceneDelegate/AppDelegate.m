@@ -36,6 +36,7 @@ static AppDelegate *static_appDelegate = nil;
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDarkContent animated:YES];
     [SkinManager manager].skin = MKSkinWhite;
     /*
      * 禁止App系统文件夹document同步

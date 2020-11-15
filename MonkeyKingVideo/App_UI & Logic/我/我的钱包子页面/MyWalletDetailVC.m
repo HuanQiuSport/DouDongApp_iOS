@@ -101,11 +101,11 @@
     [super viewDidLoad];
     self.gk_navTitle = @"我的余额";
     self.gk_navTitleFont = [UIFont systemFontOfSize:18];
-    self.gk_navTitleColor = UIColor.whiteColor;
+    self.gk_navTitleColor = UIColor.blackColor;
     self.gk_statusBarHidden = NO;
     self.gk_navLineHidden = YES;
-    self.view.backgroundColor = HEXCOLOR(0x242a37);
-    self.gk_backImage = [UIImage imageNamed:@"white_return"];
+    self.view.backgroundColor = HEXCOLOR(0xFEF2F4);
+    self.gk_backStyle = GKNavigationBarBackStyleBlack;
 }
 
 - (void)initUI {

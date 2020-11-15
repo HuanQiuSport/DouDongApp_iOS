@@ -51,7 +51,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [COLOR_RGB(36, 42, 55, 1) colorWithAlphaComponent:0.9];
+    self.view.backgroundColor = UIColor.whiteColor;
     [self.view addSubview:self.botView];
     [self.botView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.offset(0);
@@ -565,7 +565,7 @@ forHeaderFooterViewReuseIdentifier:NSStringFromClass(HoveringHeaderView.class)];
             make.top.offset(12);
             make.height.offset(18);
         }];
-        _commentCountLab.textColor = UIColor.whiteColor;
+        _commentCountLab.textColor = UIColor.blackColor;
         _commentCountLab.font = [UIFont systemFontOfSize:15];
         _commentCountLab.textAlignment = NSTextAlignmentCenter;
         [self.view addSubview:self.closeBtn];

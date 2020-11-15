@@ -64,7 +64,7 @@
 
 -(void)refreshSkin {
     if ([SkinManager manager].skin == MKSkinWhite) {
-        _contentLabel.textColor = kWhiteColor;
+        _contentLabel.textColor = UIColor.blackColor;
         _contentLabel.font = [UIFont systemFontOfSize:11 weight:UIFontWeightMedium];
     } else {
         _contentLabel.textColor = kWhiteColor;
