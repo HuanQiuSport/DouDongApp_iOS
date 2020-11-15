@@ -53,7 +53,7 @@
     self.videoModel = model;
     [self.coverImageView sd_setImageWithURL:[NSURL URLWithString:[model.videoImg stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]] placeholderImage:KIMG(@"av")];
     [self.icon sd_setImageWithURL:[NSURL URLWithString:[model.headImage stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]] placeholderImage:KIMG(@"默认头像2")];
-    self.mkVipImage.hidden = ![model.isVip boolValue];
+    self.mkVipImage.hidden = YES;
     if (self.mkVipImage.hidden) {
         [self.focusBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self.icon.mas_centerY).offset(0);

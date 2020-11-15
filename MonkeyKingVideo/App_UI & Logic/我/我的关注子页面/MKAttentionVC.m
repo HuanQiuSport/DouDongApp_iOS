@@ -197,7 +197,7 @@
     cell.backgroundColor = MKBakcColor;
     MKAttentionSubModel *model  = self.mkAttionModel.list[indexPath.row];
     DLog(@"会员%@",model.isVip);
-    cell.vipImgage.hidden =  ![model.isVip boolValue];
+    cell.vipImgage.hidden = YES;
 
     cell.mkTitleLable.text = model.nickName;
     cell.mkDecripLabel.text = [NSString ensureNonnullString:model.remark ReplaceStr:@"这个家伙很懒，还没有写签名"];
