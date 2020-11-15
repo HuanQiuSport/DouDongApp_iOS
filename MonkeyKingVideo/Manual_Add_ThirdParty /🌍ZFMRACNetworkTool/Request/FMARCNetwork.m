@@ -256,7 +256,7 @@ static FMARCNetwork *static_FMARCNetwork = nil;
                             [alert addAction:action1];
                             [[[MKTools shared] getCurrentVC] presentViewController: alert animated:YES completion:^{}];
                         }
-                        if(statusCode != HTTPResponseCodeNotLogin || statusCode != HTTPResponseCodeFailureToken){
+                        if((statusCode != HTTPResponseCodeNotLogin || statusCode != HTTPResponseCodeFailureToken) && statusCode != HTTPResponseCodeUpdateApp){
                             if (![responseObject[HTTPServiceResponseMsgKey] isEqualToString:@"请登录"]) {
                                 [MBProgressHUD wj_showPlainText:responseObject[HTTPServiceResponseMsgKey] view:nil];
                             }
@@ -277,9 +277,10 @@ static FMARCNetwork *static_FMARCNetwork = nil;
                         [subscriber sendCompleted];
                     }else{//抛其他异常
 #pragma mark - 抛其他异常
-                        [MBProgressHUD wj_showPlainText:responseObject[HTTPServiceResponseMsgKey]
-                                                   view:nil];
-                        
+                        if(statusCode != HTTPResponseCodeUpdateApp) {
+                            [MBProgressHUD wj_showPlainText:responseObject[HTTPServiceResponseMsgKey]
+                                                       view:nil];
+                        }
                         NSLog(@"异常接口路径 %@  %@ ",request.URL.absoluteString,responseObject[HTTPServiceResponseMsgKey]);
                         
                         FMHttpResonse *response = [[FMHttpResonse alloc] initWithResponseSuccess:responseObject[HTTPServiceResponseMsgKey]
