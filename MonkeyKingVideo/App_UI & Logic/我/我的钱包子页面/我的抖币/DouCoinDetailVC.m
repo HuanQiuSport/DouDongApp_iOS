@@ -74,7 +74,7 @@ UITableViewDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor =  RGBCOLOR(36, 42, 55);
+    self.view.backgroundColor =  UIColor.whiteColor;
     self.gk_navTitle = @"";
     self.gk_navLineHidden = YES;
     self.gk_navigationBar.hidden = YES;

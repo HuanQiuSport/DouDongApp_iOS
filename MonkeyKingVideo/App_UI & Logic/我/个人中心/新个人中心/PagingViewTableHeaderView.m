@@ -10,6 +10,10 @@
 @interface PagingViewTableHeaderView()
 
 @property (nonatomic, assign) CGRect imageViewFrame;
+
+@property (nonatomic, strong) UIView *bottomLineView;
+
+
 ///
 
 @end
@@ -30,6 +34,7 @@
         [self mkAddSubView];
         
         [self mkLayOutView];
+        [self refreshSkin];
     }
     return self;
 }
@@ -62,6 +67,8 @@
 - (void)mkAddSubView{
     
     [self addSubview:self.mkPersonView];
+    [self addSubview:self.bottomLineView];
+    
 }
 
 #pragma mark - 布局子视图
@@ -72,6 +79,14 @@
         make.edges.equalTo(self);
         
     }];
+    [self.bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.mas_left);
+        make.right.mas_equalTo(self.mas_right);
+        make.bottom.mas_equalTo(self.mas_bottom);
+        make.height.mas_equalTo(@(10));
+    }];
+    
+    
 }
 - (MKPersonView *)mkPersonView{
     
@@ -82,4 +97,13 @@
     }
     return _mkPersonView;
 }
+-(UIView *)bottomLineView {
+    if(_bottomLineView == nil) {
+        _bottomLineView = UIView.new;
+        _bottomLineView.backgroundColor = HEXCOLOR(0xF7F7F7);
+    }
+    return  _bottomLineView;
+}
+
+
 @end

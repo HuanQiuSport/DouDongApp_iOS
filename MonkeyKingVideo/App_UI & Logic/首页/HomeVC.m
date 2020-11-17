@@ -284,6 +284,12 @@ didClickSelectedItemAtIndex:(NSInteger)index {
 //    }
 
      [self.listContainerView didClickSelectedItemAtIndex:index];
+    if (index == 1) {
+        _categoryView.titleColor = kWhiteColor;
+    } else {
+        _categoryView.titleColor = UIColor.blackColor;
+    }
+    [_categoryView reloadData];
 }
 
 //传递scrolling事件给listContainerView，必须调用！！！
@@ -301,13 +307,12 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
 {
 //    NSLog(@"%ld",(long)index);
 //    NSLog(@"左右滑动了啊！！！！！！！！！！！！！%ld",(long)index); // 0关注 1推荐
-//    if (index == 0) {
-//        RecommendVC *vc = [[RecommendVC alloc] init];
-//        vc.isCanPlay = NO;
-//    } else {
-//        RecommendVC *vc = [[RecommendVC alloc] init];
-//        vc.isCanPlay = YES;
-//    }
+    if (index == 1) {
+        _categoryView.titleColor = kWhiteColor;
+    } else {
+        _categoryView.titleColor = UIColor.blackColor;
+    }
+    [_categoryView reloadData];
 }
 #pragma mark —— lazyLoad
 -(NSMutableArray<NSString *> *)titleMutArr{
@@ -378,7 +383,7 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
         [self.view addSubview:_categoryView];
         [_categoryView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
-            make.height.mas_equalTo(SCALING_RATIO(50));
+            make.height.mas_equalTo(SCALING_RATIO(44));
             make.top.equalTo(self.listContainerView).offset(rectOfStatusbar());
         }];
         [self.view layoutIfNeeded];

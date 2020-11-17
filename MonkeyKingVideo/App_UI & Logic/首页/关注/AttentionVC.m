@@ -99,7 +99,7 @@ UICollectionViewDataSource
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.gk_navigationBar.hidden = YES;
     self.gk_statusBarHidden = YES;
     self.mkBackImageView.alpha = 1;
@@ -244,6 +244,7 @@ UICollectionViewDataSource
             make.bottom.equalTo(self.view.mas_bottom).offset(-kTabBarHeight);
             make.top.equalTo(self.view.mas_top).offset(kStatusBarHeight + kNavigationBarHeight);
         }];
+        _mkCollectionView.backgroundColor = HEXCOLOR(0xf8f8f8);
     }
     return _mkCollectionView;
 }
@@ -277,7 +278,7 @@ UICollectionViewDataSource
 - (UIImageView *)mkBackImageView{
     if (!_mkBackImageView) {
         _mkBackImageView = [[UIImageView alloc]init];
-        _mkBackImageView.image = KIMG(@"nodata");
+//        _mkBackImageView.image = KIMG(@"nodata");
         _mkBackImageView.contentMode = UIViewContentModeScaleToFill;
         [self.view addSubview:_mkBackImageView];
         [_mkBackImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -293,7 +294,7 @@ UICollectionViewDataSource
     if (!_mkBackNoDataTextLabel) {
         _mkBackNoDataTextLabel = [[UILabel alloc]init];
         _mkBackNoDataTextLabel.font = [UIFont systemFontOfSize:18 weight:UIFontWeightMedium];
-        _mkBackNoDataTextLabel.textColor = [UIColor whiteColor];
+        _mkBackNoDataTextLabel.textColor = HEXCOLOR(0x999999);
         _mkBackNoDataTextLabel.textAlignment = NSTextAlignmentCenter;
         [self.view addSubview:_mkBackNoDataTextLabel];
         [_mkBackNoDataTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -320,7 +321,7 @@ UICollectionViewDataSource
         _loginLab1 = UILabel.new;
         _loginLab1.frame = CGRectMake(0, SCALING_RATIO(258), kScreenWidth, 28);
         _loginLab1.text = @"你还没有登录";
-        _loginLab1.textColor = UIColor.whiteColor;
+        _loginLab1.textColor = HEXCOLOR(0x999999);
         _loginLab1.font = [UIFont fontWithName:@"PingFangSC-Medium" size:20];
         _loginLab1.textAlignment = NSTextAlignmentCenter;
     }
@@ -331,7 +332,7 @@ UICollectionViewDataSource
         _loginLab2 = UILabel.new;
         _loginLab2.frame = CGRectMake(0, SCALING_RATIO(292), kScreenWidth, 17);
         _loginLab2.text = @"登录账户查看你关注的精彩内容";
-        _loginLab2.textColor = UIColor.whiteColor;
+        _loginLab2.textColor = HEXCOLOR(0x999999);
         _loginLab2.font = [UIFont systemFontOfSize:12];
         _loginLab2.textAlignment = NSTextAlignmentCenter;
     }

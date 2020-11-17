@@ -399,8 +399,8 @@
     if (!_backToLoginBtn) {
         _backToLoginBtn = UIButton.new;
         _backToLoginBtn.titleLabel.numberOfLines = 0;
-        _backToLoginBtn.backgroundColor = kBlackColor;
-        _backToLoginBtn.alpha = 0.7f;
+        _backToLoginBtn.backgroundColor = COLOR_HEX(0x000000, 0.4);
+//        _backToLoginBtn.alpha = 0.7f;
         [_backToLoginBtn setTitle:@"返\n回\n登\n录"
                         forState:UIControlStateNormal];
         [_backToLoginBtn layoutButtonWithEdgeInsetsStyle:GLButtonEdgeInsetsStyleTop

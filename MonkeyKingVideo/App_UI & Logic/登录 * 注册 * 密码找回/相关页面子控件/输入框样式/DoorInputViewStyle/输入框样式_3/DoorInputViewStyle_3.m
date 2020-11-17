@@ -35,7 +35,7 @@ UITextFieldDelegate
         if (![NSString isNullString:self.titleStr]) {
             self.titleLab.text = self.titleStr;
         }
-        self.tf.alpha = 1;
+//        self.tf.alpha = 0.4;
         if (self.isShowSecurityMode) {
             self.securityModeBtn.alpha = self.isShowSecurityMode;
             self.securityModeBtn.selected = self.isShowSecurityMode;
@@ -141,7 +141,7 @@ replacementString:(NSString *)string{
         _titleLab = UILabel.new;
         _titleLab.font = [UIFont systemFontOfSize:14
                                            weight:UIFontWeightRegular];
-        _titleLab.textColor = kWhiteColor;
+        _titleLab.textColor = UIColor.blackColor;
         [self addSubview:_titleLab];
         [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.equalTo(self);
@@ -153,11 +153,11 @@ replacementString:(NSString *)string{
     if (!_tf) {
         _tf = ZYTextField.new;
         _tf.delegate = self;
-        _tf.backgroundColor = kBlackColor;
+        _tf.backgroundColor = COLOR_HEX(0x000000, 0.4);
         _tf.returnKeyType = UIReturnKeyDone;
         _tf.keyboardAppearance = UIKeyboardAppearanceAlert;
         _tf.keyboardType = UIKeyboardTypeASCIICapable;
-        _tf.alpha = 0.7;
+//        _tf.alpha = 0.4;
         _tf.cj_delegate = self;
         [self addSubview:_tf];
         [_tf addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];

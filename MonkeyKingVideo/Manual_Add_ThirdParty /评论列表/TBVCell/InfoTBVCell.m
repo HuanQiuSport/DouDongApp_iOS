@@ -59,7 +59,7 @@
         NSRange nameRange = [string rangeOfString:nameString];
         NSRange contentRange = [string rangeOfString:contentString];
         NSRange dateRange = [string rangeOfString:dateString];
-        [textString setColor:UIColor.whiteColor range:replyRange];
+        [textString setColor:HEXCOLOR(0x8391af) range:replyRange];
         [textString setColor:HEXCOLOR(0x8391af) range:nameRange];
         [textString setFont:[UIFont systemFontOfSize:15] range:replyRange];
         [textString setFont:[UIFont systemFontOfSize:15] range:nameRange];

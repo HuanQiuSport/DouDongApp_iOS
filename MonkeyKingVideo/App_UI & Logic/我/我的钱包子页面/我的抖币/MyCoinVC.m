@@ -228,11 +228,12 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
 - (void)initUI {
     self.gk_navTitle = @"我的抖币";
     self.gk_navTitleFont = [UIFont systemFontOfSize:18];
-    self.gk_navTitleColor = UIColor.whiteColor;
+    self.gk_navTitleColor = UIColor.blackColor;
     self.gk_statusBarHidden = NO;
     self.gk_navLineHidden = YES;
-    self.view.backgroundColor = HEXCOLOR(0x242a37);
-    self.gk_backImage = [UIImage imageNamed:@"white_return"];
+    self.view.backgroundColor = HEXCOLOR(0xF7F7F7);
+    self.gk_backStyle = GKNavigationBarBackStyleBlack;
+//    self.gk_backImage = [UIImage imageNamed:@"white_return"];
     [SceneDelegate sharedInstance].customSYSUITabBarController.gk_navigationBar.hidden = YES;
     [self.view addSubview:self.headbgV];
     [self.headbgV addSubview:self.showNumLab];
@@ -425,12 +426,12 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
 - (UIView *)botView {
     if (!_botView) {
         _botView = UIView.new;
-        _botView.backgroundColor = HEXCOLOR(0x242a37);
+        _botView.backgroundColor = HEXCOLOR(0xFFFFFF);
         _botView.layer.cornerRadius = 12;
-        _botView.layer.shadowColor = [UIColor blackColor].CGColor;
-        _botView.layer.shadowOffset = CGSizeMake(0,0);
-        _botView.layer.shadowOpacity = 0.5;
-        _botView.layer.shadowRadius = 20;
+//        _botView.layer.shadowColor = [UIColor blackColor].CGColor;
+//        _botView.layer.shadowOffset = CGSizeMake(0,0);
+//        _botView.layer.shadowOpacity = 0.5;
+//        _botView.layer.shadowRadius = 20;
         
         UILabel *lab = UILabel.new;
         [_botView addSubview:lab];
@@ -442,7 +443,7 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
         }];
         lab.textAlignment = NSTextAlignmentCenter;
         lab.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-        lab.textColor = UIColor.whiteColor;
+        lab.textColor = UIColor.redColor;
         lab.text = @"抖币流水";
         UIView *leftLine = UIView.new;
         [_botView addSubview:leftLine];
@@ -470,7 +471,7 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
             make.bottom.offset(-10);
             make.height.offset(12);
         }];
-        botLab.textColor = COLOR_HEX(0xffffff, 0.4);
+        botLab.textColor = COLOR_HEX(0x999999, 1);
         botLab.font = [UIFont systemFontOfSize:12];
         botLab.text = @"仅显示当天的抖币流水";
         
@@ -540,8 +541,8 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
         make.height.offset(20);
     }];
     [self.botView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.offset(14);
-        make.right.offset(-14);
+        make.left.offset(0);
+        make.right.offset(0);
         make.bottom.offset(-15);
         make.top.mas_equalTo(self.headbgV.mas_bottom).offset(0);
     }];

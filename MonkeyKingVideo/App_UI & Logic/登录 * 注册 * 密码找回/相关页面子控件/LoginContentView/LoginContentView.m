@@ -59,9 +59,9 @@
 -(void)drawRect:(CGRect)rect{
     [super drawRect:rect];
     if (!self.isOK) {
-        self.bgView.alpha = 0.7;
+//        self.bgView.alpha = 0.7;
         self.titleLab.alpha = 1;
-        self.toRegisterBtn.alpha = 1;
+        self.toRegisterBtn.alpha = 0.4;
         [self makeInputView];
         self.storeCodeBtn.alpha = 1;
         self.forgetCodeBtn.alpha = 1;
@@ -326,7 +326,7 @@
 - (UIView *)bgView{
     if (!_bgView) {
         _bgView = [[UIView alloc]init];
-        _bgView.backgroundColor = KLightGrayColor;
+        _bgView.backgroundColor = COLOR_HEX(0xFFFFFF, 0.4);
         _bgView.frame = CGRectMake(0, 0, self.width, self.height);
         [self addSubview:_bgView];
     }
@@ -338,7 +338,7 @@
         _toRegisterBtn = UIButton.new;
         _toRegisterBtn.titleLabel.numberOfLines = 0;
         _toRegisterBtn.backgroundColor =kBlackColor;
-        _toRegisterBtn.alpha = 0.7f;
+        _toRegisterBtn.alpha = 0.4f;
         [_toRegisterBtn setTitle:@"新\n用\n户\n注\n册"
                         forState:UIControlStateNormal];
         [_toRegisterBtn setImage:KIMG(@"用户名称")
@@ -373,7 +373,7 @@
         _titleLab.font = [UIFont systemFontOfSize:20
                                            weight:UIFontWeightRegular];
         [_titleLab sizeToFit];
-        [_bgView addSubview:_titleLab];
+        [self.bgView addSubview:_titleLab];
         [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self).offset(-32);
             make.top.equalTo(self).offset(20);

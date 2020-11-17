@@ -75,6 +75,7 @@
     self.mkScrollFLoat = JXTableHeaderViewHeight;
     [self mkAddView];
     self.mkScrollFLoat = 0;
+    self.view.backgroundColor = UIColor.whiteColor;
     [self.userHeaderView.mkPersonView taCenterRefresh];
 #pragma mark - 拉黑 隐藏
 //    self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightBarBtn];
@@ -116,23 +117,23 @@
     if (!_categoryView) {
         _categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0,0, [UIScreen mainScreen].bounds.size.width, JXheightForHeaderInSection)];
         self.categoryView.titles = self.titles;
-        self.categoryView.backgroundColor = MKBakcColor;//
+        self.categoryView.backgroundColor = UIColor.whiteColor;//
         self.categoryView.delegate = self;
         [self.categoryView setDefaultSelectedIndex:self.selectedIndex];
         self.categoryView.titleFont = [UIFont systemFontOfSize:18 weight:UIFontWeightRegular];
         self.categoryView.titleSelectedFont = [UIFont systemFontOfSize:22 weight:UIFontWeightRegular];
         self.categoryView.titleSelectedColor = [[MKTools shared] getColorWithColor:RGBCOLOR(247,131,97) andCoe:0.3 andEndColor:RGBCOLOR(245,75,100)];//[UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(50, 25)]];;
         self.categoryView.cellWidth = SCALING_RATIO(135);
-        self.categoryView.titleColor = MKNoSelectColor;
-        self.userHeaderView.backgroundColor = MKBakcColor;
-        self.pagerView.backgroundColor = MKBakcColor;
-        self.pagerView.mainTableView.backgroundColor = MKBakcColor;
+        self.categoryView.titleColor = HEXCOLOR(0x999999);
+        self.userHeaderView.backgroundColor = UIColor.whiteColor;
+        self.pagerView.backgroundColor = UIColor.whiteColor;
+        self.pagerView.mainTableView.backgroundColor = UIColor.whiteColor;
         self.categoryView.titleColorGradientEnabled = YES;
         self.categoryView.titleLabelZoomEnabled = YES;
         self.categoryView.contentScrollViewClickTransitionAnimationEnabled = NO;
         [self.pagerView reloadData];
         
-        self.pagerView.listContainerView.listCellBackgroundColor = MKBakcColor;
+        self.pagerView.listContainerView.listCellBackgroundColor = UIColor.whiteColor;
         JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
         lineView.indicatorColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(135), 3*KDeviceScale)]];;;
         lineView.indicatorWidth = SCALING_RATIO(135);
@@ -145,8 +146,8 @@
         self.categoryView.listContainer = (id<JXCategoryViewListContainer>)self.pagerView.listContainerView;
         
         self.gk_navLineHidden = YES;
-        self.gk_backStyle = GKNavigationBarBackStyleWhite;
-        self.gk_navBackgroundColor = MKBakcColor;
+        self.gk_backStyle = GKNavigationBarBackStyleBlack;
+        self.gk_navBackgroundColor = UIColor.whiteColor;
     }
     
 }
@@ -157,7 +158,7 @@
     self.userHeaderView.mkPersonView.mkUserVIPImageView.hidden = YES;
     self.userHeaderView.mkPersonView.mkAttentionBtn.hidden = [self.mkPernalModel.areSelf isEqualToString:@"1"]?YES:NO;
     [_userHeaderView.mkPersonView setAtttionStyle:_userHeaderView.mkPersonView.mkAttentionBtn.selected];
-    [_userHeaderView.mkPersonView.mkUserImageView sd_setImageWithURL:[NSURL URLWithString:self.mkPernalModel.headImage]];
+    [_userHeaderView.mkPersonView.mkUserImageView sd_setImageWithURL:[NSURL URLWithString:self.mkPernalModel.headImage] placeholderImage:[UIImage imageNamed:@"default_avatar_white.jpg"]];
     _userHeaderView.mkPersonView.mkUserLabel.text = self.mkPernalModel.nickName;
     _userHeaderView.mkPersonView.mkUserLabel.hidden = NO;
     _userHeaderView.mkPersonView.mkDetailLabel.text = [NSString ensureNonnullString:self.mkPernalModel.remark ReplaceStr:@"这个人很懒，什么也没有留下"];

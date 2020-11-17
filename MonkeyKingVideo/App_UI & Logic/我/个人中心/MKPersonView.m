@@ -7,6 +7,13 @@
 //
 
 #import "MKPersonView.h"
+@interface MKPersonView()
+
+@property (nonatomic, strong) UIView *topLineView;
+
+
+@end
+
 @implementation MKPersonView
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -69,6 +76,15 @@
     }];
     
     [self addOherView];
+    
+    [self addSubview:self.topLineView];
+    [self.topLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.mas_left);
+        make.right.mas_equalTo(self.mas_right);
+        make.top.mas_equalTo(self.mas_top).offset(kNavigationBarHeight);
+        make.height.mas_equalTo(@(8));
+    }];
+    
     
 }
 - (void)setNoLoginData {
@@ -226,7 +242,7 @@
             
             make.height.equalTo(@(29 *KDeviceScale));
             
-            make.top.equalTo(@(kNavigationBarHeight + 20 * KDeviceScale));
+            make.top.equalTo(@(kNavigationBarHeight + 20 * KDeviceScale + 4));
             
             make.left.equalTo(@(91 *KDeviceScale));
             
@@ -363,7 +379,7 @@
         
         [_mkSexAge setTitleEdgeInsets:UIEdgeInsetsMake(-2,4, -2,-2)];
         
-        [_mkSexAge setTitleColor:MKTextColor forState:UIControlStateNormal];
+        [_mkSexAge setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
         
          [self addSubview:_mkSexAge];
          [self setOtherStyle:_mkSexAge];
@@ -375,7 +391,7 @@
             
             make.left.equalTo(self.mkAttentionBtn.mas_left);
             
-            make.top.equalTo(self.mkAttentionBtn.mas_bottom).offset(14*KDeviceScale);
+            make.top.equalTo(self.mkAttentionBtn.mas_bottom).offset(7*KDeviceScale);
             
         }];
     }
@@ -390,7 +406,7 @@
         
         _mkConstellationLab.textAlignment = NSTextAlignmentCenter;
         
-        _mkConstellationLab.textColor = MKTextColor;
+        _mkConstellationLab.textColor = UIColor.blackColor;
         
         _mkConstellationLab.font = [UIFont systemFontOfSize:10 weight:UIFontWeightRegular];
         
@@ -406,7 +422,7 @@
             
             make.left.equalTo(self.mkArea.mas_right).offset(8*KDeviceScale);
             
-            make.top.equalTo(self.mkAttentionBtn.mas_bottom).offset(14*KDeviceScale);
+            make.top.equalTo(self.mkSexAge.mas_top);
             
             
         }];
@@ -417,7 +433,7 @@
     
     sub.layer.cornerRadius = 6;
     
-    sub.layer.borderColor = MKBorderColor.CGColor;
+    sub.layer.borderColor = HEXCOLOR(0xCECECE).CGColor;
     
     sub.layer.borderWidth = 1;
     
@@ -431,7 +447,7 @@
         
         _mkArea = [[UILabel alloc]init];
         
-        _mkArea.textColor = MKTextColor;
+        _mkArea.textColor = UIColor.blackColor;
         
         _mkArea.textAlignment = NSTextAlignmentCenter;
         
@@ -449,7 +465,7 @@
             
             make.left.equalTo(self.mkSexAge.mas_right).offset(8*KDeviceScale);
             
-            make.top.equalTo(self.mkAttentionBtn.mas_bottom).offset(14*KDeviceScale);
+            make.top.equalTo(self.mkSexAge.mas_top);
             
             
         }];
@@ -595,7 +611,7 @@
             make.left.equalTo(@(0*KDeviceScale));
             make.right.equalTo(@(-0*KDeviceScale));
             make.height.equalTo(@(84*KDeviceScale));
-            make.top.mas_equalTo(_mkMultiBtnView.mas_bottom).offset(20*KDeviceHeightScale);
+            make.top.mas_equalTo(_mkMultiBtnView.mas_bottom).offset(10*KDeviceHeightScale);
         }];
         [_mkBanerView addAction:^(UIButton *btn) {
             NSURL * url = [NSURL URLWithString:@"tingyun.75://"];
@@ -690,4 +706,13 @@
     
     return result;
 }
+
+-(UIView *)topLineView {
+    if(_topLineView == nil) {
+        _topLineView = UIView.new;
+        _topLineView.backgroundColor = HEXCOLOR(0xF7F7F7);
+    }
+    return  _topLineView;
+}
+
 @end

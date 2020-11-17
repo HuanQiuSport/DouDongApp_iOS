@@ -39,6 +39,8 @@
 
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIView *bgview;
+
+@property (strong,nonatomic) UIImageView *topBgView;
 @end
 
 @implementation TaskVC
@@ -276,7 +278,7 @@
         make.height.offset(210);
     }];
     
-    
+    [self topBgView];
 }
 #pragma mark 成功登陆/注册通知
 - (void)addNotifaction {
@@ -643,7 +645,7 @@
         }];
         _signTitleLab.text = @"今日签到可获得";
         _signTitleLab.textColor = kWhiteColor;
-        _signTitleLab.font = [UIFont systemFontOfSize:15];
+        _signTitleLab.font = [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
         
         _signLab = UILabel.new;
         [_signView addSubview:_signLab];
@@ -834,6 +836,20 @@
     }
     return _paomav;
 }
+-(UIImageView *)topBgView {
+    if(_topBgView == nil) {
+        _topBgView = [[UIImageView alloc]init];
+        _topBgView.image = KIMG(@"task_top_bg");
+        _topBgView.contentMode = UIViewContentModeScaleAspectFill;
+        [self.view insertSubview:_topBgView atIndex:0];
+        [_topBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.top.equalTo(self.view.mas_top).offset(0);
+        }];
+    }
+    return _topBgView;
+}
+
 - (NSMutableArray *)m_Signs
 {
     if (!_m_Signs) {

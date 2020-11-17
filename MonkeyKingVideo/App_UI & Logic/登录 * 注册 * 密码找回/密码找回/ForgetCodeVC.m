@@ -99,13 +99,13 @@ ZFPlayerController *ZFPlayer_ForgetCodeVC;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.view.backgroundColor = MKBakcColor;
+    self.view.backgroundColor = UIColor.whiteColor;
     
     //    self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
-    self.gk_backStyle = GKNavigationBarBackStyleWhite;
+    self.gk_backStyle = GKNavigationBarBackStyleBlack;
     self.gk_navLineHidden = YES;
     self.gk_navTitle = @"密码找回";
-    self.gk_navTitleColor = kWhiteColor;
+    self.gk_navTitleColor = UIColor.blackColor;
     self.gk_navTitleFont = [UIFont systemFontOfSize:17
                                              weight:UIFontWeightBold];
 }
@@ -113,7 +113,7 @@ ZFPlayerController *ZFPlayer_ForgetCodeVC;
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     //    [self.player.currentPlayerManager play];
-    self.step_01.alpha = 0.7;
+//    self.step_01.alpha = 0.7;
     IQKeyboardManager.sharedManager.enable = NO;
     [self.view bringSubviewToFront:self.gk_navigationBar];
     self.currentFlowSerialNum = 0;
@@ -296,8 +296,8 @@ ZFPlayerController *ZFPlayer_ForgetCodeVC;
         
         [self.view addSubview:_step_01];
         _step_01.frame = CGRectMake(SCREEN_WIDTH,
-                                    200,
-                                    SCREEN_WIDTH-64,
+                                    230,
+                                    SCREEN_WIDTH,
                                     144);
     }return _step_01;
 }
@@ -305,7 +305,7 @@ ZFPlayerController *ZFPlayer_ForgetCodeVC;
 -(ForgetCodeStep_02View *)step_02{
     if (!_step_02) {
         _step_02 = ForgetCodeStep_02View.new;
-        _step_02.alpha = 0.7;
+//        _step_02.alpha = 0.7;
         @weakify(self)
         [_step_02 actionForgetCodeStep_02ViewKeyboardBlock:^(id data) {
         }];
@@ -334,8 +334,8 @@ ZFPlayerController *ZFPlayer_ForgetCodeVC;
         
         [self.view addSubview:_step_02];
         _step_02.frame = CGRectMake(SCREEN_WIDTH,
-                                    200,
-                                    SCREEN_WIDTH - 64,
+                                    230,
+                                    SCREEN_WIDTH,
                                     228);
     }return _step_02;
 }

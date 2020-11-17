@@ -32,9 +32,9 @@
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = RGB_COLOR(30 ,36 ,50);
+        self.backgroundColor = RGB_COLOR(0x21 , 0x1B,0x45);
         self.flashView = [[UIView alloc] initWithFrame:frame];
-        self.flashView.backgroundColor = RGB_COLOR(30 ,36 ,50);
+        self.flashView.backgroundColor = RGB_COLOR(0x21 , 0x1B,0x45);
         [self addSubview:self.flashView];
     }
     return self;
@@ -260,13 +260,13 @@
     if (!_closeBtn) {
         _closeBtn = UIButton.new;
         _closeBtn.frame = CGRectMake( [[UIScreen mainScreen] bounds].size.width - 9 - SCALING_RATIO(60) , -26, SCALING_RATIO(60), 26);
-        _closeBtn.backgroundColor = RGB_COLOR(0, 0, 0);
-        [_closeBtn setTitle:@"  取消" forState:UIControlStateNormal];
-        [_closeBtn setImage:KIMG(@"icon_share_close") forState:UIControlStateNormal];
+        _closeBtn.backgroundColor = UIColor.clearColor;
+//        [_closeBtn setTitle:@"  取消" forState:UIControlStateNormal];
+        [_closeBtn setImage:KIMG(@"share_close") forState:UIControlStateNormal];
         _closeBtn.adjustsImageWhenHighlighted = 0;
         _closeBtn.layer.cornerRadius = 26/2;
         _closeBtn.layer.masksToBounds = 1;
-        [_closeBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+        [_closeBtn setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
         _closeBtn.titleLabel.font = [UIFont systemFontOfSize:12];
         @weakify(self)
         [[_closeBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {

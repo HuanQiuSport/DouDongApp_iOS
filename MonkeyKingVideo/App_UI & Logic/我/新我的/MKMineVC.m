@@ -89,10 +89,9 @@
     self.gk_navTitle = @"";
     self.gk_statusBarHidden = NO;
     [SceneDelegate sharedInstance].customSYSUITabBarController.lzb_tabBarHidden = NO;
-  
-     [self mkAddView];
+    [self mkAddView];
     [self addNotifaction];
-    
+    [self logout];
     [self refreshSkin];
 }
 
@@ -136,6 +135,11 @@
 }
 
 - (void)loginSuccess {
+    [self loginSuccessUI];
+    [self getData];
+}
+
+-(void)loginSuccessUI {
     _userHeaderView.mkPersonView.mkBanerView.alpha = 1;
     _userHeaderView.mkPersonView.loginBtn.hidden = 1;
     _userHeaderView.mkPersonView.loginLab.hidden = 1;
@@ -146,8 +150,12 @@
     _userHeaderView.mkPersonView.mkArea.hidden = 0;
     _userHeaderView.mkPersonView.mkConstellationLab.hidden = 0;
     _userHeaderView.mkPersonView.mkEditorBtn.hidden = 0;
-    [self getData];
+    _userHeaderView.mkPersonView.mkArea.hidden = NO;
+    _userHeaderView.mkPersonView.mkSexAge.hidden = NO;
+    _userHeaderView.mkPersonView.mkConstellationLab.hidden = NO;
+
 }
+
 
 - (void)logout {
     _userHeaderView.mkPersonView.loginBtn.hidden = 0;
@@ -158,6 +166,9 @@
     _userHeaderView.mkPersonView.mkAttentionNumView.mkNumberLabel.text = @"0";
     _userHeaderView.mkPersonView.mkZanNumView.mkNumberLabel.text = @"0";
     _userHeaderView.mkPersonView.mkFansNumView.mkNumberLabel.text = @"0";
+    _userHeaderView.mkPersonView.mkArea.hidden = YES;
+    _userHeaderView.mkPersonView.mkSexAge.hidden = YES;
+    _userHeaderView.mkPersonView.mkConstellationLab.hidden = YES;
     _userHeaderView.mkPersonView.mkUserLabel.hidden = 1;
     _userHeaderView.mkPersonView.mkAttentionBtn.hidden = 1;
     _userHeaderView.mkPersonView.mkDetailLabel.hidden = 1;
@@ -249,7 +260,7 @@
 }
 
 - (void)MKaddValue{
-   
+    [self loginSuccessUI];
     self.userHeaderView.mkPersonView.mkAttentionBtn.selected = [self.mkPernalModel.attention isEqualToString:@"1"]?YES:NO;
     //[self.mkPernalModel.areSelf isEqualToString:@"1"]?YES:NO
     self.userHeaderView.mkPersonView.mkAttentionBtn.hidden = YES;

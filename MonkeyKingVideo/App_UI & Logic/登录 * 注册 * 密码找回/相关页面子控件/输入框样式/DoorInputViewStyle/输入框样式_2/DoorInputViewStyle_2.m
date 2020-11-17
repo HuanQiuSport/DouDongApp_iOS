@@ -121,8 +121,8 @@ replacementString:(NSString *)string{
         _tf.cj_delegate = self;
         _tf.returnKeyType = UIReturnKeyDone;
         _tf.keyboardAppearance = UIKeyboardAppearanceAlert;
-        _tf.backgroundColor = kBlackColor;
-        _tf.alpha = 0.7;
+        _tf.backgroundColor = COLOR_HEX(0x000000, 0.4);
+//        _tf.alpha = 0.7;
         [self addSubview:_tf];
         [_tf mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.bottom.equalTo(self);
@@ -141,8 +141,8 @@ replacementString:(NSString *)string{
     if (!_imageCodeView) {
         _imageCodeView = ImageCodeView.new;
         _imageCodeView.font = kFontSize(15);
-        _imageCodeView.alpha = 0.7;
-        _imageCodeView.bgColor = kBlackColor;
+//        _imageCodeView.alpha = 0.7;
+        _imageCodeView.bgColor = COLOR_HEX(0x000000, 0.4);
         @weakify(self)
         [_imageCodeView actionBlockImageCodeView:^(id data) {
             @strongify(self)

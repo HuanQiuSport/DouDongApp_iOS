@@ -34,10 +34,10 @@
 
 -(instancetype)init{
     if (self = [super init]) {
-         self.backgroundColor = MKBakcColor;
+         self.backgroundColor = UIColor.clearColor;
         [self keyboard];
-        [UIView cornerCutToCircleWithView:self
-                          AndCornerRadius:8];
+//        [UIView cornerCutToCircleWithView:self
+//                          AndCornerRadius:8];
     }return self;
 }
 
@@ -56,8 +56,8 @@
         inputView.tf.offset = 0.01;
         inputView.tf.ZYtextFont = [UIFont systemFontOfSize:14
                                                     weight:UIFontWeightRegular];
-        inputView.tf.ZYtextColor = kWhiteColor;
-        inputView.tf.ZYtintColor = kWhiteColor;
+        inputView.tf.ZYtextColor = UIColor.blackColor;
+        inputView.tf.ZYtintColor = UIColor.blackColor;
         inputView.tf.ZYplaceholderLabelFont_1 = inputView.tf.ZYtextFont;
         inputView.tf.ZYplaceholderLabelFont_2 = inputView.tf.ZYtextFont;
         inputView.tf.ZYplaceholderLabelTextColor_1 = kGrayColor;
@@ -66,7 +66,7 @@
         inputView.tf.leftViewMode = UITextFieldViewModeNever;
         inputView.tf.rightViewMode = UITextFieldViewModeNever;
         inputView.tf.placeholder = self.placeHolderMutArr[t];
-        inputView.tf.backgroundColor = MKBakcColor;
+        inputView.tf.backgroundColor = UIColor.clearColor;
         
         inputView.btnSelectedIMG = self.btnSelectedImgMutArr[t];
         inputView.btnUnSelectedIMG = self.btnUnselectedImgMutArr[t];
@@ -82,7 +82,7 @@
         
         [self addSubview:inputView];
         [inputView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(0);
+            make.left.mas_equalTo(50);
             make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH-64, 54));
             if (t == 0) {
                 make.top.equalTo(self).offset(0);
@@ -93,7 +93,7 @@
         }];
         
         UIView *line = [[UIView alloc]init];
-        line.backgroundColor = COLOR_RGB(216, 216, 216, 1);
+        line.backgroundColor = COLOR_HEX(0xA2A2A2, 0.2);
         line.frame = CGRectMake(0, 32 * t + 54 * (t + 1), self.width, 1);
         [self addSubview:line];
         
@@ -174,7 +174,7 @@
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
 //        self.centerX = [SCREEN_WIDTH / 2];
-        self.x = 64;
+        self.x = 0;
         self.centerY -= offsetY;
     } completion:^(BOOL finished) {
         self.isOpen = YES;

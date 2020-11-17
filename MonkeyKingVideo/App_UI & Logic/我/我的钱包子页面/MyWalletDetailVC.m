@@ -104,7 +104,7 @@
     self.gk_navTitleColor = UIColor.blackColor;
     self.gk_statusBarHidden = NO;
     self.gk_navLineHidden = YES;
-    self.view.backgroundColor = HEXCOLOR(0xFEF2F4);
+    self.view.backgroundColor = HEXCOLOR(0xF6F6F6);
     self.gk_backStyle = GKNavigationBarBackStyleBlack;
 }
 
@@ -120,8 +120,8 @@
         make.top.mas_equalTo(self.gk_navigationBar.mas_bottom).offset(12);
     }];
     [self.botView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.offset(14);
-        make.right.offset(-14);
+        make.left.offset(0);
+        make.right.offset(0);
         make.bottom.offset(-15);
         make.top.mas_equalTo(self.tipView.mas_bottom).offset(20);
     }];
@@ -130,7 +130,7 @@
     [self.tipView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.offset(14);
         make.right.offset(-14);
-        make.height.offset(39);
+        make.height.offset(30);
         make.top.mas_equalTo(self.topView.mas_bottom).offset(16);
     }];
 }
@@ -432,10 +432,10 @@
         _topView = UIView.new;
         _topView.backgroundColor = HEXCOLOR(0x242a37);
         _topView.layer.cornerRadius = 12;
-        _topView.layer.shadowColor = [UIColor blackColor].CGColor;
-        _topView.layer.shadowOffset = CGSizeMake(0,0);
-        _topView.layer.shadowOpacity = 0.5;
-        _topView.layer.shadowRadius = 20;
+//        _topView.layer.shadowColor = [UIColor blackColor].CGColor;
+//        _topView.layer.shadowOffset = CGSizeMake(0,0);
+//        _topView.layer.shadowOpacity = 0.5;
+//        _topView.layer.shadowRadius = 20;
 
         UIImageView *igv = UIImageView.new;
         [_topView addSubview:igv];
@@ -561,12 +561,12 @@
 - (UIView *)botView {
     if (!_botView) {
         _botView = UIView.new;
-        _botView.backgroundColor = HEXCOLOR(0x242a37);
+        _botView.backgroundColor = HEXCOLOR(0xFFFFFF);
         _botView.layer.cornerRadius = 12;
-        _botView.layer.shadowColor = [UIColor blackColor].CGColor;
-        _botView.layer.shadowOffset = CGSizeMake(0,0);
-        _botView.layer.shadowOpacity = 0.5;
-        _botView.layer.shadowRadius = 20;
+//        _botView.layer.shadowColor = [UIColor blackColor].CGColor;
+//        _botView.layer.shadowOffset = CGSizeMake(0,0);
+//        _botView.layer.shadowOpacity = 0.5;
+//        _botView.layer.shadowRadius = 20;
   
         
         UILabel *lab = UILabel.new;
@@ -579,7 +579,7 @@
         }];
         lab.textAlignment = NSTextAlignmentCenter;
         lab.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-        lab.textColor = UIColor.whiteColor;
+        lab.textColor = UIColor.redColor;
         lab.text = @"余额流水";
         UIView *leftLine = UIView.new;
         [_botView addSubview:leftLine];
@@ -615,7 +615,8 @@
         [_botView addSubview:self.mTab];
         [self.mTab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.offset(49);
-            make.left.right.offset(0);
+            make.left.offset(20);
+            make.right.offset(-20);
             make.bottom.offset(-22);
         }];
     }
@@ -625,12 +626,12 @@
 {
     if (!_tipView) {
         _tipView  = UIView.new;
-        _tipView.backgroundColor = HEXCOLOR(0x242a37);
-        _tipView.layer.cornerRadius = 12;
-        _tipView.layer.shadowColor = [UIColor blackColor].CGColor;
-        _tipView.layer.shadowOffset = CGSizeMake(0,0);
-        _tipView.layer.shadowOpacity = 0.5;
-        _tipView.layer.shadowRadius = 20;
+        _tipView.backgroundColor = HEXCOLOR(0xFFFFFF);
+        _tipView.layer.cornerRadius = 15;
+//        _tipView.layer.shadowColor = [UIColor blackColor].CGColor;
+//        _tipView.layer.shadowOffset = CGSizeMake(0,0);
+//        _tipView.layer.shadowOpacity = 0.5;
+//        _tipView.layer.shadowRadius = 20;
         
         
         UILabel *lab = UILabel.new;
@@ -641,7 +642,7 @@
         }];
         lab.text = @"若连续30天未登录，未提现的收益将清空";
         lab.font = [UIFont systemFontOfSize:13];
-        lab.textColor = kWhiteColor;
+        lab.textColor = UIColor.blackColor;
         lab.textAlignment = NSTextAlignmentCenter;
     }
     
@@ -664,7 +665,7 @@
         [_mTab registerClass:MKBanlanceCell.class forCellReuseIdentifier:NSStringFromClass(MKBanlanceCell.class)];
         _mTab.showsVerticalScrollIndicator = 0;
         _mTab.separatorStyle = 0;
-        _mTab.backgroundColor = HEXCOLOR(0x242a37);
+        _mTab.backgroundColor = UIColor.clearColor;
         _mTab.mj_header = self.tableViewHeader;
         _mTab.mj_footer = self.tableViewFooter;
         _mTab.emptyDataSetSource = self;

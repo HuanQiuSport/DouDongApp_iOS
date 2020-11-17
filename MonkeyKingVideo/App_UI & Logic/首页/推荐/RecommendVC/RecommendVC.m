@@ -277,7 +277,7 @@
             }
         } else if(playState == ZFPlayerPlayStatePlayFailed) {
             NSLog(@"视频错误");
-            [weakSelf.player.currentPlayerManager reloadPlayer];
+//            [weakSelf.player.currentPlayerManager reloadPlayer];
         }
         
     };
