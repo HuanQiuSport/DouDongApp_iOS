@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface RecommendVC : BaseVC
 @property(nonatomic, weak)HomeVC *homeVC;
 @property(nonatomic,assign) bool isHome;
+@property(nonatomic,assign) NSTimeInterval lastListRefreshTime;
 - (void)pullToRefresh;
 - (void)playTheIndex:(NSInteger)index;
 #pragma mark - player

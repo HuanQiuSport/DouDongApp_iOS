@@ -13,6 +13,10 @@
 @implementation RecommendVC (VM)
 #pragma mark - 推荐视频列表
 - (void)requestWith:(NSInteger)type WithPageNumber:(NSInteger)pageNumber WithPageSize:(NSInteger)pageSize Block:(MKDataBlock)block{
+    if(([NSDate date].timeIntervalSince1970 - self.lastListRefreshTime) < 5) {
+        block(@(NO));
+        return;
+    }
     NSMutableDictionary *easyDict = @{
          @"pageNum":@(pageNumber),
          @"pageSize":@(pageSize)
@@ -64,6 +68,7 @@
          self.showEmpty = 1;
          if (response.isSuccess) {
              if (response.code == 200) {
+                 self.lastListRefreshTime = [NSDate date].timeIntervalSince1970;
                  NSError *error;
                  MKRecommentModel *model = [[MKRecommentModel alloc]initWithDictionary:(NSDictionary *)response.reqResult  error:&error];
                  // 测试 使用
