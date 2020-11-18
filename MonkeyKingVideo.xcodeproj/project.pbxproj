@@ -8632,7 +8632,7 @@
 					"$(PROJECT_DIR)/Other/Sys/libstdc++/iPhone-Simulator",
 					"$(PROJECT_DIR)/Other/Sys/libstdc++/iPhone-Device",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-l\"bz2\"",
@@ -8808,7 +8808,7 @@
 					"$(PROJECT_DIR)/Other/Sys/libstdc++/iPhone-Simulator",
 					"$(PROJECT_DIR)/Other/Sys/libstdc++/iPhone-Device",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-l\"bz2\"",
