@@ -248,13 +248,12 @@
 - (void)userTimeEnd{
     NSDate *startDate = GetUserDefaultObjForKey(@"USERSTARTDATE");
     NSDate *nowDate = [NSDate date];
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSCalendarUnit unit = NSCalendarUnitYear | NSCalendarUnitWeekOfMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
-    NSDateComponents *cmps = [calendar components:unit fromDate:startDate toDate:nowDate options:0];
-    
+    NSTimeInterval startSecond = [startDate timeIntervalSince1970];
+    NSTimeInterval curseSecond = [nowDate timeIntervalSince1970];
+    NSTimeInterval second = curseSecond - startSecond;
     NSDictionary *easyDict = @{
         @"origin":@(originType_Apple),
-        @"useTime":@(cmps.second),
+        @"useTime":@((int)second),
         @"userId":[MKPublickDataManager sharedPublicDataManage].mkLoginModel.uid,
         @"version":HDAppVersion,
         @"deviceId":UDID,
