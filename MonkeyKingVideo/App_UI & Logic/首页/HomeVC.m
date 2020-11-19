@@ -137,6 +137,7 @@
     lab.font = [UIFont systemFontOfSize:18];
     
     UITextView *contentView = UITextView.new;
+    contentView.backgroundColor = UIColor.whiteColor;
     [view1 addSubview:contentView];
     
 //    contentView.text = content;

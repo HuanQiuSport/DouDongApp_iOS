@@ -289,7 +289,7 @@ didDiscardSceneSessions:(NSSet<UISceneSession *> *)sceneSessions  API_AVAILABLE(
         @"channelUrl":[URL_Manager sharedInstance].channelUrl
     }];
     if([self isFristpostChannle]) {
-        [dic setValue:@"1" forKey:@"frist"];
+        [dic setValue:@"1" forKey:@"first"];
     }
     dispatch_async(dispatch_queue_create("startTime", DISPATCH_QUEUE_SERIAL), ^{
         FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
