@@ -242,7 +242,9 @@
 - (void)sendActiveUser{
     NSDictionary *easyDict = @{
         @"origin":@(originType_Apple),
-        @"version":HDAppVersion
+        @"version":HDAppVersion,
+        @"deviceId":UDID,
+        @"channelUrl":[URL_Manager sharedInstance].channelUrl
     };
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:[URL_Manager sharedInstance].MKActiveUserPOST

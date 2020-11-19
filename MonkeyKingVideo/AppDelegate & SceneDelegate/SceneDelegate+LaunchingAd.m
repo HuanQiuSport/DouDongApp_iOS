@@ -255,7 +255,10 @@
     NSDictionary *easyDict = @{
         @"origin":@(originType_Apple),
         @"useTime":@(cmps.second),
-        @"userId":[MKPublickDataManager sharedPublicDataManage].mkLoginModel.uid
+        @"userId":[MKPublickDataManager sharedPublicDataManage].mkLoginModel.uid,
+        @"version":HDAppVersion,
+        @"deviceId":UDID,
+        @"channelUrl":[URL_Manager sharedInstance].channelUrl
     };
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:[URL_Manager sharedInstance].MKUseTimePOST
