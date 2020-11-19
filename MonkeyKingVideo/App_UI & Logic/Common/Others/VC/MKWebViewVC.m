@@ -30,7 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.view.backgroundColor = HEXCOLOR(0xEEEEEE);//[UIColor whiteColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     [SceneDelegate sharedInstance].customSYSUITabBarController.lzb_tabBarHidden = YES;
     
@@ -117,7 +117,7 @@
 //              }
           }
 //       _webView.scalesPageToFit = YES;
-       _webView.backgroundColor = HEXCOLOR(0xEEEEEE);
+    _webView.backgroundColor = UIColor.whiteColor;
        if (isiPhoneX || isiPhoneXR__XMax) {
            if (@available(iOS 11.0, *)) {
                _webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -128,7 +128,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     _webView.opaque = NO;
-    _webView.backgroundColor = RGBCOLOR(36,42,55);
+    _webView.backgroundColor =  UIColor.whiteColor;
 //    [self.navigationController.navigationBar addSubview:_progressView];
     
     [self.navigationController setNavigationBarHidden:YES animated:NO];

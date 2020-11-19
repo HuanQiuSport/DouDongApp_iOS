@@ -118,9 +118,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    
     self.gk_navigationBar.hidden = YES;
+    self.gk_navBackgroundColor = UIColor.clearColor;
     self.gk_statusBarHidden = YES;
     self.view.backgroundColor = [UIColor blackColor];
     if (self.mkVideoListType == MKVideoListType_A) {

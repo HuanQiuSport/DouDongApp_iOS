@@ -111,7 +111,7 @@ replacementString:(NSString *)string{
         _titleLab = UILabel.new;
         _titleLab.font = [UIFont systemFontOfSize:14
                                            weight:UIFontWeightRegular];
-        _titleLab.textColor = kWhiteColor;
+        _titleLab.textColor = UIColor.blackColor;
         [self addSubview:_titleLab];
         [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.equalTo(self);
@@ -125,8 +125,8 @@ replacementString:(NSString *)string{
         _tf.delegate = self;
         _tf.cj_delegate = self;
         _tf.returnKeyType = UIReturnKeyDone;
-        _tf.keyboardAppearance = UIKeyboardAppearanceAlert;
-        _tf.backgroundColor = kBlackColor;
+//        _tf.keyboardAppearance = UIKeyboardAppearanceAlert;
+        _tf.backgroundColor = UIColor.clearColor;
         _tf.alpha = 0.7;
         [self addSubview:_tf];
         [_tf mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -158,10 +158,10 @@ replacementString:(NSString *)string{
         _countDownBtn.titleRuningStr = @"重新发送";
         _countDownBtn.titleLabel.numberOfLines = 0;
         _countDownBtn.titleEndStr = @"重新发送";
-        _countDownBtn.backgroundColor = KLightGrayColor;
-        _countDownBtn.alpha = 0.7f;
-        _countDownBtn.bgCountDownColor = KLightGrayColor;//倒计时的时候此btn的背景色
-        _countDownBtn.bgEndColor = KLightGrayColor;//倒计时完全结束后的背景色
+        _countDownBtn.backgroundColor =  COLOR_HEX(0x000000, 0.26);
+//        _countDownBtn.alpha = 0.7f;
+        _countDownBtn.bgCountDownColor =  COLOR_HEX(0x000000, 0.26);//倒计时的时候此btn的背景色
+        _countDownBtn.bgEndColor = COLOR_HEX(0x000000, 0.26);//倒计时完全结束后的背景色
         _countDownBtn.showTimeType = ShowTimeType_SS;
         _countDownBtn.countDownBtnNewLineType = CountDownBtnNewLineType_newLine;
         

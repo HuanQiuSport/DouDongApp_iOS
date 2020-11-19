@@ -35,7 +35,14 @@
         self.backgroundColor = RGB_COLOR(0x21 , 0x1B,0x45);
         self.flashView = [[UIView alloc] initWithFrame:frame];
         self.flashView.backgroundColor = RGB_COLOR(0x21 , 0x1B,0x45);
+        UIImageView *bottomBgimageView = UIImageView.new;
+        [self.flashView addSubview:bottomBgimageView];
+        bottomBgimageView.image = KIMG(@"white_share_bg");
+        [bottomBgimageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
+        }];
         [self addSubview:self.flashView];
+        
     }
     return self;
 }
@@ -155,7 +162,7 @@
         [imgev mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.mas_equalTo(UIEdgeInsetsMake(-20, 0, 0, 0));
         }];
-        imgev.image = KIMG(@"bg_share");
+        imgev.image = KIMG(@"share_content_bg");
         
         // 视频首帧
         if (!_viedoImge) {

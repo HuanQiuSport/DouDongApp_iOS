@@ -126,7 +126,7 @@ replacementString:(NSString *)string{//实现逐词搜索
         _textField.cj_delegate = self;
         _textField.placeholder = self.placeholderStr;
         _textField.returnKeyType = UIReturnKeyDone;
-        _textField.keyboardAppearance = UIKeyboardAppearanceAlert;
+//        _textField.keyboardAppearance = UIKeyboardAppearanceAlert;
         [UIView colourToLayerOfView:_textField
                          WithColour:KLightGrayColor
                      AndBorderWidth:0.5f];

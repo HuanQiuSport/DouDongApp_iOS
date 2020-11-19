@@ -106,7 +106,7 @@ replacementString:(NSString *)string{
         _titleLab = UILabel.new;
         _titleLab.font = [UIFont systemFontOfSize:9.6
                                            weight:UIFontWeightRegular];
-        _titleLab.textColor = kWhiteColor;
+        _titleLab.textColor = UIColor.blackColor;
         [self addSubview:_titleLab];
         [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.equalTo(self);
@@ -120,8 +120,8 @@ replacementString:(NSString *)string{
         _tf.delegate = self;
         _tf.cj_delegate = self;
         _tf.returnKeyType = UIReturnKeyDone;
-        _tf.keyboardAppearance = UIKeyboardAppearanceAlert;
-        _tf.backgroundColor = COLOR_HEX(0x000000, 0.4);
+//        _tf.keyboardAppearance = UIKeyboardAppearanceAlert;
+        _tf.backgroundColor = UIColor.clearColor;
 //        _tf.alpha = 0.7;
         [self addSubview:_tf];
         [_tf mas_makeConstraints:^(MASConstraintMaker *make) {

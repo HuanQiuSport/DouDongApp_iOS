@@ -648,6 +648,7 @@
         _signTitleLab.font = [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
         
         _signLab = UILabel.new;
+        _signLab.font = [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
         [_signView addSubview:_signLab];
         [_signLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.signView).offset(12);
@@ -655,7 +656,6 @@
         }];
         _signLab.text = @"88抖币";
         _signLab.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(40), 30)]];
-        _signLab.font = [UIFont systemFontOfSize:15];
         
         
         // 签到

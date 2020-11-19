@@ -63,9 +63,9 @@
                     break;
                 }
             }
-        self.contentView.backgroundColor = RGBCOLOR(36 ,42 ,55); /// 统一是黑色背景
-        self.textLabel.textColor = kWhiteColor; /// 统一是白色字体
-        self.detailTextLabel.textColor = kWhiteColor; /// 统一是白色字体
+        self.contentView.backgroundColor = UIColor.whiteColor; /// 统一是黑色背景
+        self.textLabel.textColor = UIColor.blackColor; /// 统一是白色字体
+        self.detailTextLabel.textColor = COLOR_HEX(0x8E8E92, 1);
     }
 }
 #pragma mark —— lazyLoad

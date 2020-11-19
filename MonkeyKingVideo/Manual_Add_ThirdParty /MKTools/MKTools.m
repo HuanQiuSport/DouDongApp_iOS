@@ -218,7 +218,7 @@ static MKTools *_tools = nil;
         hud.labelText = @"加载中";
         NSString *oath = [[NSBundle mainBundle] pathForResource:@"LottieAnimationm" ofType:@"bundle"];
         NSBundle *bu = [NSBundle bundleWithPath: oath];
-        LOTAnimationView* animation = [LOTAnimationView animationNamed:@"loadingB" inBundle:bu];
+        LOTAnimationView* animation = [LOTAnimationView animationNamed:@"loadingA" inBundle:bu];
         [bgview addSubview:animation];
         animation.backgroundColor = [UIColor clearColor];
         bgview.backgroundColor = [UIColor clearColor];

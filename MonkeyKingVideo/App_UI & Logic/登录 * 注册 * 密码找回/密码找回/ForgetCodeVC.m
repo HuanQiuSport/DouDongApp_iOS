@@ -297,7 +297,7 @@ ZFPlayerController *ZFPlayer_ForgetCodeVC;
         [self.view addSubview:_step_01];
         _step_01.frame = CGRectMake(SCREEN_WIDTH,
                                     230,
-                                    SCREEN_WIDTH,
+                                    SCREEN_WIDTH - 20,
                                     144);
     }return _step_01;
 }
@@ -333,9 +333,9 @@ ZFPlayerController *ZFPlayer_ForgetCodeVC;
         }];
         
         [self.view addSubview:_step_02];
-        _step_02.frame = CGRectMake(SCREEN_WIDTH,
+        _step_02.frame = CGRectMake(10,
                                     230,
-                                    SCREEN_WIDTH,
+                                    SCREEN_WIDTH - 20,
                                     228);
     }return _step_02;
 }
@@ -411,8 +411,9 @@ ZFPlayerController *ZFPlayer_ForgetCodeVC;
 -(UIButton *)successBtn{
     if (!_successBtn) {
         _successBtn = UIButton.new;
-        [_successBtn setTitle:@"密码修改成功"
+        [_successBtn setTitle:@"密码修改成功!"
                      forState:UIControlStateNormal];
+        [_successBtn setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
         _successBtn.titleLabel.font = [UIFont systemFontOfSize:17
                                                         weight:UIFontWeightLight];
         [_successBtn setImage:KIMG(@"密码修改成功")
@@ -426,7 +427,7 @@ ZFPlayerController *ZFPlayer_ForgetCodeVC;
         [_successBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             //            make.center.equalTo(self.view);
             make.centerX.equalTo(self.view);
-            make.top.mas_equalTo(228);
+            make.top.mas_equalTo(320);
         }];
         [_successBtn layoutButtonWithEdgeInsetsStyle:GLButtonEdgeInsetsStyleTop
                                      imageTitleSpace:8];

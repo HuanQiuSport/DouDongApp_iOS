@@ -114,7 +114,7 @@
         
         _mkUserImageView = [[UIImageView alloc]init];
         
-        _mkUserImageView.image = KIMG(@"替代头像");
+        _mkUserImageView.image = [UIImage imageNamed:@"default_avatar_white.jpg"];
         
         _mkUserImageView.layer.cornerRadius = 33 *KDeviceScale;
         
@@ -258,15 +258,17 @@
     
     if (isSelect) {
         
-        [_mkAttentionBtn setBackgroundImage:[UIImage imageWithColor:MKBakcColor] forState:UIControlStateNormal];
+        [_mkAttentionBtn setBackgroundImage:[UIImage imageWithColor:UIColor.whiteColor] forState:UIControlStateNormal];
         
         _mkAttentionBtn.layer.cornerRadius = 14.5 *KDeviceScale;
         
         _mkAttentionBtn.layer.masksToBounds = YES;
         
-        _mkAttentionBtn.layer.borderColor = MKBorderColor.CGColor;
+        _mkAttentionBtn.layer.borderColor = HEXCOLOR(0xD7D7D7).CGColor;
         
         _mkAttentionBtn.layer.borderWidth = 1;
+        
+        [_mkAttentionBtn setTitleColor:HEXCOLOR(0xD7D7D7) forState:UIControlStateNormal];
         
     }else{
         [_mkAttentionBtn setBackgroundImage:KIMG(@"画板") forState:UIControlStateNormal];

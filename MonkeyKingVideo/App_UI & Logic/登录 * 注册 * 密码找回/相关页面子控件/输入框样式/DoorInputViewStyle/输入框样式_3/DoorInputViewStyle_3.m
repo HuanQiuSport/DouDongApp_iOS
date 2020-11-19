@@ -155,7 +155,7 @@ replacementString:(NSString *)string{
         _tf.delegate = self;
         _tf.backgroundColor = COLOR_HEX(0x000000, 0.4);
         _tf.returnKeyType = UIReturnKeyDone;
-        _tf.keyboardAppearance = UIKeyboardAppearanceAlert;
+//        _tf.keyboardAppearance = UIKeyboardAppearanceAlert;
         _tf.keyboardType = UIKeyboardTypeASCIICapable;
 //        _tf.alpha = 0.4;
         _tf.cj_delegate = self;

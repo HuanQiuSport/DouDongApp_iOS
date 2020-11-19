@@ -20,7 +20,7 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.contentView.backgroundColor = HEXCOLOR(0x242a37);
+        self.contentView.backgroundColor = UIColor.clearColor;
         self.selectionStyle =UITableViewCellSelectionStyleNone;
         [self.contentView addSubview:self.content];
         [self.contentView addSubview:self.time];
@@ -49,12 +49,12 @@
     if([model.moneyType isEqual:@"余额提现"]) {
         self.content.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(60), 30)]];
     } else {
-        self.content.textColor = UIColor.whiteColor;
+        self.content.textColor = UIColor.blackColor;
     }
     self.time.text = model.createTime;
     self.money.text = model.amount;
     if ([model.inOutType  isEqual: @(0)] || [model.amount isEqualToString:@"已打款"] || [model.amount isEqualToString:@"审批中"]) {
-        self.money.textColor = KGreenColor;
+        self.money.textColor = HEXCOLOR(0x79BB24);
     } else {
         self.money.textColor = kRedColor;
     }
@@ -71,7 +71,7 @@
 - (UILabel *)time {
     if (!_time) {
         _time = UILabel.new;
-        _time.textColor = COLOR_HEX(0xffffff, 0.4);
+        _time.textColor = COLOR_HEX(0x8E8E92, 1);
         _time.font = [UIFont systemFontOfSize:8];
     }
     return _time;

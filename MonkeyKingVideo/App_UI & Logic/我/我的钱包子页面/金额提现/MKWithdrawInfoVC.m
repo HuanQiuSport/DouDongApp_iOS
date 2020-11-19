@@ -70,11 +70,11 @@
     // Do any additional setup after loading the view.
     self.gk_navTitle = @"提现详情";
     self.gk_navTitleFont = [UIFont systemFontOfSize:18];
-    self.gk_navTitleColor = UIColor.whiteColor;
+    self.gk_navTitleColor = UIColor.blackColor;
+    self.gk_backStyle = GKNavigationBarBackStyleBlack;
     self.gk_statusBarHidden = NO;
     self.gk_navLineHidden = YES;
-    self.view.backgroundColor = HEXCOLOR(0x242a37);
-    self.gk_backImage = [UIImage imageNamed:@"white_return"];
+    self.view.backgroundColor = HEXCOLOR(0xF7F7F7);
     [SceneDelegate sharedInstance].customSYSUITabBarController.gk_navigationBar.hidden = YES;
     
     UILabel *titleLab = UILabel.new;
@@ -85,7 +85,7 @@
         make.right.equalTo(self.view).offset(-36);
     }];
     titleLab.numberOfLines = 0;
-    titleLab.textColor = kWhiteColor;
+    titleLab.textColor = UIColor.blackColor;
     titleLab.font = [UIFont systemFontOfSize:15];
     NSString *text = @"请下载环球体育APP，并用抖动的账号进行登录，通过游戏进行提现\n请加客服QQ号：";
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];
@@ -98,7 +98,7 @@
     
     NSString *endText = @"\n请联系客服进行充值\n于6小时内到账，请在环球体育app中查收";
     NSAttributedString *endTextAttr = [[NSAttributedString alloc] initWithString:endText attributes:@{
-        NSForegroundColorAttributeName: [UIColor whiteColor]
+        NSForegroundColorAttributeName: [UIColor blackColor]
     }];
     [attributedString appendAttributedString:endTextAttr];
     titleLab.attributedText = attributedString;
@@ -112,7 +112,7 @@
         make.right.equalTo(self.view).offset(-36);
     }];
     contextLab.numberOfLines = 0;
-    contextLab.textColor = kWhiteColor;
+    contextLab.textColor = UIColor.blackColor;
     contextLab.font = [UIFont boldSystemFontOfSize:16];
     self.balance = [self.balance stringByReplacingOccurrencesOfString:@"-" withString:@""];
     text = [NSString stringWithFormat:@"提现金额：\n￥%@",self.balance];
@@ -130,7 +130,7 @@
         make.right.equalTo(self.view).offset(-36);
     }];
     contextLab2.numberOfLines = 0;
-    contextLab2.textColor = kWhiteColor;
+    contextLab2.textColor = UIColor.blackColor;
     contextLab2.font = [UIFont boldSystemFontOfSize:16];
     self.time = self.time;
     text = [NSString stringWithFormat:@"提现日期：\n%@",self.time];

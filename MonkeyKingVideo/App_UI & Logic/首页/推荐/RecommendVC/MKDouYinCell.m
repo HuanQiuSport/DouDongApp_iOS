@@ -52,7 +52,7 @@
 - (void)setModel:(MKVideoDemandModel *)model {
     self.videoModel = model;
     [self.coverImageView sd_setImageWithURL:[NSURL URLWithString:[model.videoImg stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]] placeholderImage:KIMG(@"av")];
-    [self.icon sd_setImageWithURL:[NSURL URLWithString:[model.headImage stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]] placeholderImage:KIMG(@"默认头像2")];
+    [self.icon sd_setImageWithURL:[NSURL URLWithString:[model.headImage stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]] placeholderImage:[UIImage imageNamed:@"default_avatar_white.jpg"]];
     self.mkVipImage.hidden = YES;
     if (self.mkVipImage.hidden) {
         [self.focusBtn mas_remakeConstraints:^(MASConstraintMaker *make) {

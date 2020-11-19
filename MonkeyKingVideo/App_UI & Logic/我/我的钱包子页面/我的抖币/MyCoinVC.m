@@ -263,8 +263,8 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
 - (UIImageView *)headbgV
 {
     if (!_headbgV) {
-        _headbgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, kTabBarHeight + 12, SCREEN_W, SCREEN_H * 0.175)];
-        _headbgV.image = KIMG(@"bg_icon");
+        _headbgV = [[UIImageView alloc] initWithFrame:CGRectMake(10, kTabBarHeight + 22, SCREEN_W - 20, SCREEN_H * 0.175 - 20)];
+        _headbgV.image = KIMG(@"wallet_info_bg");
     }return _headbgV;
 }
 
@@ -409,7 +409,7 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
 - (UIImageView *)tipsIcon {
     if (!_tipsIcon) {
         _tipsIcon = UIImageView.new;
-        _tipsIcon.image = KIMG(@"icon_doucoin");
+        _tipsIcon.image = KIMG(@"white_doucoin");
     }
     return _tipsIcon;
 }
@@ -418,7 +418,7 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
         _tipsContentLab = UILabel.new;
         _tipsContentLab.textColor = UIColor.whiteColor;
         _tipsContentLab.font = [UIFont systemFontOfSize:9];
-        _tipsContentLab.alpha = .4f;
+//        _tipsContentLab.alpha = 1.0f;
         _tipsContentLab.text = @"温馨提示: 若连续30天未登录,未提现收益将清空";
     }
     return _tipsContentLab;
@@ -433,6 +433,14 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
 //        _botView.layer.shadowOpacity = 0.5;
 //        _botView.layer.shadowRadius = 20;
         
+        UIImageView *iconImageView = UIImageView.new;
+        iconImageView.image = KIMG(@"wallet_title_bar");
+        [_botView addSubview:iconImageView];
+        [iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.offset(16);
+            make.centerX.offset(0);
+        }];
+        
         UILabel *lab = UILabel.new;
         [_botView addSubview:lab];
         [lab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -443,7 +451,7 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
         }];
         lab.textAlignment = NSTextAlignmentCenter;
         lab.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-        lab.textColor = UIColor.redColor;
+        lab.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(60), 30)]];
         lab.text = @"抖币流水";
         UIView *leftLine = UIView.new;
         [_botView addSubview:leftLine];
@@ -544,7 +552,7 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
         make.left.offset(0);
         make.right.offset(0);
         make.bottom.offset(-15);
-        make.top.mas_equalTo(self.headbgV.mas_bottom).offset(0);
+        make.top.mas_equalTo(self.headbgV.mas_bottom).offset(15);
     }];
 }
 @end

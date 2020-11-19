@@ -461,7 +461,7 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
                               forState:UIControlStateNormal];
         [_header_nameBtn sd_setImageWithURL:[NSURL URLWithString:@""]
                                    forState:UIControlStateNormal
-                           placeholderImage:KIMG(@"默认头像2")];
+                           placeholderImage:[UIImage imageNamed:@"default_avatar_white.jpg"]];
         _header_nameBtn.titleEdgeInsets = UIEdgeInsetsMake(SCALING_RATIO(0),
                                                            0,
                                                            0,

@@ -34,7 +34,7 @@
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = MKBakcColor;
+        self.backgroundColor = UIColor.clearColor;
         [self keyboard];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(doorInputViewStyle_1Notification:)
@@ -125,7 +125,7 @@
             inputView.tf.rightViewMode = UITextFieldViewModeNever;
             inputView.tf.placeholder = self.placeHolderMutArr[t];
             inputView.tf.keyboardType = UIKeyboardTypePhonePad;
-            inputView.tf.backgroundColor = MKBakcColor;
+            inputView.tf.backgroundColor = UIColor.clearColor;
             
             [inputView.tf addTarget:self
                       action:@selector(textFieldDidChange:)
@@ -135,8 +135,8 @@
             [self addSubview:inputView];
             [inputView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self).offset(0);
-                make.left.mas_equalTo(0);
-                make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH-64, 54));
+                make.left.mas_equalTo(30);
+                make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH- 64 - 30, 54));
             }];
             
             [self layoutIfNeeded];
@@ -160,6 +160,7 @@
             }];
         }else{
             DoorInputViewStyle_3 *inputView = DoorInputViewStyle_3.new;
+           
             inputView.limitLength = 12;
             inputView.isShowSecurityMode = NO;
             inputView.titleStr = self.titleStrMutArr[t];
@@ -167,8 +168,9 @@
             inputView.tf.offset = 0.01;
             inputView.tf.ZYtextFont = [UIFont systemFontOfSize:14
                                                         weight:UIFontWeightRegular];
-            inputView.tf.ZYtextColor = kWhiteColor;
-            inputView.tf.ZYtintColor = kWhiteColor;
+            inputView.tf.backgroundColor = UIColor.clearColor;
+            inputView.tf.ZYtextColor = UIColor.blackColor;
+            inputView.tf.ZYtintColor = UIColor.blackColor;
             inputView.tf.ZYplaceholderLabelFont_1 = inputView.tf.ZYtextFont;
             inputView.tf.ZYplaceholderLabelFont_2 = inputView.tf.ZYtextFont;
             inputView.tf.ZYplaceholderLabelTextColor_1 = kGrayColor;
@@ -177,7 +179,6 @@
             inputView.tf.leftViewMode = UITextFieldViewModeNever;
             inputView.tf.rightViewMode = UITextFieldViewModeNever;
             inputView.tf.keyboardType = UIKeyboardTypeAlphabet;
-            inputView.tf.backgroundColor = MKBakcColor;
             inputView.tf.secureTextEntry = YES;
             inputView.tf.placeholder = self.placeHolderMutArr[t];
             
@@ -191,7 +192,7 @@
             
             [self addSubview:inputView];
             [inputView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(0);
+                make.left.mas_equalTo(30);
                 make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH-64, 54));
                 DoorInputViewStyle_3 *InputView = (DoorInputViewStyle_3 *)self.inputViewMutArr[t - 1];
                 make.top.equalTo(InputView.mas_bottom).offset(31);
@@ -215,7 +216,7 @@
 
 - (UIView *)lineView:(CGFloat)y{
     UIView *line = [[UIView alloc]init];
-    line.backgroundColor = COLOR_RGB(216, 216, 216, 1);
+    line.backgroundColor = COLOR_RGB(0xD7, 0xD7, 0xD7, 1);
     line.frame = CGRectMake(0, y, self.width, 1);
     return line;
 }
@@ -237,7 +238,7 @@
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
 //        self.centerX = SCREEN_WIDTH / 2;
-        self.x = 64;
+        self.x = 10;
         self.centerY -= offsetY;
     } completion:^(BOOL finished) {
         self.isOpen = YES;

@@ -264,7 +264,7 @@ replacementString:(NSString *)string {
         _textField.textColor = UIColor.blackColor;
         _textField.keyboardType = UIKeyboardTypeNumberPad;
         _textField.returnKeyType = UIReturnKeyDone;
-        _textField.keyboardAppearance = UIKeyboardAppearanceAlert;
+//        _textField.keyboardAppearance = UIKeyboardAppearanceAlert;
         _textField.delegate = self;
         _textField.font = [UIFont systemFontOfSize:15.0 weight:UIFontWeightRegular];
         _textField.delegate = self;

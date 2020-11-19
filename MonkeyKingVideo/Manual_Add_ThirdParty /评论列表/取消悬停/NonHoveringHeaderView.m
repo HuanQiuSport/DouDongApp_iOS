@@ -40,7 +40,7 @@
             self.firstCommentModel = (MKFirstCommentModel *)data;
             
             [self.headerIMGV sd_setImageWithURL:[NSURL URLWithString:self.firstCommentModel.headImg]
-                               placeholderImage:KIMG(@"默认头像2")];
+                               placeholderImage:[UIImage imageNamed:@"default_avatar_white.jpg"]];
             self.titleStr = [NSString stringWithFormat:@"@%@",self.firstCommentModel.nickname];
             self.contentStr = self.firstCommentModel.content;
             self.titleLab.alpha = 1;

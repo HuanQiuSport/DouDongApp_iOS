@@ -502,7 +502,7 @@ heightForHeaderInSection:(NSInteger)section {
         _headerBtn = UIButton.new;
         [_headerBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:@""]
                                         forState:UIControlStateNormal
-                                placeholderImage:KIMG(@"默认头像")];
+                                placeholderImage:[UIImage imageNamed:@"default_avatar_white.jpg"]];
         @weakify(self)
         [[_headerBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
 

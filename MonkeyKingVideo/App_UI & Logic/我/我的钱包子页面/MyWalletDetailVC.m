@@ -143,21 +143,21 @@
     } else {
         [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%.2f",info.drawBalance] attributes:@{NSForegroundColorAttributeName : kRedColor}]];
     }
-    [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@" 元" attributes:@{NSForegroundColorAttributeName : UIColor.whiteColor}]];
+    [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@" 元" attributes:@{NSForegroundColorAttributeName : HEXCOLOR(0xBBBFD9)}]];
     self.canWithdrawLab.attributedText = attributedString;
-    attributedString = [[NSMutableAttributedString alloc] initWithString:@"已连续签到 "];
-    [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d",info.signCount] attributes:@{NSForegroundColorAttributeName : KYellowColor}]];
-    [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@" 天" attributes:@{NSForegroundColorAttributeName : UIColor.whiteColor}]];
+    attributedString = [[NSMutableAttributedString alloc] initWithString:@"已连续签到 " attributes:@{NSForegroundColorAttributeName : HEXCOLOR(0xBBBFD9)}];
+    [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d",info.signCount] attributes:@{NSForegroundColorAttributeName : HEXCOLOR(0xF7D700)}]];
+    [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@" 天" attributes:@{NSForegroundColorAttributeName : HEXCOLOR(0xBBBFD9)}]];
     self.topRightLab.attributedText = attributedString;
     
-    attributedString = [[NSMutableAttributedString alloc] initWithString:@"已邀请 "];
-    [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d",info.friendCount] attributes:@{NSForegroundColorAttributeName : KYellowColor}]];
-    [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@" 位好友 " attributes:@{NSForegroundColorAttributeName : UIColor.whiteColor}]];
+    attributedString = [[NSMutableAttributedString alloc] initWithString:@"已邀请 " attributes:@{NSForegroundColorAttributeName : HEXCOLOR(0xBBBFD9)}];
+    [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d",info.friendCount] attributes:@{NSForegroundColorAttributeName : HEXCOLOR(0xF7D700)}]];
+    [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@" 位好友 " attributes:@{NSForegroundColorAttributeName : HEXCOLOR(0xBBBFD9)}]];
     self.topRightLab2.attributedText = attributedString;
     
-    attributedString = [[NSMutableAttributedString alloc] initWithString:@"可提现次数 "];
-    [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d",info.drawCount] attributes:@{NSForegroundColorAttributeName : KYellowColor}]];
-    [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@" 次" attributes:@{NSForegroundColorAttributeName : UIColor.whiteColor}]];
+    attributedString = [[NSMutableAttributedString alloc] initWithString:@"可提现次数 " attributes:@{NSForegroundColorAttributeName : HEXCOLOR(0xBBBFD9)}];
+    [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d",info.drawCount] attributes:@{NSForegroundColorAttributeName : HEXCOLOR(0xF7D700)}]];
+    [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@" 次" attributes:@{NSForegroundColorAttributeName : HEXCOLOR(0xBBBFD9)}]];
     
     self.topRightLab3.attributedText = attributedString;
     int balance = (int)info.balance;
@@ -430,6 +430,13 @@
 - (UIView *)topView {
     if (!_topView) {
         _topView = UIView.new;
+        UIImageView *bgview = UIImageView.new;
+        bgview.image = KIMG(@"wallet_info_bg");
+        [_topView addSubview:bgview];
+        [bgview mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(_topView);
+        }];
+        
         _topView.backgroundColor = HEXCOLOR(0x242a37);
         _topView.layer.cornerRadius = 12;
 //        _topView.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -438,13 +445,17 @@
 //        _topView.layer.shadowRadius = 20;
 
         UIImageView *igv = UIImageView.new;
+//        igv.backgroundColor = UIColor.whiteColor;
+//        igv.layer.masksToBounds = true;
+//        igv.layer.cornerRadius = 7;
+        
         [_topView addSubview:igv];
         [igv mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.offset(SCALING_RATIO(26));
             make.top.offset(SCALING_RATIO(7));
             make.width.height.offset(SCALING_RATIO(35));
         }];
-        igv.image = KIMG(@"balance");
+        igv.image = KIMG(@"wallet_blance_icon");
         igv.contentMode = UIViewContentModeScaleAspectFit;
         UILabel *lab = UILabel.new;
         [_topView addSubview:lab];
@@ -567,8 +578,13 @@
 //        _botView.layer.shadowOffset = CGSizeMake(0,0);
 //        _botView.layer.shadowOpacity = 0.5;
 //        _botView.layer.shadowRadius = 20;
-  
-        
+        UIImageView *iconImageView = UIImageView.new;
+        iconImageView.image = KIMG(@"wallet_title_bar");
+        [_botView addSubview:iconImageView];
+        [iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.offset(16);
+            make.centerX.offset(0);
+        }];
         UILabel *lab = UILabel.new;
         [_botView addSubview:lab];
         [lab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -579,7 +595,7 @@
         }];
         lab.textAlignment = NSTextAlignmentCenter;
         lab.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-        lab.textColor = UIColor.redColor;
+        lab.textColor =  [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(60), 30)]];
         lab.text = @"余额流水";
         UIView *leftLine = UIView.new;
         [_botView addSubview:leftLine];
@@ -600,6 +616,13 @@
             make.centerY.mas_equalTo(lab.mas_centerY).offset(0);
         }];
         rightLine.backgroundColor = UIColor.whiteColor;
+        [_botView addSubview:self.mTab];
+        [self.mTab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.offset(49);
+            make.left.offset(20);
+            make.right.offset(-20);
+            make.bottom.offset(-22);
+        }];
         UILabel *botLab = UILabel.new;
         botLab.hidden = YES;
         [_botView addSubview:botLab];
@@ -608,17 +631,9 @@
             make.bottom.offset(-10);
             make.height.offset(12);
         }];
-        botLab.textColor = COLOR_HEX(0xffffff, 0.4);
+        botLab.textColor = COLOR_HEX(0x999999, 1);
         botLab.font = [UIFont systemFontOfSize:12];
         botLab.text = @"仅显示当天的抖币流水";
-        
-        [_botView addSubview:self.mTab];
-        [self.mTab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.offset(49);
-            make.left.offset(20);
-            make.right.offset(-20);
-            make.bottom.offset(-22);
-        }];
     }
     return _botView;
 }

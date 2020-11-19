@@ -93,7 +93,7 @@
         }];
         
         UIView *line = [[UIView alloc]init];
-        line.backgroundColor = COLOR_HEX(0xA2A2A2, 0.2);
+        line.backgroundColor = COLOR_RGB(0xD7, 0xD7, 0xD7, 1);
         line.frame = CGRectMake(0, 32 * t + 54 * (t + 1), self.width, 1);
         [self addSubview:line];
         
@@ -174,7 +174,7 @@
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
 //        self.centerX = [SCREEN_WIDTH / 2];
-        self.x = 0;
+        self.x = 10;
         self.centerY -= offsetY;
     } completion:^(BOOL finished) {
         self.isOpen = YES;

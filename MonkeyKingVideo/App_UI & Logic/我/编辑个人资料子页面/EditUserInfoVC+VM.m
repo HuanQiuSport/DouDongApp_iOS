@@ -145,7 +145,7 @@
             self.userInfoModel.sex = self.userInfoModel.sex.intValue ? @"女" :@"男";
             [self.headerBtn sd_setBackgroundImageWithURL:[NSURL URLWithString: self.userInfoModel.headImage]
                                                 forState:UIControlStateNormal
-                                        placeholderImage:KIMG(@"默认头像2")];
+                                        placeholderImage:[UIImage imageNamed:@"default_avatar_white.jpg"]];
             [self.tableView reloadData];
             [self.tableView.mj_header endRefreshing];
             [self.tableView.mj_footer endRefreshing];

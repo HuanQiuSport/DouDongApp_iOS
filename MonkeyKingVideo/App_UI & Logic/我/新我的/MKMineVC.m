@@ -185,7 +185,7 @@
 - (void)refreshHeadImg{
     [_userHeaderView.mkPersonView.mkUserImageView
      sd_setImageWithURL:[NSURL URLWithString:[MKPublickDataManager sharedPublicDataManage].mkLoginModel.headImage]
-     placeholderImage:[UIImage animatedGIFNamed:@"默认头像"]];
+     placeholderImage:[UIImage imageNamed:@"default_avatar_white.jpg"]];
 }
 
 - (void)getData{
@@ -267,7 +267,7 @@
     self.userHeaderView.mkPersonView.mkUserVIPImageView.hidden = YES;
     [_userHeaderView.mkPersonView setAtttionStyle:_userHeaderView.mkPersonView.mkAttentionBtn.selected];
     if ([self.mkPernalModel.headImage rangeOfString:@"headimg"].location != NSNotFound) {
-        _userHeaderView.mkPersonView.mkUserImageView.image = KIMG(@"默认头像2");
+        _userHeaderView.mkPersonView.mkUserImageView.image = [UIImage imageNamed:@"default_avatar_white.jpg"];
     }
     else
     {
