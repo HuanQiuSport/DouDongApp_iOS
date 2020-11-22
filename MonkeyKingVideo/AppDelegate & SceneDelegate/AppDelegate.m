@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "SceneDelegate+LaunchingAd.h"
 //#import "VideoHandleTool.h"
 
 @interface AppDelegate ()
@@ -35,6 +36,8 @@ static AppDelegate *static_appDelegate = nil;
 }
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    NSDate *nowDate = [NSDate date];
+    SetUserDefaultKeyWithObject(@"USERSTARTDATE", nowDate);
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDarkContent animated:YES];
     [SkinManager manager].skin = MKSkinWhite;
@@ -122,37 +125,43 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self postChannle];
     return YES;
 }
+
+-(void)applicationWillResignActive:(UIApplication *)application {
+    if (![MKTools mkLoginIsLogin]) {
+        [[SceneDelegate sharedInstance] userTimeEnd];
+    }
+}
+
 //系统版本低于iOS13.0的设备
 -(void)applicationDidEnterBackground:(UIApplication *)application{
 //    NSLog(@"---applicationDidEnterBackground----"); //进入后台
-    
-    if ([NSObject didUserPressLockButton]) {
+//    if ([NSObject didUserPressLockButton]) {
          //User pressed lock button
 //          NSLog(@"Lock screen.");
-        CustomSYSUITabBarController *tbvc = [SceneDelegate sharedInstance].customSYSUITabBarController;
-        [NSObject showSYSAlertViewTitle:@"App——1"
-                                message:@""
-                        isSeparateStyle:NO
-                            btnTitleArr:@[@"好的"]
-                         alertBtnAction:@[@""]
-                               targetVC:tbvc
-                           alertVCBlock:^(id data) {
-            //DIY
-        }];
-     } else {
+//        CustomSYSUITabBarController *tbvc = [SceneDelegate sharedInstance].customSYSUITabBarController;
+//        [NSObject showSYSAlertViewTitle:@"App——1"
+//                                message:@""
+//                        isSeparateStyle:NO
+//                            btnTitleArr:@[@"好的"]
+//                         alertBtnAction:@[@""]
+//                               targetVC:tbvc
+//                           alertVCBlock:^(id data) {
+//            //DIY
+//        }];
+//     } else {
 //          NSLog(@"Home.");
          //user pressed home button
-         CustomSYSUITabBarController *tbvc = [SceneDelegate sharedInstance].customSYSUITabBarController;
-         [NSObject showSYSAlertViewTitle:@"APP_2"
-                                 message:@""
-                         isSeparateStyle:NO
-                             btnTitleArr:@[@"好的"]
-                          alertBtnAction:@[@""]
-                                targetVC:tbvc
-                            alertVCBlock:^(id data) {
-             //DIY
-         }];
-    }
+//         CustomSYSUITabBarController *tbvc = [SceneDelegate sharedInstance].customSYSUITabBarController;
+//         [NSObject showSYSAlertViewTitle:@"APP_2"
+//                                 message:@""
+//                         isSeparateStyle:NO
+//                             btnTitleArr:@[@"好的"]
+//                          alertBtnAction:@[@""]
+//                                targetVC:tbvc
+//                            alertVCBlock:^(id data) {
+//             //DIY
+//         }];
+//    }
     
     extern ZFPlayerController *ZFPlayer_DoorVC;
     extern ZFPlayerController *ZFPlayer_ForgetCodeVC;
@@ -174,6 +183,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     if (ZFPlayer_ForgetCodeVC) {
         [ZFPlayer_ForgetCodeVC.currentPlayerManager play];
     }
+    [[SceneDelegate sharedInstance] userTimeStart];
 }
 #pragma - mark AWS SDK
 //- (void)configAWS {

@@ -164,6 +164,10 @@
         @"version":HDAppVersion,
         @"channelUrl":[URL_Manager sharedInstance].channelUrl
     };
+    if(self.isRegister) {
+        return;
+    }
+    self.isRegister = YES;
     ///
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:[URL_Manager sharedInstance].MKLoginRegisterPOST
@@ -172,6 +176,7 @@
     @weakify(self)
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         @strongify(self)
+        self.isRegister = NO;
         if (response.isSuccess) {
 //            NSLog(@"%@",response.reqResult);
             //注册成功即登录

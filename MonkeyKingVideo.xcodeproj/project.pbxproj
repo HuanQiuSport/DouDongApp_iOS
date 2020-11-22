@@ -325,6 +325,8 @@
 		6E05D4BC256236810001EBDE /* task_top_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E05D4BA256236800001EBDE /* task_top_bg@3x.png */; };
 		6E05D4BD256236810001EBDE /* task_top_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E05D4BB256236810001EBDE /* task_top_bg@2x.png */; };
 		6E05D5272562789E0001EBDE /* default_avatar_white.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E05D5262562789E0001EBDE /* default_avatar_white.jpg */; };
+		6E1828DD256AB15A00B46DA1 /* AppInfoTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E1828DA256AB15A00B46DA1 /* AppInfoTool.m */; };
+		6E1828DE256AB15A00B46DA1 /* appinfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E1828DC256AB15A00B46DA1 /* appinfo.plist */; };
 		6E3D9B51256013DF003E48DD /* white_未打开@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E3D9B50256013DF003E48DD /* white_未打开@3x.png */; };
 		6E56E08B255C19E300FD2738 /* VideoPlayCountUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E56E08A255C19E300FD2738 /* VideoPlayCountUtil.m */; };
 		6EABB05B2565099A00440307 /* gif_header_50@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EABB0232565099A00440307 /* gif_header_50@3x.png */; };
@@ -1672,6 +1674,9 @@
 		6E05D4BA256236800001EBDE /* task_top_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "task_top_bg@3x.png"; sourceTree = "<group>"; };
 		6E05D4BB256236810001EBDE /* task_top_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "task_top_bg@2x.png"; sourceTree = "<group>"; };
 		6E05D5262562789E0001EBDE /* default_avatar_white.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = default_avatar_white.jpg; sourceTree = "<group>"; };
+		6E1828DA256AB15A00B46DA1 /* AppInfoTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppInfoTool.m; sourceTree = "<group>"; };
+		6E1828DB256AB15A00B46DA1 /* AppInfoTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInfoTool.h; sourceTree = "<group>"; };
+		6E1828DC256AB15A00B46DA1 /* appinfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = appinfo.plist; sourceTree = "<group>"; };
 		6E3D9B50256013DF003E48DD /* white_未打开@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_未打开@3x.png"; sourceTree = "<group>"; };
 		6E56E089255C19E300FD2738 /* VideoPlayCountUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoPlayCountUtil.h; sourceTree = "<group>"; };
 		6E56E08A255C19E300FD2738 /* VideoPlayCountUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoPlayCountUtil.m; sourceTree = "<group>"; };
@@ -3670,6 +3675,16 @@
 			path = common;
 			sourceTree = "<group>";
 		};
+		6E1828D9256AB15900B46DA1 /* AppInfo */ = {
+			isa = PBXGroup;
+			children = (
+				6E1828DA256AB15A00B46DA1 /* AppInfoTool.m */,
+				6E1828DB256AB15A00B46DA1 /* AppInfoTool.h */,
+				6E1828DC256AB15A00B46DA1 /* appinfo.plist */,
+			);
+			path = AppInfo;
+			sourceTree = "<group>";
+		};
 		6E3D9B4F256013DF003E48DD /* profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -4393,6 +4408,7 @@
 			children = (
 				41E514D524F019CD0060299C /* 抖动Debug.entitlements */,
 				41E514D224EFCBA00060299C /* 抖动.entitlements */,
+				6E1828D9256AB15900B46DA1 /* AppInfo */,
 				C5379EAE24D1490E0078880F /* AppDelegate & SceneDelegate */,
 				C5F795822498782F0064BFB7 /* App_UI & Logic */,
 				C5F793B6249877420064BFB7 /* BaseCustomizeUIKit */,
@@ -7427,6 +7443,7 @@
 				4140935724BAB40C008E04FF /* brannanBlowout.png in Resources */,
 				419B2003250900670045C92B /* PlayInfoRecord.plist in Resources */,
 				C5B5EF34250CE85900DCDA93 /* di_1@2x.png in Resources */,
+				6E1828DE256AB15A00B46DA1 /* appinfo.plist in Resources */,
 				CA53BA5B2507577E00D68324 /* frame@2x.png in Resources */,
 				CAF4016B251B173400AFE40A /* sd_commom_exit_icon@3x.png in Resources */,
 				84DE0D7D2500016300F2C018 /* bg_share_save@2x.png in Resources */,
@@ -8481,6 +8498,7 @@
 				411117E224BC4EA900C6CE4D /* MKBlackListVC+VM.m in Sources */,
 				CAF400A5251B172800AFE40A /* SDVideoCropItemListCell.m in Sources */,
 				41BBF7512529CB6F00FC87AA /* ZFUtilities.m in Sources */,
+				6E1828DD256AB15A00B46DA1 /* AppInfoTool.m in Sources */,
 				C58F04BE24ED60E000B6D09C /* CustomerAVPlayerVC.m in Sources */,
 				4140937924BAB40C008E04FF /* FWToasterFilter.m in Sources */,
 				CAF400A8251B172800AFE40A /* SDVideoCropFrameView.m in Sources */,
