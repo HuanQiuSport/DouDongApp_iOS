@@ -63,7 +63,7 @@
                     if(versionCode == nil) {
                         versionCode = @"";
                     }
-                    [[MKTools shared] versionTip:weakSelf.view VisionContent:response.reqResult[@"versionContent"] versionCode:[NSString stringWithFormat:@"%@",versionCode] appUrl:response.reqResult[@"appUrl"]];
+                    [[MKTools shared] versionTip:weakSelf.view VisionContent:response.reqResult[@"versionContent"] versionCode:[NSString stringWithFormat:@"%@",versionCode] appUrl:response.reqResult[@"iosUrl"]];
                 }
             }
         } else {
