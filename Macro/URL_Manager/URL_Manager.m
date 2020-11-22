@@ -7,6 +7,7 @@
 //
 
 #import "URL_Manager.h"
+#import "AppInfoTool.h"
 
 @implementation URL_Manager
 
@@ -25,7 +26,7 @@ static URL_Manager *static_URL_Manager = nil;
 }
 
 -(NSString *)channelUrl {
-    return @"doudong00.cn";
+    return [AppInfoTool shareTool].channelUrl;
 }
 
 -(BOOL)testMode {
