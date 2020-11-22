@@ -247,10 +247,16 @@
 //结束
 - (void)userTimeEnd{
     NSDate *startDate = GetUserDefaultObjForKey(@"USERSTARTDATE");
+    if(![startDate isKindOfClass:[NSDate class]]) {
+        return;
+    }
     NSDate *nowDate = [NSDate date];
     NSTimeInterval startSecond = [startDate timeIntervalSince1970];
     NSTimeInterval curseSecond = [nowDate timeIntervalSince1970];
     NSTimeInterval second = curseSecond - startSecond;
+    if(second > 60 * 60 * 24) {
+        return;
+    }
     NSDictionary *easyDict = @{
         @"origin":@(originType_Apple),
         @"useTime":@((int)second),

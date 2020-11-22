@@ -51,15 +51,15 @@
         if (response.isSuccess) {
             [self MKMessageNoticeListGET];
             if ([response.reqResult isKindOfClass:[NSDictionary class]]) {
-                NSLog(@"%@",response.reqResult[@"versionCode"]);
-                NSString *storeVersion = response.reqResult[@"versionCode"];
+                NSLog(@"%@",response.reqResult[@"versionName"]);
+                NSString *storeVersion = response.reqResult[@"versionName"];
                 NSString *nativeVersion = HDAppVersion;
                 storeVersion = [storeVersion stringByReplacingOccurrencesOfString:@"." withString:@""];
                 nativeVersion = [nativeVersion stringByReplacingOccurrencesOfString:@"." withString:@""];
                 if ([storeVersion floatValue] > [nativeVersion floatValue]) {
                     NSLog(@"本地版本与商店版本号相同，不需要更新");
                     // 检查更新
-                    NSString *versionCode = response.reqResult[@"versionCode"];
+                    NSString *versionCode = response.reqResult[@"versionName"];
                     if(versionCode == nil) {
                         versionCode = @"";
                     }

@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong,nullable)LoginContentView *loginContentView;//登录页面
 @property(nonatomic,strong)NSString *captchaKey;
 
+@property(nonatomic,assign) BOOL isRegister;
+
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
                  comingStyle:(ComingStyle)comingStyle
            presentationStyle:(UIModalPresentationStyle)presentationStyle
