@@ -319,6 +319,8 @@
 		5E6ACA3425270809002218B7 /* RecommendVC+ActiveUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6ACA3325270809002218B7 /* RecommendVC+ActiveUser.m */; };
 		5E965A7C251B8826008AA438 /* MKWithdrawSucessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E965A7B251B8826008AA438 /* MKWithdrawSucessView.m */; };
 		5EFE8C8B2511D9F2002AAB71 /* MKRevisePasswordViewController+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE8C8A2511D9F1002AAB71 /* MKRevisePasswordViewController+VM.m */; };
+		6E182895256AAB2B00B46DA1 /* appinfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E182894256AAB2B00B46DA1 /* appinfo.plist */; };
+		6E1828CF256AACF400B46DA1 /* AppInfoTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E1828CE256AACF400B46DA1 /* AppInfoTool.m */; };
 		6E56E08B255C19E300FD2738 /* VideoPlayCountUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E56E08A255C19E300FD2738 /* VideoPlayCountUtil.m */; };
 		6EB0C95C2556A29300F3E036 /* iph_X.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6EB0C9582556A0F500F3E036 /* iph_X.mp4 */; };
 		6EB0C9602556A29700F3E036 /* 非iph_X.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6EB0C9572556A0F500F3E036 /* 非iph_X.mp4 */; };
@@ -1662,6 +1664,9 @@
 		5E965A7B251B8826008AA438 /* MKWithdrawSucessView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKWithdrawSucessView.m; sourceTree = "<group>"; };
 		5EFE8C892511D9F1002AAB71 /* MKRevisePasswordViewController+VM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKRevisePasswordViewController+VM.h"; sourceTree = "<group>"; };
 		5EFE8C8A2511D9F1002AAB71 /* MKRevisePasswordViewController+VM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKRevisePasswordViewController+VM.m"; sourceTree = "<group>"; };
+		6E182894256AAB2B00B46DA1 /* appinfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = appinfo.plist; sourceTree = "<group>"; };
+		6E1828CD256AACF400B46DA1 /* AppInfoTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppInfoTool.h; sourceTree = "<group>"; };
+		6E1828CE256AACF400B46DA1 /* AppInfoTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppInfoTool.m; sourceTree = "<group>"; };
 		6E56E089255C19E300FD2738 /* VideoPlayCountUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoPlayCountUtil.h; sourceTree = "<group>"; };
 		6E56E08A255C19E300FD2738 /* VideoPlayCountUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoPlayCountUtil.m; sourceTree = "<group>"; };
 		6EB0C9572556A0F500F3E036 /* 非iph_X.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "非iph_X.mp4"; sourceTree = "<group>"; };
@@ -3640,6 +3645,16 @@
 			path = "金额提现";
 			sourceTree = "<group>";
 		};
+		6E182893256AAB0C00B46DA1 /* AppInfo */ = {
+			isa = PBXGroup;
+			children = (
+				6E182894256AAB2B00B46DA1 /* appinfo.plist */,
+				6E1828CD256AACF400B46DA1 /* AppInfoTool.h */,
+				6E1828CE256AACF400B46DA1 /* AppInfoTool.m */,
+			);
+			path = AppInfo;
+			sourceTree = "<group>";
+		};
 		6E56E088255C19B700FD2738 /* Util */ = {
 			isa = PBXGroup;
 			children = (
@@ -4169,6 +4184,7 @@
 		C546BF502498709700C189CE /* MonkeyKingVideo */ = {
 			isa = PBXGroup;
 			children = (
+				6E182893256AAB0C00B46DA1 /* AppInfo */,
 				41E514D524F019CD0060299C /* 抖动Debug.entitlements */,
 				41E514D224EFCBA00060299C /* 抖动.entitlements */,
 				C5379EAE24D1490E0078880F /* AppDelegate & SceneDelegate */,
@@ -6460,8 +6476,8 @@
 				C5F793B5249877420064BFB7 /* ToolMacro.h */,
 				C55887082498A55300C8A3E7 /* Notification */,
 				C5A7CEA024C70E9000E502A9 /* URL_Manager */,
-				411A7F7524C8114A00C750BC /* DefineStructure.h */,
 				411A7F7224C8112F00C750BC /* Pods.h */,
+				411A7F7524C8114A00C750BC /* DefineStructure.h */,
 				411A7F7424C8114A00C750BC /* Manual_Add_ThirdParty.h */,
 				411A7F7124C8112F00C750BC /* Other.h */,
 			);
@@ -7670,6 +7686,7 @@
 				CAD6F2A824EF793E002D59DA /* Close@2x.png in Resources */,
 				C5B5EF56250CE86B00DCDA93 /* codeDecode@3x.png in Resources */,
 				C54AEA9D24C98AE600121233 /* gif_header_45@3x.png in Resources */,
+				6E182895256AAB2B00B46DA1 /* appinfo.plist in Resources */,
 				C54AEB0124C9AA9B00121233 /* gif_header_21@2x.png in Resources */,
 				C5B5EF6A250CE86B00DCDA93 /* codeEncode@2x.png in Resources */,
 				41B8A315251621AD00130449 /* LikeVideoList.plist in Resources */,
@@ -8279,6 +8296,7 @@
 				411117F724BC907200C6CE4D /* MKHAttentionModel.m in Sources */,
 				41BBF7482529CB6F00FC87AA /* ZFFloatView.m in Sources */,
 				C58F04B024ED290100B6D09C /* CustomerGPUImagePlayerVC.m in Sources */,
+				6E1828CF256AACF400B46DA1 /* AppInfoTool.m in Sources */,
 				C5B5EEE7250CB70500DCDA93 /* LoginContentView.m in Sources */,
 				4140938524BAB40C008E04FF /* MHGetPermission.m in Sources */,
 				C55886BA2498A53C00C8A3E7 /* SDCycleScrollView+UIScrollViewDelegate.m in Sources */,
@@ -8632,7 +8650,7 @@
 					"$(PROJECT_DIR)/Other/Sys/libstdc++/iPhone-Simulator",
 					"$(PROJECT_DIR)/Other/Sys/libstdc++/iPhone-Device",
 				);
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.0.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-l\"bz2\"",
@@ -8808,7 +8826,7 @@
 					"$(PROJECT_DIR)/Other/Sys/libstdc++/iPhone-Simulator",
 					"$(PROJECT_DIR)/Other/Sys/libstdc++/iPhone-Device",
 				);
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.0.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-l\"bz2\"",
