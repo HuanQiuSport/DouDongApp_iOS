@@ -128,10 +128,10 @@
          [MBProgressHUD wj_showError:@"注册信息不能有中文"];
         return;
     }
-    if( MIN(MAX([MKTools mkAlphaCountCharNumber:account],3),12)==3
-       || MIN(MAX([MKTools mkAlphaCountCharNumber:account],3),12)== 12 ){
+    if( MIN(MAX([MKTools mkAlphaCountCharNumber:account],3),12)==5
+       || MIN(MAX([MKTools mkAlphaCountCharNumber:account],3),12)== 13 ){
 //        [MBProgressHUD wj_showError:@"您好,用户长度4～11"];
-         [MBProgressHUD wj_showError:@"用户名长度为4-11位,请使用字母和数字"];
+         [MBProgressHUD wj_showError:@"用户名长度为6-12位,请使用字母和数字"];
         return;
     }
     if( MIN(MAX([MKTools mkAlphaCountCharNumber:password],5),13)  ==  5
