@@ -186,6 +186,7 @@ replacementString:(NSString *)string{
             @strongify(self)
             x.selected = !x.selected;
             [self.tf setIsShowSecurityMode:x.selected];
+            self.tf.secureTextEntry = x.selected;
         }];
         [self addSubview:_securityModeBtn];
         [_securityModeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
