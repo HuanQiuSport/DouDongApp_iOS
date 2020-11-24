@@ -299,6 +299,9 @@ didDiscardSceneSessions:(NSSet<UISceneSession *> *)sceneSessions  API_AVAILABLE(
     if([self isFristpostChannle]) {
         [dic setValue:@"1" forKey:@"first"];
     }
+    if([MKPublickDataManager sharedPublicDataManage].mkLoginModel.uid != nil) {
+        [dic setValue:[MKPublickDataManager sharedPublicDataManage].mkLoginModel.uid forKey:@"userId"];
+    }
     dispatch_async(dispatch_queue_create("startTime", DISPATCH_QUEUE_SERIAL), ^{
         FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                                path:[URL_Manager sharedInstance].MKStartTimePOST
