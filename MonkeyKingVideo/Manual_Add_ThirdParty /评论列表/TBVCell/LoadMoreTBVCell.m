@@ -43,7 +43,7 @@
         _titleLab = UILabel.new;
         _titleLab.textAlignment = NSTextAlignmentLeft;
         _titleLab.font = [UIFont systemFontOfSize:13];
-        _titleLab.textColor = HEXCOLOR(0x8391af);
+        _titleLab.textColor = HEXCOLOR(0x999999);
         [self.contentView addSubview:_titleLab];
         [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.offset(0);

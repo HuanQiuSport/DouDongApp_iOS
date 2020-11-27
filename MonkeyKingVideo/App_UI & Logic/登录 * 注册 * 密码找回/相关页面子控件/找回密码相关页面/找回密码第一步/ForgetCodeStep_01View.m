@@ -36,6 +36,7 @@
     if (self = [super init]) {
          self.backgroundColor = UIColor.clearColor;
         [self keyboard];
+        [self makeInputView];
 //        [UIView cornerCutToCircleWithView:self
 //                          AndCornerRadius:8];
     }return self;
@@ -43,7 +44,7 @@
 
 -(void)drawRect:(CGRect)rect{
     [super drawRect:rect];
-    [self makeInputView];
+    
     self.registerContentViewRect = self.frame;
 }
 
@@ -94,7 +95,7 @@
         
         UIView *line = [[UIView alloc]init];
         line.backgroundColor = COLOR_RGB(0xD7, 0xD7, 0xD7, 1);
-        line.frame = CGRectMake(0, 32 * t + 54 * (t + 1), self.width, 1);
+        line.frame = CGRectMake(0, 32 * t + 54 * (t + 1), SCREEN_WIDTH-20, 1);
         [self addSubview:line];
         
         [self layoutIfNeeded];

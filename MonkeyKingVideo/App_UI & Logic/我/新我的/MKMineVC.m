@@ -80,7 +80,7 @@
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad]; 
+    [super viewDidLoad];
     [self.view sendSubviewToBack:self.gk_navigationBar];
     self.gk_navRightBarButtonItems = @[self.msgBtnItem];
 //    [self.settingBtnItem pp_addDotWithColor:[UIColor colorWithPatternImage:KIMG(@"画板")]];
@@ -98,7 +98,7 @@
 -(void)refreshSkin {
     if ([SkinManager manager].skin == MKSkinWhite) {
         UIColor *backColor = UIColor.whiteColor;
-        self.view.backgroundColor = backColor;
+        self.view.backgroundColor = HEXCOLOR(0xF7F7F7);
         self.categoryView.backgroundColor = backColor;//
         self.categoryView.titleColor = HEXCOLOR(0x8F8F94);
         self.categoryView.titleSelectedColor = UIColor.blackColor;
@@ -446,6 +446,9 @@
     if (!_pagerView) {
         
         _pagerView= [[JXPagerListRefreshView alloc]initWithDelegate:self];
+        _pagerView.layer.masksToBounds = true;
+        _pagerView.layer.cornerRadius = 15;
+        
     }
     return _pagerView;
 }
@@ -467,8 +470,8 @@
 }
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-
-    self.pagerView.frame = CGRectMake(0,kStatusBarHeight, self.view.bounds.size.width, self.view.bounds.size.height- kStatusBarHeight);
+    CGFloat tabbarHeight =  isiPhoneX_series() ? (50 + isiPhoneX_seriesBottom) : 50;
+    self.pagerView.frame = CGRectMake(0,kStatusBarHeight, self.view.bounds.size.width, self.view.bounds.size.height- kStatusBarHeight - tabbarHeight - 12);
 }
 
 #pragma mark - JXPagerViewDelegate

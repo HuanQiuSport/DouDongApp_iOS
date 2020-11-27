@@ -65,13 +65,13 @@ CGFloat LZB_TABBAR_HEIGHT;
 }
 
 -(void)switchTabBar:(LZBTabBarStyleType)type {
-    if(type == LZBTabBarStyleType_middleItemUp) {
+//    if(type == LZBTabBarStyleType_middleItemUp) {
+//        self.items = self.humpTabBarItems;
+//        self.lzb_tabBar.tabBarStyleType = LZBTabBarStyleType_middleItemUp;
+//    } else {
         self.items = self.humpTabBarItems;
-        self.lzb_tabBar.tabBarStyleType = LZBTabBarStyleType_middleItemUp;
-    } else {
-        self.items = self.flattabBarItems;
         self.lzb_tabBar.tabBarStyleType = LZBTabBarStyleType_sysNormal;
-    }
+//    }
 }
 
 ///右上角角标
@@ -222,7 +222,7 @@ CGFloat LZB_TABBAR_HEIGHT;
         item2.selectTitleAttributes = selectTitleAttributes;
         
         LZBTabBarItem *item3 = LZBTabBarItem.new;
-        item3.title = @"拍照与上传";
+        item3.title = @"";
         item3.selectImage = [UIImage imageNamed:@"white_tabbar_录视频"];
         item3.unSelectImage = [UIImage imageNamed:@"white_tabbar_录视频"];
         item3.unselectTitleAttributes = unselectTitleAttributes;

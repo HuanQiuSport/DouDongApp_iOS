@@ -121,6 +121,7 @@
     inputView.inputViewWidth = SCREEN_W - 64 - 40 ;
     inputView.inputViewHeight = 32;
     inputView.tf.leftView = imgv;
+    inputView.tf.backgroundColor =  COLOR_HEX(0x000000, 0.4);
     inputView.tf.ZYtextFont = [UIFont systemFontOfSize:9.6
                                                 weight:UIFontWeightRegular];
     inputView.tf.ZYtextColor = kWhiteColor;

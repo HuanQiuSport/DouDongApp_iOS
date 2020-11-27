@@ -50,7 +50,7 @@
             self.textLabel.text = walletMyFlowsListModel.moneyType;
             switch (walletMyFlowsListModel.inOutType.intValue) {
                 case InOutType_in:{
-                    self.changeNumLab.textColor = KGreenColor;
+                    self.changeNumLab.textColor = HEXCOLOR(0x79BB24);
                     self.changeNumLab.text = [NSString stringWithFormat:@"+%@",walletMyFlowsListModel.amount];
 //                    self.contentView.backgroundColor = KSystemPinkColor;
                 }break;

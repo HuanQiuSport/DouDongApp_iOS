@@ -720,20 +720,19 @@
                 make.left.equalTo(signImgeV).offset(0);
                 make.bottom.equalTo(self.signView.mas_bottom).offset(-37);
             }];
-            
-            
-            UILabel *titleLab3 = UILabel.new;
-            [_signView addSubview:titleLab3];
-            titleLab3.text = @"连续签到7天并且邀请1位好友可以获得一次提现资格";
-            titleLab3.textColor = textColor;
-            titleLab3.font = [UIFont systemFontOfSize:12];
-            titleLab3.textAlignment = NSTextAlignmentCenter;
-            [titleLab3 mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(self.signView).offset(0);
-                make.left.equalTo(self.signView).offset(0);
-                make.bottom.equalTo(self.signView.mas_bottom).offset(-12);
-            }];
+    
         }
+        UILabel *titleLab3 = UILabel.new;
+        [_signView addSubview:titleLab3];
+        titleLab3.text = @"连续签到7天并且邀请1位好友可以获得一次提现资格";
+        titleLab3.textColor = UIColor.blackColor;
+        titleLab3.font = [UIFont systemFontOfSize:12];
+        titleLab3.textAlignment = NSTextAlignmentCenter;
+        [titleLab3 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.signView).offset(0);
+            make.left.equalTo(self.signView).offset(0);
+            make.bottom.equalTo(self.signView.mas_bottom).offset(-12);
+        }];
     }
     return _signView;
 }

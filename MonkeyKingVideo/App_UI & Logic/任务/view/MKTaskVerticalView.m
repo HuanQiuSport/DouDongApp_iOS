@@ -42,7 +42,7 @@
 -(void)refreshSkin {
     if ([SkinManager manager].skin == MKSkinWhite) {
         self.lable.textColor = UIColor.blackColor;
-        self.lable.font = [UIFont systemFontOfSize:14 weight:UIFontWeightMedium];
+        self.lable.font = [UIFont systemFontOfSize:14];
     } else {
         self.lable.textColor = [UIColor whiteColor];
         self.lable.font = [UIFont systemFontOfSize:13];

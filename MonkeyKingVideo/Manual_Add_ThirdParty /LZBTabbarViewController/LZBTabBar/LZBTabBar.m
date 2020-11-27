@@ -156,13 +156,13 @@
     }
     self.path = nil;
     // 阴影颜色
-    self.layer.shadowColor = UIColor.clearColor.CGColor;
+    self.layer.shadowColor = UIColor.grayColor.CGColor;
        // 阴影偏移，默认(0, -3)
     self.layer.shadowOffset = CGSizeMake(0,0);
        // 阴影透明度，默认0
-    self.layer.shadowOpacity = 0;
+    self.layer.shadowOpacity = 0.3;
        // 阴影半径，默认3
-    self.layer.shadowRadius = 0;
+    self.layer.shadowRadius = 3;
 }
 #pragma mark —— API
 ///点击事件
@@ -220,7 +220,7 @@
         self.backgroundColor = UIColor.clearColor;
         [self setupCenter];
     } else {
-        self.backgroundColor = UIColor.blackColor;
+        self.backgroundColor = UIColor.whiteColor;
         [self setupUI];
     }
     self.frame = CGRectMake(0,screenHeight - tabbarHeight, screenWidth, tabbarHeight);

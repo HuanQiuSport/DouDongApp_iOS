@@ -559,6 +559,7 @@ forHeaderFooterViewReuseIdentifier:NSStringFromClass(HoveringHeaderView.class)];
 - (UILabel *)commentCountLab {
     if (!_commentCountLab) {
         _commentCountLab = UILabel.new;
+        [self.view addSubview:self.countBgImageView];
         [self.view addSubview:_commentCountLab];
         [_commentCountLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.offset(0);
@@ -582,9 +583,26 @@ forHeaderFooterViewReuseIdentifier:NSStringFromClass(HoveringHeaderView.class)];
             make.height.offset(0.5);
             make.top.equalTo(_commentCountLab.mas_bottom).offset(12);
         }];
+       
+        [self.countBgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(_commentCountLab.mas_left).offset(0);
+            make.height.offset(9);
+            make.bottom.equalTo(_commentCountLab.mas_bottom).offset(0);
+            make.width.equalTo(@(20));
+        }];
+        
     }
     return _commentCountLab;
 }
+
+-(UIImageView *)countBgImageView {
+    if(_countBgImageView == nil) {
+        _countBgImageView = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"comment_count_bg"]];
+    }
+    return _countBgImageView;
+}
+
+
 -(UIButton *)closeBtn{
     if (!_closeBtn) {
         _closeBtn = UIButton.new;

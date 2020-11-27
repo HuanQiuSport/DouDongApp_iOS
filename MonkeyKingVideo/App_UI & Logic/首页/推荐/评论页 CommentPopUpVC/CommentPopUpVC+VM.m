@@ -31,7 +31,8 @@
                     [self.tableView.mj_header endRefreshing];
                     self.tableView.mj_footer.hidden = 0;
                     self.commentModel = [MKCommentModel mj_objectWithKeyValues:response.reqResult];
-                    self.commentCountLab.text = [NSString stringWithFormat:@"%d条评论",self.commentModel.total.intValue];
+                    [self updateCommentCount:self.commentModel.total.intValue];
+//                    self.commentCountLab.text = [NSString stringWithFormat:@"%d条评论",self.commentModel.total.intValue];
                     self.commentNumStr = self.commentModel.total.stringValue;
 //                    NSLog(@"%d",self.commentModel.endRow.intValue);
                     
@@ -121,8 +122,8 @@
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView.mj_footer endRefreshing];
                 self.tableView.mj_footer.hidden = YES;
-                self.commentCountLab.text = [NSString stringWithFormat:@"%ld条评论",self.commentCountLab.text.integerValue + 1];
-                
+//                self.commentCountLab.text = [NSString stringWithFormat:@"%ld条评论",self.commentCountLab.text.integerValue + 1];
+                [self updateCommentCount:self.commentCountLab.text.intValue + 1];
                 [[NSNotificationCenter defaultCenter] postNotificationName:MKRefreshCommentNotification object:@"1"];
                 
                 if (self.CommentPopUpBlock) {
@@ -178,7 +179,8 @@
                 [self.tableView reloadSection:section withRowAnimation:UITableViewRowAnimationNone];
             }];
             
-            self.commentCountLab.text = [NSString stringWithFormat:@"%ld条评论",self.commentCountLab.text.integerValue + 1];
+//            self.commentCountLab.text = [NSString stringWithFormat:@"%ld条评论",self.commentCountLab.text.integerValue + 1];
+            [self updateCommentCount:self.commentCountLab.text.intValue + 1];
             [[NSNotificationCenter defaultCenter] postNotificationName:MKRefreshCommentNotification object:@"1"];
             
             if (self.CommentPopUpBlock) {
@@ -231,8 +233,8 @@
                     sum += first.child.count + 1;
                 }
             }
-            self.commentCountLab.text = [NSString stringWithFormat:@"%ld条评论",sum];
-            
+//            self.commentCountLab.text = [NSString stringWithFormat:@"%ld条评论",sum];
+            [self updateCommentCount:sum];
             [[NSNotificationCenter defaultCenter] postNotificationName:MKRefreshCommentNotification object:@"-1"];
             [[NSNotificationCenter defaultCenter] postNotificationName:MKRefreshCommentNotification object:self.commentNumStr];
             
@@ -280,6 +282,16 @@
                 first.isPraise = [NSNumber numberWithBool:!operateType.boolValue];
             }
         }
+    }];
+}
+
+-(void)updateCommentCount:(int)count {
+    self.commentCountLab.text  = [NSString stringWithFormat:@"%d条评论",count];
+    NSString *contStr = [NSString stringWithFormat:@"%d",count];
+    CGRect rect = [contStr boundingRectWithSize:CGSizeMake(MAXFLOAT, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15]} context:nil];
+    CGFloat bgWidth = MAX(rect.size.width, 15);
+    [self.countBgImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@(bgWidth));
     }];
 }
 

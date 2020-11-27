@@ -31,9 +31,9 @@
     if ([SkinManager manager].skin == MKSkinWhite) {
         self.loginLab.textColor = HEXCOLOR(0x000000);
         self.mkUserLabel.textColor = HEXCOLOR(0x000000);
-        [self.mkSexAge setTitleColor:HEXCOLOR(0x000000) forState:UIControlStateNormal];
-        self.mkArea.textColor = HEXCOLOR(0x000000);
-        self.mkConstellationLab.textColor = HEXCOLOR(0x000000);
+        [self.mkSexAge setTitleColor:HEXCOLOR(0x8F8F94) forState:UIControlStateNormal];
+        self.mkArea.textColor = HEXCOLOR(0x8F8F94);
+        self.mkConstellationLab.textColor = HEXCOLOR(0x8F8F94);
         self.mkDetailLabel.textColor = HEXCOLOR(0x000000);
     } else {
         self.loginLab.textColor = UIColor.whiteColor;
@@ -171,7 +171,7 @@
         
         _mkUserLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         
-        _mkUserLabel.font = [UIFont systemFontOfSize:22 weight:UIFontWeightHeavy];
+        _mkUserLabel.font = [UIFont systemFontOfSize:22 weight:UIFontWeightMedium];
         
         [self addSubview:_mkUserLabel];
         

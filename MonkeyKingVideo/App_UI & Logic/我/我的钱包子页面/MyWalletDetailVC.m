@@ -486,8 +486,8 @@
         
         [_topView addSubview:self.balanceCount];
         [self.balanceCount mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(igv.mas_left).offset(0);
-            make.right.equalTo(lab.mas_right).offset(0);
+            make.left.equalTo(lab.mas_left).offset(0);
+//            make.right.equalTo(lab.mas_right).offset(0);
             make.top.mas_equalTo(lab.mas_bottom).offset(0);
 //            make.width.mas_lessThanOrEqualTo(SCALING_RATIO(200));
         }];
@@ -495,8 +495,8 @@
         [_topView addSubview:self.canWithdrawLab];
         [self.canWithdrawLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.balanceCount.mas_bottom).offset(0);
-            make.left.equalTo(igv.mas_left).offset(0);
-            make.right.equalTo(lab.mas_right).offset(0);
+            make.left.equalTo(lab.mas_left).offset(0);
+//            make.right.equalTo(lab.mas_right).offset(0);
         }];
         self.canWithdrawLab.textAlignment = NSTextAlignmentCenter;
         self.canWithdrawLab.textColor = kWhiteColor;
@@ -505,8 +505,8 @@
         [_topView addSubview:self.topRightLab];
         [self.topRightLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.topView).offset(22);
-            make.left.equalTo(lab.mas_right).offset(70);
-            make.right.equalTo(self.topView.mas_right).offset(25);
+//            make.left.equalTo(lab.mas_right).offset(70);
+            make.right.equalTo(self.topView.mas_right).offset(-15);
         }];
         self.topRightLab.textAlignment = NSTextAlignmentCenter;
         self.topRightLab.textColor = kWhiteColor;
@@ -515,7 +515,7 @@
         [_topView addSubview:self.topRightLab2];
         [self.topRightLab2 mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.topRightLab.mas_bottom).offset(4);
-            make.left.equalTo(self.topRightLab.mas_left).offset(0);
+//            make.left.equalTo(self.topRightLab.mas_left).offset(0);
             make.right.equalTo(self.topRightLab.mas_right).offset(0);
         }];
         self.topRightLab2.textAlignment = NSTextAlignmentCenter;
@@ -526,7 +526,7 @@
         [_topView addSubview:self.topRightLab3];
         [self.topRightLab3 mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.topRightLab2.mas_bottom).offset(4);
-            make.left.equalTo(self.topRightLab.mas_left).offset(0);
+//            make.left.equalTo(self.topRightLab.mas_left).offset(0);
             make.right.equalTo(self.topRightLab.mas_right).offset(0);
         }];
         self.topRightLab3.textAlignment = NSTextAlignmentCenter;

@@ -122,7 +122,7 @@ replacementString:(NSString *)string{
         _tf.returnKeyType = UIReturnKeyDone;
 //        _tf.keyboardAppearance = UIKeyboardAppearanceAlert;
         _tf.backgroundColor = UIColor.clearColor;
-//        _tf.alpha = 0.7;
+//        _tf.alpha = 0.7;  
         [self addSubview:_tf];
         [_tf mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.bottom.equalTo(self);

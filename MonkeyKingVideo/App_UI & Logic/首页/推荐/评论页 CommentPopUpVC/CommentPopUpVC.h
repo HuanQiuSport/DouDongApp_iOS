@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)UIImageView *botIcon;
 @property(nonatomic,strong)UILabel *botLab;
 @property(nonatomic,strong)UIView *coverKeyboardView;
+@property(nonatomic,strong) UIImageView *countBgImageView;
+
 
 @property(nonatomic,weak)RecommendVC *recommendVC;
 @property(nonatomic,weak)HomeVC *homeVC;

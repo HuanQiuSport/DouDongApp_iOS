@@ -445,7 +445,7 @@
 //        imgev.image = image;
         _inviteLab.textColor = kBlackColor;
         UIImageView *imgev = (UIImageView *)[self viewWithTag:1000];
-        imgev.image = KIMG(@"bg_share_save");
+        imgev.image = KIMG(@"bg_share");
         [weakSelf saveSuccessDrawNewView];
 
     }else
@@ -467,6 +467,13 @@
                                                                             SCALING_RATIO(87))];
 //        _tipView.backgroundColor = kRedColor;
         [self.flashView addSubview:_tipView];
+        
+        [_tipView  mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@(SCREEN_W));
+            make.height.equalTo(@(87));
+            make.centerX.equalTo(self.flashView.mas_centerX).offset(0);
+            make.top.equalTo(self.bgView.mas_bottom).offset(10);
+        }];
         
         UILabel *tiplab = UILabel.new;
         [_tipView addSubview:tiplab];
@@ -504,12 +511,21 @@
         
         _iKnowBtn = UIButton.new;
         [self.flashView addSubview:_iKnowBtn];
-        _iKnowBtn.frame = CGRectMake(SCALING_RATIO(120),SCREEN_H - 91, kScreenWidth-SCALING_RATIO(240), 32);
+        _iKnowBtn.frame = CGRectMake(SCALING_RATIO(120),SCREEN_H - 130, kScreenWidth-SCALING_RATIO(240), 40);
+        
+        [_iKnowBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.flashView.mas_centerX).offset(0);
+            make.width.equalTo(@(130));
+            make.height.equalTo(@(40));
+            make.top.equalTo(_tipView.mas_bottom).offset(0);
+        }];
+        
+        
         _iKnowBtn.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:_iKnowBtn.frame.size]];
         //        [_loginBtn setBackgroundImage:KIMG(@"login_gradualColor") forState:UIControlStateNormal];
         [_iKnowBtn setTitle:@"我知道了" forState:UIControlStateNormal];
         _iKnowBtn.adjustsImageWhenHighlighted = 0;
-        _iKnowBtn.layer.cornerRadius = 32/2;
+        _iKnowBtn.layer.cornerRadius = 40/2;
         _iKnowBtn.layer.masksToBounds = 1;
         [_iKnowBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
         _iKnowBtn.titleLabel.font = [UIFont systemFontOfSize:15];

@@ -56,7 +56,7 @@
         _contentLabel = [[UILabel alloc]init];
         [self addSubview:_contentLabel];
         _contentLabel.textAlignment = NSTextAlignmentLeft;
-        _contentLabel.font = [UIFont systemFontOfSize:13];
+        _contentLabel.font = [UIFont systemFontOfSize:14];
         _contentLabel.textColor = kWhiteColor;
     }
     return _contentLabel;
@@ -65,7 +65,7 @@
 -(void)refreshSkin {
     if ([SkinManager manager].skin == MKSkinWhite) {
         _contentLabel.textColor = UIColor.blackColor;
-        _contentLabel.font = [UIFont systemFontOfSize:11 weight:UIFontWeightMedium];
+        _contentLabel.font = [UIFont systemFontOfSize:12];
     } else {
         _contentLabel.textColor = kWhiteColor;
         _contentLabel.font = [UIFont systemFontOfSize:13];

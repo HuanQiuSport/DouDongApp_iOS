@@ -396,16 +396,16 @@
     NSString *emptyString;
     switch (self.mkType) {
         case 0:
-            emptyString = @"您还没有关注";
+            emptyString = @"\n\n您还没有关注";
             break;
         case 1:
-            emptyString = @"您还没有粉丝";
+            emptyString = @"\n\n您还没有粉丝";
             break;
         case 2:
-            emptyString = @"TA还没有关注";
+            emptyString = @"\n\nTA还没有关注";
             break;
         case 3:
-            emptyString = @"TA还没有粉丝";
+            emptyString = @"\n\nTA还没有粉丝";
             break;
         default:
             break;
@@ -416,12 +416,23 @@
     };
     return [[NSAttributedString alloc] initWithString:emptyString attributes:attributes];
 }
+
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView {
+    return  [UIImage imageNamed:@"empty_data_image"];
+}
+
 - (BOOL)emptyDataSetShouldDisplay:(UIScrollView *)scrollView {
     return self.showEmpty;
 }
 - (BOOL)emptyDataSetShouldAllowScroll:(UIScrollView *)scrollView {
     return YES;
 }
+
+-(CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
+    return -60;
+}
+
+
 - (UITableView *)mkInfoTableView{
     if (!_mkInfoTableView) {
         _mkInfoTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
