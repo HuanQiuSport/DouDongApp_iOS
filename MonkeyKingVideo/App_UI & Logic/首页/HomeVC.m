@@ -28,6 +28,7 @@
 @property(nonatomic,copy)MKDataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
+@property(nonatomic,strong) UILabel *tipLable;
 
 @property(nonatomic,strong)MonitorNetwoking *monitorNetwoking;
 
@@ -96,9 +97,7 @@
     #endif
 //    [[MKTools shared] announcementHUBWithView:self.view];
     self.idx = 0;
-    
     [self MKVersionInfo_GET];
-    
 }
 - (void)anno{
 //    NSString *content;
@@ -229,6 +228,14 @@
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     //0x102e33150
+    [self.view addSubview:self.tipLable];
+    CGFloat topMargin = isiPhoneX_series() ? 32: 20;
+    [self.tipLable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_left);
+        make.right.equalTo(self.view.mas_right);
+        make.height.equalTo(@(18));
+        make.top.equalTo(self.view.mas_top).offset(topMargin);
+    }];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -414,5 +421,24 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
     }return _mytimer;
 }
 
+-(UILabel *)tipLable {
+    if(_tipLable == nil) {
+        _tipLable = UILabel.new;
+        _tipLable.backgroundColor = HEXCOLOR(0x989896);
+        _tipLable.text = @"如无法观看，请去该地址下载最新抖动APP:https://www.doudong999.com/";
+        _tipLable.textColor = UIColor.whiteColor;
+        _tipLable.font = [UIFont systemFontOfSize:10];
+        _tipLable.textAlignment = NSTextAlignmentCenter;
+        _tipLable.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openAppLink)];
+        [_tipLable addGestureRecognizer:tap];
+    }
+    return  _tipLable;
+}
+
+-(void)openAppLink {
+    NSURL *url = [NSURL URLWithString:@"https://www.doudong999.com/"];
+    [[UIApplication sharedApplication] openURL:url];
+}
 
 @end

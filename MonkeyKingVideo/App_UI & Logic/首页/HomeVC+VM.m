@@ -15,7 +15,10 @@
 
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_GET
                                                            path:[URL_Manager sharedInstance].MKMessageNoticeListGET
-                                                     parameters:@{@"channelUrl":[URL_Manager sharedInstance].channelUrl}];
+                                                     parameters:@{@"channelUrl":[URL_Manager sharedInstance].channelUrl,
+                                                                  @"platform":@(1)
+                                                                  
+                                                     }];
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         if (response.isSuccess) {

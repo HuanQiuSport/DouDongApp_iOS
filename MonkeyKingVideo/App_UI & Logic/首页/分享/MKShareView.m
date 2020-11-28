@@ -130,7 +130,7 @@
             self.saveBtn.hidden = NO;
             self.linkBtn.hidden = NO;
             self.closeBtn.hidden = NO;
-            self.inviteLab.textColor = kWhiteColor;
+//            self.inviteLab.textColor = kWhiteColor;
             self.tipView.hidden = YES;
             self.iKnowBtn.hidden = YES;
             
@@ -197,7 +197,7 @@
             [_qrImge mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(_viedoImge.mas_bottom).offset(40);
                 make.left.equalTo(_bgView).offset(45);
-                make.bottom.equalTo(_bgView.mas_bottom).offset(-69);
+                make.bottom.equalTo(_bgView.mas_bottom).offset(-89);
                 make.right.equalTo(_bgView).offset(-45);
             }];
         }
@@ -207,15 +207,20 @@
             _inviteLab = UILabel.new;
             [_bgView addSubview:_inviteLab];
             [_inviteLab mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(_bgView).offset(0);
-                make.right.equalTo(_bgView).offset(0);
-                make.top.equalTo(_qrImge.mas_bottom).offset(4);
+//                make.left.equalTo(_bgView).offset(0);
+//                make.right.equalTo(_bgView).offset(0);
+                make.centerX.equalTo(_bgView.mas_centerX);
+                make.height.equalTo(@(30));
+                make.top.equalTo(_qrImge.mas_bottom).offset(8);
                 
             }];
+            _inviteLab.layer.masksToBounds = true;
+            _inviteLab.layer.cornerRadius = 15;
             _inviteLab.textAlignment = NSTextAlignmentCenter;
             _inviteLab.textColor = kWhiteColor;
+            _inviteLab.backgroundColor = HEXCOLOR(0xF27D5A);
             _inviteLab.font = [UIFont systemFontOfSize:19];
-            _inviteLab.text = [NSString stringWithFormat:@"邀请码: %@",_inviteCode];
+            _inviteLab.text = [NSString stringWithFormat:@"      邀请码: %@      ",_inviteCode];
         }
         
         
@@ -443,7 +448,7 @@
 //            make.edges.mas_equalTo(UIEdgeInsetsMake(-20, 0, 0, 0));
 //        }];
 //        imgev.image = image;
-        _inviteLab.textColor = kBlackColor;
+//        _inviteLab.textColor = kBlackColor;
         UIImageView *imgev = (UIImageView *)[self viewWithTag:1000];
         imgev.image = KIMG(@"bg_share");
         [weakSelf saveSuccessDrawNewView];
@@ -486,13 +491,13 @@
         tiplab.font = [UIFont systemFontOfSize:17];
         
         UIView *line = UIView.new;
-        line.backgroundColor = kWhiteColor;
+        line.backgroundColor = UIColor.clearColor;
         [_tipView addSubview:line];
         [line mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(_tipView);
             make.left.equalTo(_tipView).offset(24);
             make.right.equalTo(_tipView).offset(-24);
-            make.top.equalTo(tiplab.mas_bottom).offset(8);
+            make.top.equalTo(tiplab.mas_bottom).offset(4);
             make.height.equalTo(@(1));
         }];
          

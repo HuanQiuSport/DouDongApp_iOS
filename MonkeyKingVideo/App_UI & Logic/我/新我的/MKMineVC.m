@@ -105,9 +105,8 @@
         self.categoryView.titleSelectedColor = UIColor.blackColor;
         self.userHeaderView.backgroundColor = backColor;
         self.pagerView.backgroundColor = backColor;
-        self.pagerView.mainTableView.backgroundColor = backColor;
         self.categoryView.subviews.firstObject.backgroundColor = backColor;
-        self.pagerView.mainTableView.backgroundColor = backColor;
+        self.pagerView.mainTableView.backgroundColor = HEXCOLOR(0xF7F7F7);
         self.pagerView.listContainerView.listCellBackgroundColor = backColor;
         self.gk_navBackgroundColor = backColor;
     } else {
@@ -221,6 +220,16 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.titles = @[@"作品",@"喜欢"];
     _categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0,0, [UIScreen mainScreen].bounds.size.width, JXheightForHeaderInSection)];
+    
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_categoryView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(12, 12)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = _categoryView.bounds;
+    maskLayer.path = maskPath.CGPath;
+    _categoryView.layer.mask = maskLayer;
+    
+   
+    
+    
     self.categoryView.titles = self.titles;
     self.categoryView.backgroundColor = MKBakcColor;//
     self.categoryView.delegate = self;
