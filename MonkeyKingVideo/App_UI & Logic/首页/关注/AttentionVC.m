@@ -236,7 +236,9 @@ UICollectionViewDataSource
                forCellWithReuseIdentifier:@"VedioCell"];
         _mkCollectionView.mj_header = self.tableViewHeader;
         _mkCollectionView.mj_footer = self.tableViewFooter;
-        _mkCollectionView.mj_footer.hidden = YES;
+//        _mkCollectionView.mj_footer.hidden = YES;
+        [self.tableViewFooter setTitle:@"暂时没有更多了"
+               forState:MJRefreshStateNoMoreData];
         _mkCollectionView.backgroundColor = [UIColor clearColor];
         [self.view addSubview:_mkCollectionView];
         [_mkCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {

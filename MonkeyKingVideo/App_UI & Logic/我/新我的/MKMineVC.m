@@ -25,6 +25,7 @@
 @interface MKMineVC ()<JXCategoryViewDelegate,MKMineDidDelegate>
 
 @property (nonatomic, strong) JXCategoryTitleView *categoryView;
+@property (nonatomic, strong) UIView *ategoryViewBgView;
 @property (nonatomic, strong) NSArray <NSString *> *titles;
 
 /// ProductionVC
