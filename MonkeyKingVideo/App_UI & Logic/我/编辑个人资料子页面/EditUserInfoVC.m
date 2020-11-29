@@ -458,13 +458,19 @@ heightForHeaderInSection:(NSInteger)section {
             cell.rightLab.textColor = @"未绑定".length ? UIColor.blackColor : HEXCOLOR(0xA7A7A7);
             [cell hideIcon:1];
         }else if (indexPath.row == 1) {
-            self.userInfoModel.phone = @"15881124302";
+            self.userInfoModel.phone = @"15881124567";
             if(self.userInfoModel.phone.length == 0) {
                 cell.rightLab.text = @"未绑定";
                 cell.rightLab.textColor = HEXCOLOR(0xA7A7A7);
                 [cell hideIcon:NO];
             } else {
-                cell.rightLab.text = self.userInfoModel.phone;
+                NSString *phone =self.userInfoModel.phone;
+                if(self.userInfoModel.phone.length > 7) {
+                    NSString *frist = [phone substringToIndex:3];
+                    NSString *end = [phone substringFromIndex:self.userInfoModel.phone.length - 4];
+                    phone = [NSString stringWithFormat:@"%@****%@",frist,end];
+                }
+                cell.rightLab.text = phone;
                 cell.rightLab.textColor = UIColor.blackColor;
                 [cell hideIcon:YES];
             }

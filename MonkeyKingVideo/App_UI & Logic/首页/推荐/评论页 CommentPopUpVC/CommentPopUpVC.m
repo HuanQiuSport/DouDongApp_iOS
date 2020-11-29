@@ -661,7 +661,7 @@ forHeaderFooterViewReuseIdentifier:NSStringFromClass(HoveringHeaderView.class)];
         _field.textColor = HEXCOLOR(0x000000);
         _field.delegate = self;
         [_field addTarget:self action:@selector(changedTextField:) forControlEvents:UIControlEventEditingChanged];
-        _field.font = [UIFont systemFontOfSize:17];
+        _field.font = [UIFont systemFontOfSize:13];
         _field.layer.cornerRadius = 17;
         _field.frame = CGRectMake(64, 14, SCREEN_W-64-20, 34);
         _field.returnKeyType = UIReturnKeySend;
@@ -720,7 +720,7 @@ forHeaderFooterViewReuseIdentifier:NSStringFromClass(HoveringHeaderView.class)];
         _botLab = UILabel.new;
         _botLab.textColor = HEXCOLOR(0x999999);
         _botLab.text = @"我也说几句";
-        _botLab.font = [UIFont systemFontOfSize:17];
+        _botLab.font = [UIFont systemFontOfSize:13];
         _botLab.frame = CGRectMake(87, 0, SCREEN_W - 87-13, SCALING_RATIO(62));
     }
     return _botLab;

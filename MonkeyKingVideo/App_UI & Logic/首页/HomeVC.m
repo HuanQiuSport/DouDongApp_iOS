@@ -233,7 +233,7 @@
     [self.tipLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
-        make.height.equalTo(@(18));
+        make.height.equalTo(@(24));
         make.top.equalTo(self.view.mas_top).offset(topMargin);
     }];
 }
@@ -424,7 +424,7 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
 -(UILabel *)tipLable {
     if(_tipLable == nil) {
         _tipLable = UILabel.new;
-        _tipLable.backgroundColor = HEXCOLOR(0x989896);
+        _tipLable.backgroundColor = COLOR_HEX(0x000000, 0.2);
         _tipLable.text = @"如无法观看，请去该地址下载最新抖动APP:https://www.doudong999.com/";
         _tipLable.textColor = UIColor.whiteColor;
         _tipLable.font = [UIFont systemFontOfSize:10];

@@ -42,7 +42,7 @@
     if (!_titleLab) {
         _titleLab = UILabel.new;
         _titleLab.textAlignment = NSTextAlignmentLeft;
-        _titleLab.font = [UIFont systemFontOfSize:13];
+        _titleLab.font = [UIFont systemFontOfSize:12];
         _titleLab.textColor = HEXCOLOR(0x999999);
         [self.contentView addSubview:_titleLab];
         [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {

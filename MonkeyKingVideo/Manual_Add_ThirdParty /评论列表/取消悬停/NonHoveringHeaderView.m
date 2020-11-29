@@ -160,8 +160,8 @@
 -(UILabel *)titleLab{
     if (!_titleLab) {
         _titleLab = UILabel.new;
-        _titleLab.font = [UIFont systemFontOfSize:15];
-        _titleLab.textColor = HEXCOLOR(0x999999);
+        _titleLab.font = [UIFont systemFontOfSize:12 weight:UIFontWeightMedium];
+        _titleLab.textColor = RGBCOLOR(52, 135, 255);
         [self.contentView addSubview:_titleLab];
         _titleLab.text = self.titleStr;
         [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -185,8 +185,8 @@
         NSRange dateRange = [string rangeOfString:dateString];
         [textString setColor:HEXCOLOR(0x101010) range:contentRange];
         [textString setColor:HEXCOLOR(0x999999) range:dateRange];
-        [textString setFont:[UIFont systemFontOfSize:15] range:contentRange];
-        [textString setFont:[UIFont systemFontOfSize:13] range:dateRange];
+        [textString setFont:[UIFont systemFontOfSize:12] range:contentRange];
+        [textString setFont:[UIFont systemFontOfSize:12] range:dateRange];
         _contentLab.attributedText = textString;
         [self.contentView addSubview:_contentLab];
         [_contentLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -239,7 +239,7 @@
     if (!_countLab) {
         _countLab = UILabel.new;
         _countLab.textColor = RGBCOLOR(131, 145, 175);
-        _countLab.font = [UIFont systemFontOfSize:13];
+        _countLab.font = [UIFont systemFontOfSize:9];
         [self.contentView addSubview:_countLab];
         [_countLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.mas_equalTo(_heartIcon.mas_centerX).offset(0);

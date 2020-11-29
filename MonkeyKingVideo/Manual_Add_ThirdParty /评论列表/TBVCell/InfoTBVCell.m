@@ -61,12 +61,12 @@
         NSRange dateRange = [string rangeOfString:dateString];
         [textString setColor:HEXCOLOR(0x8391af) range:replyRange];
         [textString setColor:HEXCOLOR(0x8391af) range:nameRange];
-        [textString setFont:[UIFont systemFontOfSize:15] range:replyRange];
-        [textString setFont:[UIFont systemFontOfSize:15] range:nameRange];
+        [textString setFont:[UIFont systemFontOfSize:12] range:replyRange];
+        [textString setFont:[UIFont systemFontOfSize:12] range:nameRange];
         [textString setColor:HEXCOLOR(0x101010) range:contentRange];
         [textString setColor:HEXCOLOR(0x8391af) range:dateRange];
-        [textString setFont:[UIFont systemFontOfSize:15] range:contentRange];
-        [textString setFont:[UIFont systemFontOfSize:13] range:dateRange];
+        [textString setFont:[UIFont systemFontOfSize:12] range:contentRange];
+        [textString setFont:[UIFont systemFontOfSize:12] range:dateRange];
         self.content.attributedText = textString;
         self.childCommentModel.contentShow = string;
 //        [UIView cornerCutToCircleWithView:self.imageView
@@ -165,7 +165,7 @@
 - (UILabel *)name {
     if (!_name) {
         _name = UILabel.new;
-        _name.font = [UIFont systemFontOfSize:15];
+        _name.font = [UIFont systemFontOfSize:12];
         [self.contentView addSubview:_name];
         [_name mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.icon.mas_right).offset(10);
@@ -173,7 +173,7 @@
             make.height.offset(30);
             make.width.mas_lessThanOrEqualTo(150);
         }];
-        _name.textColor = HEXCOLOR(0x999999);
+        _name.textColor = RGBCOLOR(52, 135, 255);
     }
     return _name;
 }
@@ -212,7 +212,7 @@
     if (!_countLab) {
         _countLab = UILabel.new;
         _countLab.textColor = RGBCOLOR(131, 145, 175);
-        _countLab.font = [UIFont systemFontOfSize:13];
+        _countLab.font = [UIFont systemFontOfSize:9];
         [self.contentView addSubview:_countLab];
         [_countLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.mas_equalTo(_heartIcon.mas_centerX).offset(0);
