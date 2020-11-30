@@ -105,9 +105,12 @@
         return;
     }
     @weakify(self)
+
     WPView *view1 = [WPView viewWithTapClick:^(id other) {
         @strongify(self)
     }];
+    view1.layer.masksToBounds = YES;
+    view1.layer.cornerRadius = 10;
 
     view1.tap = ^(id other) {
 //        [WPAlertControl alertHiddenForRootControl:self completion:^(WPAlertShowStatus status, WPAlertControl *alertControl) {
@@ -115,11 +118,19 @@
 //        }];
         
     };
-    view1.frame = CGRectMake(0, 0, 324*KDeviceScale, 516*KDeviceScale);
+   
     view1.backgroundColor = [UIColor clearColor];
-    UIImageView *image = [[UIImageView alloc]initWithFrame:view1.frame];
+    UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 324*KDeviceScale, 516*KDeviceScale)];
     image.image = KIMG(@"imge_announcementHUB_nor");
     [view1 addSubview:image];
+    
+//    [image mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(view1.mas_top);
+//        make.bottom.equalTo(view1.mas_bottom);
+//        make.left.equalTo(view1.mas_left);
+//        make.right.equalTo(view1.mas_right);
+//    }];
+    
 
     UILabel *lab = UILabel.new;
     [view1 addSubview:lab];
@@ -153,6 +164,15 @@
     contentView.typingAttributes = attributes;
     contentView.attributedText =  [[NSAttributedString alloc] initWithString:self.m_annoContents[self.idx] attributes:attributes];
     
+    NSString *contentStr = self.m_annoContents[self.idx];
+    
+    CGFloat contentH = [contentStr boundingRectWithSize:CGSizeMake(324*KDeviceScale - 56, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attributes context:nil].size.height + 20;
+    
+    contentH = MIN(contentH, 240);
+
+    view1.frame = CGRectMake(0, 0, 324*KDeviceScale, 130 + 20 + 12 + contentH + 35*KDeviceScale + 21 + 28 );
+    view1.centerX = [UIScreen mainScreen].bounds.size.width / 2;
+    view1.centerY = [UIScreen mainScreen].bounds.size.height / 2;
     
     UIButton *btn = UIButton.new;
     [view1 addSubview:btn];
@@ -179,6 +199,15 @@
             lab.text = weakSelf.m_annoTitles[weakSelf.idx];
             contentView.attributedText =  [[NSAttributedString alloc] initWithString:weakSelf.m_annoContents[weakSelf.idx] attributes:attributes];
             
+            CGFloat contentH = [weakSelf.m_annoContents[weakSelf.idx] boundingRectWithSize:CGSizeMake(324*KDeviceScale - 56, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attributes context:nil].size.height + 20;
+            contentH = MIN(contentH, 270);
+
+            view1.frame = CGRectMake(0, 0, 324*KDeviceScale, 130 + 20 + 12 + contentH + 35*KDeviceScale + 21 + 28 );
+            view1.centerX = [UIScreen mainScreen].bounds.size.width / 2;
+            view1.centerY = [UIScreen mainScreen].bounds.size.height / 2;
+            [contentView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.equalTo(@(contentH));
+            }];
         }
     }];
     
@@ -186,7 +215,8 @@
         make.top.equalTo(lab.mas_bottom).offset(12);
         make.left.equalTo(view1).offset(28);
         make.right.equalTo(view1).offset(-28);
-        make.bottom.equalTo(btn.mas_top).offset(-28);
+        make.height.equalTo(@(contentH));
+//        make.bottom.equalTo(btn.mas_top).offset(-28);
     }];
     
     if ([[[SceneDelegate sharedInstance].customSYSUITabBarController.navigationController.viewControllers lastObject] isKindOfClass:[DoorVC class]]) {

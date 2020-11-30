@@ -547,7 +547,7 @@
         self.beginPoint = CGPointMake((maxW-animateView.frame.size.width) * 0.5, (maxH-animateView.frame.size.height) * 0.5);
         animateView.frame = CGRectMake(self.beginPoint.x, self.beginPoint.y, animateView.frame.size.width, animateView.frame.size.height);
         animateView.alpha = 0;
-        animateView.layer.masksToBounds = NO;
+        animateView.layer.masksToBounds = YES;
         animateView.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4].CGColor;
         animateView.layer.shadowRadius = 20;
         animateView.layer.shadowOpacity = 1;

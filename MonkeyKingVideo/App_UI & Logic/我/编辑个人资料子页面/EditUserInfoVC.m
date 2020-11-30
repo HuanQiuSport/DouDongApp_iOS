@@ -458,7 +458,6 @@ heightForHeaderInSection:(NSInteger)section {
             cell.rightLab.textColor = @"未绑定".length ? UIColor.blackColor : HEXCOLOR(0xA7A7A7);
             [cell hideIcon:1];
         }else if (indexPath.row == 1) {
-            self.userInfoModel.phone = @"15881124567";
             if(self.userInfoModel.phone.length == 0) {
                 cell.rightLab.text = @"未绑定";
                 cell.rightLab.textColor = HEXCOLOR(0xA7A7A7);
