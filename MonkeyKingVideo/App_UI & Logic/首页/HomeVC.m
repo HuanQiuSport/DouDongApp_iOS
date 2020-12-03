@@ -460,6 +460,7 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
         _tipLable.font = [UIFont systemFontOfSize:10];
         _tipLable.textAlignment = NSTextAlignmentCenter;
         _tipLable.userInteractionEnabled = YES;
+        _tipLable.hidden = true;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openAppLink)];
         [_tipLable addGestureRecognizer:tap];
     }
