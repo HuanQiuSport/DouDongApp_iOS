@@ -323,6 +323,7 @@
 		6E05D5272562789E0001EBDE /* default_avatar_white.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E05D5262562789E0001EBDE /* default_avatar_white.jpg */; };
 		6E1828DD256AB15A00B46DA1 /* AppInfoTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E1828DA256AB15A00B46DA1 /* AppInfoTool.m */; };
 		6E1828DE256AB15A00B46DA1 /* appinfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E1828DC256AB15A00B46DA1 /* appinfo.plist */; };
+		6E39321B257B765700CA2679 /* rule_top_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E39321A257B765700CA2679 /* rule_top_bg@3x.png */; };
 		6E3D9B51256013DF003E48DD /* white_未打开@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E3D9B50256013DF003E48DD /* white_未打开@3x.png */; };
 		6E56E08B255C19E300FD2738 /* VideoPlayCountUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E56E08A255C19E300FD2738 /* VideoPlayCountUtil.m */; };
 		6E724EF1257A665D00DD1225 /* MakeCoinRuleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E724EF0257A665D00DD1225 /* MakeCoinRuleView.m */; };
@@ -1679,6 +1680,7 @@
 		6E1828DA256AB15A00B46DA1 /* AppInfoTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppInfoTool.m; sourceTree = "<group>"; };
 		6E1828DB256AB15A00B46DA1 /* AppInfoTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInfoTool.h; sourceTree = "<group>"; };
 		6E1828DC256AB15A00B46DA1 /* appinfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = appinfo.plist; sourceTree = "<group>"; };
+		6E39321A257B765700CA2679 /* rule_top_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rule_top_bg@3x.png"; sourceTree = "<group>"; };
 		6E3D9B50256013DF003E48DD /* white_未打开@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_未打开@3x.png"; sourceTree = "<group>"; };
 		6E56E089255C19E300FD2738 /* VideoPlayCountUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoPlayCountUtil.h; sourceTree = "<group>"; };
 		6E56E08A255C19E300FD2738 /* VideoPlayCountUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoPlayCountUtil.m; sourceTree = "<group>"; };
@@ -3969,6 +3971,7 @@
 		6EFAD1E92561666F00F83137 /* comment */ = {
 			isa = PBXGroup;
 			children = (
+				6E39321A257B765700CA2679 /* rule_top_bg@3x.png */,
 				6E7B7D912570CB6A00198A06 /* comment_count_bg@2x.png */,
 				6E7B7D902570CB6A00198A06 /* comment_count_bg@3x.png */,
 				6EB82B12256FD15A003E68D7 /* 喜欢-白心@2x.png */,
@@ -7442,6 +7445,7 @@
 				CA5BE0C6250A5744002DE821 /* 清理缓存@2x.png in Resources */,
 				C55886E12498A53C00C8A3E7 /* 仿iOS图标抖动、iOS删除App效果 in Resources */,
 				6E3D9B51256013DF003E48DD /* white_未打开@3x.png in Resources */,
+				6E39321B257B765700CA2679 /* rule_top_bg@3x.png in Resources */,
 				6EABB06B2565099A00440307 /* gif_header_27@3x.png in Resources */,
 				6EABB0822565099A00440307 /* gif_header_4@3x.png in Resources */,
 				C5B5EF5D250CE86B00DCDA93 /* closeCircle@2x.png in Resources */,
