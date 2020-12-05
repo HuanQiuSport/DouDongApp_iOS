@@ -120,8 +120,8 @@
     if (self.mkListType == MKVideoListType_A) {
         [self.rightBtnView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.mas_right).offset(0 * KDeviceScale);
-            make.width.offset(34+15*2);
-            make.height.offset(180);
+            make.width.equalTo(@(34+15*2));
+            make.height.equalTo(@(180 + 20));
             make.bottom.offset(-42*KDeviceScale);
         }];
         
@@ -135,8 +135,8 @@
     }else{
         [self.rightBtnView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.mas_right).offset(0 * KDeviceScale);
-            make.width.offset(34+15*2);
-            make.height.offset(180);
+            make.width.equalTo(@(34+15*2));
+            make.height.equalTo(@(180 + 20));
             make.bottom.offset(-22*KDeviceScale - KBottomHeight - kTabBarHeight);
         }];
         
@@ -225,7 +225,7 @@
         [self.rightBtnView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.mas_right).offset(0 * KDeviceScale);
             make.width.offset(34+15*2);
-            make.height.offset(180);
+            make.height.offset(200);
             make.bottom.offset(-42*KDeviceScale);
         }];
         
@@ -240,7 +240,7 @@
         [self.rightBtnView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.mas_right).offset(0 * KDeviceScale);
             make.width.offset(34+15*2);
-            make.height.offset(180);
+            make.height.offset(200);
             make.bottom.offset(-22*KDeviceScale - KBottomHeight - kTabBarHeight);
         }];
         

@@ -28,21 +28,45 @@
 }
 #pragma mark - 布局子视图
 - (void)mkLayOutView{
-    NSMutableArray *array;
-    if (!array) {
-        array = NSMutableArray.array;
-    }
-    [array addObject:self.mkZanView];
-    [array addObject:self.mkCommentView];
-    [array addObject:self.mkShareView];
-    [array mas_distributeViewsAlongAxis:MASAxisTypeVertical
-                       withFixedSpacing:10
-                            leadSpacing:0
-                            tailSpacing:0];
-    [array mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self);
-        make.width.equalTo(@(60 * KDeviceScale));
+//    NSMutableArray *array;
+//    if (!array) {
+//        array = NSMutableArray.array;
+//    }
+//    [array addObject:self.mkZanView];
+//    [array addObject:self.mkCommentView];
+//    [array addObject:self.mkShareView];
+    
+    [self.mkZanView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).offset(0);
+        make.right.equalTo(self.mas_right).offset(0);
+        make.top.equalTo(self.mas_top).offset(0);
+        make.height.equalTo(@(54));
+        
     }];
+    
+    [self.mkCommentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).offset(0);
+        make.right.equalTo(self.mas_right).offset(0);
+        make.height.equalTo(@(54));
+        make.top.equalTo(self.mkZanView.mas_bottom).offset(10);
+    }];
+    
+    [self.mkShareView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).offset(0);
+        make.right.equalTo(self.mas_right).offset(0);
+        make.height.equalTo(@(70));
+        make.top.equalTo(self.mkCommentView.mas_bottom).offset(8);
+    }];
+    
+    
+//    [array mas_distributeViewsAlongAxis:MASAxisTypeVertical
+//                       withFixedSpacing:10
+//                            leadSpacing:0
+//                            tailSpacing:0];
+//    [array mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.right.equalTo(self);
+//        make.width.equalTo(@(60 * KDeviceScale));
+//    }];
 }
 #pragma mark —— lazyLoad
 - (MKImageBtnVIew *)mkZanView{
@@ -65,7 +89,8 @@
     if (!_mkShareView) {
         _mkShareView  =  [[MKImageBtnVIew alloc] initWithFrame:CGRectZero];
         _mkShareView.mkImageView.image = KIMG(@"分享");
-        _mkShareView.mkTitleLable.text = @"分享";
+        _mkShareView.mkTitleLable.numberOfLines = 0;
+        _mkShareView.mkTitleLable.text = @"分享\n赚钱";
          
     }return _mkShareView;
 }

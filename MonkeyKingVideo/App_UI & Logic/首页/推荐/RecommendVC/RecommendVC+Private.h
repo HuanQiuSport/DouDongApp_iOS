@@ -51,6 +51,7 @@
 #import "RecommendVC+Ads2.h"
 #import "MKAdvertisingController.h"
 #import "RecommendVC+LocalAds.h"
+#import "MakeCoinRuleView.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RecommendVC ()<UITableViewDelegate,UITableViewDataSource,MKDouYinDelegate,MKVideoPlayDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
@@ -125,6 +126,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong,nonatomic) HomeAdView *homeAdView;
 
+@property (strong,nonatomic) MakeCoinRuleView *makeCoinRuleView;
 
 
 #pragma mark - 广告

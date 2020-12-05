@@ -25,6 +25,7 @@
 #import "MKPersonalLikeModel.h"
 #import "MKDiamondsView.h"
 #import "VideoPlayCountUtil.h"
+#import "MyCoinVC.h"
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
 #pragma clang diagnostic ignored "-Wundeclared-selector"
@@ -271,9 +272,9 @@
         if(playState == ZFPlayerPlayStatePlaying) {
             // 看了3个视频并且没登录就弹出登录
             self.controlView.playBtn.hidden = YES;
-            if([MKTools mkLoginIsLogin] && [[VideoPlayCountUtil util] needLogin]) {
-                [weakSelf mkLoginAlert];
-            }
+//            if([MKTools mkLoginIsLogin] && [[VideoPlayCountUtil util] needLogin]) {
+//                [weakSelf mkLoginAlert];
+//            }
         } else if(playState == ZFPlayerPlayStatePlayFailed) {
             NSLog(@"视频错误");
 //            [weakSelf.player.currentPlayerManager reloadPlayer];
@@ -296,12 +297,6 @@
                 }
             }
             [weakSelf.player.currentPlayerManager play]; // 自动播放关键
-            
-//            if([MKTools mkLoginIsLogin]){
-//                [weakSelf recoderEndPlay:model WithTime:manager.bufferTime];
-//            }else{
-//                [weakSelf recoderStartPlay:model WithTime:manager.totalTime];
-//            }
         }else{
             [weakSelf.player.currentPlayerManager play];
         }
@@ -710,29 +705,6 @@
 - (MKDouYinControlView *)controlView {
     if (!_controlView) {
         _controlView = [MKDouYinControlView new];
-        WeakSelf
-        _controlView.playerLoadStateChangedBlock = ^(NSString * _Nonnull str) {
-                if (self.mkVideoListType == MKVideoListType_A) {
-//                    if ([str isEqualToString:@"YES"]) {
-//                        [weakSelf.controlView.sliderView  stopAnimating];
-//                    } else {
-//                        [weakSelf.controlView.sliderView  startAnimating];
-//                    }
-                    NSLog(@"view回调 %@",str);
-                    if(![MKTools mkLoginIsLogin]){
-        
-                        if ([str isEqualToString:@"YES"]) {
-                            // 完成后时红包走
-                            if (self.mkFirstPlay == YES) {
-//                                [weakSelf.mkShuaCoinView cotinueAddCoin];
-                            }
-                        } else {
-                            // 缓冲时红包不走
-//                            [weakSelf.mkShuaCoinView stopAddCoin];
-                        }
-                    }
-                }
-        };
     }
     return _controlView;
 }
@@ -909,11 +881,37 @@
 - (MKShuaCoinView *)mkShuaCoinView{
     
     if (!_mkShuaCoinView) {
-        
         _mkShuaCoinView = [[MKShuaCoinView alloc]init];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(makeCoinClick)];
+        [_mkShuaCoinView addGestureRecognizer:tap];
     }
     return _mkShuaCoinView;
 }
+
+-(void)makeCoinClick {
+    [self.makeCoinRuleView show:self];
+}
+
+-(MakeCoinRuleView *)makeCoinRuleView {
+    if(_makeCoinRuleView == nil) {
+        _makeCoinRuleView = MakeCoinRuleView.ruleView;
+        @weakify(self)
+        _makeCoinRuleView.seeCoinBlock = ^{
+            [MyCoinVC ComingFromVC:weak_self
+                   comingStyle:ComingStyle_PUSH
+             presentationStyle:UIModalPresentationAutomatic
+                 requestParams:@{
+                     @"MyWalletStyle":@(MyWalletStyle_CURRENTCOIN),
+                     @"balance":@"0",
+                     @"goldNumber":@"0"
+                 }
+                       success:^(id data) {}
+                      animated:YES];
+        };
+    }
+    return  _makeCoinRuleView;
+}
+
 - (UIView *)commentCoverView {
     if (!_commentCoverView) {
         _commentCoverView = UIView.new;

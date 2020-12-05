@@ -214,123 +214,17 @@
         make.height.equalTo(@(23*KDeviceScale));
         
     }];
-//     self.timerExample3 = [[MZTimerLabel alloc] initWithLabel:_lblTimerExample3 andTimerType:MZTimerLabelTypeTimer];
-//     self.timerExample3.tag = 102;
-//    [ self.timerExample3 setCountDownTime:self.timeNAL]; //** Or you can use [timer3 setCountDownToDate:aDate];
-//
-//    [self.timerExample3 start];
     self.lblTimerExample3.hidden = NO;
-//     self.timerExample3.delegate = self;
-//     self.timerExample3.timeFormat = @"ss";
-//
-//     self.timerExample3.resetTimerAfterFinish = YES;
-//    [ self.timerExample3 startWithEndingBlock:^(NSTimeInterval countTime) {
-//
-//    }];
 }
 
 - (void)reloadSetTime:(double)time{
     NSLog(@"进废弃方法reloadSetTime");
 }
-//-(void)timerLabel:(MZTimerLabel*)timerLabel finshedCountDownTimerWithTime:(NSTimeInterval)countTime{
-//    if(timerLabel.tag == 102){
-//        NSLog(@"MKCanCoinNotification");
-//        [[NSNotificationCenter defaultCenter] postNotificationName:MKCanCoinNotification object:nil];
-//        @weakify(self)
-//        self.mkHomeCoinView.hidden = NO;
-//
-//
-//        [MKAnimations moveUp:self.mkHomeCoinView andAnimationDuration:1.0 andWait:YES andLength:20];
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            @strongify(self)
-//            self.mkHomeCoinView.frame = CGRectMake(0, 0,100,30);
-//            self.mkHomeCoinView.hidden = YES;
-//
-//
-//        });
-////        [self cotinueAddCoin];
-//        [[NSNotificationCenter defaultCenter]removeObserver:self name:MKCanCoinNotification object:nil];
-//    }
-//    if(timerLabel.tag == 102){
-//        return;
-//    }
-//}
-//-(void)timerLabel:(MZTimerLabel*)timerLabel countingTo:(NSTimeInterval)time timertype:(MZTimerLabelType)timerType{
-//
-//    if (timerLabel.tag == 101) {
-//        return;
-//    }
-//    if (timerLabel.tag == 102) {
-//
-//        self.mkProgressView.progress = 1.00 - time/self.timeNAL;
-//
-//    }
-//
-//}
+
 
 - (void)mkSetCoinNumber:(NSString *)floatNumber WithDecountTime:(NSString *)timeFloatNumber{
     NSLog(@"进废弃方法mkSetCoinNumber");
-//    [self mkSetCoinNumber:floatNumber];
-////    NSLog(@"%@",timeFloatNumber);
-//
-//    if (self.timeNAL == 0) {
-//         self.timeNAL = timeFloatNumber.doubleValue;
-//        [self resetTime:timeFloatNumber.doubleValue];
-//
-//    }else{
-//        if(self.timeNAL == timeFloatNumber.doubleValue){ // 时间没有变化的时候
-//            return;
-//        }
-//        double check = MAX(self.timeNAL,timeFloatNumber.doubleValue) - MIN(self.timeNAL, timeFloatNumber.doubleValue);
-////        NSLog(@"相差几秒%f",check);
-//        double timeReal = MAX(self.timeNAL - check,0) == 0?-check:check;
-////        [self.timerExample3 addTimeCountedByTime:MAX(self.timeNAL - check,0) == 0?-check:check];
-//        self.timeNAL = timeFloatNumber.doubleValue;
-//        NSLog(@"mkSetCoinNumber");
-////        [self.timerExample3 start];
-//    }
-    
-    
-//        [self mkSetCoinNumber:floatNumber]; // 金币数
-//        if (self.timeNAL == 0) {
-//             self.timeNAL = timeFloatNumber.doubleValue; // 时间
-//            self.count = 0;//self.timeNAL; 初始化时间重置
-//        }else{
-//            if(self.timeNAL == timeFloatNumber.doubleValue){ // 时间没有变化的时候
-//                return;
-//            }
-//            double check = MAX(self.timeNAL,timeFloatNumber.doubleValue) - MIN(self.timeNAL, timeFloatNumber.doubleValue);
-//            self.timeNAL = timeFloatNumber.doubleValue;
-//        }
-    
-        
 }
 
     
-
-
-
-//- (void)playFlash
-//{
-//    [self flashScreenUsingFlashColor:[NSColor whiteColor] inDuration:0.01 outDuration:0.5];
-//}
-//
-//-(void)flashScreenUsingFlashColor:(NSColor *)flashColor
-//                       inDuration:(NSTimeInterval)inDuration
-//                      outDuration:(NSTimeInterval)outDuration{
-//
-//    CGDisplayFadeReservationToken fadeToken;
-//    NSColor *colorToUse = [flashColor colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
-//
-//    CGError error = CGAcquireDisplayFadeReservation (inDuration + outDuration, &fadeToken);
-//    if (error != kCGErrorSuccess){
-//        NSLog(@"Error aquiring fade reservation. Will do nothing.");
-//        return;
-//    }
-//
-//    CGDisplayFade (fadeToken, inDuration, kCGDisplayBlendNormal, 0.5, colorToUse.redComponent, colorToUse.greenComponent, colorToUse.blueComponent, true);
-//    CGDisplayFade (fadeToken, outDuration, 0.5, kCGDisplayBlendNormal,colorToUse.redComponent, colorToUse.greenComponent, colorToUse.blueComponent, false);
-//
-//}
-
 @end

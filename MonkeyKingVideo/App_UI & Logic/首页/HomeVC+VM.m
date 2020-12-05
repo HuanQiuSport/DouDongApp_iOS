@@ -7,6 +7,7 @@
 //
 
 #import "HomeVC+VM.h"
+#import "MKHNoticeModel.h"
 
 @implementation HomeVC (VM)
 // GET /app/message/noticeList
@@ -23,20 +24,22 @@
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         if (response.isSuccess) {
             if ([response.reqResult isKindOfClass:NSArray.class]) {
-                [self.m_annoContents removeAllObjects];
-                [self.m_annoTitles removeAllObjects];
-                if (!self.m_annoContents) {
-                    self.m_annoContents = NSMutableArray.new;
-                }
-                if (!self.m_annoTitles) {
-                    self.m_annoTitles = NSMutableArray.new;
-                }
-                for (NSDictionary *dic in response.reqResult) {
-                    [self.m_annoContents addObject:dic[@"content"]];
-                    [self.m_annoTitles addObject:dic[@"title"]];
-                }
-                
-                [self anno];
+                NSMutableArray *array = [MKHNoticeModel mj_objectArrayWithKeyValuesArray:response.reqResult];
+                 [self.noticeAlertView show:array];
+//                [self.noticeAlertView show:array];
+//                [self.m_annoContents removeAllObjects];
+//                [self.m_annoTitles removeAllObjects];
+//                if (!self.m_annoContents) {
+//                    self.m_annoContents = NSMutableArray.new;
+//                }
+//                if (!self.m_annoTitles) {
+//                    self.m_annoTitles = NSMutableArray.new;
+//                }
+//                for (NSDictionary *dic in response.reqResult) {
+//                    [self.m_annoContents addObject:dic[@"content"]];
+//                    [self.m_annoTitles addObject:dic[@"title"]];
+//                }
+//                [self anno];
             }
             
         }

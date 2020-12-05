@@ -325,6 +325,9 @@
 		6E1828DE256AB15A00B46DA1 /* appinfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E1828DC256AB15A00B46DA1 /* appinfo.plist */; };
 		6E3D9B51256013DF003E48DD /* white_未打开@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E3D9B50256013DF003E48DD /* white_未打开@3x.png */; };
 		6E56E08B255C19E300FD2738 /* VideoPlayCountUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E56E08A255C19E300FD2738 /* VideoPlayCountUtil.m */; };
+		6E724EF1257A665D00DD1225 /* MakeCoinRuleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E724EF0257A665D00DD1225 /* MakeCoinRuleView.m */; };
+		6E724EFA257A790B00DD1225 /* MKHNoticeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E724EF9257A790B00DD1225 /* MKHNoticeModel.m */; };
+		6E724F0C257A794500DD1225 /* MKNoticeAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E724F0B257A794500DD1225 /* MKNoticeAlertView.m */; };
 		6E7B7D8B2570CB4900198A06 /* empty_data_image@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E7B7D892570CB4900198A06 /* empty_data_image@3x.png */; };
 		6E7B7D8C2570CB4900198A06 /* empty_data_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E7B7D8A2570CB4900198A06 /* empty_data_image@2x.png */; };
 		6E7B7D922570CB6A00198A06 /* comment_count_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E7B7D902570CB6A00198A06 /* comment_count_bg@3x.png */; };
@@ -1679,6 +1682,12 @@
 		6E3D9B50256013DF003E48DD /* white_未打开@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_未打开@3x.png"; sourceTree = "<group>"; };
 		6E56E089255C19E300FD2738 /* VideoPlayCountUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoPlayCountUtil.h; sourceTree = "<group>"; };
 		6E56E08A255C19E300FD2738 /* VideoPlayCountUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoPlayCountUtil.m; sourceTree = "<group>"; };
+		6E724EEF257A665D00DD1225 /* MakeCoinRuleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MakeCoinRuleView.h; sourceTree = "<group>"; };
+		6E724EF0257A665D00DD1225 /* MakeCoinRuleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MakeCoinRuleView.m; sourceTree = "<group>"; };
+		6E724EF8257A790B00DD1225 /* MKHNoticeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKHNoticeModel.h; sourceTree = "<group>"; };
+		6E724EF9257A790B00DD1225 /* MKHNoticeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKHNoticeModel.m; sourceTree = "<group>"; };
+		6E724F0A257A794500DD1225 /* MKNoticeAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKNoticeAlertView.h; sourceTree = "<group>"; };
+		6E724F0B257A794500DD1225 /* MKNoticeAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKNoticeAlertView.m; sourceTree = "<group>"; };
 		6E7B7D892570CB4900198A06 /* empty_data_image@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "empty_data_image@3x.png"; sourceTree = "<group>"; };
 		6E7B7D8A2570CB4900198A06 /* empty_data_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "empty_data_image@2x.png"; sourceTree = "<group>"; };
 		6E7B7D902570CB6A00198A06 /* comment_count_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment_count_bg@3x.png"; sourceTree = "<group>"; };
@@ -3727,6 +3736,42 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
+		6E724EEB257A661000DD1225 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6E724EEF257A665D00DD1225 /* MakeCoinRuleView.h */,
+				6E724EF0257A665D00DD1225 /* MakeCoinRuleView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6E724EF5257A78D600DD1225 /* 公告 */ = {
+			isa = PBXGroup;
+			children = (
+				6E724EF7257A78EC00DD1225 /* Model */,
+				6E724EF6257A78E200DD1225 /* View */,
+			);
+			path = "公告";
+			sourceTree = "<group>";
+		};
+		6E724EF6257A78E200DD1225 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6E724F0A257A794500DD1225 /* MKNoticeAlertView.h */,
+				6E724F0B257A794500DD1225 /* MKNoticeAlertView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6E724EF7257A78EC00DD1225 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6E724EF8257A790B00DD1225 /* MKHNoticeModel.h */,
+				6E724EF9257A790B00DD1225 /* MKHNoticeModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		6EABB0222565099A00440307 /* 刷新 */ = {
 			isa = PBXGroup;
 			children = (
@@ -4041,6 +4086,7 @@
 		C509EA8E24A1FC2300C10D2F /* 首页 */ = {
 			isa = PBXGroup;
 			children = (
+				6E724EF5257A78D600DD1225 /* 公告 */,
 				419B203D250A43840045C92B /* 登录弹出窗 */,
 				4116E6B724E132CE007BD2D3 /* 宝盒 */,
 				84DE0D5624FF91CD00F2C018 /* 分享 */,
@@ -4145,6 +4191,7 @@
 		C509EAA924A2049100C10D2F /* 推荐 */ = {
 			isa = PBXGroup;
 			children = (
+				6E724EEB257A661000DD1225 /* View */,
 				6E56E088255C19B700FD2738 /* Util */,
 				41A2C4A6252743AE0003BE12 /* NewRVC */,
 				C54F105024C4880800EE1E67 /* RecommendVC */,
@@ -8081,6 +8128,7 @@
 				C590FF5D24D012B6000F36C9 /* SDWebImageCodersManager.m in Sources */,
 				C590FF1E24D00885000F36C9 /* SDWebImageWebPCoder.m in Sources */,
 				41BBF7442529CB6F00FC87AA /* ZFPersentInteractiveTransition.m in Sources */,
+				6E724EFA257A790B00DD1225 /* MKHNoticeModel.m in Sources */,
 				C5E5C6682508A3C6001E69DA /* WGradientProgress.m in Sources */,
 				C572A28F24FCBE1E000A1687 /* UIImage+Tailor.m in Sources */,
 				411117ED24BC644900C6CE4D /* MKSysModel.m in Sources */,
@@ -8088,6 +8136,7 @@
 				C55887532498A55400C8A3E7 /* ZYTextField_01.m in Sources */,
 				C59C4A5124E3A2E0002C2104 /* BaseVC+TZLocationManager.m in Sources */,
 				411F85E124EE4CB600D7361E /* RecommendVC+Comment.m in Sources */,
+				6E724EF1257A665D00DD1225 /* MakeCoinRuleView.m in Sources */,
 				411A7F3924C54B4300C750BC /* RecommendVC.m in Sources */,
 				C55886D62498A53C00C8A3E7 /* AnimateToSpecifiedDate_Init.m in Sources */,
 				C57ADF6624D8577100419DFA /* BRPickerStyle.m in Sources */,
@@ -8122,6 +8171,7 @@
 				41A6C18C24A5EF3600669692 /* MKSetingView.m in Sources */,
 				C55886C62498A53C00C8A3E7 /* AES.m in Sources */,
 				C52F594324CDBF62001F72B3 /* MKChangePersonalizedSignatureVC.m in Sources */,
+				6E724F0C257A794500DD1225 /* MKNoticeAlertView.m in Sources */,
 				C509EA9D24A1FCD300C10D2F /* CommunityVC+VM.m in Sources */,
 				C5D4FBAC24CEB0F60024A292 /* FileFolderHandleTool.m in Sources */,
 				C54F100D24C4506E00EE1E67 /* MKInfoFansVC+VM.m in Sources */,

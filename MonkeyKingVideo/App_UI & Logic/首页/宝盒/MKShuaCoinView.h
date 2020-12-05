@@ -15,30 +15,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 刷币视图
 @interface MKShuaCoinView : UIView
-///
+
 @property (strong,nonatomic) NSMutableDictionary  *mkPlayRecord;
-///
+
 @property (strong,nonatomic) MKCircularProgressView *mkProgressView;
 
 @property (strong,nonatomic) UIImageView *mkImageView;
-//@property (strong,nonatomic) UIImageView *mkCoinImageView;
-//@property (strong,nonatomic) UILabel *mkCoinNumberImageView;
 
 @property (strong,nonatomic) MKHomeCoinView *mkHomeCoinView;
-//@property (strong,nonatomic) MZTimerLabel *timerExample3;
-//- (void)resetTime:(CGFloat)time;
-//-(void)stopAddCoin;
-//-(void)cotinueAddCoin;
-//- (void)startAddCoin;
-//- (void)resetAddCoin;
 - (void)resetTime;
-//- (void)reloadSetTime:(double)time;
 - (void)opencoin;
 -(void)clearCoin;
-// 设置刷币金额
-//- (void)mkSetCoinNumber:(NSString *)floatNumber WithDecountTime:(NSString *)timeFloatNumber;
-// 设置刷币金额与时间
-//- (void)mkSetCoinNumber:(NSString *)floatNumber;
+
 -(void)updateCurentPlayerTime:(NSTimeInterval)time assetUrl:(NSString *)assetUrl;
 
 // 设置刷币金额2

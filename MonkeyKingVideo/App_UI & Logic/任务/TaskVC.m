@@ -507,7 +507,7 @@
             make.top.equalTo(self.friendView).offset(12);
             make.left.equalTo(self.friendView).offset(16);
         }];
-        titleLab.text = @"邀请好友 狂赚";
+        titleLab.text = @"邀请好友 ";
         titleLab.textColor = kWhiteColor;
         titleLab.font = [UIFont systemFontOfSize:20];
         
@@ -517,8 +517,8 @@
             make.top.equalTo(self.friendView).offset(12);
             make.left.equalTo(titleLab.mas_right).offset(1);
         }];
-        titleLab2.text = @"37.6W抖币";
-        titleLab2.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(40), 30)]];
+        titleLab2.text = @"无限赚抖币";
+        titleLab2.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(150), 30)]];
         titleLab2.font = [UIFont systemFontOfSize:20];
         
         _friendLab = UILabel.new;

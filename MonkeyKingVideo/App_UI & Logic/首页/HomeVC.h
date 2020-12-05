@@ -7,6 +7,7 @@
 //
 
 #import "BaseVC.h"
+#import "MKNoticeAlertView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSMutableArray *m_annoContents;
 @property(nonatomic,strong)JXCategoryTitleView *categoryView;
 @property(nonatomic,strong)JXCategoryListContainerView *listContainerView;
+@property(nonatomic,strong) MKNoticeAlertView *noticeAlertView;
 - (void)anno;
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
                  comingStyle:(ComingStyle)comingStyle

@@ -15,7 +15,7 @@
 #import "ZFPlayerController.h"
 #import <YYKit/YYKit.h>
 
-@interface MKDouYinControlView()
+@interface MKDouYinControlView()<ZFSliderViewDelegate>
 ///
 @property (assign,nonatomic) ZFReachabilityStatus status ;
 
@@ -47,6 +47,9 @@
 }
 
 -(void)updateLodaing {
+    if(self.sliderView.isdragging) {
+        return;
+    }
     NSTimeInterval curentTime = [[NSDate date] timeIntervalSince1970];
     NSTimeInterval loadingTime = curentTime - self.lastPlayTime;
     if(self.playBtn.isHidden && loadingTime > 0.2) {
@@ -75,8 +78,8 @@
     min_x = 0;
     min_y = min_view_h - 5;
     min_w = min_view_w;
-    min_h = 1;
-    self.sliderView.frame = CGRectMake(min_x, min_y, min_w, min_h);
+    min_h = 20;
+    self.sliderView.frame = CGRectMake(min_x, min_y - 20, min_w, min_h);
 }
 
 - (void)reachabilityChanged:(NSNotification *)notify{
@@ -101,111 +104,10 @@
     self.sliderView.value = 0;
     self.sliderView.bufferValue = 0;
 }
-/// 加载状态改变
-//- (void)videoPlayer:(ZFPlayerController *)videoPlayer loadStateChanged:(ZFPlayerLoadState)state {
-//    WeakSelf
-//    DLog(@"牛逼的瞬间%lu playState：%lu",(unsigned long)state,(unsigned long)videoPlayer.currentPlayerManager.playState);
-//
-//    if([SceneDelegate sharedInstance].customSYSUITabBarController.selectedIndex == 0){
-//
-//    }else{
-////        NSLog(@"不在首页模块不播放");
-////        return;
-//    }
-//    self.loadState = state;
-////    dispatch_async(dispatch_get_main_queue(), ^{
-////        switch (state) {
-////            case ZFPlayerLoadStateUnknown:
-////                [self.sliderView startAnimating];
-////                break;
-////            case ZFPlayerLoadStatePrepare:
-////                [self.sliderView startAnimating];
-////                break;
-////            case ZFPlayerLoadStatePlayable:
-////                if(videoPlayer.currentPlayerManager.isPlaying){
-////                    [self.sliderView stopAnimating];
-////                }
-////                else
-////                {
-////                    [self.sliderView startAnimating];
-////                }
-////
-////                break;
-////            case ZFPlayerLoadStatePlaythroughOK:
-////                [self.sliderView startAnimating];
-////                break;
-////            case ZFPlayerLoadStateStalled:
-////                if(videoPlayer.currentPlayerManager.isPlaying){
-////                    [self.sliderView stopAnimating];
-////                }
-////                else
-////                {
-////                    [self.sliderView startAnimating];
-////                }
-////                break;
-////        }
-////    });
-//    if(videoPlayer.currentPlayerManager.isPlaying){
-//
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            switch (state) {
-//                case ZFPlayerLoadStateUnknown:
-//                    [self.sliderView startAnimating];
-//                    break;
-//                case ZFPlayerLoadStatePrepare:
-//                    [self.sliderView startAnimating];
-//                    break;
-//                case ZFPlayerLoadStatePlayable:
-//                    [self.sliderView stopAnimating];
-//                    break;
-//                case ZFPlayerLoadStatePlaythroughOK:
-//                    [self.sliderView startAnimating];
-//                    break;
-//                case ZFPlayerLoadStateStalled:
-//                    [self.sliderView stopAnimating];
-//                    break;
-//            }
-//        });
-//    }else{
-////        NSLog(@"加载状态改变暂停");
-//        if(self.playBtn.isHidden) {
-//            [self.sliderView startAnimating];
-//        }
-//    }
-////    if ((state == ZFPlayerLoadStateStalled || state == ZFPlayerLoadStatePrepare || state == ZFPlayerLoadStateUnknown) && ) {
-////        [self.sliderView startAnimating];
-////    } else {
-////
-////    }
-//
-//}
+
 #pragma mark - KVO 监听进度条
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
-//    DLog(@"监听进度条%@ == %@ == %@ == %@",keyPath,object,context,change);
-//    NSString *progress = [NSString stringWithFormat:@"%@",change[@"new"]];
-//    [self.dataSource addObject:progress];
-//            __weak typeof (self) weakSelf = self;
-//            [UIView animateWithDuration:0.01f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-////                weakSelf.sliderView.transform = CGAffineTransformMakeScale(1.0f, 1.4f);
-////                [weakSelf.sliderView startAnimating];
-//            } completion:^(BOOL finished) {
-////                weakSelf.sliderView.hidden = YES;
-//            }];
-//        }
-//    }else{
-//        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-//    }
 }
-
-/// 加载状态改变
-//- (void)videoPlayer:(ZFPlayerController *)videoPlayer loadStateChanged:(ZFPlayerLoadState)state {
-//    if ((state == ZFPlayerLoadStateStalled || state == ZFPlayerLoadStatePrepare || state == ZFPlayerLoadStateUnknown) && videoPlayer.currentPlayerManager.isPlaying) {
-//        [self.sliderView startAnimating];
-//    } else {
-//        [self.sliderView stopAnimating];
-//    }
-//    NSLog(@"ZFPlayerLoadState %lu", (unsigned long)state);
-//}
 
 /// 播放进度改变回调
 - (void)videoPlayer:(ZFPlayerController *)videoPlayer currentTime:(NSTimeInterval)currentTime totalTime:(NSTimeInterval)totalTime {
@@ -229,17 +131,8 @@
         self.playBtn.hidden = YES;
     }
 }
-//
-//- (void)videoPlayer:(ZFPlayerController *)videoPlayer playStateChanged:(ZFPlayerPlaybackState)state {
-//    if(state != ZFPlayerPlayStatePlaying || state != ZFPlayerPlayStatePaused) {
-//        [self.sliderView startAnimating];
-//    }
-//    NSLog(@"ZFPlayerPlaybackState %lu", (unsigned long)state);
-//}
 
 - (void)dealloc {
-//    [self.sliderView removeObserver:self forKeyPath:@"value"];
-//    self.sliderView = nil;
 }
 -(void)invalidateDisplayLink {
     [self.displayLink invalidate];
@@ -253,143 +146,16 @@
     self.displayLink.paused = NO;
 }
 
-
-///// When the player prepare to play the video.
-//- (void)videoPlayer:(ZFPlayerController *)videoPlayer prepareToPlay:(NSURL *)assetURL{
-//    if([videoPlayer.currentPlayerManager isPlaying]){
-//        [self.sliderView stopAnimating];
-//    }else{
-//        [self.sliderView startAnimating];
-//    }
-//}
-
-/// When th player playback state changed.
-//- (void)videoPlayer:(ZFPlayerController *)videoPlayer playStateChanged:(ZFPlayerPlaybackState)state{
-//
-//
-//    if(state == ZFPlayerPlayStatePlaying) {
-//
-//    }
-//
-//
-//    BOOL isload = true;
-//    // 加载状态
-//
-//    switch (self.loadState) {
-//        case 0:// ZFPlayerLoadStateUnknown
-//        {
-//            [self.sliderView startAnimating];
-//            isload = NO;
-////            weakSelf.playerLoadStateChangedBlock(@"NO");
-//            break;
-//        }
-//
-//        case 1:// ZFPlayerLoadStatePrepare
-//        {
-//            [self.sliderView startAnimating];
-//            isload = NO;
-////            weakSelf.playerLoadStateChangedBlock(@"NO");
-//            break;
-//        }
-//
-//        case 2:// ZFPlayerLoadStatePlayable
-//        {
-//            [self.sliderView stopAnimating];
-//            isload = YES;
-////            weakSelf.playerLoadStateChangedBlock(@"YES");
-//            break;
-//        }
-//
-//        case 3:// ZFPlayerLoadStatePlaythroughOK
-//        {
-//            [self.sliderView startAnimating];
-//            isload = NO;
-////            weakSelf.playerLoadStateChangedBlock(@"NO");
-//            break;
-//        }
-//
-//        case 4:// ZFPlayerLoadStateStalled
-//        {
-//            [self.sliderView stopAnimating];
-//            isload = YES;
-////            weakSelf.playerLoadStateChangedBlock(@"YES");
-//            break;
-//        }
-//
-//    }
-//    WeakSelf
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        NSLog(@"播放状态改变了 %lu",(unsigned long)state);
-//        weakSelf.playerLoadStateChangedBlock(@"NO");
-//        switch (state) {
-//            case ZFPlayerPlayStateUnknown:
-//                if([videoPlayer.currentPlayerManager isPlaying]){
-//                    if (isload == YES) {
-//                        [weakSelf.sliderView stopAnimating];
-//                        NSLog(@"1----1");
-//                        weakSelf.playerLoadStateChangedBlock(@"YES");
-//                    }
-//                    else
-//                    {
-//                        [weakSelf.sliderView startAnimating];
-//                    }
-//
-//                }else{
-//                    [weakSelf.sliderView startAnimating];
-//                }
-//                break;
-//            case ZFPlayerPlayStatePlaying:
-//                if([videoPlayer.currentPlayerManager isPlaying]){
-//                    if (isload == YES) {
-//                        weakSelf.playerLoadStateChangedBlock(@"YES");
-//                        [weakSelf.sliderView stopAnimating];
-//                    } else {
-//                        [weakSelf.sliderView startAnimating];
-//                    }
-//                }else{
-//                    [weakSelf.sliderView startAnimating];
-//                }
-//                break;
-//            case ZFPlayerPlayStatePaused:
-//                [weakSelf.sliderView stopAnimating];
-//                if (isload == YES) {
-//                    weakSelf.playerLoadStateChangedBlock(@"NO");
-//                }
-////                else
-////                {
-////                    [weakSelf.sliderView startAnimating];
-////                }
-//                break;
-//            case ZFPlayerPlayStatePlayFailed:
-//                [weakSelf.sliderView startAnimating];
-//                break;
-//            case ZFPlayerPlayStatePlayStopped:
-//                [weakSelf.sliderView startAnimating];
-//                break;
-//        }
-//    });
-//
-//}
 /**
  When the network changed
  */
 - (void)videoPlayer:(ZFPlayerController *)videoPlayer reachabilityChanged:(ZFReachabilityStatus)status{
     switch (status) {
         case ZFReachabilityStatusUnknown:
-//            if([videoPlayer.currentPlayerManager isPlaying]){
-//                [self.sliderView stopAnimating];
-//            }else{
-//                [self.sliderView startAnimating];
-//            }
             [MBProgressHUD wj_showPlainText:@"未知网络" view:nil];
             break;
         case ZFReachabilityStatusNotReachable:
             [MBProgressHUD wj_showPlainText:@"无网络" view:nil];
-//            if([videoPlayer.currentPlayerManager isPlaying]){
-//                [self.sliderView stopAnimating];
-//            }else{
-//                [self.sliderView startAnimating];
-//            }
             break;
         case ZFReachabilityStatusReachableViaWiFi:
             if([videoPlayer.currentPlayerManager isPlaying]){
@@ -400,68 +166,17 @@
             break;
         case ZFReachabilityStatusReachableVia2G:
             [MBProgressHUD wj_showPlainText:@"当前网络是2G流量" view:nil];
-//            if([videoPlayer.currentPlayerManager isPlaying]){
-//                [self.sliderView stopAnimating];
-//            }else{
-//                [self.sliderView startAnimating];
-//            }
             break;
         case ZFReachabilityStatusReachableVia3G:
             [MBProgressHUD wj_showPlainText:@"当前网络是3G流量" view:nil];
-//            if([videoPlayer.currentPlayerManager isPlaying]){
-//                [self.sliderView stopAnimating];
-//            }else{
-//                [self.sliderView startAnimating];
-//            }
             break;
         case ZFReachabilityStatusReachableVia4G:
             [MBProgressHUD wj_showPlainText:@"当前网络是4G流量" view:nil];
-//            if([videoPlayer.currentPlayerManager isPlaying]){
-//                [self.sliderView stopAnimating];
-//            }else{
-//                [self.sliderView startAnimating];
-//            }
             break;
     }
     self.status = status;
-//    NSLog(@"当前网络状态%ld",(long)self.status);
 }
-/// 播放进度改变回调
-//- (void)videoPlayer:(ZFPlayerController *)videoPlayer currentTime:(NSTimeInterval)currentTime totalTime:(NSTimeInterval)totalTime {
-//
-//    self.sliderView.value = videoPlayer.progress;
-//
-//}
-//
-//- (void)gestureSingleTapped:(ZFPlayerGestureControl *)gestureControl {
-//    if (self.player.currentPlayerManager.isPlaying) {
-//        [self.player.currentPlayerManager pause];
-//        self.playBtn.hidden = NO;
-//        self.playerLoadStateChangedBlock(@"NO");
-//        [self.sliderView stopAnimating];
-//        self.playBtn.transform = CGAffineTransformMakeScale(1.5f, 1.5f);
-//        [UIView animateWithDuration:0.2f delay:0
-//                            options:UIViewAnimationOptionCurveEaseIn animations:^{
-//            self.playBtn.transform = CGAffineTransformIdentity;
-//        } completion:nil];
-//
-//    } else {
-//        [self.player.currentPlayerManager play];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:MKSingleTapNotification object:nil];
-//        self.playBtn.hidden = YES;
-//        self.playerLoadStateChangedBlock(@"YES");
-//    }
-//}
-#pragma mark - 长按快进
-//- (void)gestureLongPress:(ZFPlayerGestureControl *)gestureControl{
-//    if (self.player.currentPlayerManager.isPlaying) {
-//        [self.player.currentPlayerManager pause];
-//        double time = self.player.currentTime + 3;
-//        [self.player seekToTime:time completionHandler:^(BOOL finished) {
-//            [self.player.currentPlayerManager play];
-//        }];
-//    }
-//}
+
 - (void)setPlayer:(ZFPlayerController *)player {
     _player = player;
 }
@@ -487,6 +202,8 @@
         _sliderView.minimumTrackTintColor = [UIColor whiteColor];
         _sliderView.bufferTrackTintColor  = [UIColor clearColor];
         _sliderView.sliderHeight = 1;
+        _sliderView.delegate = self;
+        _sliderView.sliderHeight = 20;
         _sliderView.isHideSliderBlock = NO;
     }
     return _sliderView;
@@ -497,6 +214,30 @@
         _dataSource = [NSMutableArray array];
     }
     return _dataSource;
+}
+
+// 滑块滑动开始
+- (void)sliderTouchBegan:(float)value {
+    self.sliderView.isdragging = YES;
+    [self.player.currentPlayerManager pause];
+}
+// 滑块滑动中
+- (void)sliderValueChanged:(float)value {
+    NSLog(@"sliderValueChanged---%f",value);
+    NSTimeInterval totalTime = self.player.currentPlayerManager.totalTime;
+    [self.player.currentPlayerManager seekToTime:totalTime * value completionHandler:^(BOOL finished) {
+        
+    }];
+}
+// 滑块滑动结束
+- (void)sliderTouchEnded:(float)value {
+    self.sliderView.isdragging = NO;
+    [self.player.currentPlayerManager play];
+}
+
+// 滑杆点击
+- (void)sliderTapped:(float)value {
+    
 }
 
 @end

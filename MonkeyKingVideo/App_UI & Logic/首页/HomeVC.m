@@ -32,6 +32,8 @@
 
 @property(nonatomic,strong)MonitorNetwoking *monitorNetwoking;
 
+
+
 @end
 
 @implementation HomeVC
@@ -470,6 +472,14 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
 -(void)openAppLink {
     NSURL *url = [NSURL URLWithString:@"https://www.doudong999.com/"];
     [[UIApplication sharedApplication] openURL:url];
+}
+
+-(MKNoticeAlertView *)noticeAlertView {
+    if(_noticeAlertView == nil) {
+        _noticeAlertView = [[MKNoticeAlertView alloc] initWithFrame:CGRectMake(0, 0, 324*KDeviceScale, 516*KDeviceScale)];
+        _noticeAlertView.rootVc = self;
+    }
+    return _noticeAlertView;
 }
 
 @end

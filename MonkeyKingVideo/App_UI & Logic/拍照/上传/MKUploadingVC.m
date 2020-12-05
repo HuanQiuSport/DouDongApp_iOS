@@ -72,7 +72,7 @@
     self.choosePicBtn.alpha = 1;
     self.tipsLab.alpha = 1;
     self.agreementView.alpha = 1;
-    self.gk_navBackgroundColor = UIColor.clearColor;
+    self.gk_navBackgroundColor = UIColor.whiteColor;
     [IQKeyboardManager sharedManager].enable = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationPhoto:) name:MKPhotoPushNotification object:nil];
   
@@ -202,8 +202,7 @@
     [_releaseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
               make.size.mas_equalTo(CGSizeMake(200*SCREEN_W/375, 40));
               make.centerX.equalTo(self.view);
-              
-              make.top.equalTo(self.backView.mas_bottom).offset(SCALING_RATIO(50));
+              make.top.equalTo(self.choosePicBtn.mas_bottom).offset(SCALING_RATIO(10));
           }];
           [UIView cornerCutToCircleWithView:_releaseBtn
                             AndCornerRadius:SCALING_RATIO(20)];
@@ -457,7 +456,7 @@ shouldChangeTextInRange:(NSRange)range
         [self.view addSubview:_backView];
         [_backView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(32);
-            make.top.equalTo(self.choosePicBtn.mas_bottom).offset(SCALING_RATIO(30));
+            make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(SCALING_RATIO(10));
             make.height.mas_equalTo(SCALING_RATIO(105));
             make.width.mas_equalTo(309*SCREEN_W/375);
         }];
@@ -469,7 +468,7 @@ shouldChangeTextInRange:(NSRange)range
         _textView = SZTextView.new;
         _textView.backgroundColor = kClearColor;
         _textView.delegate = self;
-        _textView.attributedPlaceholder = [[NSMutableAttributedString alloc] initWithString:@"主人来两句嘛！"
+        _textView.attributedPlaceholder = [[NSMutableAttributedString alloc] initWithString:@"上传视频获赞可兑换现金奖励，赶紧来发布视频吧~！"
                                                                                  attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15 weight:UIFontWeightRegular],
                                                                                               NSForegroundColorAttributeName:[UIColor colorWithHexString:@"999999"]}];
         _textView.placeholderTextColor = [UIColor colorWithHexString:@"999999"];
@@ -507,11 +506,12 @@ shouldChangeTextInRange:(NSRange)range
         [_choosePicBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(130), SCALING_RATIO(130)));
             make.left.equalTo(self.view).offset(SCALING_RATIO(32));
-            if (iPhoneX | iPhoneScreen_XSMAX | iPhoneScreen_X_XS | iPhoneScreen_XR) {
-                 make.top.mas_equalTo(SCALING_RATIO(47+88));
-            } else {
-                 make.top.mas_equalTo(SCALING_RATIO(47+64));
-            }
+            make.top.equalTo(self.backView.mas_bottom).offset(10);
+//            if (iPhoneX | iPhoneScreen_XSMAX | iPhoneScreen_X_XS | iPhoneScreen_XR) {
+//                 make.top.mas_equalTo(SCALING_RATIO(47+88));
+//            } else {
+//                 make.top.mas_equalTo(SCALING_RATIO(47+64));
+//            }
            
         }];
       
@@ -620,8 +620,7 @@ shouldChangeTextInRange:(NSRange)range
         [_releaseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(200*SCREEN_W/375, 40));
             make.centerX.equalTo(self.view);
-            
-            make.top.equalTo(self.backView.mas_bottom).offset(SCALING_RATIO(50));
+            make.top.equalTo(self.choosePicBtn.mas_bottom).offset(SCALING_RATIO(10));
         }];
         [UIView cornerCutToCircleWithView:_releaseBtn
                           AndCornerRadius:SCALING_RATIO(20)];
@@ -653,7 +652,7 @@ shouldChangeTextInRange:(NSRange)range
         [_agreementView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.view);
             make.size.mas_equalTo(CGSizeMake(150, 20));
-            make.bottom.equalTo(self.releaseBtn.mas_top).offset(-18);
+            make.top.equalTo(self.releaseBtn.mas_bottom).offset(18);
         }];
     }return _agreementView;
 }
