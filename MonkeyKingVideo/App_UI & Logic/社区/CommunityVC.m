@@ -24,6 +24,8 @@
 @property(nonatomic,strong)UIButton *joinNowBtn;
 @property(nonatomic,strong) UIButton  *gameButton;
 
+@property(nonatomic,strong) UIImageView *guanfangImageView;
+@property(nonatomic,strong) UIImageView *topTitleImageView;
 @end
 
 @implementation CommunityVC
@@ -84,6 +86,8 @@
     self.title_1IMGV.alpha = 0;
     self.title_2IMGV.alpha = 0;
     self.joinNowBtn.alpha = 1;
+    [self.view addSubview:self.guanfangImageView];
+    [self.view addSubview:self.topTitleImageView];
     [self.view addSubview:self.gameButton];
     [self.gameButton addAction:^(UIButton *btn) {
         NSURL * url = [NSURL URLWithString:@"tingyun.75://"];
@@ -97,23 +101,49 @@
                                      completionHandler:nil];
         }
     }];
-    [self.gameButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(28*SCREEN_WIDTH/375);
-        make.width.mas_equalTo(319*SCREEN_WIDTH/375);
-        if (IS_IPHONE_X | IS_IPHONE_Xs) {
-            make.top.mas_equalTo(67+BR_STATUSBAR_HEIGHT);
-            make.bottom.mas_equalTo(-261);
-        } else if (IS_IPHONE_Xr){
-            make.top.mas_equalTo(67+BR_STATUSBAR_HEIGHT);
-            make.bottom.mas_equalTo(-281);
-        } else if (IS_IPHONE_Xs_Max){
-            make.top.mas_equalTo(67+BR_STATUSBAR_HEIGHT);
-            make.bottom.mas_equalTo(-281);
-        } else {
-            make.top.mas_equalTo(47+BR_STATUSBAR_HEIGHT);
-            make.bottom.mas_equalTo(-186);
-        }
+//    [self.gameButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.mas_equalTo(28*SCREEN_WIDTH/375);
+//        make.width.mas_equalTo(319*SCREEN_WIDTH/375);
+//        if (IS_IPHONE_X | IS_IPHONE_Xs) {
+//            make.top.mas_equalTo(67+BR_STATUSBAR_HEIGHT);
+//            make.bottom.mas_equalTo(-261);
+//        } else if (IS_IPHONE_Xr){
+//            make.top.mas_equalTo(67+BR_STATUSBAR_HEIGHT);
+//            make.bottom.mas_equalTo(-281);
+//        } else if (IS_IPHONE_Xs_Max){
+//            make.top.mas_equalTo(67+BR_STATUSBAR_HEIGHT);
+//            make.bottom.mas_equalTo(-281);
+//        } else {
+//            make.top.mas_equalTo(47+BR_STATUSBAR_HEIGHT);
+//            make.bottom.mas_equalTo(-186);
+//        }
+//    }];
+    
+    [self.guanfangImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.joinNowBtn.mas_right);
+        make.bottom.equalTo(self.joinNowBtn.mas_top).offset(-5);
+        make.width.equalTo(@(319*SCREEN_WIDTH/375 - 50));
+        make.height.equalTo(@((319*SCREEN_WIDTH/375 - 50) / 2.63));
     }];
+    CGFloat topTitleWidth = 130;
+    [self.topTitleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.top.equalTo(self.mas_topLayoutGuide).offset(10);
+        make.width.equalTo(@(topTitleWidth));
+        make.height.equalTo(@(topTitleWidth * 81 / 321));
+    }];
+    
+    [self.gameButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_left);
+        make.right.equalTo(self.view.mas_right);
+        
+        make.bottom.equalTo(self.guanfangImageView.mas_top).offset(-5);
+        make.top.equalTo(self.topTitleImageView.mas_bottom).offset(10);
+        
+    }];
+    
+
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -226,11 +256,29 @@
     }return _joinNowBtn;
 }
 
+-(UIImageView *)guanfangImageView {
+    if(_guanfangImageView== nil) {
+        _guanfangImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shequ_coin_tip"]];
+//        _guanfangImageView.contentMode = UIViewContentModeScaleAspectFill;
+    }
+    return _guanfangImageView;
+}
+
+-(UIImageView *)topTitleImageView {
+    if(_topTitleImageView== nil) {
+        _topTitleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shequ_top_title"]];
+    }
+    return _topTitleImageView;
+}
+
+
+
 - (UIButton *)gameButton {
     if (!_gameButton) {
         _gameButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_gameButton setBackgroundImage:KIMG(@"group") forState:UIControlStateNormal];
-        _gameButton.contentMode = UIViewContentModeScaleToFill;
+//        [_gameButton setBackgroundImage:KIMG(@"group") forState:UIControlStateNormal];
+        [_gameButton setImage:KIMG(@"group") forState:UIControlStateNormal];
+        _gameButton.contentMode = UIViewContentModeScaleAspectFit;
       
     }
     return _gameButton;

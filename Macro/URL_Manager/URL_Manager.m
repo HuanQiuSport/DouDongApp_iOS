@@ -30,21 +30,21 @@ static URL_Manager *static_URL_Manager = nil;
 }
 
 -(BOOL)testMode {
-    return YES;
+    return NO;
 }
 
 -(NSString *)BaseUrl_1{
     if([self testMode]) {
         return @"http://222.186.150.148/api";
     }
-    return @"";
+    return @"https://www.xiuwa.top/api";
 }
 
 -(NSString *)BaseUrl_H5{
     if([self testMode]) {
         return @"http://222.186.150.148/taskpage";
     }
-    return @"";
+    return @"https://www.xiuwa.top/h5";
 }
 #pragma mark —— APP登录信息相关接口
 /// POST找回密码接口-修改密码

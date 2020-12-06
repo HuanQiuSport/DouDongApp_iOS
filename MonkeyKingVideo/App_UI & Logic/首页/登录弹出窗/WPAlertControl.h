@@ -51,7 +51,7 @@ typedef void(^setttingControlCell)(WPAlertControlCell *cell);
 
 #define alertTimeBeginInterval 0.3
 #define alertTimeEndInterval 0.4
-#define alertDefaultMaskColor [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2]
+#define alertDefaultMaskColor [UIColor colorWithRed:0 green:0 blue:0 alpha:0.0]
 
 @interface WPAlertControl : UIViewController
 /** 蒙板按钮 */

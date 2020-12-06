@@ -7,11 +7,16 @@
 //
 
 #import "MKShareView.h"
+#import "MKImageBtnVIew.h"
 @interface MKShareView ()
 
 @property(nonatomic,strong) UIView *bgView; /* 背景view */
-@property(nonatomic,strong) UIButton *linkBtn; /* 复制链接 */
-@property(nonatomic,strong) UIButton *saveBtn; /* 保存分享 */
+//@property(nonatomic,strong) UIButton *linkBtn; /* 复制链接 */
+@property(nonatomic,strong) MKImageBtnVIew *linkBtn; /* 复制链接 */
+
+@property(nonatomic,strong) MKImageBtnVIew *saveBtn; /* 保存分享 */
+
+
 @property(nonatomic,strong) UIButton *closeBtn; /* 关闭 */
 @property(nonatomic,strong) UIImageView *qrImge; /* 二维码 */
 @property(nonatomic,strong) UIImageView *viedoImge; /* 视频首帧 */
@@ -26,6 +31,8 @@
 @property(nonatomic,strong) UIView *tipView;
 @property(nonatomic,strong) UIButton *iKnowBtn;
 
+
+@property(nonatomic,strong) UIImageView *shareTipImageView;
 @end
 
 @implementation MKShareView
@@ -129,6 +136,7 @@
             
             self.saveBtn.hidden = NO;
             self.linkBtn.hidden = NO;
+            self.shareTipImageView.hidden = NO;
             self.closeBtn.hidden = NO;
 //            self.inviteLab.textColor = kWhiteColor;
             self.tipView.hidden = YES;
@@ -163,6 +171,13 @@
             make.edges.mas_equalTo(UIEdgeInsetsMake(-20, 0, 0, 0));
         }];
         imgev.image = KIMG(@"share_content_bg");
+        
+        [_bgView addSubview:self.shareTipImageView];
+        [self.shareTipImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(_bgView.mas_centerX);
+            make.top.equalTo(imgev.mas_bottom).offset(-5);
+        }];
+        
         
         // 视频首帧
         if (!_viedoImge) {
@@ -226,43 +241,58 @@
         
     }return _bgView;
 }
-- (UIButton *)saveBtn{
+- (MKImageBtnVIew *)saveBtn{
     if (!_saveBtn) {
-        _saveBtn = UIButton.new;
+        _saveBtn = [[MKImageBtnVIew alloc] initWithFrame:CGRectZero];
         
-        _saveBtn.frame = CGRectMake(SCALING_RATIO(204), [UIScreen mainScreen].bounds.size.height, SCALING_RATIO(126), 32);
-        _saveBtn.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:_saveBtn.frame.size]];
-//        [_loginBtn setBackgroundImage:KIMG(@"login_gradualColor") forState:UIControlStateNormal];
-        [_saveBtn setTitle:@"  保存图片分享" forState:UIControlStateNormal];
-        _saveBtn.adjustsImageWhenHighlighted = 0;
-        _saveBtn.layer.cornerRadius = 32/2;
-        _saveBtn.layer.masksToBounds = 1;
-        [_saveBtn setImage:KIMG(@"icon_save") forState:UIControlStateNormal];
-        [_saveBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-        _saveBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        _saveBtn.width = SCALING_RATIO(126);
+        _saveBtn.height = 70;
+        _saveBtn.x = SCALING_RATIO(204);
+        _saveBtn.y = [UIScreen mainScreen].bounds.size.height;
+        
+        _saveBtn.mkImageView.image = KIMG(@"share_save_save");
+        _saveBtn.mkTitleLable.text = @"保存图片分享";
+        
+//        _saveBtn.frame = CGRectMake(SCALING_RATIO(204), [UIScreen mainScreen].bounds.size.height, SCALING_RATIO(126), 32);
+//        _saveBtn.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:_saveBtn.frame.size]];
+////        [_loginBtn setBackgroundImage:KIMG(@"login_gradualColor") forState:UIControlStateNormal];
+//        [_saveBtn setTitle:@"  保存图片分享" forState:UIControlStateNormal];
+//        _saveBtn.adjustsImageWhenHighlighted = 0;
+//        _saveBtn.layer.cornerRadius = 32/2;
+//        _saveBtn.layer.masksToBounds = 1;
+//        [_saveBtn setImage:KIMG(@"icon_save") forState:UIControlStateNormal];
+//        [_saveBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+//        _saveBtn.titleLabel.font = [UIFont systemFontOfSize:12];
         @weakify(self)
-        [[_saveBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        [[_saveBtn.mkButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self)
             [self screenshot];
         }];
     }return _saveBtn;
 }
-- (UIButton *)linkBtn{
+- (MKImageBtnVIew *)linkBtn{
     if (!_linkBtn) {
-        _linkBtn = UIButton.new;
+        _linkBtn = [[MKImageBtnVIew alloc] initWithFrame:CGRectZero];
+        _linkBtn.width = SCALING_RATIO(126);
+        _linkBtn.height = 70;
+        _linkBtn.x = SCALING_RATIO(47);
+        _linkBtn.y = [UIScreen mainScreen].bounds.size.height;
         
-        _linkBtn.frame = CGRectMake(SCALING_RATIO(47), [UIScreen mainScreen].bounds.size.height, SCALING_RATIO(126), 32);
-        _linkBtn.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:_linkBtn.frame.size]];
+        _linkBtn.mkImageView.image = KIMG(@"sahre_link_link");
+        _linkBtn.mkTitleLable.text = @"复制链接分享";
+        
+//        _linkBtn.frame = CGRectMake(SCALING_RATIO(47), [UIScreen mainScreen].bounds.size.height, SCALING_RATIO(126), 32);
+//        _linkBtn.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:_linkBtn.frame.size]];
 //        [_loginBtn setBackgroundImage:KIMG(@"login_gradualColor") forState:UIControlStateNormal];
-        [_linkBtn setTitle:@"  复制链接分享" forState:UIControlStateNormal];
-        [_linkBtn setImage:KIMG(@"icon_link") forState:UIControlStateNormal];
-        _linkBtn.adjustsImageWhenHighlighted = 0;
-        _linkBtn.layer.cornerRadius = 32/2;
-        _linkBtn.layer.masksToBounds = 1;
-        [_linkBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-        _linkBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+//        [_linkBtn setTitle:@"  复制链接分享" forState:UIControlStateNormal];
+//        [_linkBtn setImage:KIMG(@"icon_link") forState:UIControlStateNormal];
+//        _linkBtn.adjustsImageWhenHighlighted = 0;
+//        _linkBtn.layer.cornerRadius = 32/2;
+//        _linkBtn.layer.masksToBounds = 1;
+//        [_linkBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+//        _linkBtn.titleLabel.font = [UIFont systemFontOfSize:12];
         @weakify(self)
-        [[_linkBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        [[_linkBtn.mkButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self)
             [self successCopy];
         }];
@@ -463,7 +493,7 @@
 {
     self.saveBtn.hidden = YES;
     self.linkBtn.hidden = YES;
-    
+    self.shareTipImageView.hidden = YES;
     
     if (!_tipView) {
         _tipView = [[UIView alloc] initWithFrame:CGRectMake(0,
@@ -554,5 +584,27 @@
 //    });
     
 }
+-(UIImageView *)shareTipImageView {
+    if(_shareTipImageView == nil) {
+        _shareTipImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"share_coin_tip"]];
+    }
+    return _shareTipImageView;
+}
+
+//- (MKImageBtnVIew *)mkZanView{
+//    if (!_mkZanView) {
+//        _mkZanView = [[MKImageBtnVIew alloc] initWithFrame:CGRectZero];
+//        _mkZanView.mkImageView.image = KIMG(@"喜欢-未点击");
+//        _mkZanView.mkTitleLable.text = @"点赞";
+//    }return _mkZanView;
+//}
+//
+//- (MKImageBtnVIew *)mkCommentView{
+//    if (!_mkCommentView) {
+//        _mkCommentView = [[MKImageBtnVIew alloc] initWithFrame:CGRectZero];
+//        _mkCommentView.mkImageView.image = KIMG(@"信息");
+//        _mkCommentView.mkTitleLable.text = @"评论";
+//    }return _mkCommentView;
+//}
 
 @end

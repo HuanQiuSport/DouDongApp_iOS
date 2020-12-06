@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "抖动社区图-2.png",
+      "filename" : "backViewDouDong.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "抖动社区图-2@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "抖动社区图-2@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

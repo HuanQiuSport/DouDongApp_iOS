@@ -11,7 +11,7 @@
 @interface LZBTabBarItem()<UIGestureRecognizerDelegate>
 
 @property(nonatomic,copy)TwoDataBlock LZBTabBarItemGestureRecognizerBlock;
-
+@property(nonatomic,strong) UILabel *taglabel;
 @end
 
 @implementation LZBTabBarItem
@@ -53,6 +53,9 @@
     //获得处理的上下文
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSaveGState(context);
+    if([self.title isEqual:@"赚币"]) {
+        self.taglabel.hidden = NO;
+    }
     {
         //判断是否选中
         if(self.isSelected){
@@ -221,4 +224,26 @@
     _animationView = animationView;
 }
 
+
+-(UILabel *)taglabel {
+    if(_taglabel == nil) {
+        UILabel *taglabel =  [[UILabel alloc] initWithFrame:CGRectMake(0, 27, 27, 11)];
+        taglabel.text = @" 可提现 ";
+        taglabel.textColor = UIColor.whiteColor;
+        taglabel.font = [UIFont systemFontOfSize:7];
+        taglabel.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(24.5), 14)]];
+        [self addSubview:taglabel];
+        [taglabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.mas_top).offset(10);
+            make.left.equalTo(self.mas_centerX).offset(5);
+            make.height.equalTo(@(9));
+        }];
+        taglabel.layer.cornerRadius = 3.5;
+        taglabel.layer.masksToBounds = true;
+        taglabel.layer.borderWidth = 1;
+        taglabel.layer.borderColor = UIColor.whiteColor.CGColor;
+        _taglabel = taglabel;
+    }
+    return _taglabel;
+}
 @end

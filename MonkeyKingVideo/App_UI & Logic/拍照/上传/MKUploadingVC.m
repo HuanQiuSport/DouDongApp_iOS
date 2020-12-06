@@ -455,10 +455,11 @@ shouldChangeTextInRange:(NSRange)range
 //        _backView.layer.borderWidth = 1.0;
         [self.view addSubview:_backView];
         [_backView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(32);
+            make.left.mas_equalTo(12);
+            make.right.mas_equalTo(-12);
             make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(SCALING_RATIO(10));
             make.height.mas_equalTo(SCALING_RATIO(105));
-            make.width.mas_equalTo(309*SCREEN_W/375);
+//            make.width.mas_equalTo(309*SCREEN_W/375);
         }];
     }return _backView;
 }
@@ -469,11 +470,11 @@ shouldChangeTextInRange:(NSRange)range
         _textView.backgroundColor = kClearColor;
         _textView.delegate = self;
         _textView.attributedPlaceholder = [[NSMutableAttributedString alloc] initWithString:@"上传视频获赞可兑换现金奖励，赶紧来发布视频吧~！"
-                                                                                 attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15 weight:UIFontWeightRegular],
+                                                                                 attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14 weight:UIFontWeightRegular],
                                                                                               NSForegroundColorAttributeName:[UIColor colorWithHexString:@"999999"]}];
         _textView.placeholderTextColor = [UIColor colorWithHexString:@"999999"];
         _textView.textColor = UIColor.blackColor;
-        _textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0];
+        _textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0];
         [self.backView addSubview:_textView];
         [_textView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.right.equalTo(self.backView);
