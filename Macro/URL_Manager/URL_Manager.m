@@ -37,7 +37,7 @@ static URL_Manager *static_URL_Manager = nil;
     if([self testMode]) {
         return @"http://222.186.150.148/api";
     }
-    return @"";
+    return @" ";
 }
 
 -(NSString *)BaseUrl_H5{
