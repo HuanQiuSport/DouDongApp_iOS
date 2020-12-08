@@ -88,7 +88,7 @@
 }
 - (void)refreshHeadImg {
     [self.botIcon sd_setImageWithURL:[NSURL URLWithString:[MKPublickDataManager sharedPublicDataManage].mkLoginModel.headImage]
-                   placeholderImage:[UIImage animatedGIFNamed:@"用户头像"]];
+                   placeholderImage:[UIImage imageNamed:@"default_avatar_white.jpg"]];
 }
 #pragma mark --键盘弹出
 - (void)keyboardDidShow:(NSNotification *)notification{
@@ -143,7 +143,7 @@
     self.cId = self.firstCommentModel.ID;
     self.field.placeholder = [NSString stringWithFormat:@"回复@%@",self.replyName];
     [self.icon sd_setImageWithURL:[NSURL URLWithString:[MKPublickDataManager sharedPublicDataManage].mkLoginModel.headImage]
-    placeholderImage:[UIImage animatedGIFNamed:@"用户头像"]];
+    placeholderImage:[UIImage imageNamed:@"default_avatar_white.jpg"]];
     
 }
 
@@ -169,7 +169,7 @@
     self.cId = self.childCommentModel.ID;
     self.field.placeholder = [NSString stringWithFormat:@"回复@%@",self.replyName];
     [self.icon sd_setImageWithURL:[NSURL URLWithString:[MKPublickDataManager sharedPublicDataManage].mkLoginModel.headImage]
-    placeholderImage:[UIImage animatedGIFNamed:@"用户头像"]];
+    placeholderImage:[UIImage imageNamed:@"default_avatar_white.jpg"]];
 }
 
 -(void)copyIt{
@@ -647,7 +647,7 @@ forHeaderFooterViewReuseIdentifier:NSStringFromClass(HoveringHeaderView.class)];
         self.icon.frame = CGRectMake(13, 14, 34, 34);
         self.icon.layer.cornerRadius = 17;
         [self.icon sd_setImageWithURL:[NSURL URLWithString:[MKPublickDataManager sharedPublicDataManage].mkLoginModel.headImage]
-        placeholderImage:[UIImage animatedGIFNamed:@"用户头像"]];
+        placeholderImage:[UIImage imageNamed:@"default_avatar_white.jpg"]];
         self.icon.layer.masksToBounds = 1;
 
     }
@@ -710,7 +710,7 @@ forHeaderFooterViewReuseIdentifier:NSStringFromClass(HoveringHeaderView.class)];
         _botIcon.layer.cornerRadius = SCALING_RATIO(17);
         _botIcon.userInteractionEnabled = 1;
         [_botIcon sd_setImageWithURL:[NSURL URLWithString:[MKPublickDataManager sharedPublicDataManage].mkLoginModel.headImage]
-         placeholderImage:[UIImage animatedGIFNamed:@"用户头像"]];
+         placeholderImage:[UIImage imageNamed:@"default_avatar_white.jpg"]];
         _botIcon.layer.masksToBounds = 1;
     }
     return _botIcon;

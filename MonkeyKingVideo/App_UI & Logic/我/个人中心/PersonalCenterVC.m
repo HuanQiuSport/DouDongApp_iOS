@@ -224,7 +224,7 @@ JXCategoryTitleViewDataSource
     
 //    [self.header_nameBtn sd_setImageWithURL:[NSURL URLWithString:self.mkPernalModel.headImage]
 //                                   forState:UIControlStateNormal
-//                           placeholderImage:KIMG(@"用户头像（大）")];
+//                           placeholderImage:KIMG(@"default_avatar_white.jpg（大）")];
 //
 //    [self.header_nameBtn setTitle:[NSString stringWithFormat:@"%@",self.mkPernalModel.nickName] forState:UIControlStateNormal];
 //

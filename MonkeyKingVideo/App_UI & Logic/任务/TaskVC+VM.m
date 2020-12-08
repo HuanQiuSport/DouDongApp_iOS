@@ -357,7 +357,7 @@
                     @strongify(self)
                     for (int i = 0; i<datas.count; i++) {
                         NSDictionary *dic = datas[i];
-                        // 用户头像
+                        // default_avatar_white.jpg
                         UIImageView *userImgeV = UIImageView.new;
                         [userImgeV sd_setImageWithURL:[NSURL URLWithString:dic[@"headImage"]]];
                         [weak_self.friendListView addSubview:userImgeV];
