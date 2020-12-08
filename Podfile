@@ -55,6 +55,8 @@ def alert
   end
 # UI相关
 def ui
+  
+  pod 'TKCarouselView'
   pod 'SFProgressCircle'
   pod 'DZNEmptyDataSet'
   pod 'JDStatusBarNotification' # 网络提示--> 网络监听显示，主要是展示状态
@@ -95,7 +97,7 @@ def videoFunc
 # 一些功能性
 def func
   pod 'TXFileOperation' # 文件夹操作
-  pod 'TZImagePickerController' # 相册选择
+  pod 'TZImagePickerController'## 相册选择
   pod 'JPImageresizerView' # https://github.com/Rogue24/JPImageresizerView 一个专门裁剪图片、GIF、视频的轮子，简单易用，功能丰富（高自由度的参数设定、支持旋转和镜像翻转、蒙版、压缩等），能满足绝大部分裁剪的需求。
   pod 'lottie-ios', '~> 2.5.3' # 这是OC终极版本
   pod 'YQImageCompressor' # https://github.com/976431yang/YQImageCompressor iOS端简易图片压缩工具
