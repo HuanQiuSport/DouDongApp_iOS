@@ -6,11 +6,11 @@
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 #import "MKHAttentionModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AttentionVC : BaseVC
+@interface AttentionVC : BaseViewController
 
 @property(nonatomic,strong)UITableView * _Nullable tableView;
 @property (strong,nonatomic) UICollectionView *mkCollectionView;

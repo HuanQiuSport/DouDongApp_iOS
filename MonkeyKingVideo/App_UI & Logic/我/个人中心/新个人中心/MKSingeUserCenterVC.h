@@ -6,7 +6,7 @@
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 
 static const CGFloat JXTableHeaderViewHeight = 289;
 static const CGFloat JXheightForHeaderInSection = 50;
@@ -16,7 +16,7 @@ static const CGFloat JXheightForHeaderInSection = 50;
 NS_ASSUME_NONNULL_BEGIN
 
 // 个人中心 新的
-@interface MKSingeUserCenterVC : BaseVC<JXPagerViewDelegate, JXPagerMainTableViewGestureDelegate>
+@interface MKSingeUserCenterVC : BaseViewController<JXPagerViewDelegate, JXPagerMainTableViewGestureDelegate>
 
 @property (nonatomic, strong) JXPagerListRefreshView *pagerView;
 @property (nonatomic, strong) PagingViewTableHeaderView *userHeaderView;

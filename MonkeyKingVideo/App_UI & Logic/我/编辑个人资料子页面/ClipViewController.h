@@ -6,14 +6,14 @@
 //  Copyright © 2020 MonkeyKingVideo. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 @protocol CropImageDelegate <NSObject>
 
 - (void)cropImageDidFinishedWithImage:(UIImage *)image;
 
 @end
 
-@interface ClipViewController : BaseVC
+@interface ClipViewController : BaseViewController
 @property (nonatomic, weak) id <CropImageDelegate> delegate;
 //圆形裁剪，默认NO;
 @property (nonatomic, assign) BOOL ovalClip;

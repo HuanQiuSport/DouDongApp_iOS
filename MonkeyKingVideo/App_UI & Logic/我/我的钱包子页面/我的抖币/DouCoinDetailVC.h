@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DouCoinDetailVC : BaseVC
+@interface DouCoinDetailVC : BaseViewController
 @property(nonatomic,strong)UITableView * _Nullable tableView;
 @property(nonatomic,strong)MKWalletMyFlowsModel *walletMyFlowsModel;
 @property (nonatomic, assign) NSInteger page;// 分页

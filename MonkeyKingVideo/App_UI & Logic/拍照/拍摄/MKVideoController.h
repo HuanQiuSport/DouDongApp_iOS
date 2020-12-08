@@ -6,7 +6,7 @@
 //  Copyright © 2020 MonkeyKingVideo. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 #import "SDVideoConfig.h"
 #import "SDVideoCameraController.h"
 //#import "<#header#>"

@@ -6,13 +6,13 @@
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 #import "HomeVC.h"
 #import "HomeAdView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RecommendVC : BaseVC
+@interface RecommendVC : BaseViewController
 @property(nonatomic, weak)HomeVC *homeVC;
 @property(nonatomic,assign) bool isHome;
 @property(nonatomic,assign) NSTimeInterval lastListRefreshTime;

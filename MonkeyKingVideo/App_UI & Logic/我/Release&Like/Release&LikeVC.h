@@ -6,11 +6,11 @@
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 #import "LikeVC.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Release_LikeVC : BaseVC
+@interface Release_LikeVC : BaseViewController
 @property (strong,nonatomic) LikeVC *mkLiked;
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
                  comingStyle:(ComingStyle)comingStyle

@@ -6,11 +6,11 @@
 //  Copyright © 2020 MonkeyKingVideo. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MKAdvertisingController : BaseVC
+@interface MKAdvertisingController : BaseViewController
 
 @property(nonatomic,copy) NSString *timerHiddenString;
 

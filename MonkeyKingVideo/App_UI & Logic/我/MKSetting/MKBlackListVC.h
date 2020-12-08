@@ -6,12 +6,12 @@
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 #import "MKBlackModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 /// 黑名单
-@interface MKBlackListVC : BaseVC
+@interface MKBlackListVC : BaseViewController
 ///
 @property (strong,nonatomic) MKBlackModel *mkBlackModel;
 @end

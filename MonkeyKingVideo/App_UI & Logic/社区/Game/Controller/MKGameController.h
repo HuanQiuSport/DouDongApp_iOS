@@ -6,11 +6,11 @@
 //  Copyright © 2020 MonkeyKingVideo. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MKGameController : BaseVC
+@interface MKGameController : BaseViewController
 
 @end
 

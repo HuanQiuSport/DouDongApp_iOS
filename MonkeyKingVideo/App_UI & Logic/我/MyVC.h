@@ -6,11 +6,11 @@
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MyVC : BaseVC
+@interface MyVC : BaseViewController
 
 @property(nonatomic,strong)UITableView * _Nullable tableView;
 @property(nonatomic,strong)MyVCModel *myVCModel;

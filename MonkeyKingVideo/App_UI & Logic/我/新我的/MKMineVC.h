@@ -6,7 +6,7 @@
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 ///   头部高度
@@ -20,7 +20,7 @@ static const CGFloat MKMineVC_JXheightForHeaderInSection = 50;
 @class PagingViewTableHeaderView;
 
 /// 新版我的中心 页面  
-@interface MKMineVC : BaseVC
+@interface MKMineVC : BaseViewController
 <JXPagerViewDelegate, JXPagerMainTableViewGestureDelegate>
 
 @property (nonatomic, strong) JXPagerListRefreshView *pagerView;

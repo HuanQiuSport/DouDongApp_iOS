@@ -6,7 +6,7 @@
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 #import "MKPersonalLikeModel.h"
 #import "LikeDidBackDelegate.h"
 NS_ASSUME_NONNULL_BEGIN
@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol LikeDidBackDelegate;
 
-@interface LikeVC : BaseVC
+@interface LikeVC : BaseViewController
 @property (strong,nonatomic) MKPersonalLikeModel *mkLikeModel;
 @property(nonatomic,strong)UICollectionView *collectionView;
 /// 点击事件代理

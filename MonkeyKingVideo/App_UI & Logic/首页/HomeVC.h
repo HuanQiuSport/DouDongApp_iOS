@@ -6,11 +6,11 @@
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HomeVC : BaseVC
+@interface HomeVC : BaseViewController
 @property (nonatomic,strong) NSMutableArray *m_annoTitles;
 @property (nonatomic,strong) NSMutableArray *m_annoContents;
 @property(nonatomic,strong)JXCategoryTitleView *categoryView;

@@ -6,11 +6,11 @@
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 #import "MKPersonMadeVideoModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ReleaseVC : BaseVC
+@interface ReleaseVC : BaseViewController
 /// 用户作品信息 model
 @property (strong,nonatomic) MKPersonMadeVideoModel *mkMadeModel;
 + (instancetype)ComingFromVC:(UIViewController *)rootVC

@@ -6,12 +6,12 @@
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 #import "WalletInfoModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MyWalletDetailVC : BaseVC
+@interface MyWalletDetailVC : BaseViewController
 
 @property (nonatomic, strong) UILabel *balanceCount;
 @property(nonatomic,copy)NSString *canWithdrawNub;

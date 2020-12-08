@@ -6,12 +6,12 @@
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 #import "MyWalletDetailTBVCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BalanceDetailVC : BaseVC
+@interface BalanceDetailVC : BaseViewController
 
 @property(nonatomic,strong)UITableView * _Nullable tableView;
 @property(nonatomic,strong)MKWalletMyFlowsModel *walletMyFlowsModel;

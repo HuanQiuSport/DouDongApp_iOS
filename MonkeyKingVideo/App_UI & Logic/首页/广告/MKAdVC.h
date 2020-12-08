@@ -6,12 +6,12 @@
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 #import "MKVideoAdModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MKAdVC : BaseVC
+@interface MKAdVC : BaseViewController
 
 @property(strong,nonatomic)MKVideoAdModel *mkVideoAd;
 

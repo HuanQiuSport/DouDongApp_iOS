@@ -6,7 +6,7 @@
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface PersonalCenterVC : BaseVC
+@interface PersonalCenterVC : BaseViewController
 /// 用户信息model
 @property(strong,nonatomic)MKPersonalnfoModel *mkPernalModel;
 

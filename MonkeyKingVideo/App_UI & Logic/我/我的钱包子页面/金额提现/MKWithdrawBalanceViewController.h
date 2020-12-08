@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MKWithdrawBalanceViewController : BaseVC
+@interface MKWithdrawBalanceViewController : BaseViewController
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
       comingStyle:(ComingStyle)comingStyle
 presentationStyle:(UIModalPresentationStyle)presentationStyle

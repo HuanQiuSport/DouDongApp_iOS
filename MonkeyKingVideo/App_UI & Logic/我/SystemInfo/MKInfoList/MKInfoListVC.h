@@ -6,13 +6,13 @@
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class MKSysModel;
 
-@interface MKInfoListVC : BaseVC
+@interface MKInfoListVC : BaseViewController
 /// MKSysModel
 @property (strong,nonatomic) MKSysModel *mkParamModle;
 /// data

@@ -6,7 +6,7 @@
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,7 +17,7 @@ typedef NS_ENUM(NSUInteger, MoveDirection){
     MoveDirection_horizont_right//水平方向(向右)滑动
 };
 
-@interface PopUpVC : BaseVC
+@interface PopUpVC : BaseViewController
 
 @property(nonatomic,assign)CGFloat liftingHeight;
 @property(nonatomic,copy)MKDataBlock block;

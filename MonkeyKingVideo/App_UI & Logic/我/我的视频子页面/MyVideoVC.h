@@ -6,12 +6,12 @@
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @class MKPersonalLikeModel;
 /// 更多视频页面
-@interface MyVideoVC : BaseVC
+@interface MyVideoVC : BaseViewController
 /// 用户作品信息 model
 @property (strong,nonatomic) MKPersonalLikeModel *mkLikeModel;
 

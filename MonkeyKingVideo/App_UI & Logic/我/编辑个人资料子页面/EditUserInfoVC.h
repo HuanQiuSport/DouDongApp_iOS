@@ -6,7 +6,7 @@
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 #import "MKBindingTelVC.h"//修改昵称
 #import "MKChangePersonalizedSignatureVC.h"//修改个性签名
 #import "MKChangeNameController.h"
@@ -14,7 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface EditUserInfoVC : BaseVC
+@interface EditUserInfoVC : BaseViewController
 
 @property(nonatomic,strong)MKChangeNameController *changeNickNameVC;
 @property(nonatomic,strong)MKBindingTelVC  *nickName;

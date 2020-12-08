@@ -6,13 +6,13 @@
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 @class MKPaoMaView;
 @class MKPMView;
 @class MKNoticeView;
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TaskVC : BaseVC
+@interface TaskVC : BaseViewController
 @property (nonatomic, strong) NSString *walletStr;
 @property (nonatomic, strong) NSString *coinStr;
 @property (nonatomic, strong) NSString *friendStr;

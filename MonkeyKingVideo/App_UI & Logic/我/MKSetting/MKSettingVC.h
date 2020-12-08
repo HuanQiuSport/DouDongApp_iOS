@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /// 设置控制器
-@interface MKSettingVC : BaseVC
+@interface MKSettingVC : BaseViewController
 
 @end
 

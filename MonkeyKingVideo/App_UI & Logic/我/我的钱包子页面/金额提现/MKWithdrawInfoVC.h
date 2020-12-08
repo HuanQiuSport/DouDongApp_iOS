@@ -6,11 +6,11 @@
 //  Copyright © 2020 MonkeyKingVideo. All rights reserved.
 //
 
-#import "BaseVC.h"
+#import "BaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MKWithdrawInfoVC : BaseVC
+@interface MKWithdrawInfoVC : BaseViewController
 
 @property(nonatomic,copy)NSString *balance;
 @property(nonatomic,copy)NSString *time;
