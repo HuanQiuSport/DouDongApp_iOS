@@ -42,7 +42,7 @@
         self.childCommentModel = (MKChildCommentModel *)model;
 //        [self.LikeBtn setThumbWithSelected:self.childCommentModel.isPraise.boolValue thumbNum:self.childCommentModel.praiseNum.integerValue animation:NO];
         [self.icon sd_setImageWithURL:[NSURL URLWithString:self.childCommentModel.headImg]
-                     placeholderImage:[UIImage animatedGIFNamed:@"用户头像"]];
+                     placeholderImage:[UIImage imageNamed:@"default_avatar_white.jpg"]];
         self.heartIcon.image = KIMG(self.childCommentModel.isPraise.boolValue ? @"喜欢-红心":@"喜欢-白心");
         self.countLab.text = [NSString stringWithFormat:@"%d",self.childCommentModel.praiseNum.intValue];
 

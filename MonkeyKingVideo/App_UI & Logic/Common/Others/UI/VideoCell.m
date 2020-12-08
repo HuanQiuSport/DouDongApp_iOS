@@ -12,7 +12,7 @@
     
 }
 
-/// 用户头像
+/// default_avatar_white.jpg
 @property(nonatomic,strong)UIImageView *mkVideoUserImageView;
 
 ///  喜欢红心按钮
