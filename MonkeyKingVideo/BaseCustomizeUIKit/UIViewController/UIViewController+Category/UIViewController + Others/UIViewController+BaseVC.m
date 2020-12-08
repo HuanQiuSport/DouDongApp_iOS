@@ -1,21 +1,13 @@
 //
-<<<<<<< Updated upstream
-//  UIViewController+BaseViewController.m
-=======
 //  UIViewController+BaseVC.m
->>>>>>> Stashed changes
 //  UBallLive
 //
 //  Created by Jobs on 2020/10/12.
 //
 
-<<<<<<< Updated upstream
-#import "UIViewController+BaseViewController.h"
-=======
 #import "UIViewController+BaseVC.h"
->>>>>>> Stashed changes
 
-@implementation UIViewController (BaseViewController)
+@implementation UIViewController (BaseVC)
 
 static char *UIViewController_BaseVC_requestParams = "UIViewController_BaseVC_requestParams";
 static char *UIViewController_BaseVC_pushOrPresent = "UIViewController_BaseVC_pushOrPresent";

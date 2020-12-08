@@ -1,9 +1,5 @@
 //
-<<<<<<< Updated upstream
-//  UIViewController+BaseViewController.h
-=======
 //  UIViewController+BaseVC.h
->>>>>>> Stashed changes
 //  UBallLive
 //
 //  Created by Jobs on 2020/10/12.
@@ -18,7 +14,7 @@ typedef enum : NSUInteger {
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIViewController (BaseViewController)
+@interface UIViewController (BaseVC)
 
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,assign)ComingStyle pushOrPresent;
