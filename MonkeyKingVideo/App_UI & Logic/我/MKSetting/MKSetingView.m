@@ -55,11 +55,11 @@
     
     [self.mkLeftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(@(KDeviceScale * 15));
+        make.left.equalTo(@(1 * 15));
         
-        make.width.equalTo(@(KDeviceScale * 20));
+        make.width.equalTo(@(1 * 20));
         
-        make.height.equalTo(@(KDeviceScale * 20));
+        make.height.equalTo(@(1 * 20));
         
         make.centerY.equalTo(self.mas_centerY);
         
@@ -69,7 +69,7 @@
     
     [self.mkLeftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.mkLeftImageView.mas_right).offset( 15 * KDeviceScale);
+        make.left.equalTo(self.mkLeftImageView.mas_right).offset( 15 * 1);
         
         make.centerY.equalTo(self.mas_centerY);
         
@@ -80,9 +80,9 @@
     
     [self.mkRightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.equalTo(self.mas_right).offset( -20 * KDeviceScale);
+        make.right.equalTo(self.mas_right).offset( -20 * 1);
         
-        make.height.equalTo(@(KDeviceScale * 20));
+        make.height.equalTo(@(1 * 20));
         
         make.centerY.equalTo(self.mas_centerY);
         
@@ -90,11 +90,11 @@
     
     [self.mkRightImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.equalTo(self.mas_right).offset( -16 * KDeviceScale);
+        make.right.equalTo(self.mas_right).offset( -16 * 1);
         
-        make.width.equalTo(@(KDeviceScale * 8));
+        make.width.equalTo(@(1 * 8));
         
-        make.height.equalTo(@(KDeviceScale * 14));
+        make.height.equalTo(@(1 * 14));
         
         make.centerY.equalTo(self.mas_centerY);
         

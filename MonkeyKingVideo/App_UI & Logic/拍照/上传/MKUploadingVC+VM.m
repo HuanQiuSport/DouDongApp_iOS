@@ -43,18 +43,26 @@
         if (response.isSuccess) {
             if ([response.reqResult isKindOfClass:NSDictionary.class]) {
                 
-                 [MBProgressHUD wj_showPlainText:@"发布成功" view:getMainWindow()];
+                [WHToast showMessage:@"发布成功"
+                            duration:1
+                       finishHandler:nil];
                 
                  [self afterRelease];
             }
             else
             {
-                [MBProgressHUD wj_showPlainText:response.reqResult view:getMainWindow()];
+
+                [WHToast showMessage:response.reqResult
+                            duration:1
+                       finishHandler:nil];
             }
         }
         else
         {
-            [MBProgressHUD wj_showPlainText:response.reqResult view:getMainWindow()];
+
+            [WHToast showMessage:response.reqResult
+                        duration:1
+                   finishHandler:nil];
         }
     }];
 }
@@ -89,7 +97,9 @@
                                             if(status) {
                                                 [self videosUploadWithSign:model.sign bucketName:model.bucketName videoTitle:videoTitle objectName:model.objectName];
                                             } else {
-                                                [MBProgressHUD wj_showPlainText:@"上传失败，请重试" view:getMainWindow()];
+                                                [WHToast showMessage:@"上传失败，请重试"
+                                                            duration:1
+                                                       finishHandler:nil];
                                             }
                                         }];
                 }
@@ -123,10 +133,15 @@
             [[MKTools shared] dimssLoadingHUB];
         });
         if (response.code == 200) {
-            [MBProgressHUD wj_showPlainText:@"发布成功" view:getMainWindow()];
+            [WHToast showMessage:@"发布成功"
+                        duration:1
+                   finishHandler:nil];
+            
             [self afterRelease];
         } else {
-            [MBProgressHUD wj_showPlainText:response.reqResult view:getMainWindow()];
+            [WHToast showMessage:response.reqResult
+                        duration:1
+                   finishHandler:nil];
         }
     }];
 }

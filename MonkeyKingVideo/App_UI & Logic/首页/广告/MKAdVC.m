@@ -25,11 +25,6 @@
 ///
 @property (strong,nonatomic) MKAdLoadView *mkAdLoadView;
 
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,copy)MKDataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
-
 @property(copy,nonatomic)MKDataBlock adActionBlock;
 
 @end
@@ -42,45 +37,6 @@
 //    NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 #pragma clang diagnostic pop
-}
-
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated{
-    MKAdVC *vc = MKAdVC.new;
-    vc.successBlock = block;
-     vc.requestParams = requestParams;
-    switch (comingStyle) {
-        case ComingStyle_PUSH:{
-            if (rootVC.navigationController) {
-                vc.isPush = YES;
-                vc.isPresent = NO;
-                [rootVC.navigationController pushViewController:vc
-                                                       animated:animated];
-            }else{
-                vc.isPush = NO;
-                vc.isPresent = YES;
-                [rootVC presentViewController:vc
-                                     animated:animated
-                                   completion:^{}];
-            }
-        }break;
-        case ComingStyle_PRESENT:{
-            vc.isPush = NO;
-            vc.isPresent = YES;
-            //iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-            vc.modalPresentationStyle = presentationStyle;
-            [rootVC presentViewController:vc
-                                 animated:animated
-                               completion:^{}];
-        }break;
-        default:
-//            NSLog(@"错误的推进方式");
-            break;
-    }return vc;
 }
 
 - (void)viewDidLoad {
@@ -159,13 +115,13 @@
     
     [self.countDownBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(@(kStatusBarHeight));
+        make.top.equalTo(@(rectOfStatusbar()));
         
         make.left.equalTo(@(0));
         
-        make.height.equalTo(@(30 * KDeviceScale));
+        make.height.equalTo(@(30 * 1));
         
-        make.width.equalTo(@(60 * KDeviceScale));
+        make.width.equalTo(@(60 * 1));
         
     }];
     
@@ -200,13 +156,13 @@
             
             [weakSelf.mkNextBtn mas_makeConstraints:^(MASConstraintMaker *make) {
                 
-                make.right.equalTo(@(-KDeviceScale * 10));
+                make.right.equalTo(@(-1 * 10));
                 
-                make.top.equalTo(@(kStatusBarHeight));
+                make.top.equalTo(@(rectOfStatusbar()));
                 
-                make.height.equalTo(@(KDeviceScale *30));
+                make.height.equalTo(@(1 *30));
                 
-                make.width.equalTo(@(KDeviceScale *60));
+                make.width.equalTo(@(1 *60));
                 
             }];
             
@@ -237,7 +193,7 @@
 
     self.mkPlayVideo.mkPlayUserView.hidden = YES;
 
-    [self.mkPlayVideo.mkVideoView setFrame:CGRectMake(0, kStatusBarHeight+kNavigationBarHeight,kScreenWidth, kScreenHeight - kStatusBarHeight-kNavigationBarHeight - 250*KDeviceScale)];
+    [self.mkPlayVideo.mkVideoView setFrame:CGRectMake(0, rectOfStatusbar()+44,MAINSCREEN_WIDTH, kScreenHeight - rectOfStatusbar()-44 - 250*1)];
 
     [self.view addSubview:self.mkAdLoadView];
 
@@ -248,7 +204,7 @@
 
         make.right.equalTo(@(0));
 
-        make.height.equalTo(@(250 *KDeviceScale));
+        make.height.equalTo(@(250 *1));
     }];
 
     self.mkAdLoadView.mkTitleLabel.text = [NSString ensureNonnullString:self.mkVideoAd.adName ReplaceStr:@"亚博体育"];
@@ -295,7 +251,7 @@
         
         _mkNextBtn = [[UIButton alloc]init];
         
-        _mkNextBtn.layer.cornerRadius = 15 *KDeviceScale;
+        _mkNextBtn.layer.cornerRadius = 15 *1;
         
         _mkNextBtn.layer.masksToBounds = YES;
         

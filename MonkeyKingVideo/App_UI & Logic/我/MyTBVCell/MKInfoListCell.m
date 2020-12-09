@@ -55,16 +55,16 @@
     
     [self.mKIMGageView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(@(15*KDeviceScale));
+        make.left.equalTo(@(15*1));
         
         make.centerY.equalTo(self.mas_centerY);
         
-        make.width.height.equalTo(@(46*KDeviceScale));
+        make.width.height.equalTo(@(46*1));
     }];
     
     [self.mkTitleLable mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.mKIMGageView.mas_right).offset(5*KDeviceScale);
+        make.left.equalTo(self.mKIMGageView.mas_right).offset(5*1);
         
         make.top.equalTo(self.mKIMGageView.mas_top);
         
@@ -72,7 +72,7 @@
     
     [self.mkTimeLable mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.equalTo(self.mas_right).offset(-20*KDeviceScale);
+        make.right.equalTo(self.mas_right).offset(-20*1);
         
         make.top.equalTo(self.mkTitleLable.mas_top);
         
@@ -81,15 +81,15 @@
     
     [self.mkDecripLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.mKIMGageView.mas_right).offset(5*KDeviceScale);
+        make.left.equalTo(self.mKIMGageView.mas_right).offset(5*1);
         
-        make.top.equalTo(self.mkTitleLable.mas_bottom).offset(5*KDeviceScale);
+        make.top.equalTo(self.mkTitleLable.mas_bottom).offset(5*1);
     }];
     
     
     [self.mkNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
            
-           make.right.equalTo(self.mas_right).offset(-5*KDeviceScale);
+           make.right.equalTo(self.mas_right).offset(-5*1);
            
            make.centerY.equalTo(self.mkDecripLabel.mas_centerY);
            
@@ -97,9 +97,9 @@
     
     [self.mkLineView mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.left.equalTo(self.mas_left).offset(20*KDeviceScale);
+        make.left.equalTo(self.mas_left).offset(20*1);
         
-        make.right.equalTo(self.mas_right).offset(-20*KDeviceScale);
+        make.right.equalTo(self.mas_right).offset(-20*1);
         
         make.height.equalTo(@(0.5));
         
@@ -151,7 +151,7 @@
         
         _mkLineView = [[UIView alloc]init];
         
-        _mkLineView.backgroundColor = kHexRGB(0x4c525f);
+        _mkLineView.backgroundColor = HEXCOLOR(0x4c525f);
         
     }
     

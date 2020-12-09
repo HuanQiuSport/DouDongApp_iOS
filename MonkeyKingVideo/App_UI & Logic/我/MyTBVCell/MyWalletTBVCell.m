@@ -47,7 +47,7 @@
         _coinIMGV = UIImageView.new;
         [self addSubview:_coinIMGV];
         [_coinIMGV mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(35), SCALING_RATIO(35)));
+            make.size.mas_equalTo(CGSizeMake(35, 35));
             make.left.equalTo(self);
             make.centerY.equalTo(self);
         }];
@@ -67,7 +67,7 @@
         [_showNumLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.coinIMGV);
             make.bottom.equalTo(self.mas_centerY);
-            make.left.equalTo(self.coinIMGV.mas_right).offset(SCALING_RATIO(5));
+            make.left.equalTo(self.coinIMGV.mas_right).offset(5);
             make.right.equalTo(self);
         }];
     }return _showNumLab;
@@ -83,7 +83,7 @@
         _titleLab.textColor = [UIColor whiteColor];
         [self addSubview:_titleLab];
         [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.coinIMGV.mas_right).offset(SCALING_RATIO(5));
+            make.left.equalTo(self.coinIMGV.mas_right).offset(5);
             make.right.equalTo(self);
             make.top.equalTo(self.mas_centerY);
             make.bottom.equalTo(self);
@@ -121,7 +121,7 @@
 }
 
 +(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return isiPhoneX_series() ? (SCREEN_HEIGHT / 9) : (SCREEN_HEIGHT / 8.5);
+    return isiPhoneX_series() ? (MAINSCREEN_HEIGHT / 9) : (MAINSCREEN_HEIGHT / 8.5);
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
@@ -145,10 +145,10 @@
                           AndCornerRadius:10];
         [self.contentView addSubview:_backV];
         [_backV mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.contentView).offset(SCALING_RATIO(15));
-            make.left.equalTo(self.contentView).offset(SCALING_RATIO(15));
-            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-15));
-            make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-15));
+            make.top.equalTo(self.contentView).offset(15);
+            make.left.equalTo(self.contentView).offset(15);
+            make.right.equalTo(self.contentView).offset(-15);
+            make.bottom.equalTo(self.contentView).offset(-15);
         }];
     }return _backV;
 }
@@ -166,9 +166,9 @@
         }];
         [self.backV addSubview:_coin_1_V];
         [_coin_1_V mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.backV).offset(SCALING_RATIO(15));
+            make.left.equalTo(self.backV).offset(15);
             make.centerY.equalTo(self.backV);
-            make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(150), SCALING_RATIO(50)));
+            make.size.mas_equalTo(CGSizeMake(150, 50));
         }];
     }return _coin_1_V;
 }
@@ -187,8 +187,8 @@
         [self.backV addSubview:_coin_2_V];
         [_coin_2_V mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.backV);
-            make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(150), SCALING_RATIO(50)));
-            make.right.equalTo(self.backV).offset(SCALING_RATIO(-15));
+            make.size.mas_equalTo(CGSizeMake(150, 50));
+            make.right.equalTo(self.backV).offset(-15);
         }];
     }return _coin_2_V;
 }

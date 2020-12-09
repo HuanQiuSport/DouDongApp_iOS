@@ -36,7 +36,8 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self = [self initWithFrame:frame backColor:GKColorRGBA(0,0,0,0.1) progressColor:[UIColor redColor] lineWidth:3];
+
+        self = [self initWithFrame:frame backColor:RGBA_COLOR(0,0,0,0.1) progressColor:[UIColor redColor] lineWidth:3];
     }
     return self;
 }

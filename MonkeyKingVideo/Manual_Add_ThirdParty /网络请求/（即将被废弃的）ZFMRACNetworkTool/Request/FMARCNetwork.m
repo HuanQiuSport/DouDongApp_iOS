@@ -102,7 +102,7 @@ static FMARCNetwork *static_FMARCNetwork = nil;
             @strongify(self)
             switch (status) {
                 case AFNetworkReachabilityStatusUnknown:{
-                    DLog(@"未知网络");
+                    
                     if (self.UnknownNetWorking) {
                         self.UnknownNetWorking();
                     }
@@ -113,7 +113,7 @@ static FMARCNetwork *static_FMARCNetwork = nil;
                                                                         object:@(AFNetworkReachabilityStatusUnknown)];
                 }break;
                 case AFNetworkReachabilityStatusReachableViaWWAN:{
-                    DLog(@"3G网络");//不是WiFi的网络都会识别成3G网络.比如2G/3G/4G网络
+                    //不是WiFi的网络都会识别成3G网络.比如2G/3G/4G网络
                     if (self.ReachableViaWWANNetWorking) {
                         self.ReachableViaWWANNetWorking();
                     }
@@ -124,7 +124,7 @@ static FMARCNetwork *static_FMARCNetwork = nil;
                                                                         object:@(AFNetworkReachabilityStatusReachableViaWWAN)];
                 }break;
                 case AFNetworkReachabilityStatusReachableViaWiFi:{
-                    DLog(@"WIFI网络");
+                   
                     if (self.ReachableViaWiFiNetWorking) {
                         self.ReachableViaWiFiNetWorking();
                     }
@@ -135,7 +135,7 @@ static FMARCNetwork *static_FMARCNetwork = nil;
                                                                         object:@(AFNetworkReachabilityStatusReachableViaWiFi)];
                 } break;
                 case AFNetworkReachabilityStatusNotReachable:{
-                    DLog(@"没有网络");
+                    
                     if (self.NotReachableNetWorking) {
                         self.NotReachableNetWorking();
                     }
@@ -143,7 +143,7 @@ static FMARCNetwork *static_FMARCNetwork = nil;
                                                                         object:@(AFNetworkReachabilityStatusNotReachable)];
                 }break;
                 default:{
-                    DLog(@"没有网络");
+                    
                     if (self.NotReachableNetWorking) {
                         self.NotReachableNetWorking();
                     }
@@ -258,7 +258,9 @@ static FMARCNetwork *static_FMARCNetwork = nil;
                         }
                         if((statusCode != HTTPResponseCodeNotLogin || statusCode != HTTPResponseCodeFailureToken) && statusCode != HTTPResponseCodeUpdateApp){
                             if (![responseObject[HTTPServiceResponseMsgKey] isEqualToString:@"请登录"]) {
-                                [MBProgressHUD wj_showPlainText:responseObject[HTTPServiceResponseMsgKey] view:nil];
+                                [WHToast showMessage:responseObject[HTTPServiceResponseMsgKey]
+                                            duration:1
+                                       finishHandler:nil];
                             }
                             
                         }
@@ -278,8 +280,10 @@ static FMARCNetwork *static_FMARCNetwork = nil;
                     }else{//抛其他异常
 #pragma mark - 抛其他异常
                         if(statusCode != HTTPResponseCodeUpdateApp) {
-                            [MBProgressHUD wj_showPlainText:responseObject[HTTPServiceResponseMsgKey]
-                                                       view:nil];
+                            
+                            [WHToast showMessage:responseObject[HTTPServiceResponseMsgKey]
+                                        duration:1
+                                   finishHandler:nil];
                         }
                         NSLog(@"异常接口路径 %@  %@ ",request.URL.absoluteString,responseObject[HTTPServiceResponseMsgKey]);
                         
@@ -305,8 +309,9 @@ static FMARCNetwork *static_FMARCNetwork = nil;
                 //                [subscriber sendError:parseError];
                 [subscriber sendCompleted];
                 //错误可以在此处处理---比如加入自己弹窗，主要是服务器错误、和请求超时、网络开小差
-                [MBProgressHUD wj_showPlainText:msgStr
-                                           view:nil];
+                [WHToast showMessage:msgStr
+                            duration:1
+                       finishHandler:nil];
                 
             }
         }];
@@ -490,7 +495,9 @@ static FMARCNetwork *static_FMARCNetwork = nil;
 //                        [MBProgressHUD wj_showPlainText:responseObject[HTTPServiceResponseMsgKey] view:nil];
                         if(statusCode != HTTPResponseCodeNotLogin || statusCode != HTTPResponseCodeFailureToken){
                             if (![responseObject[HTTPServiceResponseMsgKey] isEqualToString:@"请登录"]) {
-                                [MBProgressHUD wj_showPlainText:responseObject[HTTPServiceResponseMsgKey] view:nil];
+                                [WHToast showMessage:responseObject[HTTPServiceResponseMsgKey]
+                                            duration:1
+                                       finishHandler:nil];
                             }
                             
                         }
@@ -500,8 +507,10 @@ static FMARCNetwork *static_FMARCNetwork = nil;
                         [subscriber sendNext:response];
                         [subscriber sendCompleted];
                     }else{//抛其他异常
-                        [MBProgressHUD wj_showPlainText:responseObject[HTTPServiceResponseMsgKey]
-                                                   view:nil];
+
+                        [WHToast showMessage:responseObject[HTTPServiceResponseMsgKey]
+                                    duration:1
+                               finishHandler:nil];
                         
                         NSLog(@"异常接口路径 %@ %@",request.URL.absoluteString,responseObject[HTTPServiceResponseMsgKey]);
                         
@@ -527,8 +536,10 @@ static FMARCNetwork *static_FMARCNetwork = nil;
                 [subscriber sendNext:response];
                 //[subscriber sendError:parseError];
                 [subscriber sendCompleted];
-                [MBProgressHUD wj_showPlainText:msgStr
-                                           view:nil];
+                [WHToast showMessage:msgStr
+                            duration:1
+                       finishHandler:nil];
+                
             }
         }];
         [task resume];
@@ -747,12 +758,15 @@ static FMARCNetwork *static_FMARCNetwork = nil;
         [_manager.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
             if (status == AFNetworkReachabilityStatusUnknown) {
                 NSLog(@"--- 未知网络 ---");
-                [MBProgressHUD wj_showPlainText:@"网络状态未知"
-                                           view:nil];
+                [WHToast showMessage:@"网络状态未知"
+                            duration:1
+                       finishHandler:nil];
                 
             }else if (status == AFNetworkReachabilityStatusNotReachable) {
-                [MBProgressHUD wj_showPlainText:@"网络不给力，请检查网络"
-                                           view:nil];
+
+                [WHToast showMessage:@"网络不给力，请检查网络"
+                            duration:1
+                       finishHandler:nil];
             }else{
                 NSLog(@"--- 有网络 ---");
             }

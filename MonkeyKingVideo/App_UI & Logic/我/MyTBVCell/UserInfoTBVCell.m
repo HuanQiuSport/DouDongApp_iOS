@@ -38,7 +38,7 @@
 }
 
 +(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return isiPhoneX_series() ? (SCREEN_HEIGHT / 4.5) : (SCREEN_HEIGHT / 4);
+    return isiPhoneX_series() ? (MAINSCREEN_HEIGHT / 4.5) : (MAINSCREEN_HEIGHT / 4);
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
@@ -73,7 +73,7 @@
         loginModel.fansNum = [NSString ensureNonnullString:myVCModel.fansNum ReplaceStr:@"0"];
         loginModel.praiseNum = [NSString ensureNonnullString:myVCModel.praiseNum ReplaceStr:@"0"];
         
-        [[MKLoginModel getUsingLKDBHelper] insertToDB:loginModel];
+//        [[MKLoginModel getUsingLKDBHelper] insertToDB:loginModel];
     }
 }
 
@@ -116,11 +116,11 @@
         _headPortraitIMGV = UIImageView.new;
         [self.contentView addSubview:_headPortraitIMGV];
         [_headPortraitIMGV mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.equalTo(self.contentView).offset(SCALING_RATIO(15));
-            make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(50), SCALING_RATIO(50)));
+            make.top.left.equalTo(self.contentView).offset(15);
+            make.size.mas_equalTo(CGSizeMake(50, 50));
         }];
         [UIView cornerCutToCircleWithView:_headPortraitIMGV
-                          AndCornerRadius:SCALING_RATIO(50 / 2)];
+                          AndCornerRadius:25];
     }return _headPortraitIMGV;
 }
 
@@ -132,7 +132,7 @@
         [self.contentView addSubview:_userNameLab];
         [_userNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.headPortraitIMGV);
-            make.left.equalTo(self.headPortraitIMGV.mas_right).offset(SCALING_RATIO(15));
+            make.left.equalTo(self.headPortraitIMGV.mas_right).offset(15);
         }];
     }return _userNameLab;
 }
@@ -159,9 +159,9 @@
         _userSignatureLab.lineBreakMode = NSLineBreakByTruncatingTail;
         [self.contentView addSubview:_userSignatureLab];
         [_userSignatureLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.userOtherInfoLab.mas_bottom).offset(SCALING_RATIO(15));
+            make.top.equalTo(self.userOtherInfoLab.mas_bottom).offset(15);
             make.left.equalTo(self.userNameLab);
-            make.width.equalTo(@(200*KDeviceScale));
+            make.width.equalTo(@(200*1));
         }];
     }return _userSignatureLab;
 }
@@ -173,8 +173,8 @@
         [self.contentView addSubview:_editIMGV];
         [_editIMGV mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.headPortraitIMGV);
-            make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(20), SCALING_RATIO(20)));
-            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-15));
+            make.size.mas_equalTo(CGSizeMake(20, 20));
+            make.right.equalTo(self.contentView).offset(-15);
         }];
     }return _editIMGV;
 }
@@ -195,15 +195,15 @@
                                                175,
                                                1)
                             forState:UIControlStateNormal];
-        _attentionBtn.titleEdgeInsets = UIEdgeInsetsMake(SCALING_RATIO(10),
+        _attentionBtn.titleEdgeInsets = UIEdgeInsetsMake(10,
                                                          0,
                                                          0,
                                                          0);
         [self.contentView addSubview:_attentionBtn];
         [_attentionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.userSignatureLab.mas_bottom).offset(SCALING_RATIO(25));
-            make.left.equalTo(self.contentView).offset(SCALING_RATIO(50));
-            make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(50), SCALING_RATIO(50)));
+            make.top.equalTo(self.userSignatureLab.mas_bottom).offset(25);
+            make.left.equalTo(self.contentView).offset(50);
+            make.size.mas_equalTo(CGSizeMake(50, 50));
         }];
     }return _attentionBtn;
 }
@@ -224,15 +224,15 @@
                                           175,
                                           1)
                        forState:UIControlStateNormal];
-        _fansBtn.titleEdgeInsets = UIEdgeInsetsMake(SCALING_RATIO(10),
+        _fansBtn.titleEdgeInsets = UIEdgeInsetsMake(10,
                                                     0,
                                                     0,
                                                     0);
         [self.contentView addSubview:_fansBtn];
         [_fansBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.userSignatureLab.mas_bottom).offset(SCALING_RATIO(25));
+            make.top.equalTo(self.userSignatureLab.mas_bottom).offset(25);
             make.centerX.equalTo(self.contentView);
-            make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(50), SCALING_RATIO(50)));
+            make.size.mas_equalTo(CGSizeMake(50, 50));
         }];
     }return _fansBtn;
 }
@@ -253,15 +253,15 @@
                                           175,
                                           1)
                        forState:UIControlStateNormal];
-        _likeBtn.titleEdgeInsets = UIEdgeInsetsMake(SCALING_RATIO(10),
+        _likeBtn.titleEdgeInsets = UIEdgeInsetsMake(10,
                                                      0,
                                                      0,
                                                      0);
         [self.contentView addSubview:_likeBtn];
         [_likeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.userSignatureLab.mas_bottom).offset(SCALING_RATIO(25));
-            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-50));
-            make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(50), SCALING_RATIO(50)));
+            make.top.equalTo(self.userSignatureLab.mas_bottom).offset(25);
+            make.right.equalTo(self.contentView).offset(-50);
+            make.size.mas_equalTo(CGSizeMake(50, 50));
         }];
     }return _likeBtn;
 }

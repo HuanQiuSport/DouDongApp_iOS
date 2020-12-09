@@ -110,17 +110,17 @@
         self.pagerView.listContainerView.listCellBackgroundColor = backColor;
         self.gk_navBackgroundColor = backColor;
     } else {
-        self.view.backgroundColor = MKBakcColor;
-        self.categoryView.backgroundColor = MKBakcColor;//
+        self.view.backgroundColor = kBlackColor;
+        self.categoryView.backgroundColor = kBlackColor;//
         self.categoryView.titleColor = MKNoSelectColor;
         self.categoryView.titleSelectedColor = UIColor.redColor;
-        self.userHeaderView.backgroundColor = MKBakcColor;
-        self.pagerView.backgroundColor = MKBakcColor;
-        self.pagerView.mainTableView.backgroundColor = MKBakcColor;
-        self.categoryView.subviews.firstObject.backgroundColor = MKBakcColor;
-        self.pagerView.mainTableView.backgroundColor = MKBakcColor;
-        self.pagerView.listContainerView.listCellBackgroundColor = MKBakcColor;
-        self.gk_navBackgroundColor = MKBakcColor;
+        self.userHeaderView.backgroundColor = kBlackColor;
+        self.pagerView.backgroundColor = kBlackColor;
+        self.pagerView.mainTableView.backgroundColor = kBlackColor;
+        self.categoryView.subviews.firstObject.backgroundColor = kBlackColor;
+        self.pagerView.mainTableView.backgroundColor = kBlackColor;
+        self.pagerView.listContainerView.listCellBackgroundColor = kBlackColor;
+        self.gk_navBackgroundColor = kBlackColor;
     }
     [self.userHeaderView refreshSkin];
 }
@@ -215,7 +215,7 @@
 }
 - (void)mkAddView{
     
-    self.view.backgroundColor = MKBakcColor;
+    self.view.backgroundColor = kBlackColor;
     self.navigationController.navigationBar.translucent = false;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.titles = @[@"作品",@"喜欢"];
@@ -231,36 +231,36 @@
     
     
     self.categoryView.titles = self.titles;
-    self.categoryView.backgroundColor = MKBakcColor;//
+    self.categoryView.backgroundColor = kBlackColor;//
     self.categoryView.delegate = self;
     self.categoryView.titleFont = [UIFont systemFontOfSize:18 weight:UIFontWeightRegular];
     self.categoryView.titleSelectedFont = [UIFont systemFontOfSize:22 weight:UIFontWeightRegular];
     self.categoryView.titleSelectedColor = [[MKTools shared] getColorWithColor:RGBCOLOR(247,131,97) andCoe:0.3 andEndColor:RGBCOLOR(245,75,100)];//[UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(50, 25)]];
-    self.categoryView.cellWidth = SCALING_RATIO(135);
+    self.categoryView.cellWidth = 135;
     self.categoryView.titleColor = MKNoSelectColor;
-    self.userHeaderView.backgroundColor = MKBakcColor;
-    self.pagerView.backgroundColor = MKBakcColor;
-    self.pagerView.mainTableView.backgroundColor = MKBakcColor;
+    self.userHeaderView.backgroundColor = kBlackColor;
+    self.pagerView.backgroundColor = kBlackColor;
+    self.pagerView.mainTableView.backgroundColor = kBlackColor;
     self.categoryView.titleColorGradientEnabled = YES;
     self.categoryView.titleLabelZoomEnabled = YES;
     self.categoryView.contentScrollViewClickTransitionAnimationEnabled = NO;
     [self.pagerView reloadData];
     JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
-    lineView.indicatorColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(135), 3*KDeviceScale)]];;
-    lineView.indicatorWidth = SCALING_RATIO(135);
-    lineView.indicatorHeight = 3*KDeviceScale;
+    lineView.indicatorColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(135, 3*1)]];;
+    lineView.indicatorWidth = 135;
+    lineView.indicatorHeight = 3*1;
     self.categoryView.indicators = @[lineView];
-    self.categoryView.subviews.firstObject.backgroundColor = MKBakcColor;
+    self.categoryView.subviews.firstObject.backgroundColor = kBlackColor;
     [self.categoryView setDefaultSelectedIndex:self.recordIndex];
     self.pagerView.mainTableView.gestureDelegate = self;
-    self.pagerView.mainTableView.backgroundColor = MKBakcColor;
+    self.pagerView.mainTableView.backgroundColor = kBlackColor;
     [self.view addSubview:self.pagerView];
 
     self.categoryView.listContainer = (id<JXCategoryViewListContainer>)self.pagerView.listContainerView;
-    self.pagerView.listContainerView.listCellBackgroundColor = MKBakcColor;
+    self.pagerView.listContainerView.listCellBackgroundColor = kBlackColor;
     self.gk_navLineHidden = YES;
     self.gk_backStyle = GKNavigationBarBackStyleWhite;
-    self.gk_navBackgroundColor = MKBakcColor;
+    self.gk_navBackgroundColor = kBlackColor;
     
     if (self.mkScrollFLoat == MKMineVC_JXTableHeaderViewHeight) {
         [self.view sendSubviewToBack:self.gk_navigationBar];
@@ -310,46 +310,57 @@
     [_userHeaderView.mkPersonView.mkFansNumView.mkButton addAction:^(UIButton *btn) {
         
         if (![MKTools mkLoginIsYESWith:weak_self]) { return; }
+        @strongify(self)
+        [UIViewController comingFromVC:self
+                                  toVC:MKAttentionVC.new
+                           comingStyle:ComingStyle_PUSH
+                     presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                         requestParams:@{@"mkType":@(1),
+                                         @"dataModel":weak_self.mkPernalModel}
+              hidesBottomBarWhenPushed:YES
+                              animated:YES
+                               success:^(id data) {
+            
+        }];
         
-        [MKAttentionVC ComingFromVC:weak_self
-                        comingStyle:ComingStyle_PUSH
-                  presentationStyle:UIModalPresentationAutomatic
-                      requestParams:@{
-                          @"mkType":@(1),
-                          @"dataModel":weak_self.mkPernalModel
-                      }
-                            success:^(id data) {}
-                           animated:YES];
     }];
     
     [_userHeaderView.mkPersonView.mkAttentionNumView.mkButton addAction:^(UIButton *btn) {
         if (![MKTools mkLoginIsYESWith:weak_self]) { return; }
-       MKAttentionVC *attention =  [MKAttentionVC ComingFromVC:weak_self
-                        comingStyle:ComingStyle_PUSH
-                  presentationStyle:UIModalPresentationAutomatic
-                      requestParams:@{
-                          @"mkType":@(0),@"dataModel":weak_self.mkPernalModel
-                      }
-                            success:^(id data) {}
-                           animated:YES];
-        
-        [attention attentionVCBlock:^(id data) {
-            MKPersonalnfoModel *model = (MKPersonalnfoModel *)data;
-            weak_self.userHeaderView.mkPersonView.mkFansNumView.mkNumberLabel.text = model.fansNum;
-            weak_self.userHeaderView.mkPersonView.mkZanNumView.mkNumberLabel.text = model.praiseNum;
+        @strongify(self)
+        [UIViewController comingFromVC:self
+                                  toVC:MKAttentionVC.new
+                           comingStyle:ComingStyle_PUSH
+                     presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                         requestParams:@{@"mkType":@(0),
+                                         @"dataModel":weak_self.mkPernalModel}
+              hidesBottomBarWhenPushed:YES
+                              animated:YES
+                               success:^(id data) {
+            MKAttentionVC *attention = data;
+            [attention attentionVCBlock:^(id data) {
+                MKPersonalnfoModel *model = (MKPersonalnfoModel *)data;
+                weak_self.userHeaderView.mkPersonView.mkFansNumView.mkNumberLabel.text = model.fansNum;
+                weak_self.userHeaderView.mkPersonView.mkZanNumView.mkNumberLabel.text = model.praiseNum;
+            }];
         }];
     }];
     [_userHeaderView.mkPersonView mkRefreshUILayout];
     [_userHeaderView.mkPersonView addOherView];
-    
-    
+
     [self.userHeaderView.mkPersonView.mkEditorBtn addAction:^(UIButton *btn) {
-        [EditUserInfoVC ComingFromVC:weak_self
-              comingStyle:ComingStyle_PUSH
-        presentationStyle:UIModalPresentationAutomatic
-            requestParams:nil
-                  success:^(id data) {}
-                 animated:YES];
+        @strongify(self)
+        [UIViewController comingFromVC:self
+                                  toVC:EditUserInfoVC.new
+                           comingStyle:ComingStyle_PUSH
+                     presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                         requestParams:nil
+              hidesBottomBarWhenPushed:YES
+                              animated:YES
+                               success:^(id data) {
+            
+        }];
+        
     }];
 }
 #pragma mark - 消息
@@ -395,31 +406,35 @@
 #pragma mark - 我的抖币
 - (void)goToGoldNumber{
     @weakify(self)
-    [MyCoinVC ComingFromVC:weak_self
+    [UIViewController comingFromVC:self
+                              toVC:MyCoinVC.new
                        comingStyle:ComingStyle_PUSH
-                 presentationStyle:UIModalPresentationAutomatic
-                     requestParams:@{
-                         @"MyWalletStyle":@(MyWalletStyle_CURRENTCOIN),
-                         @"balance":self.mkPernalModel.balance,
-                         @"goldNumber":self.mkPernalModel.goldNumber
-                     }
-                           success:^(id data) {}
-                          animated:YES];
+                 presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                     requestParams:@{@"MyWalletStyle":@(MyWalletStyle_CURRENTCOIN),
+                                     @"balance":self.mkPernalModel.balance,
+                                     @"goldNumber":self.mkPernalModel.goldNumber}
+          hidesBottomBarWhenPushed:YES
+                          animated:YES
+                           success:^(id data) {
+        
+    }];
 }
 #pragma mark - 我的余额
 - (void)goToBance{
-    
-    @weakify(self)
-    [MyWalletDetailVC ComingFromVC:weak_self
+
+    [UIViewController comingFromVC:self
+                              toVC:MyWalletDetailVC.new
                        comingStyle:ComingStyle_PUSH
-                 presentationStyle:UIModalPresentationAutomatic
-                     requestParams:@{
-                         @"MyWalletStyle":@(MyWalletStyle_CURRENTBALANCE),
-                         @"balance":self.mkPernalModel.balance,
-                         @"goldNumber":self.mkPernalModel.goldNumber
-                     }
-                           success:^(id data) {}
-                          animated:YES];
+                 presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                     requestParams:@{@"MyWalletStyle":@(MyWalletStyle_CURRENTBALANCE),
+                                     @"balance":self.mkPernalModel.balance,
+                                     @"goldNumber":self.mkPernalModel.goldNumber}
+          hidesBottomBarWhenPushed:YES
+                          animated:YES
+                           success:^(id data) {
+        
+    }];
+    
 }
 #pragma mark - 邀请好友
 - (void)goToInviteFriends{
@@ -480,8 +495,8 @@
 }
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    CGFloat tabbarHeight =  isiPhoneX_series() ? (50 + isiPhoneX_seriesBottom) : 50;
-    self.pagerView.frame = CGRectMake(0,kStatusBarHeight, self.view.bounds.size.width, self.view.bounds.size.height- kStatusBarHeight - tabbarHeight - 12);
+    CGFloat tabbarHeight =  isiPhoneX_series() ? (50 + 34) : 50;
+    self.pagerView.frame = CGRectMake(0,rectOfStatusbar(), self.view.bounds.size.width, self.view.bounds.size.height- rectOfStatusbar() - tabbarHeight - 12);
 }
 
 #pragma mark - JXPagerViewDelegate

@@ -114,11 +114,11 @@
     
     [self.mkImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.centerX.equalTo(self.mas_centerX).offset(10*KDeviceScale);
+        make.centerX.equalTo(self.mas_centerX).offset(10*1);
         
         make.centerY.equalTo(self.mas_centerY);
         
-        make.width.height.equalTo(@(40*KDeviceScale));
+        make.width.height.equalTo(@(40*1));
         
     }];
     [self.lblTimerExample3 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -127,9 +127,9 @@
         
         make.centerY.equalTo(self.mas_centerY);
         
-        make.height.equalTo(@(30*KDeviceScale));
+        make.height.equalTo(@(30*1));
         
-        make.width.equalTo(@(80*KDeviceScale));
+        make.width.equalTo(@(80*1));
         
     }];
     
@@ -141,23 +141,23 @@
     [self addSubview:self.lblTimerExample3];
     [self.lblTimerExample3 mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.centerX.equalTo(self.mas_centerX).offset(10*KDeviceScale);
+        make.centerX.equalTo(self.mas_centerX).offset(10*1);
         
-        make.bottom.offset(7*KDeviceScale);
+        make.bottom.offset(7*1);
         
-        make.height.equalTo(@(30*KDeviceScale));
+        make.height.equalTo(@(30*1));
         
-        make.width.equalTo(@(80*KDeviceScale));
+        make.width.equalTo(@(80*1));
         
     }];
     [self.mkHomeCoinView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.mkImageView.mas_top).offset(-10*KDeviceScale);
+        make.bottom.equalTo(self.mkImageView.mas_top).offset(-10*1);
         
         make.left.equalTo(self.mkImageView.mas_left);
         
-        make.width.equalTo(@(0*KDeviceScale));
+        make.width.equalTo(@(0*1));
         
-        make.height.equalTo(@(0*KDeviceScale));
+        make.height.equalTo(@(0*1));
     }];
     self.mkHomeCoinView.hidden = YES;
     
@@ -169,11 +169,11 @@
         self.mkImageView.image = KIMG(@"baoxiang");
         [self.mkImageView mas_updateConstraints:^(MASConstraintMaker *make) {
             
-            make.centerX.equalTo(self.mas_centerX).offset(5*KDeviceScale);
+            make.centerX.equalTo(self.mas_centerX).offset(5*1);
             
-            make.centerY.equalTo(self.mas_centerY).offset(-10*KDeviceScale);
+            make.centerY.equalTo(self.mas_centerY).offset(-10*1);
             
-            make.width.height.equalTo(@(60*KDeviceScale));
+            make.width.height.equalTo(@(60*1));
             
         }];
         self.mkHomeCoinView.hidden = NO;
@@ -185,15 +185,15 @@
             [self EndWobble];
             self.mkImageView.image = KIMG(@"mk_baohe");
             [self.mkImageView mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(self.mas_centerX).offset(10*KDeviceScale);
+                make.centerX.equalTo(self.mas_centerX).offset(10*1);
                 make.centerY.equalTo(self.mas_centerY);
-                make.width.height.equalTo(@(40*KDeviceScale));
+                make.width.height.equalTo(@(40*1));
             }];
             [self.mkHomeCoinView mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.bottom.equalTo(self.mkImageView.mas_top).offset(-10*KDeviceScale);
+                make.bottom.equalTo(self.mkImageView.mas_top).offset(-10*1);
                 make.left.equalTo(self.mkImageView.mas_left);
-                make.width.equalTo(@(0*KDeviceScale));
-                make.height.equalTo(@(0*KDeviceScale));
+                make.width.equalTo(@(0*1));
+                make.height.equalTo(@(0*1));
             }];
         });
         

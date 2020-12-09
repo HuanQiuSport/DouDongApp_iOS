@@ -39,8 +39,8 @@
 }
 
 +(CGFloat)cellHeightWithModel:(id _Nullable)model{
-//    return isiPhoneX_series() ? (SCREEN_HEIGHT / 4.5) : (SCREEN_HEIGHT / 4);
-     return 190 * KDeviceScale;
+//    return isiPhoneX_series() ? (MAINSCREEN_HEIGHT / 4.5) : (MAINSCREEN_HEIGHT / 4);
+     return 190 * 1;
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
@@ -64,7 +64,7 @@
         [self.contentView addSubview:_release_LikeVC.view];
         [_release_LikeVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.contentView);
-            make.top.equalTo(self.titleLab.mas_bottom).offset(SCALING_RATIO(15));
+            make.top.equalTo(self.titleLab.mas_bottom).offset(15);
         }];
     }return _release_LikeVC;
 }
@@ -77,7 +77,7 @@
         _titleLab.textColor = kWhiteColor;
         [self.contentView addSubview:_titleLab];
         [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.equalTo(self.contentView).offset(SCALING_RATIO(15));
+            make.top.left.equalTo(self.contentView).offset(15);
         }];
     }return _titleLab;
 }
@@ -89,7 +89,7 @@
         _showMoreBtn.titleEdgeInsets = UIEdgeInsetsMake(0,
                                                         0,
                                                         0,
-                                                        SCALING_RATIO(10));
+                                                        10);
         [_showMoreBtn setTitle:@"查看更多"
                    forState:UIControlStateNormal];
         _showMoreBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Regular"
@@ -104,7 +104,7 @@
         [self.contentView addSubview:_showMoreBtn];
         [_showMoreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.titleLab);
-            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-15));
+            make.right.equalTo(self.contentView).offset(-15);
         }];
     }return _showMoreBtn;
 }

@@ -53,7 +53,7 @@
 
     if (_mainLayer == nil) {
         _mainLayer = [[CALayer alloc] init];
-        _mainLayer.backgroundColor =  [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(76), 30)]].CGColor;
+        _mainLayer.backgroundColor =  [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(76, 30)]].CGColor;
         _mainLayer.frame = CGRectMake(5, 5, self.frame.size.width - 10, self.frame.size.height - 10);
         _mainLayer.cornerRadius = _mainLayer.frame.size.height/2.0;
         _mainLayer.masksToBounds = YES;

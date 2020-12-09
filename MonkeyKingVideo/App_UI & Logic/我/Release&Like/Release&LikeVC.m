@@ -26,10 +26,6 @@ JXCategoryTitleViewDataSource
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 @property(nonatomic,strong)NSMutableArray *childVCMutArr;
 
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,copy)MKDataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
 ///
 
 
@@ -41,46 +37,6 @@ JXCategoryTitleViewDataSource
     
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
-
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated{
-    Release_LikeVC *vc = Release_LikeVC.new;
-    vc.successBlock = block;
-    vc.requestParams = requestParams;
-    switch (comingStyle) {
-        case ComingStyle_PUSH:{
-            if (rootVC.navigationController) {
-                vc.isPush = YES;
-                vc.isPresent = NO;
-                [rootVC.navigationController pushViewController:vc
-                                                       animated:animated];
-            }else{
-                vc.isPush = NO;
-                vc.isPresent = YES;
-                [rootVC presentViewController:vc
-                                     animated:animated
-                                   completion:^{}];
-            }
-        }break;
-        case ComingStyle_PRESENT:{
-            vc.isPush = NO;
-            vc.isPresent = YES;
-            //iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-            vc.modalPresentationStyle = presentationStyle;
-            [rootVC presentViewController:vc
-                                 animated:animated
-                               completion:^{}];
-        }break;
-        default:
-            NSLog(@"错误的推进方式");
-            break;
-    }return vc;
-}
-
 #pragma mark - Lifecycle
 -(instancetype)init{
     if (self = [super init]) {
@@ -261,9 +217,9 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
         [_categoryView mas_makeConstraints:^(MASConstraintMaker *make) {
             //临时改动
             if (self.titleMutArr.count == 1) {
-                make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH, SCALING_RATIO(0)));
+                make.size.mas_equalTo(CGSizeMake(MAINSCREEN_WIDTH, 0));
             }else{
-                make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH, SCALING_RATIO(30)));
+                make.size.mas_equalTo(CGSizeMake(MAINSCREEN_WIDTH, 30));
             }
             make.bottom.equalTo(self.view.mas_bottom).offset(0);
         }];

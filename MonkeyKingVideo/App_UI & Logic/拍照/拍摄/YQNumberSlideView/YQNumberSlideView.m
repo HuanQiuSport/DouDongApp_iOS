@@ -128,7 +128,7 @@
     UILabel *firstLabel = self.SlideLabArr[0];
 
     firstLabel.textColor = [UIColor whiteColor];
-    labelLast.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(90), 30)]];
+    labelLast.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(90, 30)]];
 }
 
 - (void)setLableCount:(int)count
@@ -168,7 +168,6 @@
     
     CGFloat offset = scrollView.contentOffset.x;
     int     count  = (offset) / (self.lableMid + self.lableWidth);
-    DLog(@"数字滑动%d",count);
     UILabel *lastLab = self.SlideLabArr[self.SlideLabArr.count - 1];
     if (offset <= kViewMaxX(lastLab) + 1) {
         if (self.lastCount != count) {
@@ -178,14 +177,14 @@
         if (count == 0) {
                   UILabel *firstLabel = self.SlideLabArr[0];
                   UILabel *labelLast = self.SlideLabArr[1];
-                  firstLabel.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(90), 30)]];
+                  firstLabel.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(90, 30)]];
                   labelLast.textColor = [UIColor whiteColor];
               } else if (count == 1) {
                   UILabel *labelLast = self.SlideLabArr[1];
                   UILabel *firstLabel = self.SlideLabArr[0];
                   
                   firstLabel.textColor = [UIColor whiteColor];
-                  labelLast.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(90), 30)]];
+                  labelLast.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(90, 30)]];
               }
 //        CGFloat countOffset = offset - count * (self.lableMid + self.lableWidth);
 //        CGFloat offsetRait  = 1;

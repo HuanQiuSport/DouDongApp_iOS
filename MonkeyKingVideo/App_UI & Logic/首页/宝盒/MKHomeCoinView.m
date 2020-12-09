@@ -34,9 +34,9 @@
         
         make.left.equalTo(self);
         
-        make.width.equalTo(@(14*KDeviceScale));
+        make.width.equalTo(@(14*1));
         
-        make.height.equalTo(@(14*KDeviceScale));
+        make.height.equalTo(@(14*1));
         
     }];
     
@@ -46,9 +46,9 @@
         
         make.centerY.equalTo(self.mkImageView.mas_centerY);
         
-        make.width.equalTo(@(49*KDeviceScale));
+        make.width.equalTo(@(49*1));
         
-        make.height.equalTo(@(15*KDeviceScale));
+        make.height.equalTo(@(15*1));
         
     }];
 }
@@ -70,7 +70,7 @@
         
         _mkCoinNumberLabel.font = [UIFont fontWithName:@"FZPWJW--GB1-0" size:14];
         
-        _mkCoinNumberLabel.textColor = kHexRGB(0xfacb7a);
+        _mkCoinNumberLabel.textColor = HEXCOLOR(0xfacb7a);
     }
     return _mkCoinNumberLabel;
 }

@@ -15,13 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)UITableView * _Nullable tableView;
 @property(nonatomic,strong)MyVCModel *myVCModel;
 
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated;
-
 @end
 
 NS_ASSUME_NONNULL_END

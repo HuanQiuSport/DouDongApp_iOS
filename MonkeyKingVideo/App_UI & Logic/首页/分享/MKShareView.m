@@ -86,10 +86,10 @@
         CGRect linkBtnframe = self.linkBtn.frame;
         CGRect closeBtnframe = self.closeBtn.frame;
         
-        saveBtnframe.origin.y =  SCALING_RATIO(626);
+        saveBtnframe.origin.y =  626;
         self.saveBtn.frame = saveBtnframe;
         
-        linkBtnframe.origin.y =  SCALING_RATIO(626);
+        linkBtnframe.origin.y =  626;
         self.linkBtn.frame = linkBtnframe;
         
         closeBtnframe.origin.y =  51;
@@ -149,7 +149,7 @@
 - (UIView *)bgView{
     if (!_bgView) {
         
-        _bgView = [[UIView alloc] initWithFrame:CGRectMake(0, -[UIScreen mainScreen].bounds.size.height*0.673 , SCREEN_W, [UIScreen mainScreen].bounds.size.height*0.67)];
+        _bgView = [[UIView alloc] initWithFrame:CGRectMake(0, -[UIScreen mainScreen].bounds.size.height*0.673 , MAINSCREEN_WIDTH, [UIScreen mainScreen].bounds.size.height*0.67)];
         // 这里不能用mas因为要从外面开始布局
 //        [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
 //            make.edges.mas_equalTo(UIEdgeInsetsMake(0, 69, 190, 69));
@@ -230,7 +230,7 @@
     if (!_saveBtn) {
         _saveBtn = UIButton.new;
         
-        _saveBtn.frame = CGRectMake(SCALING_RATIO(204), [UIScreen mainScreen].bounds.size.height, SCALING_RATIO(126), 32);
+        _saveBtn.frame = CGRectMake(204, [UIScreen mainScreen].bounds.size.height, 126, 32);
         _saveBtn.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:_saveBtn.frame.size]];
 //        [_loginBtn setBackgroundImage:KIMG(@"login_gradualColor") forState:UIControlStateNormal];
         [_saveBtn setTitle:@"  保存图片分享" forState:UIControlStateNormal];
@@ -251,7 +251,7 @@
     if (!_linkBtn) {
         _linkBtn = UIButton.new;
         
-        _linkBtn.frame = CGRectMake(SCALING_RATIO(47), [UIScreen mainScreen].bounds.size.height, SCALING_RATIO(126), 32);
+        _linkBtn.frame = CGRectMake(47, [UIScreen mainScreen].bounds.size.height, 126, 32);
         _linkBtn.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:_linkBtn.frame.size]];
 //        [_loginBtn setBackgroundImage:KIMG(@"login_gradualColor") forState:UIControlStateNormal];
         [_linkBtn setTitle:@"  复制链接分享" forState:UIControlStateNormal];
@@ -271,7 +271,7 @@
 - (UIButton *)closeBtn{
     if (!_closeBtn) {
         _closeBtn = UIButton.new;
-        _closeBtn.frame = CGRectMake( [[UIScreen mainScreen] bounds].size.width - 9 - SCALING_RATIO(60) , -26, SCALING_RATIO(60), 26);
+        _closeBtn.frame = CGRectMake( [[UIScreen mainScreen] bounds].size.width - 9 - 60 , -26, 60, 26);
         _closeBtn.backgroundColor = UIColor.clearColor;
 //        [_closeBtn setTitle:@"  取消" forState:UIControlStateNormal];
         [_closeBtn setImage:KIMG(@"share_close") forState:UIControlStateNormal];
@@ -291,7 +291,10 @@
 - (void)successCopy{
     UIPasteboard*pasteboard = [UIPasteboard generalPasteboard];
     pasteboard.string = self.shareLink;//这个需要接口调动态数据，接口尚未开发成功
-    [[MKTools shared] showMBProgressViewOnlyTextInView:self text:@"复制成功，赶快去分享吧" dissmissAfterDeley:2.0f];
+    [WHToast showMessage:@"复制成功，赶快去分享吧"
+                duration:1
+           finishHandler:nil];
+    
     [self performSelector:@selector(exit) withObject:nil afterDelay:2.5f];
 }
 - (void)exit
@@ -351,7 +354,10 @@
 //                               alertVCBlock:^(id data) {
 //                //DIY
 //            }];
-            [MBProgressHUD wj_showError:@"保存图片需要过去您的相册权限,请前往设置打开"];
+            [WHToast showMessage:@"保存图片需要过去您的相册权限,请前往设置打开"
+                        duration:1
+                   finishHandler:nil];
+            
             return nil;
         }
     }];
@@ -440,7 +446,10 @@
     NSString *message = nil;
     if (!error) {
         message = @"成功保存到相册";
-        [[MKTools shared] showMBProgressViewOnlyTextInView:self text:@"成功保存到相册" dissmissAfterDeley:2.0f];
+        [WHToast showMessage:@"成功保存到相册"
+                    duration:1
+               finishHandler:nil];
+        
 //        [self performSelector:@selector(exit) withObject:nil afterDelay:2.5f];
 //        UIImageView *imgev = UIImageView.new;
 //        [_bgView addSubview:imgev];
@@ -467,14 +476,14 @@
     
     if (!_tipView) {
         _tipView = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                            SCREEN_H - 123  - SCALING_RATIO(87),
-                                                                            SCREEN_W,
-                                                                            SCALING_RATIO(87))];
+                                                                            MAINSCREEN_HEIGHT - 123  - 87,
+                                                                            MAINSCREEN_WIDTH,
+                                                                            87)];
 //        _tipView.backgroundColor = kRedColor;
         [self.flashView addSubview:_tipView];
         
         [_tipView  mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@(SCREEN_W));
+            make.width.equalTo(@(MAINSCREEN_WIDTH));
             make.height.equalTo(@(87));
             make.centerX.equalTo(self.flashView.mas_centerX).offset(0);
             make.top.equalTo(self.bgView.mas_bottom).offset(10);
@@ -516,7 +525,7 @@
         
         _iKnowBtn = UIButton.new;
         [self.flashView addSubview:_iKnowBtn];
-        _iKnowBtn.frame = CGRectMake(SCALING_RATIO(120),SCREEN_H - 130, kScreenWidth-SCALING_RATIO(240), 40);
+        _iKnowBtn.frame = CGRectMake(120,MAINSCREEN_HEIGHT - 130, MAINSCREEN_WIDTH-240, 40);
         
         [_iKnowBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.flashView.mas_centerX).offset(0);

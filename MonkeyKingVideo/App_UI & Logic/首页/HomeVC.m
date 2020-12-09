@@ -13,6 +13,7 @@
 #import "RecommendVC.h"
 #import "MonitorNetwoking.h"
 #import "NewRVC.h"
+#import "UIButton+Block.h"
 
 #import "WPAlertControl.h"
 #import "WPView.h"
@@ -24,10 +25,6 @@
 @property(nonatomic,strong)NSMutableArray *childVCMutArr;
 @property(nonatomic,strong)NSTimer *mytimer;
 
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,copy)MKDataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
 @property(nonatomic,strong) UILabel *tipLable;
 
 @property(nonatomic,strong)MonitorNetwoking *monitorNetwoking;
@@ -42,46 +39,6 @@
     //别忘了把定时器置为nil,否则定时器依然没有释放掉的
     self.mytimer  = nil;
 }
-
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated{
-    HomeVC *vc = HomeVC.new;
-    vc.successBlock = block;
-    vc.requestParams = requestParams;
-    switch (comingStyle) {
-        case ComingStyle_PUSH:{
-            if (rootVC.navigationController) {
-                vc.isPush = YES;
-                vc.isPresent = NO;
-                [rootVC.navigationController pushViewController:vc
-                                                       animated:animated];
-            }else{
-                vc.isPush = NO;
-                vc.isPresent = YES;
-                [rootVC presentViewController:vc
-                                     animated:animated
-                                   completion:^{}];
-            }
-        }break;
-        case ComingStyle_PRESENT:{
-            vc.isPush = NO;
-            vc.isPresent = YES;
-            //iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-            vc.modalPresentationStyle = presentationStyle;
-            [rootVC presentViewController:vc
-                                 animated:animated
-                               completion:^{}];
-        }break;
-        default:
-//            NSLog(@"错误的推进方式");
-            break;
-    }return vc;
-}
-
 
 #pragma mark - Lifecycle
 -(instancetype)init{
@@ -120,7 +77,7 @@
     };
    
     view1.backgroundColor = [UIColor clearColor];
-    UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 324*KDeviceScale, 516*KDeviceScale)];
+    UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 324*1, 516*1)];
     image.image = KIMG(@"imge_announcementHUB_nor");
     [view1 addSubview:image];
     
@@ -166,11 +123,11 @@
     
     NSString *contentStr = self.m_annoContents[self.idx];
     
-    CGFloat contentH = [contentStr boundingRectWithSize:CGSizeMake(324*KDeviceScale - 56, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attributes context:nil].size.height + 20;
+    CGFloat contentH = [contentStr boundingRectWithSize:CGSizeMake(324*1 - 56, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attributes context:nil].size.height + 20;
     
     contentH = MIN(contentH, 240);
 
-    view1.frame = CGRectMake(0, 0, 324*KDeviceScale, 130 + 20 + 12 + contentH + 35*KDeviceScale + 21 + 28 );
+    view1.frame = CGRectMake(0, 0, 324*1, 130 + 20 + 12 + contentH + 35*1 + 21 + 28 );
     view1.centerX = [UIScreen mainScreen].bounds.size.width / 2;
     view1.centerY = [UIScreen mainScreen].bounds.size.height / 2;
     
@@ -179,8 +136,8 @@
     [btn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(view1);
         make.bottom.equalTo(view1).offset(-21);
-        make.height.offset(35*KDeviceScale);
-        make.width.offset(168*KDeviceScale);
+        make.height.offset(35*1);
+        make.width.offset(168*1);
     }];
     [btn setBackgroundImage:KIMG(@"gradualColor") forState:UIControlStateNormal];
     [btn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
@@ -199,10 +156,10 @@
             lab.text = weakSelf.m_annoTitles[weakSelf.idx];
             contentView.attributedText =  [[NSAttributedString alloc] initWithString:weakSelf.m_annoContents[weakSelf.idx] attributes:attributes];
             
-            CGFloat contentH = [weakSelf.m_annoContents[weakSelf.idx] boundingRectWithSize:CGSizeMake(324*KDeviceScale - 56, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attributes context:nil].size.height + 20;
+            CGFloat contentH = [weakSelf.m_annoContents[weakSelf.idx] boundingRectWithSize:CGSizeMake(324*1 - 56, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attributes context:nil].size.height + 20;
             contentH = MIN(contentH, 270);
 
-            view1.frame = CGRectMake(0, 0, 324*KDeviceScale, 130 + 20 + 12 + contentH + 35*KDeviceScale + 21 + 28 );
+            view1.frame = CGRectMake(0, 0, 324*1, 130 + 20 + 12 + contentH + 35*1 + 21 + 28 );
             view1.centerX = [UIScreen mainScreen].bounds.size.width / 2;
             view1.centerY = [UIScreen mainScreen].bounds.size.height / 2;
             [contentView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -219,7 +176,7 @@
 //        make.bottom.equalTo(btn.mas_top).offset(-28);
     }];
     
-    if ([[[SceneDelegate sharedInstance].customSYSUITabBarController.navigationController.viewControllers lastObject] isKindOfClass:[DoorVC class]]) {
+    if ([[[SceneDelegate sharedInstance].customSYSUITabBarController.navigationController.viewControllers lastObject] isKindOfClass:JobsAppDoorVC_Style1.class]) {
 //        NSLog(@"你他妹的手那么快干啥子呦");
         return;
     }
@@ -366,8 +323,8 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
         _childVCMutArr = NSMutableArray.array;
         [self.childVCMutArr addObject:AttentionVC.new];
         RecommendVC *vc = RecommendVC.new;
-        vc.isHome = true;
-        vc.homeVC = self;
+//        vc.isHome = true;
+//        vc.homeVC = self;
 //        NewRVC *vc = NewRVC.new;
         [self.childVCMutArr addObject:vc];
     }return _childVCMutArr;
@@ -392,9 +349,9 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
 -(JXCategoryIndicatorLineView *)lineView{
     if (!_lineView) {
         _lineView = JXCategoryIndicatorLineView.new;
-        _lineView.indicatorColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(26), 5)]];
-        _lineView.indicatorHeight = 4*KDeviceScale;
-        _lineView.indicatorWidth = SCALING_RATIO(26);
+        _lineView.indicatorColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(26, 5)]];
+        _lineView.indicatorHeight = 4*1;
+        _lineView.indicatorWidth = 26;
         _lineView.verticalMargin = 4;
     }return _lineView;
 }
@@ -412,16 +369,16 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
         _categoryView.titleColorGradientEnabled = YES;
         _categoryView.indicators = @[self.lineView];//
         _categoryView.defaultSelectedIndex = 1;//默认从第二个开始显示
-        _categoryView.contentEdgeInsetLeft = SCALING_RATIO(130);
-        _categoryView.contentEdgeInsetRight = SCALING_RATIO(130);
-        _categoryView.cellWidth = SCALING_RATIO(40);
+        _categoryView.contentEdgeInsetLeft = 130;
+        _categoryView.contentEdgeInsetRight = 130;
+        _categoryView.cellWidth = 40;
         //关联cotentScrollView，关联之后才可以互相联动！！！
         _categoryView.contentScrollView = self.listContainerView.scrollView;//
         _categoryView.contentScrollView.backgroundColor = [UIColor clearColor];
         [self.view addSubview:_categoryView];
         [_categoryView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
-            make.height.mas_equalTo(SCALING_RATIO(44));
+            make.height.mas_equalTo(44);
             make.top.equalTo(self.listContainerView).offset(rectOfStatusbar());
         }];
         [self.view layoutIfNeeded];
@@ -433,7 +390,7 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
         _monitorNetwoking = [MonitorNetwoking sharedInstance];
         [self.view addSubview:_monitorNetwoking.rateLabel];
         _monitorNetwoking.rateLabel.backgroundColor = kRedColor;
-        _monitorNetwoking.rateLabel.frame = CGRectMake(SCREEN_WIDTH - 71,
+        _monitorNetwoking.rateLabel.frame = CGRectMake(MAINSCREEN_WIDTH - 71,
                                                        300,
                                                        150,
                                                        30);

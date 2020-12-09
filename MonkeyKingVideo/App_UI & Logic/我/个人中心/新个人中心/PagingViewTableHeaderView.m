@@ -24,7 +24,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithColor:MKBakcColor]];
+        _imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithColor:kBlackColor]];
         self.imageView.clipsToBounds = YES;
         self.imageView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
         self.imageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -43,7 +43,7 @@
     if ([SkinManager manager].skin == MKSkinWhite) {
         self.imageView.image = [UIImage imageWithColor:UIColor.whiteColor];
     } else {
-        self.imageView.image = [UIImage imageWithColor:MKBakcColor];
+        self.imageView.image = [UIImage imageWithColor:kBlackColor];
     }
     [self.mkPersonView refreshSkin];
 }

@@ -157,12 +157,17 @@
                       if (sizeof(self.vedioData) <= 300 * 1024 * 1024) { (旧判断吧)
                       */
                           if ([MKUploadingVC mh_getVideolength:[NSURL URLWithString:[NSString stringWithFormat:@"file://%@",self.urlVideo]]] <= 30.f) {
-                              [MBProgressHUD wj_showPlainText:@"请上传超过30秒的视频"
-                              view:self.view];
+  
+                              [WHToast showMessage:@"请上传超过30秒的视频"
+                                          duration:1
+                                     finishHandler:nil];
                           }
                           else if ([MKUploadingVC mh_getVideolength:[NSURL URLWithString:[NSString stringWithFormat:@"file://%@",self.urlVideo]]]  > 300.f) {
-                              [MBProgressHUD wj_showPlainText:@"上传视频的时长不得超过5分钟"
-                              view:self.view];
+    
+                              [WHToast showMessage:@"上传视频的时长不得超过5分钟"
+                                          duration:1
+                                     finishHandler:nil];
+                              
                           } else {
                              
                               NSString *urlString = [NSString stringWithFormat:@"file://%@",self.urlVideo];
@@ -200,13 +205,13 @@
               }
           }];
     [_releaseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-              make.size.mas_equalTo(CGSizeMake(200*SCREEN_W/375, 40));
+              make.size.mas_equalTo(CGSizeMake(200*MAINSCREEN_WIDTH/375, 40));
               make.centerX.equalTo(self.view);
               
-              make.top.equalTo(self.backView.mas_bottom).offset(SCALING_RATIO(50));
+              make.top.equalTo(self.backView.mas_bottom).offset(50);
           }];
           [UIView cornerCutToCircleWithView:_releaseBtn
-                            AndCornerRadius:SCALING_RATIO(20)];
+                            AndCornerRadius:20];
 }
 #pragma mark - 获取视频长度
 +(CGFloat)mh_getVideolength:(NSURL *)videoUrl
@@ -236,7 +241,11 @@
     [self btnClickEvent:self.agreementView.agreementBtn];
     [SceneDelegate sharedInstance].customSYSUITabBarController.lzb_tabBarHidden = NO;
     self.textView.text = @"";
-     [[MKTools shared] showMBProgressViewOnlyTextInView:self.view text:@"上传成功" dissmissAfterDeley:2.0f];
+    
+    [WHToast showMessage:@"上传成功"
+                duration:1
+           finishHandler:nil];
+    
     [self performSelector:@selector(pushMine) withObject:nil afterDelay:2.0];
     
 }
@@ -457,9 +466,9 @@ shouldChangeTextInRange:(NSRange)range
         [self.view addSubview:_backView];
         [_backView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(32);
-            make.top.equalTo(self.choosePicBtn.mas_bottom).offset(SCALING_RATIO(30));
-            make.height.mas_equalTo(SCALING_RATIO(105));
-            make.width.mas_equalTo(309*SCREEN_W/375);
+            make.top.equalTo(self.choosePicBtn.mas_bottom).offset(30);
+            make.height.mas_equalTo(105);
+            make.width.mas_equalTo(309*MAINSCREEN_WIDTH/375);
         }];
     }return _backView;
 }
@@ -478,7 +487,7 @@ shouldChangeTextInRange:(NSRange)range
         [self.backView addSubview:_textView];
         [_textView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.right.equalTo(self.backView);
-            make.height.mas_equalTo(SCALING_RATIO(100));
+            make.height.mas_equalTo(100);
         }];
     }return _textView;
 }
@@ -492,8 +501,8 @@ shouldChangeTextInRange:(NSRange)range
 //                                                                                      NSForegroundColorAttributeName:HEXCOLOR(0x242A37)}];
         [self.backView addSubview:_tipsLab];
         [_tipsLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.bottom.equalTo(self.backView).offset(SCALING_RATIO(-6));
-            make.top.equalTo(self.textView.mas_bottom).offset(SCALING_RATIO(-6));
+            make.right.bottom.equalTo(self.backView).offset(-6);
+            make.top.equalTo(self.textView.mas_bottom).offset(-6);
         }];
     }return _tipsLab;
 }
@@ -505,12 +514,13 @@ shouldChangeTextInRange:(NSRange)range
        
         [self.view addSubview:_choosePicBtn];
         [_choosePicBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(130), SCALING_RATIO(130)));
-            make.left.equalTo(self.view).offset(SCALING_RATIO(32));
-            if (iPhoneX | iPhoneScreen_XSMAX | iPhoneScreen_X_XS | iPhoneScreen_XR) {
-                 make.top.mas_equalTo(SCALING_RATIO(47+88));
+            make.size.mas_equalTo(CGSizeMake(130, 130));
+            make.left.equalTo(self.view).offset(32);
+            
+            if (isiPhoneX_series()) {
+                 make.top.mas_equalTo(47+88);
             } else {
-                 make.top.mas_equalTo(SCALING_RATIO(47+64));
+                 make.top.mas_equalTo(47+64);
             }
            
         }];
@@ -566,11 +576,17 @@ shouldChangeTextInRange:(NSRange)range
     //                    if (length/1024/1024 <= 10.0f) {
                         
                             if ([MKUploadingVC mh_getVideolength:[NSURL URLWithString:[NSString stringWithFormat:@"file://%@",self.urlVideo]]] <= 10.f) {
-                                [MBProgressHUD wj_showPlainText:@"请上传超过10秒的视频"
-                                view:self.view];
+             
+                                [WHToast showMessage:@"请上传超过10秒的视频"
+                                            duration:1
+                                       finishHandler:nil];
+                                
                             }  else if (dataSize > 300) {
-                                [MBProgressHUD wj_showPlainText:@"上传视频的不能超过300M"
-                                view:self.view];
+            
+                                [WHToast showMessage:@"上传视频的不能超过300M"
+                                            duration:1
+                                       finishHandler:nil];
+                                
                             } else {
                                 NSString *urlString = [NSString stringWithFormat:@"file://%@",self.urlVideo];
 //                                [self videosUploadNetworkingWithData:self.vedioData
@@ -583,11 +599,8 @@ shouldChangeTextInRange:(NSRange)range
                         [NSObject Login];
                     }
                 } else {
-                    DLog(@"没有视频播放地址");
+ 
                 }
-                //这里先鉴定是否已经登录？
-                DLog(@"登录成功%@",[MKPublickDataManager sharedPublicDataManage].mkLoginModel.token);
-            
             }else{
              
                 if(self.agreementView.agreementBtn.selected == YES){
@@ -612,19 +625,22 @@ shouldChangeTextInRange:(NSRange)range
                                   }];
                               }
                 }else {
-                    [[MKTools shared] showMBProgressViewOnlyTextInView:self.view text:@"请确认勾选上传须知" dissmissAfterDeley:2.0f];
+                    
+                    [WHToast showMessage:@"请确认勾选上传须知"
+                                duration:1
+                           finishHandler:nil];
                 }
             }
         }];
         [self.view addSubview:_releaseBtn];
         [_releaseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(200*SCREEN_W/375, 40));
+            make.size.mas_equalTo(CGSizeMake(200*MAINSCREEN_WIDTH/375, 40));
             make.centerX.equalTo(self.view);
             
-            make.top.equalTo(self.backView.mas_bottom).offset(SCALING_RATIO(50));
+            make.top.equalTo(self.backView.mas_bottom).offset(50);
         }];
         [UIView cornerCutToCircleWithView:_releaseBtn
-                          AndCornerRadius:SCALING_RATIO(20)];
+                          AndCornerRadius:20];
       [self.view addSubview:_releaseBtn];
     }return _releaseBtn;
 }
@@ -669,7 +685,7 @@ shouldChangeTextInRange:(NSRange)range
     if (!_actionBtn) {
         _actionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _actionBtn.backgroundColor = [UIColor clearColor];
-        _actionBtn.frame = CGRectMake(0, 0, SCREEN_W, SCREEN_H);
+        _actionBtn.frame = CGRectMake(0, 0, MAINSCREEN_WIDTH, MAINSCREEN_HEIGHT);
     }
     return _actionBtn;
 }

@@ -52,7 +52,7 @@
 //
 //        [self.view sendSubviewToBack:self.pagerView];
 //    }
-    if (self.mkScrollFLoat >= JXTableHeaderViewHeight - kStatusBarHeight - kNavigationBarHeight) {
+    if (self.mkScrollFLoat >= JXTableHeaderViewHeight - rectOfStatusbar() - 44) {
         self.gk_navigationBar.hidden = 1;
         
     } else {
@@ -89,7 +89,7 @@
     WeakSelf
     [self getDataUserData:self.requestParams[@"videoid"] Block:^(id data) {
         
-        [weakSelf.pagerView.mainTableView.mj_header endRefreshing];
+//        [weakSelf.pagerView.mainTableView.mj_header endRefreshing];
         
         if ((Boolean)data) {
             
@@ -107,7 +107,7 @@
     }];
 }
 - (void)mkAddView{
-    self.view.backgroundColor = MKBakcColor;
+    self.view.backgroundColor = kBlackColor;
     self.navigationController.navigationBar.translucent = false;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     NSString *madeStr = [NSString stringWithFormat:@"作 品 %@",self.mkPernalModel.publicVideoNum];
@@ -123,7 +123,7 @@
         self.categoryView.titleFont = [UIFont systemFontOfSize:18 weight:UIFontWeightRegular];
         self.categoryView.titleSelectedFont = [UIFont systemFontOfSize:22 weight:UIFontWeightRegular];
         self.categoryView.titleSelectedColor = [[MKTools shared] getColorWithColor:RGBCOLOR(247,131,97) andCoe:0.3 andEndColor:RGBCOLOR(245,75,100)];//[UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(50, 25)]];;
-        self.categoryView.cellWidth = SCALING_RATIO(135);
+        self.categoryView.cellWidth = 135;
         self.categoryView.titleColor = HEXCOLOR(0x999999);
         self.userHeaderView.backgroundColor = UIColor.whiteColor;
         self.pagerView.backgroundColor = UIColor.whiteColor;
@@ -135,9 +135,9 @@
         
         self.pagerView.listContainerView.listCellBackgroundColor = UIColor.whiteColor;
         JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
-        lineView.indicatorColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(135), 3*KDeviceScale)]];;;
-        lineView.indicatorWidth = SCALING_RATIO(135);
-        lineView.indicatorHeight = 3*KDeviceScale;
+        lineView.indicatorColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(135, 3*1)]];;;
+        lineView.indicatorWidth = 135;
+        lineView.indicatorHeight = 3*1;
         self.categoryView.indicators = @[lineView];
 
         self.pagerView.mainTableView.gestureDelegate = self;
@@ -184,29 +184,31 @@
     @weakify(self)
     [_userHeaderView.mkPersonView.mkFansNumView.mkButton addAction:^(UIButton *btn) {
         if (![MKTools mkLoginIsYESWith:weak_self]) { return; }
-        
-        [MKAttentionVC ComingFromVC:weak_self
-                        comingStyle:ComingStyle_PUSH
-                  presentationStyle:UIModalPresentationAutomatic
-                      requestParams:@{
-                          @"mkType":@(3),
-                          @"dataModel":weak_self.mkPernalModel
-                      }
-                            success:^(id data) {}
-                           animated:YES];
+
+        [UIViewController comingFromVC:self
+                                  toVC:MKAttentionVC.new
+                           comingStyle:ComingStyle_PUSH
+                     presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                         requestParams:@{@"mkType":@(3),
+                                         @"dataModel":weak_self.mkPernalModel}
+              hidesBottomBarWhenPushed:YES
+                              animated:YES
+                               success:^(id data) {}];
     }];
     
     [_userHeaderView.mkPersonView.mkAttentionNumView.mkButton addAction:^(UIButton *btn) {
         if (![MKTools mkLoginIsYESWith:weak_self]) { return; }
+    
+        [UIViewController comingFromVC:self
+                                  toVC:MKAttentionVC.new
+                           comingStyle:ComingStyle_PUSH
+                     presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                         requestParams:@{@"mkType":@(2),
+                                         @"dataModel":weak_self.mkPernalModel}
+              hidesBottomBarWhenPushed:YES
+                              animated:YES
+                               success:^(id data) {}];
         
-        [MKAttentionVC ComingFromVC:weak_self
-                        comingStyle:ComingStyle_PUSH
-                  presentationStyle:UIModalPresentationAutomatic
-                      requestParams:@{
-                          @"mkType":@(2),@"dataModel":weak_self.mkPernalModel
-                      }
-                            success:^(id data) {}
-                           animated:YES];
     }];
     
     [self.userHeaderView.mkPersonView.mkAttentionBtn addTarget:self action:@selector(attentionBtnClickEvent:) forControlEvents:UIControlEventTouchUpInside];
@@ -239,7 +241,7 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
 
-    self.pagerView.frame = CGRectMake(0,kStatusBarHeight, self.view.bounds.size.width, self.view.bounds.size.height- kStatusBarHeight);
+    self.pagerView.frame = CGRectMake(0,rectOfStatusbar(), self.view.bounds.size.width, self.view.bounds.size.height- rectOfStatusbar());
 }
 
 #pragma mark - JXPagerViewDelegate
@@ -267,7 +269,7 @@
 - (void)pagerView:(JXPagerView *)pagerView mainTableViewDidScroll:(UIScrollView *)scrollView{
 //      NSLog(@"🌲🌲🌲🌲🌲🌲%@",@(scrollView.contentOffset.y));
     self.mkScrollFLoat = scrollView.contentOffset.y;
-    if (self.mkScrollFLoat >= JXTableHeaderViewHeight - kStatusBarHeight - kNavigationBarHeight) {
+    if (self.mkScrollFLoat >= JXTableHeaderViewHeight - rectOfStatusbar() - 44) {
         self.gk_navigationBar.hidden = 1;
         
     } else {
@@ -351,7 +353,9 @@
 #pragma mark - 关注
 -(void)attentionBtnClickEvent:(UIButton *)sender{
     if([self.mkPernalModel.areSelf isEqualToString:@"1"]){
-        [MBProgressHUD wj_showError:@"用户不能对自己进行关注"];
+        [WHToast showMessage:@"用户不能对自己进行关注"
+                    duration:1
+               finishHandler:nil];
         return;
     }
     
@@ -427,7 +431,9 @@
 -(void)report{
     WeakSelf
     if (![MKTools mkLoginIsYESWith:weakSelf WithiSNeedLogin:YES]) {
-        [MBProgressHUD wj_showPlainText:@"正在开发中" view:self.view];
+        [WHToast showMessage:@"正在开发中"
+                    duration:1
+               finishHandler:nil];
     }
 }
 #pragma mark - 黑名单
@@ -438,9 +444,13 @@
     }else{
         [self requestAddBlackListWith:self.mkPernalModel.id WithBlock:^(id data) {
               if ((Boolean)data) {
-                  [MBProgressHUD wj_showSuccess:@"加入黑名单成功"];
+                  [WHToast showMessage:@"加入黑名单成功"
+                              duration:1
+                         finishHandler:nil];
               }else{
-                  [MBProgressHUD wj_showSuccess:@"加入黑名单失败"];
+                  [WHToast showMessage:@"加入黑名单失败"
+                              duration:1
+                         finishHandler:nil];
               }
           }];
     }

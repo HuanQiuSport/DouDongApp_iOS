@@ -13,7 +13,7 @@
     ///
     NSDictionary *easyDict = @{
         @"type":@"0",
-        @"beginDate":[NSObject getToday],
+        @"beginDate":[TimeModel.new getDayWithDate:nil dateFormatStr:@"yyyy-MM-dd"],
         @"pageSize":@(10),
         @"pageNum":@(self.page)
     };//流水类型(0-金币流水，1-余额流水)
@@ -47,11 +47,11 @@
                 }
                 [self.tableView reloadData];
             }
-            else
-            {
-                [[MKTools shared] showMBProgressViewOnlyTextInView:self.view text:response.reqResult dissmissAfterDeley:1.5f];
+            else{
+                [WHToast showMessage:response.reqResult
+                            duration:1
+                       finishHandler:nil];
             }
-            
 //            [self.tableView.mj_header endRefreshing];
 //            [self.tableView.mj_footer endRefreshing];
 //            self.tableView.mj_footer.hidden = YES;

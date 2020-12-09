@@ -21,7 +21,7 @@
 + (instancetype)show:(id)delegate{
     
     UIWindow *window = getMainWindow();
-    MKActionView *view = [[MKActionView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_W, SCREEN_H)];
+    MKActionView *view = [[MKActionView alloc]initWithFrame:CGRectMake(0, 0, MAINSCREEN_WIDTH, MAINSCREEN_HEIGHT)];
     view.delegate = delegate;
     [window addSubview:view];
     
@@ -69,14 +69,14 @@
     
     _shadow = [[UIButton alloc]init];
     _shadow.alpha = 0.4;
-    _shadow.frame = CGRectMake(0, 0, SCREEN_W, SCREEN_H);
+    _shadow.frame = CGRectMake(0, 0, MAINSCREEN_WIDTH, MAINSCREEN_HEIGHT);
     _shadow.backgroundColor = [UIColor blackColor];
     [_shadow addTarget:self action:@selector(shadowEvent) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_shadow];
     
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = kWhiteColor;//COLOR_HEX(0x1F242F, 1);
-    view.frame = CGRectMake((SCREEN_W-260)/2, (SCREEN_H-100)/2, 260, 100);
+    view.frame = CGRectMake((MAINSCREEN_WIDTH-260)/2, (MAINSCREEN_HEIGHT-100)/2, 260, 100);
     view.layer.cornerRadius = 5;
     [self addSubview:view];
     

@@ -45,14 +45,14 @@
 - (void)mkLayOutView{
     [self.mkTitleLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_centerY);
-        make.left.equalTo(self.mas_left).offset(15*KDeviceScale);
+        make.left.equalTo(self.mas_left).offset(15*1);
     }];
     
     [self.mkSwich  mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_centerY);
-        make.right.equalTo(self.mas_right).offset(-5*KDeviceScale);
-//        make.width.equalTo(@(85*KDeviceScale));
-//        make.height.equalTo(@(20*KDeviceScale));
+        make.right.equalTo(self.mas_right).offset(-5*1);
+//        make.width.equalTo(@(85*1));
+//        make.height.equalTo(@(20*1));
     }];
     
     [self.mkSwich addTarget:self action:@selector(didClickSwitch) forControlEvents:UIControlEventValueChanged];

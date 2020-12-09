@@ -16,12 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong,nonatomic) MKPersonalLikeModel *mkLikeModel;
 /// 用户信息model
 @property (strong,nonatomic) MKPersonalnfoModel *mkPernalModel;
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated;
+
 - (void)requestData;
 @end
 

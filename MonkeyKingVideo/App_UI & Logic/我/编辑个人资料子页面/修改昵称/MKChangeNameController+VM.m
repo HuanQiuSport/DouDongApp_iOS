@@ -20,7 +20,7 @@
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:@"/app/login/sendSmsCode"//[URL_Manager sharedInstance].MKUserInfoGET
                                                      parameters:easyDict];
-    DLog(@"绑定手机号请求%@",easyDict);
+
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         NSLog(@"打印成功信息--%@",response.reqResult);

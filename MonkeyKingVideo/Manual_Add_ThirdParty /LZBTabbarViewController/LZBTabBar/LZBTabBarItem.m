@@ -39,7 +39,7 @@
                                  NSForegroundColorAttributeName: kWhiteColor,};
 
     _selectTitleAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize:13],
-                               NSForegroundColorAttributeName:[UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(24.5), 14)]]};
+                               NSForegroundColorAttributeName:[UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(24.5, 14)]]};
 }
 
 -(void)drawRect:(CGRect)rect{

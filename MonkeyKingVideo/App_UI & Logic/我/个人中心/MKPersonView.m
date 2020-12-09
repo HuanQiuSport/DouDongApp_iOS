@@ -81,7 +81,7 @@
     [self.topLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.mas_left);
         make.right.mas_equalTo(self.mas_right);
-        make.top.mas_equalTo(self.mas_top).offset(kNavigationBarHeight);
+        make.top.mas_equalTo(self.mas_top).offset(44);
         make.height.mas_equalTo(@(8));
     }];
     
@@ -116,7 +116,7 @@
         
         _mkUserImageView.image = [UIImage imageNamed:@"default_avatar_white.jpg"];
         
-        _mkUserImageView.layer.cornerRadius = 33 *KDeviceScale;
+        _mkUserImageView.layer.cornerRadius = 33 *1;
         
         _mkUserImageView.layer.masksToBounds = YES;
         
@@ -126,11 +126,11 @@
         
         [_mkUserImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.width.height.equalTo(@(66 *KDeviceScale));
+            make.width.height.equalTo(@(66 *1));
             
-            make.top.equalTo(@(kNavigationBarHeight + 20 * KDeviceScale));
+            make.top.equalTo(@(44 + 20 * 1));
             
-            make.left.equalTo(@(16 *KDeviceScale));
+            make.left.equalTo(@(16 *1));
             
         }];
     }
@@ -147,10 +147,10 @@
         
         [_mkUserVIPImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.width.equalTo(@(19 *KDeviceScale));
-            make.height.equalTo(@(17 *KDeviceScale));
+            make.width.equalTo(@(19 *1));
+            make.height.equalTo(@(17 *1));
             
-            make.left.equalTo(self.mkUserLabel.mas_right).offset(6*KDeviceScale);
+            make.left.equalTo(self.mkUserLabel.mas_right).offset(6*1);
             make.centerY.equalTo(self.mkUserLabel.mas_centerY).offset(0);
             
         }];
@@ -177,13 +177,13 @@
         
         [_mkUserLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.left.equalTo(@(16 *KDeviceScale));
+            make.left.equalTo(@(16 *1));
             
-            //            make.right.equalTo(@(-16 *KDeviceScale));
+            //            make.right.equalTo(@(-16 *1));
             
-            make.top.equalTo(self.mkUserImageView.mas_bottom).offset(3*KDeviceScale);
+            make.top.equalTo(self.mkUserImageView.mas_bottom).offset(3*1);
             
-            make.left.equalTo(@(16 *KDeviceScale));
+            make.left.equalTo(@(16 *1));
             
         }];
     }
@@ -208,11 +208,11 @@
         
         [_mkDetailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.right.equalTo(@(-16 *KDeviceScale));
+            make.right.equalTo(@(-16 *1));
             
-            make.top.equalTo(self.mkUserImageView.mas_bottom).offset(35*KDeviceScale);
+            make.top.equalTo(self.mkUserImageView.mas_bottom).offset(35*1);
             
-            make.left.equalTo(@(16 *KDeviceScale));
+            make.left.equalTo(@(16 *1));
             
         }];
     }
@@ -230,7 +230,7 @@
         //
         //        [_mkAttentionBtn setTitle:@"关 注" forState:UIControlStateNormal];
         
-        _mkAttentionBtn.layer.cornerRadius = 14.5 *KDeviceScale;
+        _mkAttentionBtn.layer.cornerRadius = 14.5 *1;
         
         _mkAttentionBtn.layer.masksToBounds = YES;
         
@@ -238,13 +238,13 @@
         
         [_mkAttentionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.width.equalTo(@(193 *KDeviceScale));
+            make.width.equalTo(@(193 *1));
             
-            make.height.equalTo(@(29 *KDeviceScale));
+            make.height.equalTo(@(29 *1));
             
-            make.top.equalTo(@(kNavigationBarHeight + 20 * KDeviceScale + 4));
+            make.top.equalTo(@(44 + 20 * 1 + 4));
             
-            make.left.equalTo(@(91 *KDeviceScale));
+            make.left.equalTo(@(91 *1));
             
         }];
         _mkAttentionBtn.hidden = YES;
@@ -260,7 +260,7 @@
         
         [_mkAttentionBtn setBackgroundImage:[UIImage imageWithColor:UIColor.whiteColor] forState:UIControlStateNormal];
         
-        _mkAttentionBtn.layer.cornerRadius = 14.5 *KDeviceScale;
+        _mkAttentionBtn.layer.cornerRadius = 14.5 *1;
         
         _mkAttentionBtn.layer.masksToBounds = YES;
         
@@ -273,7 +273,7 @@
     }else{
         [_mkAttentionBtn setBackgroundImage:KIMG(@"画板") forState:UIControlStateNormal];
         
-        _mkAttentionBtn.layer.cornerRadius = 14.5 *KDeviceScale;
+        _mkAttentionBtn.layer.cornerRadius = 14.5 *1;
         
         _mkAttentionBtn.layer.masksToBounds = YES;
         
@@ -297,11 +297,11 @@
         
         [_mkAttentionNumView mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.width.equalTo(@(100 *KDeviceScale));
+            make.width.equalTo(@(100 *1));
             
-            make.height.equalTo(@(41 *KDeviceScale));
+            make.height.equalTo(@(41 *1));
             
-            make.left.equalTo(@([UIScreen mainScreen].bounds.size.width/4.0 - KDeviceScale * 75 ));
+            make.left.equalTo(@([UIScreen mainScreen].bounds.size.width/4.0 - 1 * 75 ));
             
             make.top.equalTo(self.mkUserImageView.mas_bottom).offset(18);
             
@@ -325,11 +325,11 @@
         
         [_mkFansNumView mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.width.equalTo(@(100 * KDeviceScale));
+            make.width.equalTo(@(100 * 1));
             
-            make.height.equalTo(@(41 * KDeviceScale));
+            make.height.equalTo(@(41 * 1));
             
-            make.left.equalTo(@([UIScreen mainScreen].bounds.size.width/2.0 - 50 * KDeviceScale ));
+            make.left.equalTo(@([UIScreen mainScreen].bounds.size.width/2.0 - 50 * 1 ));
             
             make.top.equalTo(self.mkUserImageView.mas_bottom).offset(18);
             
@@ -356,11 +356,11 @@
         
         [_mkZanNumView mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.width.equalTo(@(100 * KDeviceScale));
+            make.width.equalTo(@(100 * 1));
             
-            make.height.equalTo(@(41 * KDeviceScale));
+            make.height.equalTo(@(41 * 1));
             
-            make.left.equalTo(@( x - 25 * KDeviceScale ));
+            make.left.equalTo(@( x - 25 * 1 ));
             
             make.top.equalTo(self.mkUserImageView.mas_bottom).offset(18);
             
@@ -387,13 +387,13 @@
          [self setOtherStyle:_mkSexAge];
         [_mkSexAge mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.width.equalTo(@(60 * KDeviceScale));
+            make.width.equalTo(@(60 * 1));
             
-            make.height.equalTo(@(22 * KDeviceScale));
+            make.height.equalTo(@(22 * 1));
             
             make.left.equalTo(self.mkAttentionBtn.mas_left);
             
-            make.top.equalTo(self.mkAttentionBtn.mas_bottom).offset(7*KDeviceScale);
+            make.top.equalTo(self.mkAttentionBtn.mas_bottom).offset(7*1);
             
         }];
     }
@@ -418,11 +418,11 @@
         
         [_mkConstellationLab mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.width.equalTo(@(60 * KDeviceScale));
+            make.width.equalTo(@(60 * 1));
             
-            make.height.equalTo(@(22* KDeviceScale));
+            make.height.equalTo(@(22* 1));
             
-            make.left.equalTo(self.mkArea.mas_right).offset(8*KDeviceScale);
+            make.left.equalTo(self.mkArea.mas_right).offset(8*1);
             
             make.top.equalTo(self.mkSexAge.mas_top);
             
@@ -461,11 +461,11 @@
         
         [_mkArea mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.width.greaterThanOrEqualTo(@(60 * KDeviceScale));
+            make.width.greaterThanOrEqualTo(@(60 * 1));
             
-            make.height.equalTo(@(22 * KDeviceScale));
+            make.height.equalTo(@(22 * 1));
             
-            make.left.equalTo(self.mkSexAge.mas_right).offset(8*KDeviceScale);
+            make.left.equalTo(self.mkSexAge.mas_right).offset(8*1);
             
             make.top.equalTo(self.mkSexAge.mas_top);
             
@@ -480,36 +480,36 @@
     self.mkUserImageView.alpha = 1;
     self.mkUserLabel.alpha = 1;
     [self.mkAttentionNumView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@(100 *KDeviceScale));
+        make.width.equalTo(@(100 *1));
         
-        make.height.equalTo(@(41 *KDeviceScale));
+        make.height.equalTo(@(41 *1));
         
-        make.left.equalTo(@([UIScreen mainScreen].bounds.size.width/4.0 - KDeviceScale * 75 ));
+        make.left.equalTo(@([UIScreen mainScreen].bounds.size.width/4.0 - 1 * 75 ));
         
-        make.top.mas_equalTo(self.mkDetailLabel.mas_bottom).offset(30*KDeviceHeightScale);
+        make.top.mas_equalTo(self.mkDetailLabel.mas_bottom).offset(30);
     }];
     
     [self.mkFansNumView mas_remakeConstraints:^(MASConstraintMaker *make) {
         
-        make.width.equalTo(@(100 * KDeviceScale));
+        make.width.equalTo(@(100 * 1));
         
-        make.height.equalTo(@(41 * KDeviceScale));
+        make.height.equalTo(@(41 * 1));
         
-        make.left.equalTo(@([UIScreen mainScreen].bounds.size.width/2.0 - 50 * KDeviceScale ));
+        make.left.equalTo(@([UIScreen mainScreen].bounds.size.width/2.0 - 50 * 1 ));
         
-        make.top.mas_equalTo(self.mkDetailLabel.mas_bottom).offset(30*KDeviceHeightScale);
+        make.top.mas_equalTo(self.mkDetailLabel.mas_bottom).offset(30);
         
     }];
     CGFloat x = ( [UIScreen mainScreen].bounds.size.width/4.0)  * 3 ;
     [self.mkZanNumView mas_remakeConstraints:^(MASConstraintMaker *make) {
         
-        make.width.equalTo(@(100 * KDeviceScale));
+        make.width.equalTo(@(100 * 1));
         
-        make.height.equalTo(@(41 * KDeviceScale));
+        make.height.equalTo(@(41 * 1));
         
-        make.left.equalTo(@( x - 25 * KDeviceScale ));
+        make.left.equalTo(@( x - 25 * 1 ));
         
-        make.top.mas_equalTo(self.mkDetailLabel.mas_bottom).offset(30*KDeviceHeightScale);
+        make.top.mas_equalTo(self.mkDetailLabel.mas_bottom).offset(30);
         
     }];
     self.mkMultiBtnView.hidden = YES;
@@ -519,50 +519,50 @@
     self.mkUserLabel.alpha = 1;
 #pragma mark - 重新布局
     [self.mkUserLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mkUserImageView.mas_right).offset(10*KDeviceScale);
+        make.left.equalTo(self.mkUserImageView.mas_right).offset(10*1);
         make.top.equalTo(self.mkUserImageView.mas_top);
     }];
     //
     [self.mkDetailLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mkUserImageView.mas_right).offset(10*KDeviceScale);
-        make.top.equalTo(self.mkUserLabel.mas_bottom).offset(30*KDeviceScale);
-        make.right.equalTo(self.mkDetailLabel.superview.mas_right).offset(16*KDeviceScale);
+        make.left.equalTo(self.mkUserImageView.mas_right).offset(10*1);
+        make.top.equalTo(self.mkUserLabel.mas_bottom).offset(30*1);
+        make.right.equalTo(self.mkDetailLabel.superview.mas_right).offset(16*1);
     }];
     
 #pragma mark - 更新新布局
     [self.mkSexAge mas_remakeConstraints:^(MASConstraintMaker *make) {
         
-        make.width.equalTo(@(60 * KDeviceScale));
+        make.width.equalTo(@(60 * 1));
         
-        make.height.equalTo(@(22 * KDeviceScale));
+        make.height.equalTo(@(22 * 1));
         
-        make.left.equalTo(self.mkUserImageView.mas_right).offset(10*KDeviceScale);
+        make.left.equalTo(self.mkUserImageView.mas_right).offset(10*1);
         
-        make.centerY.equalTo(self.mkUserImageView.mas_centerY).offset(4*KDeviceScale);
+        make.centerY.equalTo(self.mkUserImageView.mas_centerY).offset(4*1);
         
     }];
     
     [self.mkArea mas_remakeConstraints:^(MASConstraintMaker *make) {
         
-        make.width.greaterThanOrEqualTo(@(60 * KDeviceScale));
+        make.width.greaterThanOrEqualTo(@(60 * 1));
         
-        make.height.equalTo(@(22 * KDeviceScale));
+        make.height.equalTo(@(22 * 1));
         
-        make.left.equalTo(self.mkSexAge.mas_right).offset(8*KDeviceScale);
+        make.left.equalTo(self.mkSexAge.mas_right).offset(8*1);
         
-        make.centerY.equalTo(self.mkUserImageView.mas_centerY).offset(4*KDeviceScale);
+        make.centerY.equalTo(self.mkUserImageView.mas_centerY).offset(4*1);
         
     }];
     
     [self.mkConstellationLab mas_remakeConstraints:^(MASConstraintMaker *make) {
         
-        make.width.equalTo(@(60 * KDeviceScale));
+        make.width.equalTo(@(60 * 1));
         
-        make.height.equalTo(@(22 * KDeviceScale));
+        make.height.equalTo(@(22 * 1));
         
-        make.left.equalTo(self.mkArea.mas_right).offset(8*KDeviceScale);
+        make.left.equalTo(self.mkArea.mas_right).offset(8*1);
         
-        make.centerY.equalTo(self.mkUserImageView.mas_centerY).offset(4*KDeviceScale);
+        make.centerY.equalTo(self.mkUserImageView.mas_centerY).offset(4*1);
         
     }];
 
@@ -593,10 +593,10 @@
         [self addSubview:_mkMultiBtnView];
         
         [_mkMultiBtnView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(@(10*KDeviceScale));
-            make.right.equalTo(@(-10*KDeviceScale));
-            make.height.equalTo(@(67*KDeviceScale));
-            make.top.mas_equalTo(_mkFansNumView.mas_bottom).offset(20*KDeviceHeightScale);
+            make.left.equalTo(@(10*1));
+            make.right.equalTo(@(-10*1));
+            make.height.equalTo(@(67*1));
+            make.top.mas_equalTo(_mkFansNumView.mas_bottom).offset(20);
         }];
     }
     return _mkMultiBtnView;
@@ -610,22 +610,28 @@
         [self addSubview:_mkBanerView];
         
         [_mkBanerView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(@(0*KDeviceScale));
-            make.right.equalTo(@(-0*KDeviceScale));
-            make.height.equalTo(@(84*KDeviceScale));
-            make.top.mas_equalTo(_mkMultiBtnView.mas_bottom).offset(10*KDeviceHeightScale);
+            make.left.equalTo(@(0*1));
+            make.right.equalTo(@(-0*1));
+            make.height.equalTo(@(84*1));
+            make.top.mas_equalTo(_mkMultiBtnView.mas_bottom).offset(10);
         }];
         [_mkBanerView addAction:^(UIButton *btn) {
-            NSURL * url = [NSURL URLWithString:@"tingyun.75://"];
-            BOOL canOpen = [[UIApplication sharedApplication] canOpenURL:url];
-            //先判断是否能打开该url
-            if (canOpen){//打开微信
-                [[UIApplication sharedApplication] openURL:url];
-            }else {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mkSkipHQAppString]
-                                                   options:@{}
-                                         completionHandler:nil];
+            [NSObject OpenURL:@"tingyun.75://"
+                      options:@{}
+        completionOpenSuccessHandler:^{
+                //TODO
             }
+        completionOpenFailHandler:^{
+                [NSObject OpenURL:mkSkipHQAppString
+                          options:@{}
+            completionOpenSuccessHandler:^{
+                    //TODO
+                }
+            completionOpenFailHandler:^{
+                    //TODO
+            //        [NSURL URLWithString:mkSkipHQAppString]
+                }];
+            }];
         }];
     }
     return _mkBanerView;
@@ -642,9 +648,9 @@
         
         [self addSubview:_mkEditorBtn];
         [_mkEditorBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.mas_right).offset(-10*KDeviceScale);
+            make.right.equalTo(self.mas_right).offset(-10*1);
             make.centerY.equalTo(self.mkUserLabel.mas_centerY).offset(0);
-            make.width.height.equalTo(@(50 *KDeviceScale));
+            make.width.height.equalTo(@(50 *1));
         }];
     }
     return _mkEditorBtn;

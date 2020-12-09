@@ -58,23 +58,11 @@ NS_ASSUME_NONNULL_BEGIN
 +(void)mkSetStyleLabel08:(UILabel *)mkLabel;
 +(void)mkSetStyleLabel07:(UILabel *)mkLabel;
 #pragma mark ---------------- loading加載圈 ----------------
-///添加加载圈
-- (void)showLoadingView:(UIView *)view;
 ///添加上传加载圈
 - (void)addLoadingInViewForUploadWithText:(NSString *)textstr;
 - (void)dimssLoadingHUB;
-///添加加载圈
-- (void)addLoadingInView:(UIView *)view;
-///隐藏加载圈
-- (void)dissmissLoadingInView:(UIView *)view
-                     animated:(BOOL)animated;
-/**
- * 加载圈
- * @param view  加载圈父及时图
- * @param text 文本
- * @param time 加载时间
- */
-- (void)showMBProgressViewOnlyTextInView:(UIView *)view text:(NSString *)text dissmissAfterDeley:(NSTimeInterval)time;
+
+
 #pragma mark ----------------  设置背景色 ----------------
 // 设置渐变色
 - (UIColor *)getColorWithColor:(UIColor *)beginColor andCoe:(double)coe  andEndColor:(UIColor *)endColor;

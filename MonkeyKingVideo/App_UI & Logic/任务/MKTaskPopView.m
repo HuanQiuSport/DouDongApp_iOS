@@ -74,7 +74,7 @@
 
 -(UIView *)bgView{
     if (!_bgView) {
-        _bgView = [[UIView alloc]initWithFrame:CGRectMake(0,49, SCREEN_W, SCREEN_H/2)];
+        _bgView = [[UIView alloc]initWithFrame:CGRectMake(0,49, MAINSCREEN_WIDTH, MAINSCREEN_HEIGHT/2)];
         _bgView.backgroundColor = [UIColor clearColor];
         _bgView.transform = CGAffineTransformScale(_bgView.transform, 0.001, 0.001);
     }
@@ -83,7 +83,7 @@
 
 -(UIButton *)closeBtn{
     if (!_closeBtn) {
-        _closeBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_W-KDeviceScale*57, KDeviceScale*60, 36, 36)];
+        _closeBtn = [[UIButton alloc]initWithFrame:CGRectMake(MAINSCREEN_WIDTH-1*57, 1*60, 36, 36)];
         [_closeBtn setImage:KIMG(@"登录注册关闭@3x") forState:UIControlStateNormal];
         [_closeBtn addTarget:self action:@selector(removeAlertView) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -93,18 +93,18 @@
 -(UIImageView *)vipImgView{
     if (!_vipImgView) {
         _vipImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_task_baoxiang"]];
-        _vipImgView.frame = CGRectMake(0, 0, SCREEN_W, SCREEN_W-20) ;
+        _vipImgView.frame = CGRectMake(0, 0, MAINSCREEN_WIDTH, MAINSCREEN_WIDTH-20) ;
         NSString *text = [NSString stringWithFormat:@"%@抖币",parameter];
 
         NSInteger fontSize1 = 42; // 金币数量
         NSInteger fontSize2 = 18; // 标题
         CGFloat fontRatio = 0.3;//基线偏移比率
 
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0,_vipImgView.bounds.size.height - KDeviceScale*80, SCREEN_W, 60)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0,_vipImgView.bounds.size.height - 1*80, MAINSCREEN_WIDTH, 60)];
         label.textAlignment = NSTextAlignmentCenter;
         [_vipImgView addSubview:label];
 //        [label mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.bottom.equalTo(self.vipImgView.mas_bottom).offset(-(21*KDeviceScale));
+//            make.bottom.equalTo(self.vipImgView.mas_bottom).offset(-(21*1));
 //            make.left.equalTo(_bgView).offset(0);
 //            make.right.equalTo(_bgView).offset(0);
 //        }];
@@ -126,7 +126,7 @@
 
         label.attributedText = attributedStringM;
 
-        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0,_vipImgView.bounds.size.height - KDeviceScale*110, SCREEN_W, 60)];//UILabel.new;
+        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0,_vipImgView.bounds.size.height - 1*110, MAINSCREEN_WIDTH, 60)];//UILabel.new;
         [_vipImgView addSubview:lab];
 //        [lab mas_makeConstraints:^(MASConstraintMaker *make) {
 //            make.bottom.equalTo(label.mas_top).offset(8);
@@ -143,7 +143,7 @@
 
 -(UIButton *)openVipBtn{
     if (!_openVipBtn) {
-        _openVipBtn = [[UIButton alloc]initWithFrame:CGRectMake(KDeviceScale*57, SCREEN_H/2-42, SCREEN_W - (KDeviceScale*57)*2, 42)];
+        _openVipBtn = [[UIButton alloc]initWithFrame:CGRectMake(1*57, MAINSCREEN_HEIGHT/2-42, MAINSCREEN_WIDTH - (1*57)*2, 42)];
         _openVipBtn.backgroundColor = RGBCOLOR(255,125,0);
         [_openVipBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
         _openVipBtn.titleLabel.font = [UIFont systemFontOfSize:16];

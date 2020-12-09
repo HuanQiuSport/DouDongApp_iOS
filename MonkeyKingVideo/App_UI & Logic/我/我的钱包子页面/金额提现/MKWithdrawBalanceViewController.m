@@ -12,10 +12,7 @@
 #import "MKWithdrawSucessVC.h"
 
 @interface MKWithdrawBalanceViewController ()
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,copy)MKDataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
+
 @property (nonatomic, strong) UIScrollView *mScrollView;
 @property (nonatomic, strong) UIImageView *topImageView;
 @property (nonatomic, strong) UILabel *statusLab;
@@ -34,45 +31,6 @@
 
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
-}
-
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated{
-    MKWithdrawBalanceViewController *vc = MKWithdrawBalanceViewController.new;
-    vc.successBlock = block;
-    vc.requestParams = requestParams;
-    switch (comingStyle) {
-        case ComingStyle_PUSH:{
-            if (rootVC.navigationController) {
-                vc.isPush = YES;
-                vc.isPresent = NO;
-                [rootVC.navigationController pushViewController:vc
-                                                       animated:animated];
-            }else{
-                vc.isPush = NO;
-                vc.isPresent = YES;
-                [rootVC presentViewController:vc
-                                     animated:animated
-                                   completion:^{}];
-            }
-        }break;
-        case ComingStyle_PRESENT:{
-            vc.isPush = NO;
-            vc.isPresent = YES;
-            //iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-            vc.modalPresentationStyle = presentationStyle;
-            [rootVC presentViewController:vc
-                                 animated:animated
-                               completion:^{}];
-        }break;
-        default:
-            NSLog(@"错误的推进方式");
-            break;
-    }return vc;
 }
 
 #pragma mark -
@@ -132,7 +90,11 @@
 
 - (void)convertClick {
     if([self.selectBalanceModel.value doubleValue] > [self.model.balance doubleValue]){
-        [[MKTools shared] showMBProgressViewOnlyTextInView:self.view text:@"还没有那么多的余额，赶快去赚吧" dissmissAfterDeley:2.0f];
+        
+        [WHToast showMessage:@"还没有那么多的余额，赶快去赚吧"
+                    duration:1
+               finishHandler:nil];
+        
         return;
     }
     
@@ -148,8 +110,6 @@
         return;
     }
 
-//    [[MKTools shared] showLoadingView:self.view];
-
     NSDictionary *dic = @{@"drawType":self.selectBalanceModel.key};
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:[URL_Manager sharedInstance].MKWalletWithdrawBalancePOST
@@ -158,15 +118,17 @@
     @weakify(self)
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         @strongify(self)
-
-//        [[MKTools shared] dissmissLoadingInView:self.view animated:YES];
         if (response.code == 200) {
-            [MKWithdrawSucessVC ComingFromVC:weak_self
-                                 comingStyle:ComingStyle_PUSH
-                           presentationStyle:UIModalPresentationAutomatic
-                               requestParams:response.reqResult
-                                     success:^(id data) {}
-                                    animated:YES];
+            
+            [UIViewController comingFromVC:self
+                                      toVC:MKWithdrawSucessVC.new
+                               comingStyle:ComingStyle_PUSH
+                         presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                             requestParams:response.reqResult
+                  hidesBottomBarWhenPushed:YES
+                                  animated:YES
+                                   success:^(id data) {}];
+            
             [self loadData];
 
         }
@@ -197,7 +159,7 @@
             CGFloat leftMargin = 26;
             CGFloat height = 37;
             CGFloat width = 99;
-            CGFloat margin = (SCREEN_W - leftMargin * 2 - width * 3) / 2;
+            CGFloat margin = (MAINSCREEN_WIDTH - leftMargin * 2 - width * 3) / 2;
             
             UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(leftMargin + i % 3 * (width + margin), 187 + i/3 *(37+12), width, height)];
             [self.mScrollView addSubview:btn];
@@ -222,15 +184,15 @@
 #pragma mark -
 - (UIScrollView *)mScrollView {
     if (!_mScrollView) {
-        _mScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, self.gk_navigationBar.height, SCREEN_W, 603)];
+        _mScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, self.gk_navigationBar.height, MAINSCREEN_WIDTH, 603)];
         _mScrollView.showsVerticalScrollIndicator = 0;
-        _mScrollView.contentSize = CGSizeMake(SCREEN_W, 603);
+        _mScrollView.contentSize = CGSizeMake(MAINSCREEN_WIDTH, 603);
         _mScrollView.backgroundColor = HEXCOLOR(0x242a37);
         
         // 背景
         UIView *igv = [[UIView alloc]init];
 //        igv.backgroundColor = kRedColor;
-        igv.frame = CGRectMake(15, 12, SCREEN_W-30, 94);
+        igv.frame = CGRectMake(15, 12, MAINSCREEN_WIDTH-30, 94);
         igv.backgroundColor = HEXCOLOR(0x242a37);
         igv.layer.cornerRadius = 12;
         igv.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -248,14 +210,14 @@
         [_mScrollView addSubview:imgeV];
         
         // 余额
-        self.statusLab = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_W/2, 26, SCREEN_W/4, 20)];
+        self.statusLab = [[UILabel alloc]initWithFrame:CGRectMake(MAINSCREEN_WIDTH/2, 26, MAINSCREEN_WIDTH/4, 20)];
         [igv addSubview:self.statusLab];
-        self.statusLab.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(100), 30)]];
+        self.statusLab.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(100, 30)]];
         self.statusLab.font = [UIFont systemFontOfSize:20];
         self.statusLab.textAlignment = NSTextAlignmentCenter;
                    
         // 提示
-        UILabel *tiplab = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_W/2+15, 73, SCREEN_W/4, 20)];
+        UILabel *tiplab = [[UILabel alloc]initWithFrame:CGRectMake(MAINSCREEN_WIDTH/2+15, 73, MAINSCREEN_WIDTH/4, 20)];
         [_mScrollView addSubview:tiplab];
         tiplab.textColor = UIColor.whiteColor;
         tiplab.textAlignment = NSTextAlignmentCenter;
@@ -268,7 +230,7 @@
         lab1.font = [UIFont fontWithName:@"PingFangSC-Medium" size:12.8];
         lab1.text = @"选择提现金额";
         
-        _convertBtn = [[UIButton alloc]initWithFrame:CGRectMake((kScreenWidth - 173) / 2, 348, 173, 32)];
+        _convertBtn = [[UIButton alloc]initWithFrame:CGRectMake((MAINSCREEN_WIDTH - 173) / 2, 348, 173, 32)];
         [_mScrollView addSubview:_convertBtn];
         _convertBtn.layer.cornerRadius = 16;
         _convertBtn.layer.masksToBounds = 1;
@@ -278,7 +240,7 @@
         _convertBtn.titleLabel.font = [UIFont systemFontOfSize:12];
         [_convertBtn addTarget:self action:@selector(convertClick) forControlEvents:UIControlEventTouchUpInside];
     
-        _tiplab2 = [[UILabel alloc]initWithFrame:CGRectMake((kScreenWidth - 150) / 2, 400, 150, 28)];
+        _tiplab2 = [[UILabel alloc]initWithFrame:CGRectMake((MAINSCREEN_WIDTH - 150) / 2, 400, 150, 28)];
         [_mScrollView addSubview:_tiplab2];
         _tiplab2.textColor = UIColor.whiteColor;
         _tiplab2.alpha = .6f;

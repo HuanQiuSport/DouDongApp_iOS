@@ -20,12 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// 点击事件代理
 @property (nonatomic, weak) id<LikeDidBackDelegate> mkLikeVCDelegate;
 
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated;
 - (void)requestData:(MKDataBlock)block;
 @end
 

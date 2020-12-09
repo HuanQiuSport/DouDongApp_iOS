@@ -13,10 +13,6 @@
 @property (nonatomic, strong) UIImageView * imageView;
 @property (nonatomic, strong) UIImage * originalImage;
 
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,copy)MKDataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
 @end
 
 @implementation ClipViewController
@@ -24,45 +20,6 @@
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
 
-//+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-//                 comingStyle:(ComingStyle)comingStyle
-//           presentationStyle:(UIModalPresentationStyle)presentationStyle
-//               requestParams:(nullable id)requestParams
-//                     success:(MKDataBlock)block
-//                    animated:(BOOL)animated{
-//    ClipViewController *vc = ClipViewController.new;
-//    vc.successBlock = block;
-//    vc.requestParams = requestParams;
-//    vc.needClipImage = vc.requestParams[@"needClipImage"];
-//    switch (comingStyle) {
-//        case ComingStyle_PUSH:{
-//            if (rootVC.navigationController) {
-//                vc.isPush = YES;
-//                vc.isPresent = NO;
-//                [rootVC.navigationController pushViewController:vc
-//                                                       animated:animated];
-//            }else{
-//                vc.isPush = NO;
-//                vc.isPresent = YES;
-//                [rootVC presentViewController:vc
-//                                     animated:animated
-//                                   completion:^{}];
-//            }
-//        }break;
-//        case ComingStyle_PRESENT:{
-//            vc.isPush = NO;
-//            vc.isPresent = YES;
-//            //iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-//            vc.modalPresentationStyle = presentationStyle;
-//            [rootVC presentViewController:vc
-//                                 animated:animated
-//                               completion:^{}];
-//        }break;
-//        default:
-//            NSLog(@"错误的推进方式");
-//            break;
-//    }return vc;
-//}
 - (instancetype)initWithImage:(UIImage *)originalImage delegate:(id)delegate {
     self = [super init];
     if (self) {
@@ -77,8 +34,8 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor blackColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    CGFloat height = (SCREEN_H - SCREEN_W)/2.0;
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, height ,SCREEN_W,SCREEN_W)];
+    CGFloat height = (MAINSCREEN_HEIGHT - MAINSCREEN_WIDTH)/2.0;
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, height ,MAINSCREEN_WIDTH,MAINSCREEN_WIDTH)];
     _scrollView.bouncesZoom = YES;
     _scrollView.minimumZoomScale = 1;
     _scrollView.maximumZoomScale = 3;
@@ -90,12 +47,12 @@
     _scrollView.layer.borderWidth = 1.5;
     _scrollView.layer.borderColor = [UIColor whiteColor].CGColor;
     if (_ovalClip) {
-        _scrollView.layer.cornerRadius = SCREEN_W/2.0;
+        _scrollView.layer.cornerRadius = MAINSCREEN_WIDTH/2.0;
     }
     self.view.layer.masksToBounds = YES;
     if (_originalImage) {
         _imageView = [[UIImageView alloc] initWithImage:_originalImage];
-        CGFloat img_width = SCREEN_W;
+        CGFloat img_width = MAINSCREEN_WIDTH;
         CGFloat img_height = _originalImage.size.height * (img_width/_originalImage.size.width);
         CGFloat img_y= (img_height - self.view.bounds.size.width)/2.0;
         _imageView.frame = CGRectMake(0,0, img_width, img_height);
@@ -164,7 +121,7 @@
 - (void)centerContent {
     CGRect imageViewFrame = _imageView.frame;
     
-    CGRect scrollBounds = CGRectMake(0, 0, SCREEN_W, SCREEN_W);
+    CGRect scrollBounds = CGRectMake(0, 0, MAINSCREEN_WIDTH, MAINSCREEN_WIDTH);
     if (imageViewFrame.size.height > scrollBounds.size.height) {
         imageViewFrame.origin.y = 0.0f;
     }else {

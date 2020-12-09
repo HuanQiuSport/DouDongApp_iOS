@@ -25,10 +25,6 @@
 @property(nonatomic,strong) UIButton *cameraBtn;
 @property(nonatomic,strong) UIButton *uploadBtn;
 @property(nonatomic,strong)UIImage *__block image;
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,copy)MKDataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
 
 @end
 
@@ -36,45 +32,6 @@
 
 - (void)dealloc {
 //    NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
-}
-
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated{
-    PhotoVC *vc = PhotoVC.new;
-    vc.successBlock = block;
-    vc.requestParams = requestParams;
-    switch (comingStyle) {
-        case ComingStyle_PUSH:{
-            if (rootVC.navigationController) {
-                vc.isPush = YES;
-                vc.isPresent = NO;
-                [rootVC.navigationController pushViewController:vc
-                                                       animated:animated];
-            }else{
-                vc.isPush = NO;
-                vc.isPresent = YES;
-                [rootVC presentViewController:vc
-                                     animated:animated
-                                   completion:^{}];
-            }
-        }break;
-        case ComingStyle_PRESENT:{
-            vc.isPush = NO;
-            vc.isPresent = YES;
-            //iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-            vc.modalPresentationStyle = presentationStyle;
-            [rootVC presentViewController:vc
-                                 animated:animated
-                               completion:^{}];
-        }break;
-        default:
-//            NSLog(@"错误的推进方式");
-            break;
-    }return vc;
 }
 
 -(instancetype)init{
@@ -119,15 +76,15 @@
 - (void)eventResponce {
     
     [self.cameraBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-           make.right.equalTo(self.categoryView).offset(-20*SCREEN_W/375);
+           make.right.equalTo(self.categoryView).offset(-20*MAINSCREEN_WIDTH/375);
            make.centerY.equalTo(self.categoryView);
-           make.width.mas_equalTo(50*SCREEN_W/375);
+           make.width.mas_equalTo(50*MAINSCREEN_WIDTH/375);
            make.height.equalTo(self.categoryView.mas_height);
      }];
     [self.uploadBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.categoryView);
         make.centerY.equalTo(self.categoryView);
-        make.width.mas_equalTo(50*SCREEN_W/375);
+        make.width.mas_equalTo(50*MAINSCREEN_WIDTH/375);
         make.height.equalTo(self.categoryView.mas_height);
     }];
     @weakify(self)
@@ -347,7 +304,7 @@ didScrollSelectedItemAtIndex:(NSInteger)index{
         [_categoryView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.view).offset(55);
             make.right.equalTo(self.view.mas_centerX);
-            make.height.mas_equalTo(SCALING_RATIO(50));
+            make.height.mas_equalTo(50);
             make.top.equalTo(self.listContainerView).offset(rectOfStatusbar()-5);
         }];
         

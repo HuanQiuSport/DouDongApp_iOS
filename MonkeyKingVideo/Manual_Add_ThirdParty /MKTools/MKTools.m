@@ -47,7 +47,7 @@ static MKTools *_tools = nil;
 #pragma mark ---------------- 获取设备比例 -----------------
 ///获取设备比例
 -(float)deviceScaleMetod {
-    float scale = kScreenWidth / 375;
+    float scale = MAINSCREEN_WIDTH / 375;
     float heightScale = kScreenHeight / 667;
     if (kScreenHeight == 480) {
         return heightScale;
@@ -63,7 +63,7 @@ static MKTools *_tools = nil;
 }
 ///获取真实设备比例
 -(float)deviceRealScaleMetod {
-    float scale = kScreenWidth / 375;
+    float scale = MAINSCREEN_WIDTH / 375;
     float heightScale = kScreenHeight / 667;
     if (kScreenHeight == 480) {
         return heightScale;
@@ -180,65 +180,6 @@ static MKTools *_tools = nil;
     mkLabel.font = [UIFont systemFontOfSize:7 weight:UIFontWeightMedium];
 }
 #pragma mark ---------------- loading加載圈 ----------------
-///添加加载圈
-- (void)showLoadingView:(UIView *)view{
-    if (!view){
-//        view = self.view;
-    }
-    if ([view viewWithTag:8888]) {
-        //如果已有加载圈，就不需要加载了
-        return;
-    }
-    dispatch_async(dispatch_get_main_queue() , ^{
-        //加载圈
-       MBProgressHUD *hud =  [MBProgressHUD showHUDAddedTo:view animated:YES];
-        hud.mode = MBProgressHUDModeText;
-        //MBProgressHUDModeLottie
-        hud.tag  = 8888;
-//        [MBProgressHUD showHUDAddedTo:view animated:YES];
-    });
-}
-
-///添加加载圈
-- (void)addLoadingInView:(UIView *)view{
-    if (!view){
-        return;
-    }
-    dispatch_async(dispatch_get_main_queue() , ^{
-        //加载圈
-        MBProgressHUD *hud =  [MBProgressHUD showHUDAddedTo:view animated:YES];
-        hud.mode = MBProgressHUDModeCustomView;
-        UIView * bgview = [[UIView alloc] initWithFrame:CGRectMake(0,0,50,50)];
-        hud.customView = bgview;
-        hud.alpha = 0.5;
-//        hud
-        hud.square = NO;
-        hud.dimBackground = YES;
-        hud.margin = 0;
-        hud.labelText = @"加载中";
-        NSString *oath = [[NSBundle mainBundle] pathForResource:@"LottieAnimationm" ofType:@"bundle"];
-        NSBundle *bu = [NSBundle bundleWithPath: oath];
-        LOTAnimationView* animation = [LOTAnimationView animationNamed:@"loadingA" inBundle:bu];
-        [bgview addSubview:animation];
-        animation.backgroundColor = [UIColor clearColor];
-        bgview.backgroundColor = [UIColor clearColor];
-//        [animation setContentMode:UIViewContentModeScaleToFill];
-//        hud.customView = animation;
-        [animation mas_makeConstraints:^(MASConstraintMaker *make) {
-            
-            make.width.equalTo(@(80 *KDeviceScale));
-            
-            make.height.equalTo(@(80 *KDeviceScale));
-            
-            make.centerX.equalTo(bgview.mas_centerX);
-            
-            make.centerY.equalTo(bgview.mas_centerY);
-            
-        }];
-        animation.loopAnimation = YES;
-        [animation playWithCompletion:^(BOOL animationFinished) {}];
-    });
-}
 
 ///添加加载圈 用于上传/下载
 - (void)addLoadingInViewForUploadWithText:(NSString *)textstr{
@@ -285,43 +226,6 @@ static MKTools *_tools = nil;
         result = window.rootViewController;
       
     return result;
-}
-///隐藏加载圈
-- (void) dissmissLoadingInView:(UIView *)view animated:(BOOL)animated{
-    if (!view){
-        return;
-    }
-    dispatch_async(dispatch_get_main_queue() , ^{
-        [MBProgressHUD hideHUDForView:view animated:YES];
-        
-    });
-}
-/**
-* 加载圈
-* @param view  加载圈父及时图
-* @param text 文本
-* @param time 加载时间
-*/
-- (void)showMBProgressViewOnlyTextInView:(UIView *)view
-                                    text:(NSString *)text
-                      dissmissAfterDeley:(NSTimeInterval)time{
-    if (view == nil) {
-        view = [[MKTools shared] getCurrentWindow].window;
-    }
-    
-    dispatch_async(dispatch_get_main_queue() , ^{
-        //隐藏加载圈
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
-
-        // Configure for text only and offset down
-        hud.mode = MBProgressHUDModeText;
-        hud.detailsLabelText = text;
-        hud.detailsLabelFont = kFontSize(12.0);
-        hud.margin = 10.f;
-        hud.removeFromSuperViewOnHide = YES;
-
-        [hud hide:YES afterDelay:time];
-    });
 }
 #pragma mark ----------------  设置背景色 ----------------
 /**
@@ -494,35 +398,46 @@ static MKTools *_tools = nil;
 }
 ///跳转微信
 +(void)openWechatWith:(UIView*)superView{
-    NSURL * url = [NSURL URLWithString:@"wechat://"];
-    BOOL canOpen = [[UIApplication sharedApplication] canOpenURL:url];
-    //先判断是否能打开该url
-    if (canOpen){//打开微信
-        [[UIApplication sharedApplication] openURL:url];
-    }else {
-        [MBProgressHUD wj_showPlainText:@"未安装微信" view:superView];
-    }
+    
+    [NSObject OpenURL:@"wechat://"
+              options:@{}
+completionOpenSuccessHandler:^{
+        
+    } completionOpenFailHandler:^{
+        [WHToast showMessage:@"未安装微信"
+                    duration:1
+               finishHandler:nil];
+    }];
 }
 ///跳转QQ
 +(void)openQQWith:(UIView*)superView{
-    NSURL * url = [NSURL URLWithString:@"mqq://"];
-    BOOL canOpen = [[UIApplication sharedApplication] canOpenURL:url];
-    //先判断是否能打开该url
-    if (canOpen){//打开QQ
-        [[UIApplication sharedApplication] openURL:url];
-    } else {
-        [MBProgressHUD wj_showPlainText:@"未安装QQ" view:superView];
-    }
+    [NSObject OpenURL:@"mqq://"
+              options:@{}
+completionOpenSuccessHandler:^{
+        
+    } completionOpenFailHandler:^{
+        [WHToast showMessage:@"未安装QQ"
+                    duration:1
+               finishHandler:nil];
+    }];
 }
 + (void)openGoToPotatol{
-    //
-    NSURL * url = [NSURL URLWithString:@"https://t.me/doudong"];
-    [[UIApplication sharedApplication] openURL:url];
+    [NSObject OpenURL:@"https://t.me/doudong"
+              options:@{}
+completionOpenSuccessHandler:^{
+        
+    } completionOpenFailHandler:^{
+
+    }];
 }
-+(void)openSafariWith:(NSURL*)url{
-    
-     [[UIApplication sharedApplication] openURL:url];
-    
++(void)openSafariWith:(NSURL *)url{
+    [NSObject OpenURL:url.absoluteString
+              options:@{}
+completionOpenSuccessHandler:^{
+        
+    } completionOpenFailHandler:^{
+
+    }];
 }
 
 + (void)saveImageUrlTo:(NSString *)imageStr WithView:(UIView*)superView{
@@ -534,9 +449,13 @@ static MKTools *_tools = nil;
                                    @selector(image:didFinishSavingWithError:contextInfo:),
                                    &boolStr);//@selector(image:didFinishSavingWithError:contextInfo:)
     if (boolStr) {
-         [MBProgressHUD wj_showPlainText:@"保存成功" view:superView];
+        [WHToast showMessage:@"保存成功"
+                    duration:1
+               finishHandler:nil];
     }else{
-         [MBProgressHUD wj_showPlainText:@"保存失败" view:superView];
+        [WHToast showMessage:@"保存失败"
+                    duration:1
+               finishHandler:nil];
     }
 }
 ///
@@ -571,90 +490,7 @@ didFinishSavingWithError:(NSError *)error
         }
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             dispatch_async(dispatch_get_main_queue(), ^{
-//                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:superView animated:YES];
-//
-//                // Configure for text only and offset down
-//                hud.mode = MBProgressHUDModeText;
-//                hud.detailsLabelText = tip;
-//                hud.detailsLabelFont = kFontSize(12.0);
-//                hud.margin = 10.f;
-//                hud.removeFromSuperViewOnHide = YES;
-//
-//                [hud hide:YES afterDelay:1.5f];
-                MBProgressHUD *hud =  [MBProgressHUD showHUDAddedTo:superView animated:YES];
-                hud.mode = MBProgressHUDModeCustomView;
-                
-                UIView * grbgview = [[UIView alloc] initWithFrame:CGRectMake(0,0,SCREEN_W,SCREEN_H)];
-                [grbgview addGestureRecognizer:JHGestureType_Tap block:^(__kindof UIView *view, __kindof UIGestureRecognizer *gesture) {
-                    NSLog(@"");
-                    hud.removeFromSuperViewOnHide = YES;
-                    [hud hide:YES];
-                }];
-                grbgview.layer.backgroundColor = RGBA_COLOR(0, 0, 0, 0.1).CGColor;
-                hud.customView = grbgview;
-                
-                UIView * bgview = UIView.new;//[[UIView alloc] initWithFrame:CGRectMake(0,0,327*KDeviceScale,160*KDeviceScale)];
-                [grbgview addSubview:bgview];
-                [bgview mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.centerX.equalTo(grbgview);
-                    make.centerY.equalTo(grbgview);
-                    make.height.offset(160*KDeviceScale);
-                    make.width.offset(327*KDeviceScale);
-                }];
-                hud.square = NO;
-                hud.dimBackground = YES;
-                hud.margin = 0;
-                bgview.backgroundColor = kWhiteColor;
-                bgview.layer.cornerRadius = 10;
-                
-                UILabel *lab = UILabel.new;
-                [bgview addSubview:lab];
-                [lab mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.equalTo(bgview).offset(22);
-                    make.left.equalTo(bgview).offset(0);
-                    make.right.equalTo(bgview).offset(0);
-                }];
-                lab.textColor = RGBCOLOR(58, 58, 58);
-                lab.textAlignment = NSTextAlignmentCenter;
-                lab.text =tip2;
-                lab.font = [UIFont fontWithName:@"PingFangSC-Medium" size:18];
-                
-                UIView *line = UIView.new;
-                [bgview addSubview:line];
-                [line mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.equalTo(lab.mas_bottom).offset(22);
-                    make.left.equalTo(bgview).offset(0);
-                    make.right.equalTo(bgview).offset(0);
-                    make.height.offset(0.5f);
-                }];
-                line.backgroundColor = RGBCOLOR(222, 222, 222);
-                
-                UILabel *lab2 = UILabel.new;
-                [bgview addSubview:lab2];
-                [lab2 mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.equalTo(line).offset(22);
-                    make.left.equalTo(bgview).offset(42);
-                    make.right.equalTo(bgview).offset(-42);
-                }];
-                lab2.text = tip;
-                lab2.numberOfLines = 0;
-                lab2.textColor = RGBCOLOR(58, 58, 58);
-                lab2.textAlignment = NSTextAlignmentLeft;
-                lab2.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-                
-                UIButton *btn = UIButton.new;
-                [bgview addSubview:btn];
-                [btn setImage:KIMG(@"icon_HUB_close") forState:UIControlStateNormal];
-                [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.equalTo(bgview).offset(8);
-                    make.right.equalTo(bgview).offset(-12);
-                    make.height.offset(30);
-                    make.width.offset(27);
-                }];
-                [btn addAction:^(UIButton *btn) {
-                    hud.removeFromSuperViewOnHide = YES;
-                    [hud hide:YES];
-                }];
+                //TODO
             });
         });
 
@@ -665,144 +501,6 @@ didFinishSavingWithError:(NSError *)error
      VisionContent:(NSString *)visionContent
        versionCode:(NSString *)versionCode
             appUrl:(NSString *)appUrl{
-
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//        });
-//    });
-    if(self.isShowUpdate) {
-        return;
-    } else {
-        self.isShowUpdate = true;
-    }
-    
-    if(visionContent == nil) {
-        visionContent = @"";
-    }
-    if(versionCode == nil) {
-        versionCode = @"";
-    }
-    MBProgressHUD *hud =  [MBProgressHUD showHUDAddedTo:view animated:YES];
-    hud.mode = MBProgressHUDModeCustomView;
-    
-    UIView * grbgview = [[UIView alloc] initWithFrame:CGRectMake(0,0,SCREEN_W,SCREEN_H)];
-    grbgview.layer.backgroundColor = kClearColor.CGColor;
-    hud.customView = grbgview;
-    
-    UIView * bgview = UIView.new;//[[UIView alloc] initWithFrame:CGRectMake(0,0,327*KDeviceScale,160*KDeviceScale)];
-    bgview.backgroundColor = kClearColor;
-    [grbgview addSubview:bgview];
-    [bgview mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(grbgview);
-        make.centerY.equalTo(grbgview);
-        make.height.offset(304*KDeviceScale);
-        make.width.offset(253*KDeviceScale);
-    }];
-    hud.square = NO;
-    hud.dimBackground = YES;
-    hud.margin = 0;
-    bgview.layer.cornerRadius = 10;
-    
-    
-    UIImageView *imge = UIImageView.new;
-    [bgview addSubview:imge];
-    [imge mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.bottom.offset(0);
-    }];
-    imge.image = KIMG(@"imge_versionTip");
-    
-    UILabel *lab = UILabel.new;
-    [bgview addSubview:lab];
-    [lab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(bgview).offset(109);
-        make.left.equalTo(bgview).offset(17);
-        make.right.equalTo(bgview).offset(0);
-    }];
-    lab.textColor = RGBCOLOR(58, 58, 58);
-    if(versionCode.length == 0) {
-        lab.text = [NSString stringWithFormat:@"%@",versionCode];
-    } else {
-        lab.text = [NSString stringWithFormat:@"V%@",versionCode];
-    }
-    lab.font = [UIFont systemFontOfSize:11];
-    UITextView *contentView = UITextView.new;
-    [bgview addSubview:contentView];
-    
-//    contentView.text = content;
-    contentView.editable = NO;
-    
-    NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
-
-    paragraphStyle.lineSpacing = 13;// 字体的行间距
-
-    NSDictionary *attributes = @{
-                                 NSFontAttributeName:[UIFont systemFontOfSize:11],
-                                 NSParagraphStyleAttributeName:paragraphStyle
-                                 };
-    contentView.typingAttributes = attributes;
-    contentView.attributedText =  [[NSAttributedString alloc] initWithString:visionContent attributes:attributes];
-    
-    UIButton *btn = UIButton.new;
-    [bgview addSubview:btn];
-    btn.titleLabel.font = [UIFont systemFontOfSize:13];
-    [btn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    [btn setBackgroundImage:KIMG(@"gradualColor") forState:UIControlStateNormal];
-    [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(bgview).offset(-24);
-        make.right.equalTo(bgview).offset(-30);
-        make.height.offset(24);
-        make.width.offset(84);
-    }];
-    btn.layer.cornerRadius = 12;
-    btn.layer.masksToBounds = YES;
-    [btn setTitle:@"更新" forState:UIControlStateNormal];
-    [btn addAction:^(UIButton *btn) {
-        [MBProgressHUD hideHUDForView:view animated:true];
-        self.isShowUpdate = false;
-        if(appUrl != nil) {
-            NSURL * url = [NSURL URLWithString:appUrl];
-            BOOL canOpen = [[UIApplication sharedApplication] canOpenURL:url];
-            //先判断是否能打开该url
-            if(canOpen) {
-                [[UIApplication sharedApplication] openURL:url];
-            }
-        }
-    }];
-    
-    [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(lab.mas_bottom).offset(10);
-        make.left.equalTo(bgview).offset(17);
-        make.right.equalTo(bgview).offset(-17);
-        make.bottom.equalTo(btn.mas_top).offset(-30);
-    }];
-    
-    UIButton *btn2 = UIButton.new;
-    [bgview addSubview:btn2];
-    btn2.titleLabel.font = [UIFont systemFontOfSize:13];
-    [btn2 setTitleColor:[UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(40), 30)]] forState:UIControlStateNormal];
-    [btn2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(bgview).offset(-24);
-        make.left.equalTo(bgview).offset(30);
-        make.height.offset(24);
-        make.width.offset(84);
-    }];
-    btn2.layer.cornerRadius = 12;
-    btn2.layer.masksToBounds = YES;
-    btn2.layer.borderColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(40), 30)]].CGColor;
-    btn2.layer.borderWidth = 1;
-    [btn2 setTitle:@"取消" forState:UIControlStateNormal];
-    [btn2 addAction:^(UIButton *btn) {
-        [MBProgressHUD hideHUDForView:view animated:true];
-        self.isShowUpdate = false;
-    }];
-    
-    [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(lab.mas_bottom).offset(10);
-        make.left.equalTo(bgview).offset(17);
-        make.right.equalTo(bgview).offset(-17);
-        make.bottom.equalTo(btn.mas_top).offset(-30);
-    }];
-    
 }
 #pragma mark - 字符串转字典
  
@@ -844,9 +542,9 @@ didFinishSavingWithError:(NSError *)error
 - (void)setAtttionStyle:(BOOL)isSelect ToButton:(UIButton*)sender{
     if (isSelect) {
         
-        [sender setBackgroundImage:[UIImage imageWithColor:MKBakcColor] forState:UIControlStateNormal];
+        [sender setBackgroundImage:[UIImage imageWithColor:kBlackColor] forState:UIControlStateNormal];
         
-        sender.layer.cornerRadius = 13.5 *KDeviceScale;
+        sender.layer.cornerRadius = 13.5 *1;
         
          sender.layer.masksToBounds = YES;
         
@@ -857,7 +555,7 @@ didFinishSavingWithError:(NSError *)error
     }else{
         [sender setBackgroundImage:KIMG(@"画板") forState:UIControlStateNormal];
         
-        sender.layer.cornerRadius = 13.5 *KDeviceScale;
+        sender.layer.cornerRadius = 13.5 *1;
         
         sender.layer.masksToBounds = YES;
         

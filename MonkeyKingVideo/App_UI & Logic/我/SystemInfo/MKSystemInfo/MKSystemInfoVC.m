@@ -43,7 +43,7 @@ UITableViewDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = MKBakcColor;
+    self.view.backgroundColor = kBlackColor;
     
     self.gk_navTitle = @"消息";
     
@@ -70,7 +70,11 @@ UITableViewDelegate
 }
 #pragma mark - 设置
 - (void)mkGotoSeting{
-    [MBProgressHUD wj_showPlainText:@"正在开发中" view:nil];
+    
+    [WHToast showMessage:@"正在开发中"
+                duration:1
+           finishHandler:nil];
+    
     return;
     NSLog(@"设置入口");
     MKInfoSetingVC *vc = MKInfoSetingVC.new;
@@ -82,7 +86,7 @@ UITableViewDelegate
     
     [self.view addSubview:self.mkInfoTableView];
     
-    self.mkInfoTableView.backgroundColor = MKBakcColor;
+    self.mkInfoTableView.backgroundColor = kBlackColor;
     
 }
 #pragma mark - 布局子视图
@@ -94,7 +98,7 @@ UITableViewDelegate
         
         make.right.equalTo(self.view);
         
-        make.top.equalTo(self.view.mas_top).offset(kNavigationBarHeight+kStatusBarHeight);
+        make.top.equalTo(self.view.mas_top).offset(44+rectOfStatusbar());
         
         make.bottom.equalTo(self.view);
         
@@ -105,7 +109,7 @@ UITableViewDelegate
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 80 * KDeviceScale;
+    return 80 * 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.mkDataArray.count;

@@ -18,11 +18,6 @@ UICollectionViewDelegate,
 LMHWaterFallLayoutDeleaget
 >
 
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,copy)MKDataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
-
 @property(nonatomic,strong)NSMutableArray *shops;
 @property(nonatomic,strong)UICollectionView *collectionView;
 @property(nonatomic,assign)NSUInteger columnCount;
@@ -35,45 +30,6 @@ LMHWaterFallLayoutDeleaget
 
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
-}
-
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated{
-    ProductionVC *vc = ProductionVC.new;
-    vc.successBlock = block;
-    vc.requestParams = requestParams;
-    switch (comingStyle) {
-        case ComingStyle_PUSH:{
-            if (rootVC.navigationController) {
-                vc.isPush = YES;
-                vc.isPresent = NO;
-                [rootVC.navigationController pushViewController:vc
-                                                       animated:animated];
-            }else{
-                vc.isPush = NO;
-                vc.isPresent = YES;
-                [rootVC presentViewController:vc
-                                     animated:animated
-                                   completion:^{}];
-            }
-        }break;
-        case ComingStyle_PRESENT:{
-            vc.isPush = NO;
-            vc.isPresent = YES;
-            //iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-            vc.modalPresentationStyle = presentationStyle;
-            [rootVC presentViewController:vc
-                                 animated:animated
-                               completion:^{}];
-        }break;
-        default:
-            NSLog(@"错误的推进方式");
-            break;
-    }return vc;
 }
 
 #pragma mark - Lifecycle
@@ -89,10 +45,7 @@ LMHWaterFallLayoutDeleaget
     self.view.backgroundColor = [UIColor colorWithHexString:@"050013"];
     self.navigationController.navigationBar.hidden = YES;
     self.collectionView.alpha = 1;
-    
-    
-    
-    
+
 }
 - (void)requestData{
    self.mkPageIndex = 1;
@@ -117,7 +70,7 @@ LMHWaterFallLayoutDeleaget
     WeakSelf
     self.mkPageIndex = 1;
     [self requestWith:0 WithPageNumber:1 WithPageSize:10 WithUserID:self.mkPernalModel.id WithType:@"2" Block:^(id data) {
-        [weakSelf.tableViewHeader endRefreshing];
+        [weakSelf.mjRefreshGifHeader endRefreshing];
         if ((Boolean)data) {
             
              [self.collectionView reloadData];
@@ -133,7 +86,7 @@ LMHWaterFallLayoutDeleaget
     self.mkPageIndex += 1;
     WeakSelf
     [self requestWith:0 WithPageNumber:self.mkPageIndex WithPageSize:10 WithUserID:self.mkPernalModel.id WithType:@"2" Block:^(id data) {
-        [weakSelf.tableViewFooter endRefreshing];
+        [weakSelf.mjRefreshGifHeader endRefreshing];
         if ((Boolean)data) {
             
              [self.collectionView reloadData];
@@ -173,10 +126,17 @@ LMHWaterFallLayoutDeleaget
 - (void)collectionView:(UICollectionView *)collectionView
 didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"%s", __FUNCTION__);
-    WeakSelf
-    [RecommendVC ComingFromVC:weakSelf comingStyle:ComingStyle_PUSH presentationStyle:UIModalPresentationFullScreen requestParams:@{@"index":@(indexPath.item),@"model":self.mkMadeModel,@"VideoListType":@(MKVideoListType_C)} success:^(id data) {
-        
-    } animated:YES];
+
+    [UIViewController comingFromVC:self
+                              toVC:RecommendVC.new
+                       comingStyle:ComingStyle_PUSH
+                 presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                     requestParams:@{@"index":@(indexPath.item),
+                                     @"model":self.mkMadeModel,
+                                     @"VideoListType":@(MKVideoListType_C)}
+          hidesBottomBarWhenPushed:YES
+                          animated:YES
+                           success:^(id data) {}];
      
 }
 
@@ -188,11 +148,11 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (CGFloat)rowMarginInWaterFallLayout:(LMHWaterFallLayout *)waterFallLayout{
-    return SCALING_RATIO(20);
+    return 20;
 }
 
 - (NSUInteger)columnCountInWaterFallLayout:(LMHWaterFallLayout *)waterFallLayout{
-    return SCALING_RATIO(2);
+    return 2;
 }
 #pragma mark —— lazyLoad
 -(LMHWaterFallLayout *)waterFallLayout{
@@ -205,15 +165,15 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 - (UICollectionView *)collectionView{
     if (!_collectionView) {
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0,
-                                                                             SCALING_RATIO(50),
-                                                                             SCREEN_WIDTH,
-                                                                             SCREEN_HEIGHT)
+                                                                             50,
+                                                                             MAINSCREEN_WIDTH,
+                                                                             MAINSCREEN_HEIGHT)
                                                  collectionViewLayout:self.waterFallLayout];
     }
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
-    _collectionView.mj_header = self.tableViewHeader;
-    _collectionView.mj_footer = self.tableViewFooter;
+    _collectionView.mj_header = [self mjRefreshGifHeader];
+    _collectionView.mj_footer = [self mjRefreshAutoGifFooter];
     _collectionView.mj_footer.hidden = NO;
     [_collectionView setBackgroundColor:kClearColor];
     _collectionView.showsVerticalScrollIndicator = NO;

@@ -11,14 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Release_LikeVC : BaseViewController
-@property (strong,nonatomic) LikeVC *mkLiked;
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated;
 
+@property (strong,nonatomic) LikeVC *mkLiked;
 
 @end
 

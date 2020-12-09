@@ -71,7 +71,7 @@
     
     [self.playBigButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
-        make.width.mas_equalTo(110*SCREEN_W/375);
+        make.width.mas_equalTo(110*MAINSCREEN_WIDTH/375);
         make.height.mas_equalTo(110);
         make.bottom.equalTo(self.slideView.mas_top).offset(-5);
     }];
@@ -99,8 +99,11 @@
             self.finishButton.hidden = NO;
             [SDVideoDataManager defaultManager].cameraState = VideoCameraStatePause;
             self.playButton.buttonState = PlayButtonStateNomal;
-            [MBProgressHUD wj_showPlainText:@"暂停录制"
-                                       view:getMainWindow()];
+
+            [WHToast showMessage:@"暂停录制"
+                        duration:1
+                   finishHandler:nil];
+            
         }
     }];
     [self.slideView next];
@@ -123,7 +126,7 @@
 
 - (void)YQSlideViewDidChangeIndex:(int)count
 {
-    DLog(@"滑动第几页%d",count);
+
     if (count == 0) {
         [[NSNotificationCenter defaultCenter] postNotificationName:MKVideoTimeNotification object:@"拍摄1分钟"];
             self.mkPlayerTimeType = MKPlayerTimeType_A;
@@ -162,7 +165,7 @@
 - (UIView *)progressView {
     
     if (_progressView == nil) {
-        _progressView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_H -  MenuProgressTopDistance, SCREEN_W, 8)];
+        _progressView = [[UIView alloc] initWithFrame:CGRectMake(0, MAINSCREEN_HEIGHT -  MenuProgressTopDistance, MAINSCREEN_WIDTH, 8)];
         _progressView.backgroundColor = [UIColor hexStringToColor:@"#d8d8d8" alpha:0.5];
         _progressView.layer.cornerRadius = 3.0f;
         _progressView.layer.masksToBounds = YES;
@@ -175,7 +178,7 @@
     
     if (_progressCurrentView == nil) {
         _progressCurrentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, self.progressView.height)];
-        _progressCurrentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCREEN_W, 30)]];
+        _progressCurrentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(MAINSCREEN_WIDTH, 30)]];
     }
     return _progressCurrentView;
 }
@@ -192,7 +195,7 @@
 
 - (SDVideoCameraPlayButton *)playButton {
     if (_playButton == nil) {
-        _playButton = [[SDVideoCameraPlayButton alloc] initWithFrame:CGRectMake(self.width/2.0 - 40, SCREEN_H - self.progressView.height*2 - 69*2-25, 76, 76) config:self.config];
+        _playButton = [[SDVideoCameraPlayButton alloc] initWithFrame:CGRectMake(self.width/2.0 - 40, MAINSCREEN_HEIGHT - self.progressView.height*2 - 69*2-25, 76, 76) config:self.config];
         [_playButton addGestureRecognizer: [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(playButtonTapAction)]];
     }
     return _playButton;
@@ -245,7 +248,7 @@
     
     self.menuButtonArray = [NSMutableArray arrayWithCapacity:1];
      CGFloat startY;
-    if (iPhoneX | iPhoneScreen_XR | iPhoneScreen_XSMAX | iPhoneScreen_X_XS ) {
+    if (isiPhoneX_series()) {
         startY = 20;
     } else {
          startY = 0;
@@ -307,7 +310,7 @@
       
         [SDVideoDataManager defaultManager].cameraState = VideoCameraStatePause;
         [UIView animateWithDuration:0.2 animations:^{
-            if (iPhoneX | iPhoneScreen_XSMAX | iPhoneScreen_X_XS |iPhoneScreen_XR) {
+            if (isiPhoneX_series()) {
                  self.playButton.frame = CGRectMake(self.width/2.0 - 40, self.height - 40 - 100, 76, 76);
             } else {
                  self.playButton.frame = CGRectMake(self.width/2.0 - 40, self.height - 100, 76, 76);
@@ -451,7 +454,7 @@
 }
 
 - (void)buttonClick:(NSInteger)index {
-    DLog(@"滚犊子滑动%ld",index);
+
     if (index == 0) {
            [[NSNotificationCenter defaultCenter] postNotificationName:MKVideoTimeNotification object:@"拍摄1分钟"];
         self.mkPlayerTimeType = MKPlayerTimeType_A;
@@ -496,8 +499,11 @@
                 break;
             }
             case VideoCameraStateInProgress:{
-                [MBProgressHUD wj_showPlainText:@"开始录制"
-                                                           view:getMainWindow()];
+                
+                [WHToast showMessage:@"开始录制"
+                            duration:1
+                       finishHandler:nil];
+                
                 [self removeSubViewViewAction];
              
                     
@@ -505,7 +511,7 @@
             }
             case VideoCameraStatePause:{
                 
-                if (iPhoneScreen_X_XS | iPhoneScreen_XSMAX | iPhoneScreen_XR | iPhoneX) {
+                if (isiPhoneX_series()) {
                     self.playButton.frame = CGRectMake(self.width/2.0 - 40, self.height - 176, 76, 76);
                 } else {
                     self.playButton.frame = CGRectMake(self.width/2.0 - 40, self.height - 40 - 100, 76, 76);
@@ -520,7 +526,7 @@
             }
             case VideoCameraStateStop: {
              
-                if (iPhoneScreen_X_XS | iPhoneScreen_XSMAX | iPhoneScreen_XR | iPhoneX) {
+                if (isiPhoneX_series()) {
                     self.playButton.frame = CGRectMake(self.width/2.0 - 40, self.height - 176, 76, 76);
                 } else {
                     self.playButton.frame = CGRectMake(self.width/2.0 - 40, self.height - 40 - 100, 76, 76);
@@ -612,37 +618,43 @@
     switch (self.mkPlayerTimeType) {
         case  MKPlayerTimeType_A:
             {
-                if (self.progressCurrentView.width >= SCREEN_W/2) {
+                if (self.progressCurrentView.width >= MAINSCREEN_WIDTH/2) {
                        if (_delegate != nil && [_delegate respondsToSelector:@selector(userFinishMergeVideoAction)]) {
                               [_delegate userFinishMergeVideoAction];
                           }
                    } else {
-                       [MBProgressHUD wj_showPlainText:@"拍摄时长不能少于30秒请重新录制"
-                                                                                view:getMainWindow()];
+
+                       [WHToast showMessage:@"拍摄时长不能少于30秒请重新录制"
+                                   duration:1
+                              finishHandler:nil];
                    }
             }
             break;
             case  MKPlayerTimeType_B:
                        {
-                           if (self.progressCurrentView.width >= SCREEN_W*0.17) {
+                           if (self.progressCurrentView.width >= MAINSCREEN_WIDTH*0.17) {
                                   if (_delegate != nil && [_delegate respondsToSelector:@selector(userFinishMergeVideoAction)]) {
                                          [_delegate userFinishMergeVideoAction];
                                      }
                               } else {
-                                  [MBProgressHUD wj_showPlainText:@"拍摄时长不能少于30秒请重新录制"
-                                                                                           view:getMainWindow()];
+                      
+                                  [WHToast showMessage:@"拍摄时长不能少于30秒请重新录制"
+                                              duration:1
+                                         finishHandler:nil];
                               }
                        }
                     break;
             case  MKPlayerTimeType_C:
                        {
-                           if (self.progressCurrentView.width >= SCREEN_W*0.1) {
+                           if (self.progressCurrentView.width >= MAINSCREEN_WIDTH*0.1) {
                                   if (_delegate != nil && [_delegate respondsToSelector:@selector(userFinishMergeVideoAction)]) {
                                          [_delegate userFinishMergeVideoAction];
                                      }
                               } else {
-                                  [MBProgressHUD wj_showPlainText:@"拍摄时长不能少于30秒请重新录制"
-                                                                                           view:getMainWindow()];
+                                  
+                                  [WHToast showMessage:@"拍摄时长不能少于30秒请重新录制"
+                                              duration:1
+                                         finishHandler:nil];
                               }
                        }
                 break;
@@ -707,7 +719,7 @@
             [_slideView mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.centerX.equalTo(self);
                     make.height.mas_equalTo(50);
-                    if (iPhoneScreen_X_XS | iPhoneScreen_XSMAX | iPhoneScreen_XR | iPhoneX) {
+                    if (isiPhoneX_series()) {
                          make.bottom.mas_equalTo(-55);
                     } else {
                          make.bottom.mas_equalTo(-32);
@@ -729,7 +741,7 @@
 -(UIView *)indexView{
     if (!_indexView) {
         _indexView = UIView.new;
-        _indexView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(60), 30)]];
+        _indexView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(60, 30)]];
 
         [self addSubview:_indexView];
         [_indexView mas_makeConstraints:^(MASConstraintMaker *make) {

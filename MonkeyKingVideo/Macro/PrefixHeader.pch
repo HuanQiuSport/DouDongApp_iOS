@@ -13,7 +13,5 @@
 #import "Pods.h"
 #import "Manual_Add_ThirdParty.h"
 #import "Other.h"
-#import "SkinManager.h"
-
 
 #endif /* PrefixHeader_pch */

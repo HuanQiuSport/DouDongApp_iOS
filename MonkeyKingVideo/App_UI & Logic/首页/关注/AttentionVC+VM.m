@@ -48,7 +48,10 @@
                 block(@(NO));
             }
         }else{
-            [[MKTools shared] showMBProgressViewOnlyTextInView:self.view text:@"没有哦oooo～" dissmissAfterDeley:1.2];
+
+            [WHToast showMessage:@"没有哦oooo～"
+                        duration:1
+                   finishHandler:nil];
             block(@(NO));
         }   
     }];

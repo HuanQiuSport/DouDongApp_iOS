@@ -36,7 +36,7 @@
 }
 
 +(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return isiPhoneX_series() ? (SCREEN_HEIGHT / 7) : (SCREEN_HEIGHT / 5.7);
+    return isiPhoneX_series() ? (MAINSCREEN_HEIGHT / 7) : (MAINSCREEN_HEIGHT / 5.7);
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
@@ -94,7 +94,7 @@
         _titleLab.textColor =  [UIColor whiteColor];
         [self.contentView addSubview:_titleLab];
         [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.equalTo(self.contentView).offset(SCALING_RATIO(15));
+            make.top.left.equalTo(self.contentView).offset(15);
         }];
     }return _titleLab;
 }
@@ -112,15 +112,15 @@
         [_btn_1 addTarget:self
                          action:@selector(btn_1ClickEvent:)
                forControlEvents:UIControlEventTouchUpInside];
-        _btn_1.titleEdgeInsets = UIEdgeInsetsMake(SCALING_RATIO(10),
+        _btn_1.titleEdgeInsets = UIEdgeInsetsMake(10,
                                                   0,
                                                   0,
                                                   0);
         [self.contentView addSubview:_btn_1];
         [_btn_1 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.titleLab.mas_bottom).offset(SCALING_RATIO(15));
-            make.left.equalTo(self.contentView).offset(SCALING_RATIO(30));
-            make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(50), SCALING_RATIO(50)));
+            make.top.equalTo(self.titleLab.mas_bottom).offset(15);
+            make.left.equalTo(self.contentView).offset(30);
+            make.size.mas_equalTo(CGSizeMake(50, 50));
         }];
     }return _btn_1;
 }
@@ -138,15 +138,15 @@
         [_btn_3 addTarget:self
                          action:@selector(btn_3ClickEvent:)
                forControlEvents:UIControlEventTouchUpInside];
-        _btn_3.titleEdgeInsets = UIEdgeInsetsMake(SCALING_RATIO(10),
+        _btn_3.titleEdgeInsets = UIEdgeInsetsMake(10,
                                                   0,
                                                   0,
                                                   0);
         [self.contentView addSubview:_btn_3];
         [_btn_3 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.titleLab.mas_bottom).offset(SCALING_RATIO(15));
+            make.top.equalTo(self.titleLab.mas_bottom).offset(15);
             make.centerX.equalTo(self.contentView);
-            make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(50), SCALING_RATIO(50)));
+            make.size.mas_equalTo(CGSizeMake(50, 50));
         }];
     }return _btn_3;
 }
@@ -164,15 +164,15 @@
         [_btn_2 addTarget:self
                          action:@selector(btn_2ClickEvent:)
                forControlEvents:UIControlEventTouchUpInside];
-        _btn_2.titleEdgeInsets = UIEdgeInsetsMake(SCALING_RATIO(10),
+        _btn_2.titleEdgeInsets = UIEdgeInsetsMake(10,
                                                   0,
                                                   0,
                                                   0);
         [self.contentView addSubview:_btn_2];
         [_btn_2 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.titleLab.mas_bottom).offset(SCALING_RATIO(15));
-            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-30));
-            make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(50), SCALING_RATIO(50)));
+            make.top.equalTo(self.titleLab.mas_bottom).offset(15);
+            make.right.equalTo(self.contentView).offset(-30);
+            make.size.mas_equalTo(CGSizeMake(50, 50));
         }];
     }return _btn_2;
 }

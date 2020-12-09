@@ -136,16 +136,16 @@
 - (MKProgressView *)processView
 {
     if (!_processView) {
-        _processView = [[MKProgressView alloc]initWithFrame:CGRectMake(-5*KDeviceScale,18*KDeviceScale, 46*KDeviceScale, 46*KDeviceScale)];
+        _processView = [[MKProgressView alloc]initWithFrame:CGRectMake(-5*1,18*1, 46*1, 46*1)];
         [self addSubview:_processView];
     }
     return _processView;
 }
 - (void)mkAddSubView{
     [self addSubview: self.lblTimerExample3];
-    _mkProgressView = [[MKCircularProgressView alloc]initWithFrame:CGRectMake(-5*KDeviceScale,18*KDeviceScale, 46*KDeviceScale, 46*KDeviceScale) backColor: GKColorRGBA(0,0,0,0.1) progressColor:[UIColor redColor] lineWidth:1.3];
-    _mkProgressView.backgroundColor =  GKColorRGBA(0,0,0,0.54);
-    _mkProgressView.layer.cornerRadius = 46*KDeviceScale/2.0;
+    _mkProgressView = [[MKCircularProgressView alloc]initWithFrame:CGRectMake(-5*1,18*1, 46*1, 46*1) backColor: RGBA_COLOR(0, 0, 0, 0.1) progressColor:[UIColor redColor] lineWidth:1.3];
+    _mkProgressView.backgroundColor = RGBA_COLOR(0, 0, 0, 0.54);
+    _mkProgressView.layer.cornerRadius = 46*1/2.0;
     [self addSubview:self.mkProgressView];
     
     [self addSubview:self.mkImageView];
@@ -181,13 +181,13 @@
     
     [self.mkImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.centerX.equalTo(self.mas_centerX).offset(-22*KDeviceScale);
+        make.centerX.equalTo(self.mas_centerX).offset(-22*1);
         
         make.centerY.equalTo(self.mas_centerY);
         
-        make.width.equalTo(@(29*KDeviceScale));
+        make.width.equalTo(@(29*1));
         
-        make.height.equalTo(@(23*KDeviceScale));
+        make.height.equalTo(@(23*1));
         
     }];
     
@@ -205,13 +205,13 @@
     [self addSubview:self.lblTimerExample3];
     [self.mkImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.centerX.equalTo(self.mas_centerX).offset(-22*KDeviceScale);
+        make.centerX.equalTo(self.mas_centerX).offset(-22*1);
         
         make.centerY.equalTo(self.mas_centerY);
         
-        make.width.equalTo(@(29*KDeviceScale));
+        make.width.equalTo(@(29*1));
         
-        make.height.equalTo(@(23*KDeviceScale));
+        make.height.equalTo(@(23*1));
         
     }];
 //     self.timerExample3 = [[MZTimerLabel alloc] initWithLabel:_lblTimerExample3 andTimerType:MZTimerLabelTypeTimer];

@@ -51,7 +51,7 @@
         _agreementBtn.titleLabel.font = [UIFont systemFontOfSize:12.2
                                                           weight:UIFontWeightRegular];
 //        _agreementBtn.titleLabel.textColor = [UIColor colorWithPatternImage:KIMG(@"gradualColor")];
-        [_agreementBtn setTitleColor:[UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(100), 30)]] forState:UIControlStateNormal];
+        [_agreementBtn setTitleColor:[UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(100, 30)]] forState:UIControlStateNormal];
         [_agreementBtn sizeToFit];
         [_agreementBtn.titleLabel adjustsFontSizeToFitWidth];
         @weakify(self)
@@ -91,7 +91,7 @@
         
         _yylab.font = [UIFont systemFontOfSize:12.2
                                         weight:UIFontWeightRegular];
-        _yylab.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(60), 30)]];
+        _yylab.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(60, 30)]];
         [self addSubview:_yylab];
         [_yylab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.agreementBtn.mas_right).offset(5);

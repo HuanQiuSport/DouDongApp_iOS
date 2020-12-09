@@ -11,10 +11,6 @@
 #import "MKExchangeVipModel.h"
 @interface ExchangeVipVC ()
 
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,copy)MKDataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
 @property (nonatomic, strong) UIScrollView *mScrollView;
 @property (nonatomic, strong) UIImageView *topImageView;
 @property (nonatomic, strong) UILabel *statusLab;
@@ -34,50 +30,6 @@
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
 
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated{
-    ExchangeVipVC *vc = ExchangeVipVC.new;
-    vc.successBlock = block;
-    vc.requestParams = requestParams;
-    if ([requestParams isKindOfClass:NSDictionary.class]) {
-        NSDictionary *dic = (NSDictionary *)requestParams;
-        NSLog(@"%@ | %@",dic,dic[@"balanceStr"]);
-        vc.myBalance = [NSString stringWithFormat:@"%@",dic[@"balanceStr"]];
-    }
-    switch (comingStyle) {
-        case ComingStyle_PUSH:{
-            if (rootVC.navigationController) {
-                vc.isPush = YES;
-                vc.isPresent = NO;
-                [rootVC.navigationController pushViewController:vc
-                                                       animated:animated];
-            }else{
-                vc.isPush = NO;
-                vc.isPresent = YES;
-                [rootVC presentViewController:vc
-                                     animated:animated
-                                   completion:^{}];
-            }
-        }break;
-        case ComingStyle_PRESENT:{
-            vc.isPush = NO;
-            vc.isPresent = YES;
-            //iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-            vc.modalPresentationStyle = presentationStyle;
-            [rootVC presentViewController:vc
-                                 animated:animated
-                               completion:^{}];
-        }break;
-        default:
-            NSLog(@"错误的推进方式");
-            break;
-    }return vc;
-}
-
 - (void)loadData {
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_GET
                                                            path:[URL_Manager sharedInstance].MKGetToMemTypeGET
@@ -91,7 +43,7 @@
             CGFloat leftMargin = 26;
             CGFloat height = 63;
             CGFloat width = 95;
-            CGFloat margin = (SCREEN_W - leftMargin * 2 - width * 3) / 2;
+            CGFloat margin = (MAINSCREEN_WIDTH - leftMargin * 2 - width * 3) / 2;
             for (int i = 0;i < self.model.selectVo.count; i++) {
                 SelectVo *selectM = self.model.selectVo[i];
                 UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(leftMargin + i % 3 * (width + margin), 187 + i/3 *(63+12), width, height)];
@@ -131,6 +83,15 @@
 }
 #pragma mark - Lifecycle
 
+-(void)loadView{
+    [super loadView];
+    if ([self.requestParams isKindOfClass:NSDictionary.class]) {
+        NSDictionary *dic = (NSDictionary *)self.requestParams;
+        NSLog(@"%@ | %@",dic,dic[@"balanceStr"]);
+        self.myBalance = [NSString stringWithFormat:@"%@",dic[@"balanceStr"]];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.gk_navTitle = @"兑换会员";
@@ -147,7 +108,11 @@
 - (void)convertClick {
 
     if ([self.myBalance floatValue] < [self.money floatValue]) {
-        [[MKTools shared] showMBProgressViewOnlyTextInView:self.view text:@"还没有那么多的余额，赶快去赚吧" dissmissAfterDeley:2.0f];
+
+        [WHToast showMessage:@"还没有那么多的余额，赶快去赚吧"
+                    duration:1
+               finishHandler:nil];
+        
         return;
     }
     [NSObject showSYSAlertViewTitle:@"兑换会员"
@@ -173,7 +138,6 @@
        @weakify(self)
        [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
            @strongify(self)
-           [[MKTools shared] dissmissLoadingInView:self.view animated:YES];
            if (response.isSuccess) {
                /*
                 {
@@ -190,11 +154,16 @@
                    dispatch_async(dispatch_get_main_queue() , ^{
                        weakSelf.statusLab.text = [NSString stringWithFormat:@"%@ 到期",response.reqResult[@"validDate"]];
                    });
-                   [[MKTools shared] showMBProgressViewOnlyTextInView:weakSelf.view text:@"兑换成功" dissmissAfterDeley:2.0f];
+                   
+                   [WHToast showMessage:@"兑换成功"
+                               duration:1
+                          finishHandler:nil];
                }
                else
                {
-                   [MBProgressHUD wj_showError:response.reqResult];
+                   [WHToast showMessage:response.reqResult
+                               duration:1
+                          finishHandler:nil];
                }
                
                
@@ -234,14 +203,14 @@
 
 - (UIScrollView *)mScrollView {
     if (!_mScrollView) {
-        _mScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, self.gk_navigationBar.height, SCREEN_W, 603)];
+        _mScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, self.gk_navigationBar.height, MAINSCREEN_WIDTH, 603)];
         _mScrollView.showsVerticalScrollIndicator = 0;
-        _mScrollView.contentSize = CGSizeMake(SCREEN_W, 603);
+        _mScrollView.contentSize = CGSizeMake(MAINSCREEN_WIDTH, 603);
         _mScrollView.backgroundColor = HEXCOLOR(0x242a37);
         
         UIImageView *igv = [[UIImageView alloc]init];
        
-        igv.frame = CGRectMake(0, 12, SCREEN_W, 135);
+        igv.frame = CGRectMake(0, 12, MAINSCREEN_WIDTH, 135);
         [_mScrollView addSubview:igv];
 
         igv.contentMode = UIViewContentModeScaleToFill;
@@ -260,7 +229,7 @@
         lab1.font = [UIFont fontWithName:@"PingFangSC-Medium" size:12.8];
         lab1.text = @"选择会员天数";
 
-        UIButton *convertBtn = [[UIButton alloc]initWithFrame:CGRectMake((kScreenWidth - 150) / 2, 348, 150, 28)];
+        UIButton *convertBtn = [[UIButton alloc]initWithFrame:CGRectMake((MAINSCREEN_WIDTH - 150) / 2, 348, 150, 28)];
         [_mScrollView addSubview:convertBtn];
         convertBtn.layer.cornerRadius = 14;
         convertBtn.layer.masksToBounds = 1;
@@ -277,7 +246,7 @@
         
         NSArray *labTitles = @[@"1.成为会员后观看视频时,可极速减少广告时间.",@"2.会员用户可以对视频进行无限制评论.",@"3.更多会员特权尽情期待."];
         for (int i = 0;i < labTitles.count; i++) {
-            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(26, 514+i*18, kScreenWidth - 40, 14)];
+            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(26, 514+i*18, MAINSCREEN_WIDTH - 40, 14)];
             [_mScrollView addSubview:label];
             label.textColor = COLOR_HEX(0xffffff, 0.4);
             label.font = [UIFont systemFontOfSize:10];

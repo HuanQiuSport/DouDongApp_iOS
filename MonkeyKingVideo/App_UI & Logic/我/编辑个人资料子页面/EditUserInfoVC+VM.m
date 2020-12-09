@@ -29,7 +29,7 @@
         MKLoginModel *model = [MKPublickDataManager sharedPublicDataManage].mkLoginModel;
         model.headImage = response.reqResult[@"data"];
         [[NSNotificationCenter defaultCenter] postNotificationName:MKRefreshHeadImgNotification object:nil];
-        [[MKLoginModel getUsingLKDBHelper] insertToDB:model];
+//        [[MKLoginModel getUsingLKDBHelper] insertToDB:model];
         
         [self netWorking_MKUserInfoGET];
     }];
@@ -75,8 +75,11 @@
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
          @strongify(self)
          if (response.isSuccess){
-             [MBProgressHUD wj_showPlainText:@"设置成功"
-                                        view:nil];
+
+             [WHToast showMessage:@"设置成功"
+                         duration:1
+                    finishHandler:nil];
+             
              block(@(YES));
              switch (dataType) {
                  case UpdateUserInfoType_NickName:{
@@ -104,7 +107,7 @@
                  case UpdateUserInfoType_Sex:{
                      MKLoginModel *model = [MKPublickDataManager sharedPublicDataManage].mkLoginModel;
                      model.sex = self.sex.intValue ? @"女" :@"男";
-                     [[MKLoginModel getUsingLKDBHelper] insertToDB:model];
+//                     [[MKLoginModel getUsingLKDBHelper] insertToDB:model];
                      [self.detailTitleMutArr insertObject:model.sex atIndex:2];
                      
                      [self.detailTitleMutArr removeObjectAtIndex:3];

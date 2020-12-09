@@ -40,12 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *signDay;
 @property (nonatomic, copy) NSString *signCoin;
 
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated;
 
 @end
 

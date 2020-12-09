@@ -315,15 +315,15 @@ static UIFont * kSubTitleFont() {
             WDAlterSheetLastControl *button = [view createLastButtonWithModel:obj tag:idx];
             if (cancelText.length == 0) {
                 if (isiPhoneX_series()) {
-                    button.frame = CGRectMake(0, KButtonHeight * (items.count - 1) + cornersSpace, kScreenWidth, KButtonHeight + 34);
+                    button.frame = CGRectMake(0, KButtonHeight * (items.count - 1) + cornersSpace, MAINSCREEN_WIDTH, KButtonHeight + 34);
                 } else {
-                    button.frame = CGRectMake(0, KButtonHeight * (items.count - 1) + cornersSpace, kScreenWidth, KButtonHeight);
+                    button.frame = CGRectMake(0, KButtonHeight * (items.count - 1) + cornersSpace, MAINSCREEN_WIDTH, KButtonHeight);
                 }
             } else {
                 if (isiPhoneX_series()) {
-                    button.frame = CGRectMake(0, KButtonHeight * items.count + KSpace + cornersSpace, kScreenWidth, KButtonHeight + 34);
+                    button.frame = CGRectMake(0, KButtonHeight * items.count + KSpace + cornersSpace, MAINSCREEN_WIDTH, KButtonHeight + 34);
                 } else {
-                    button.frame = CGRectMake(0, KButtonHeight * items.count + KSpace + cornersSpace, kScreenWidth, KButtonHeight);
+                    button.frame = CGRectMake(0, KButtonHeight * items.count + KSpace + cornersSpace, MAINSCREEN_WIDTH, KButtonHeight);
                 }
             }
             [view.backView addSubview:button];
@@ -333,10 +333,10 @@ static UIFont * kSubTitleFont() {
             
             if (idx == 0) {
                 button.bottomLineView.hidden = idx == items.count - 1;
-                button.frame = CGRectMake(0, 0, kScreenWidth, KButtonHeight + cornersSpace);
+                button.frame = CGRectMake(0, 0, MAINSCREEN_WIDTH, KButtonHeight + cornersSpace);
             } else {
                 button.bottomLineView.hidden = idx == items.count - 2;
-                button.frame = CGRectMake(0, cornersSpace + KButtonHeight * idx, kScreenWidth, KButtonHeight);
+                button.frame = CGRectMake(0, cornersSpace + KButtonHeight * idx, MAINSCREEN_WIDTH, KButtonHeight);
             }
             [view.backView addSubview:button];
         }
@@ -355,11 +355,11 @@ static UIFont * kSubTitleFont() {
         totoalHeight += 34;
     }
     
-    view.backView.frame = CGRectMake(0, kScreenHeight, kScreenWidth, totoalHeight);
+    view.backView.frame = CGRectMake(0, kScreenHeight, MAINSCREEN_WIDTH, totoalHeight);
 
     [UIView animateWithDuration:0.35 animations:^{
         view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.35];
-        view.backView.frame = CGRectMake(0, kScreenHeight - totoalHeight, kScreenWidth, totoalHeight);
+        view.backView.frame = CGRectMake(0, kScreenHeight - totoalHeight, MAINSCREEN_WIDTH, totoalHeight);
     }];
     [self setupRoundedCornersWithView:view.backView];
 
@@ -377,7 +377,7 @@ static UIFont * kSubTitleFont() {
 
 - (void)hidenView {
     [UIView animateWithDuration:0.35 animations:^{
-        self.backView.frame = CGRectMake(0, kScreenHeight, kScreenWidth, self.totalHeight);
+        self.backView.frame = CGRectMake(0, kScreenHeight, MAINSCREEN_WIDTH, self.totalHeight);
         self.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     } completion:^(BOOL finished) {
         [self removeSubViews];

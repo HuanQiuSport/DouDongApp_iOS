@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "PlaySound.h"
 /**
  自定义 buttom 按下有按键音
  */

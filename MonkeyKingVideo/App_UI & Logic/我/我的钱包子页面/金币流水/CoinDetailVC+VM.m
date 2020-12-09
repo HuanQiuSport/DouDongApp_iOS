@@ -11,10 +11,10 @@
 @implementation CoinDetailVC (VM)
 
 -(void)netWorking_MKWalletMyFlowsPOST{
-    /// 
+
     NSDictionary *easyDict = @{
         @"type":[NSNumber numberWithInteger:self.walletStyle],
-        @"beginDate":[NSObject getToday]
+        @"beginDate":[TimeModel.new getDayWithDate:nil dateFormatStr:@"yyyy-MM-dd"]
     };//流水类型(0-金币流水，1-余额流水)
     /// 
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST

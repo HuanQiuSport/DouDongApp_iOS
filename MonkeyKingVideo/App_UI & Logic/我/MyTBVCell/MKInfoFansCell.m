@@ -50,16 +50,16 @@
     
     [self.mKIMGageView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(@(15*KDeviceScale));
+        make.left.equalTo(@(15*1));
         
         make.centerY.equalTo(self.mas_centerY);
         
-        make.width.height.equalTo(@(46*KDeviceScale));
+        make.width.height.equalTo(@(46*1));
     }];
     
     [self.mkTitleLable mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.mKIMGageView.mas_right).offset(5*KDeviceScale);
+        make.left.equalTo(self.mKIMGageView.mas_right).offset(5*1);
         
         make.top.equalTo(self.mKIMGageView.mas_top);
         
@@ -67,14 +67,14 @@
     
     [self.mkDecripLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.mKIMGageView.mas_right).offset(5*KDeviceScale);
+        make.left.equalTo(self.mKIMGageView.mas_right).offset(5*1);
         
         make.bottom.equalTo(self.mKIMGageView.mas_bottom);
     }];
     
     [self.mkLineView mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.left.equalTo(self.mKIMGageView.mas_left).offset(0*KDeviceScale);
+        make.left.equalTo(self.mKIMGageView.mas_left).offset(0*1);
         
         make.right.equalTo(self.mas_right);
         
@@ -85,9 +85,9 @@
     
     [self.mkLookButton mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.centerY.equalTo(self.mkDecripLabel.mas_centerY).offset(0*KDeviceScale);
+        make.centerY.equalTo(self.mkDecripLabel.mas_centerY).offset(0*1);
         
-        make.right.equalTo(self.mas_right).offset(-5*KDeviceScale);
+        make.right.equalTo(self.mas_right).offset(-5*1);
         
     }];
 }

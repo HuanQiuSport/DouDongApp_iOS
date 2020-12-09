@@ -32,7 +32,7 @@ UITableViewDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor  = MKBakcColor;
+    self.view.backgroundColor  = kBlackColor;
     self.gk_navTitle = @"设置";
     self.gk_backStyle = GKNavigationBarBackStyleWhite;
     [self mkAddSubView];
@@ -51,9 +51,9 @@ UITableViewDelegate
         self.botV.backgroundColor = UIColor.groupTableViewBackgroundColor;
     } else {
         self.gk_backStyle = GKNavigationBarBackStyleWhite;
-        self.view.backgroundColor  = MKBakcColor;
+        self.view.backgroundColor  = kBlackColor;
         self.gk_navTitleColor = UIColor.whiteColor;
-        self.gk_navBackgroundColor = MKBakcColor;
+        self.gk_navBackgroundColor = kBlackColor;
         self.mkTableview.backgroundColor = RGBCOLOR(30, 36, 50);
         self.botV.backgroundColor = RGBCOLOR(30, 36, 50);
     }
@@ -75,19 +75,22 @@ UITableViewDelegate
         if ((Boolean)data) {
             [self clearAllUserDefaultsData];
             [MKTools shared]._isReloadRequest = YES;
-            [[MKTools shared] showMBProgressViewOnlyTextInView:self.view
-                                                          text:@"退出登录成功，已处于未登录状态"
-                                            dissmissAfterDeley:1.2];
-            [[MKLoginModel getUsingLKDBHelper] deleteToDB:[MKPublickDataManager sharedPublicDataManage].mkLoginModel];
+
+            [WHToast showMessage:@"退出登录成功，已处于未登录状态"
+                        duration:1
+                   finishHandler:nil];
+            
+//            [[MKLoginModel getUsingLKDBHelper] deleteToDB:[MKPublickDataManager sharedPublicDataManage].mkLoginModel];
             [[MKTools shared] cleanCacheAndCookie];
             [MKPublickDataManager sharedPublicDataManage].mkLoginModel.token = @"";
             [SceneDelegate sharedInstance].customSYSUITabBarController.selectedIndex = 4;
             [self.navigationController popViewControllerAnimated:YES];
             [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:KLoginOutNotifaction object:nil]];
         }else{
-            [[MKTools shared] showMBProgressViewOnlyTextInView:self.view
-                                                          text:@"退出登录失败，稍后再试"
-                                            dissmissAfterDeley:1.2];
+
+            [WHToast showMessage:@"退出登录失败，稍后再试"
+                        duration:1
+                   finishHandler:nil];
         }
     }];
 
@@ -104,7 +107,7 @@ UITableViewDelegate
         make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(([SkinManager manager].skin == MKSkinWhite) ? 10 : 0);
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
-        make.height.equalTo(@(KDeviceScale * 50 * 3));
+        make.height.equalTo(@(1 * 50 * 3));
     }];
     
 
@@ -120,7 +123,7 @@ UITableViewDelegate
     [botV addSubview:self.mkVersionView];
     [self.mkVersionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.offset(0);
-        make.height.equalTo(@(KDeviceScale * 50));
+        make.height.equalTo(@(1 * 50));
      }];
     [self.mkVersionView getVersionInfo];
 }
@@ -128,7 +131,7 @@ UITableViewDelegate
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50 * KDeviceScale;
+    return 50 * 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
@@ -214,9 +217,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (void)clearCache {
     [MKCacheTool cleanCaches];
-    [[MKTools shared] showMBProgressViewOnlyTextInView:self.view
-                                                  text:@"缓存清理完成"
-                                    dissmissAfterDeley:1.2];
+
+    [WHToast showMessage:@"缓存清理完成"
+                duration:1
+           finishHandler:nil];
+    
     self.cacheLab.text = @"0M";
 }
 #pragma mark - Lazyload

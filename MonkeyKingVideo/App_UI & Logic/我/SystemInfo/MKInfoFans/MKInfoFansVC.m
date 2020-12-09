@@ -65,7 +65,7 @@ UITableViewDelegate
         
         make.right.equalTo(self.view);
         
-        make.top.equalTo(self.view.mas_top).offset(kNavigationBarHeight+kStatusBarHeight);
+        make.top.equalTo(self.view.mas_top).offset(44+rectOfStatusbar());
         
         make.bottom.equalTo(self.view);
         
@@ -73,7 +73,7 @@ UITableViewDelegate
 
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 100 * KDeviceScale;
+    return 100 * 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 1;

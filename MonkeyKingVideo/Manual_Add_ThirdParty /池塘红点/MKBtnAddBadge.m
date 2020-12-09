@@ -26,7 +26,7 @@ static MKBtnAddBadge *_tools = nil;
 }
 -(void)AddBadge:(UIView *)targetView SizeWith:(CGSize)size WithNumber:(NSInteger)number WithTargetViewRadius:(CGFloat)floats{
     [targetView.subviews.firstObject removeFromSuperview];
-    UIView *back = [[UIView alloc]initWithFrame:CGRectMake(46 * KDeviceScale - 10 - size.width/2,0,size.width, size.height)];
+    UIView *back = [[UIView alloc]initWithFrame:CGRectMake(46 * 1 - 10 - size.width/2,0,size.width, size.height)];
 #pragma warning -  此处不知为何一直获取不到 targetView.bounds | targetView.frame
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0,0,size.width, size.height)];
     imageView.image = KIMG(@"消息number");

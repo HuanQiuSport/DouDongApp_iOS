@@ -99,12 +99,12 @@
 //                dataDic[@"HTTPServiceResponseDataKey"];
 
                 NSNumber *b = (NSNumber *)dataDic[HTTPServiceResponseCodeKey];
-                if (b.integerValue == HTTPResponseCodeSuccess) {
-                    VideoModel *videoModel = [VideoModel mj_objectWithKeyValues:dataDic[HTTPServiceResponseDataKey]];
-                    videoModel.listMutArr = [VideoModel_Core mj_objectArrayWithKeyValuesArray:dataDic[HTTPServiceResponseDataKey][@"list"]];
-                    NSLog(@"");
-                    return videoModel.listMutArr;
-                }
+//                if (b.integerValue == HTTPResponseCodeSuccess) {
+//                    VideoModel *videoModel = [VideoModel mj_objectWithKeyValues:dataDic[HTTPServiceResponseDataKey]];
+//                    videoModel.listMutArr = [VideoModel_Core mj_objectArrayWithKeyValuesArray:dataDic[HTTPServiceResponseDataKey][@"list"]];
+//                    NSLog(@"");
+//                    return videoModel.listMutArr;
+//                }
             }
         }
         return nil;

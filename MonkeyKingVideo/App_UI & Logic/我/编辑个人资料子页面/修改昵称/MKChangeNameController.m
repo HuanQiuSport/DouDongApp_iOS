@@ -13,10 +13,7 @@
 
 @property(nonatomic,strong)UIButton *saveBtn;
 @property(nonatomic,strong)UITextField *textField;
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,copy)MKDataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
+
 @property(nonatomic,copy)MKDataBlock changeNickNameBlock;
 @property(nonatomic,strong)UIView *backView;
 @property(nonatomic,strong)NSString *nickName;
@@ -29,48 +26,6 @@
 -(void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
-
-+(instancetype)ComingFromVC:(UIViewController *)rootVC
-                comingStyle:(ComingStyle)comingStyle
-          presentationStyle:(UIModalPresentationStyle)presentationStyle
-              requestParams:(nullable id)requestParams
-                    success:(MKDataBlock)block
-                   animated:(BOOL)animated{
-    MKChangeNameController *vc = MKChangeNameController.new;
-    vc.successBlock = block;
-    vc.requestParams = requestParams;
-    vc.nickName = (NSString *)requestParams[@"nikcName"];
-    vc.textField.text = vc.nickName;
-    switch (comingStyle) {
-        case ComingStyle_PUSH:{
-            if (rootVC.navigationController) {
-                vc.isPush = YES;
-                vc.isPresent = NO;
-                [rootVC.navigationController pushViewController:vc
-                                                       animated:animated];
-            }else{
-                vc.isPush = NO;
-                vc.isPresent = YES;
-                [rootVC presentViewController:vc
-                                     animated:animated
-                                   completion:^{}];
-            }
-        }break;
-        case ComingStyle_PRESENT:{
-            vc.isPush = NO;
-            vc.isPresent = YES;
-            //iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-            vc.modalPresentationStyle = presentationStyle;
-            [rootVC presentViewController:vc
-                                 animated:animated
-                               completion:^{}];
-        }break;
-        default:
-            NSLog(@"错误的推进方式");
-            break;
-    }return vc;
-}
-
 #pragma mark - Lifecycle
 -(instancetype)init{
     if (self = [super init]) {
@@ -80,6 +35,9 @@
 
 - (void)loadView {
     [super loadView];
+
+    self.nickName = (NSString *)self.requestParams[@"nikcName"];
+    self.textField.text = self.nickName;
 }
 
 - (void)viewDidLoad {
@@ -132,9 +90,9 @@
 //        }
       }];
     [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
-           make.left.offset(14*SCREEN_W/375);
+           make.left.offset(14*MAINSCREEN_WIDTH/375);
            make.top.bottom.offset(0);
-           make.right.offset(-20*SCREEN_W/375);
+           make.right.offset(-20*MAINSCREEN_WIDTH/375);
     }];
     [self.mkClearButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.offset(0);
@@ -142,7 +100,7 @@
         make.centerY.offset(0);
     }];
     [self.saveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.offset(SCALING_RATIO(168));
+        make.width.offset(168);
         make.centerX.offset(0);
         make.top.mas_equalTo(self.backView.mas_bottom).offset(24);
         make.height.offset(32);
@@ -157,7 +115,10 @@
 shouldChangeCharactersInRange:(NSRange)range
 replacementString:(NSString *)string {
     if([MKTools isContainsTwoEmoji:string]) {
-        [MBProgressHUD wj_showPlainText:@"不可以输入表情" view:nil];
+
+        [WHToast showMessage:@"不可以输入表情"
+                    duration:1
+               finishHandler:nil];
         return NO;
     }return YES;
 }
@@ -183,18 +144,29 @@ replacementString:(NSString *)string {
 #pragma mark - 昵称过滤 昵称输入框可输入范围为4-16个字符。低于4个字符，点击“确认”按钮时，显示Tips提示“不低于4个字符”。超过16个字符时，不可再进行输入； 来自UI图
                 NSInteger strCout = [MKTools mkCountCharNumber:self.textField.text];
                 if(strCout < 4){
-                    [MBProgressHUD wj_showPlainText:@"不低于4个字符" view:nil];
+                    
+                    [WHToast showMessage:@"不低于4个字符"
+                                duration:1
+                           finishHandler:nil];
                     return;
                 }
                 if(strCout > 16){
-                    [MBProgressHUD wj_showPlainText:@"超过16个字符" view:nil];
+
+                    [WHToast showMessage:@"超过16个字符"
+                                duration:1
+                           finishHandler:nil];
+                    
                     return;
                 }
                 if (self.changeNickNameBlock) {
                     self.changeNickNameBlock(self.textField);
                 }
             }else{
-                [MBProgressHUD wj_showPlainText:@"总的写点什么吧" view:nil];
+
+                [WHToast showMessage:@"总的写点什么吧"
+                            duration:1
+                       finishHandler:nil];
+                
             }
         }];
     }return _saveBtn;

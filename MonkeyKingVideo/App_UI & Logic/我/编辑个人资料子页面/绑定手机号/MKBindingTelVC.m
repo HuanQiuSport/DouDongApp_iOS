@@ -25,12 +25,6 @@
 @property(nonatomic,strong)NSString *nickName;
 @property(nonatomic,copy)MKDataBlock changeNickNameBlock;
 
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,copy)MKDataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
-
-
 @end
 
 @implementation MKBindingTelVC
@@ -39,47 +33,6 @@
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
-
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated{
-    MKBindingTelVC *vc = MKBindingTelVC.new;
-    vc.successBlock = block;
-    vc.requestParams = requestParams;
-    vc.nickName = (NSString *)requestParams[@"nikcName"];
-    switch (comingStyle) {
-        case ComingStyle_PUSH:{
-            if (rootVC.navigationController) {
-                vc.isPush = YES;
-                vc.isPresent = NO;
-                [rootVC.navigationController pushViewController:vc
-                                                       animated:animated];
-            }else{
-                vc.isPush = NO;
-                vc.isPresent = YES;
-                [rootVC presentViewController:vc
-                                     animated:animated
-                                   completion:^{}];
-            }
-        }break;
-        case ComingStyle_PRESENT:{
-            vc.isPush = NO;
-            vc.isPresent = YES;
-            //iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-            vc.modalPresentationStyle = presentationStyle;
-            [rootVC presentViewController:vc
-                                 animated:animated
-                               completion:^{}];
-        }break;
-        default:
-            NSLog(@"错误的推进方式");
-            break;
-    }return vc;
-}
-
 #pragma mark - Lifecycle
 -(instancetype)init{
     if (self = [super init]) {
@@ -89,6 +42,8 @@
 
 - (void)loadView {
     [super loadView];
+    self.nickName = (NSString *)self.requestParams[@"nikcName"];
+    
     [self.view addSubview:self.iphoneLabel];
     [self.view addSubview:self.verCodeLabel];
     [self.backView addSubview:self.lineLabel];
@@ -136,8 +91,9 @@
 -(void)mkLayOutView {
     
     [self.iphoneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(20*SCREEN_W/375);
-        if (iPhoneX | iPhoneScreen_XR | iPhoneScreen_X_XS | iPhoneScreen_XSMAX) {
+        make.left.mas_equalTo(20*MAINSCREEN_WIDTH/375);
+        
+        if (isiPhoneX_series()) {
              make.top.mas_equalTo(30+88);
         } else {
             make.top.mas_equalTo(30+64);
@@ -145,14 +101,14 @@
     }];
     [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
           make.right.offset(0);
-          make.left.mas_equalTo(10*SCREEN_W/375);
+          make.left.mas_equalTo(10*MAINSCREEN_WIDTH/375);
           make.height.offset(44);
           make.top.mas_equalTo(self.iphoneLabel.mas_bottom).offset(13);
       }];
     [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
-           make.left.offset(14*SCREEN_W/375);
+           make.left.offset(14*MAINSCREEN_WIDTH/375);
            make.top.bottom.offset(0);
-           make.right.offset(-20*SCREEN_W/375);
+           make.right.offset(-20*MAINSCREEN_WIDTH/375);
        }];
     
     [self.verCodeLabel  mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -162,26 +118,26 @@
     }];
     [self.verCodeView mas_makeConstraints:^(MASConstraintMaker *make) {
           make.right.offset(0);
-          make.left.mas_equalTo(10*SCREEN_W/375);
+          make.left.mas_equalTo(10*MAINSCREEN_WIDTH/375);
           make.height.offset(30);
           make.top.equalTo(self.verCodeLabel.mas_bottom).offset(13);
     }];
     [self.verCodeTextFeild mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.offset(14*SCREEN_W/375);
+        make.left.offset(14*MAINSCREEN_WIDTH/375);
         make.top.bottom.offset(0);
-        make.right.offset(-120*SCREEN_W/375);
+        make.right.offset(-120*MAINSCREEN_WIDTH/375);
     }];
     [self.lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
            make.left.mas_equalTo(self.textField.mas_left);
            make.bottom.mas_equalTo(0);
            make.height.mas_equalTo(1);
-         make.right.offset(-20*SCREEN_W/375);
+         make.right.offset(-20*MAINSCREEN_WIDTH/375);
        }];
     [self.lineLabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.verCodeTextFeild.mas_bottom).offset(10);
         make.left.mas_equalTo(self.verCodeTextFeild.mas_left);
         make.height.mas_equalTo(1);
-         make.right.offset(-20*SCREEN_W/375);
+         make.right.offset(-20*MAINSCREEN_WIDTH/375);
       }];
    
     [self.verCodeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -197,12 +153,12 @@
     
     [self.countDownBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(self.verCodeView.mas_centerY);
-        make.right.offset(-24*SCREEN_W/375);
+        make.right.offset(-24*MAINSCREEN_WIDTH/375);
         make.width.mas_equalTo(95);
         make.height.mas_equalTo(20);
     }];
     [self.saveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.offset(SCALING_RATIO(168));
+        make.width.offset(168);
         make.centerX.offset(0);
         make.top.mas_equalTo(self.backView.mas_bottom).offset(124);
         make.height.offset(32);
@@ -213,8 +169,11 @@
 shouldChangeCharactersInRange:(NSRange)range
 replacementString:(NSString *)string {
     if([MKTools isContainsTwoEmoji:string]) {
-        [MBProgressHUD wj_showPlainText:@"不可以输入表情"
-                                   view:nil];
+
+        [WHToast showMessage:@"不可以输入表情"
+                    duration:1
+               finishHandler:nil];
+        
         return NO;
     }return YES;
 }
@@ -243,16 +202,25 @@ replacementString:(NSString *)string {
 #pragma mark - 昵称过滤 昵称输入框可输入范围为4-16个字符。低于4个字符，点击“确认”按钮时，显示Tips提示“不低于4个字符”。超过16个字符时，不可再进行输入； 来自UI图
                 NSInteger strCout = [MKTools mkCountCharNumber:self.textField.text];
                 if(strCout < 4){
-                    [MBProgressHUD wj_showPlainText:@"不低于4个字符" view:nil];
+
+                    [WHToast showMessage:@"不低于4个字符"
+                                duration:1
+                           finishHandler:nil];
                     return;
                 }
                 if(strCout > 16){
-                    [MBProgressHUD wj_showPlainText:@"超过16个字符" view:nil];
+
+                    [WHToast showMessage:@"超过16个字符"
+                                duration:1
+                           finishHandler:nil];
                     return;
                 }
                 [self uploadDataRequest];
             }else{
-                [MBProgressHUD wj_showPlainText:@"请输入手机号" view:nil];
+
+                [WHToast showMessage:@"请输入手机号"
+                            duration:1
+                       finishHandler:nil];
             }
         }];
     }return _saveBtn;
@@ -313,7 +281,10 @@ replacementString:(NSString *)string {
                 [self pushRequestMessage];
                 [self.countDownBtn timeFailBeginFrom:60];
             }else{
-              [MBProgressHUD wj_showPlainText:@"请输入正确的手机号" view:self.view];
+
+                [WHToast showMessage:@"请输入正确的手机号"
+                            duration:1
+                       finishHandler:nil];
             }
         }];
         [self.view addSubview:_countDownBtn];

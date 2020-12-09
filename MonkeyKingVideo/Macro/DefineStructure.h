@@ -129,4 +129,28 @@ typedef enum : NSUInteger {
     MKVideoOfReviewType_fail ,
 } MKVideoOfReviewType;
 
+
+///// 请求数据返回的状态码、根据自己的服务端数据来
+//typedef NS_ENUM(NSUInteger, HTTPResponseCode) {//KKK
+//    ///请求成功 200
+//    HTTPResponseCodeSuccess = 200,
+//    ///未登录 & 被踢 401
+//    HTTPResponseCodeNotLogin = 401,
+//    ///失效Token 402
+//    HTTPResponseCodeFailureToken = 402,
+//    ///550 后台业务代码参数异常 参数异常
+//    HTTPResponseCodeAnomalous = 550,
+//    ///后台代码异常 999
+//    HTTPResponseCodeError = 999,
+//    ///app 更新提示
+//    HTTPResponseCodeUpdateApp = 990,
+//};
+//
+//NSString *const HTTPServiceErrorDomain = @"HTTPServiceErrorDomain";/// The Http request error domain
+//NSString *const HTTPServiceErrorResponseCodeKey = @"HTTPServiceErrorResponseCodeKey";/// 请求成功，但statusCode != 0
+//NSString *const HTTPServiceErrorRequestURLKey = @"HTTPServiceErrorRequestURLKey";//请求地址错误
+//NSString *const HTTPServiceErrorHTTPStatusCodeKey = @"HTTPServiceErrorHTTPStatusCodeKey";//请求错误的code码key: 请求成功了，但code码是错误提示的code,比如参数错误
+//NSString *const HTTPServiceErrorDescriptionKey = @"HTTPServiceErrorDescriptionKey";//请求错误，详细描述key
+//NSString *const HTTPServiceErrorMessagesKey = @"HTTPServiceErrorMessagesKey";//服务端错误提示，信息key
+
 #endif /* DefineStructure_h */

@@ -16,12 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)JXCategoryTitleView *categoryView;
 @property(nonatomic,strong)JXCategoryListContainerView *listContainerView;
 - (void)anno;
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated;
+
 @end
 
 NS_ASSUME_NONNULL_END

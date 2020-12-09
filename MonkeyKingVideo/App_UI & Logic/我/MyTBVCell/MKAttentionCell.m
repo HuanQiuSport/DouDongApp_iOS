@@ -65,38 +65,38 @@
     
     [self.mKIMGageView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(@(15*KDeviceScale));
+        make.left.equalTo(@(15*1));
         
         make.centerY.equalTo(self.mas_centerY);
         
-        make.width.height.equalTo(@(50*KDeviceScale));
+        make.width.height.equalTo(@(50*1));
     }];
     
     [self.mkTitleLable mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.mKIMGageView.mas_right).offset(10*KDeviceScale);
+        make.left.equalTo(self.mKIMGageView.mas_right).offset(10*1);
         
         make.top.equalTo(self.mKIMGageView.mas_top);
 //        make.height.offset(SCALING_RATIO(22));
-        make.width.mas_lessThanOrEqualTo(kScreenWidth-150);
+        make.width.mas_lessThanOrEqualTo(MAINSCREEN_WIDTH-150);
         
        }];
     [self.vipImgage mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.mkTitleLable.mas_right).offset(6*KDeviceScale);
+        make.left.equalTo(self.mkTitleLable.mas_right).offset(6*1);
         make.top.equalTo(self.mkTitleLable.mas_top);
         make.centerY.mas_equalTo(self.mkTitleLable.mas_centerY);
-        make.width.equalTo(@(19 *KDeviceScale));
-        make.height.equalTo(@(17 *KDeviceScale));
+        make.width.equalTo(@(19 *1));
+        make.height.equalTo(@(17 *1));
     }];
     
     [self.mkDecripLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.mKIMGageView.mas_right).offset(10*KDeviceScale);
+        make.left.equalTo(self.mKIMGageView.mas_right).offset(10*1);
         
         make.top.equalTo(self.mkTitleLable.mas_bottom);
-        make.height.offset(SCALING_RATIO(18));
-        make.width.mas_lessThanOrEqualTo(kScreenWidth-150);
+        make.height.offset(18);
+        make.width.mas_lessThanOrEqualTo(MAINSCREEN_WIDTH-150);
     }];
     
     [self.mkLineView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -113,21 +113,21 @@
     
     [self.mkFansLabel mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.left.equalTo(self.mKIMGageView.mas_right).offset(10*KDeviceScale);
+        make.left.equalTo(self.mKIMGageView.mas_right).offset(10*1);
         
         make.top.equalTo(self.mkDecripLabel.mas_bottom);
-        make.height.offset(SCALING_RATIO(13));
+        make.height.offset(13);
     }];
     
     [self.mkOutListButton mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.equalTo(self.mas_right).offset(-11*KDeviceScale);
+        make.right.equalTo(self.mas_right).offset(-11*1);
         
         make.centerY.equalTo(self.mas_centerY);
         
-        make.height.equalTo(@(26 * KDeviceScale));
+        make.height.equalTo(@(26 * 1));
         
-        make.width.equalTo(@(56 * KDeviceScale));
+        make.width.equalTo(@(56 * 1));
     }];
     
 }
@@ -138,7 +138,7 @@
         
         [sender setBackgroundImage:[UIImage imageWithColor:UIColor.whiteColor] forState:UIControlStateNormal];
         
-        sender.layer.cornerRadius = 13.5 *KDeviceScale;
+        sender.layer.cornerRadius = 13.5 *1;
         
         sender.layer.masksToBounds = YES;
         
@@ -151,7 +151,7 @@
     }else{
         [sender setBackgroundImage:KIMG(@"画板") forState:UIControlStateNormal];
         
-        sender.layer.cornerRadius = 13.5 *KDeviceScale;
+        sender.layer.cornerRadius = 13.5 *1;
         
         sender.layer.masksToBounds = YES;
         
@@ -177,7 +177,7 @@
         
         _mKIMGageView.layer.masksToBounds = YES;
         
-        _mKIMGageView.layer.cornerRadius = 25 * KDeviceScale;
+        _mKIMGageView.layer.cornerRadius = 25 * 1;
         
     }
     return _mKIMGageView;
@@ -192,7 +192,7 @@
 //        
 //        _vipImgage.layer.masksToBounds = YES;
 //        
-//        _vipImgage.layer.cornerRadius = 25 * KDeviceScale;
+//        _vipImgage.layer.cornerRadius = 25 * 1;
         
     }
     return _vipImgage;
@@ -266,7 +266,7 @@
         
         _mkOutListButton.layer.masksToBounds = YES;
         
-        _mkOutListButton.layer.cornerRadius = 13*KDeviceScale;
+        _mkOutListButton.layer.cornerRadius = 13*1;
     }
     
     return _mkOutListButton;

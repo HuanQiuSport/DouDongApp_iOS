@@ -13,11 +13,6 @@
 
 @interface CommunityVC ()
 
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,copy)MKDataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
-
 @property(nonatomic,strong)UIImageView *bacKIMGV;
 @property(nonatomic,strong)UIImageView *title_1IMGV;//抖动短视频
 @property(nonatomic,strong)UIImageView *title_2IMGV;//福利群官方
@@ -31,46 +26,6 @@
 - (void)dealloc {
 //    NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
-
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated{
-    CommunityVC *vc = CommunityVC.new;
-    vc.successBlock = block;
-    vc.requestParams = requestParams;
-    switch (comingStyle) {
-        case ComingStyle_PUSH:{
-            if (rootVC.navigationController) {
-                vc.isPush = YES;
-                vc.isPresent = NO;
-                [rootVC.navigationController pushViewController:vc
-                                                       animated:animated];
-            }else{
-                vc.isPush = NO;
-                vc.isPresent = YES;
-                [rootVC presentViewController:vc
-                                     animated:animated
-                                   completion:^{}];
-            }
-        }break;
-        case ComingStyle_PRESENT:{
-            vc.isPush = NO;
-            vc.isPresent = YES;
-            //iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-            vc.modalPresentationStyle = presentationStyle;
-            [rootVC presentViewController:vc
-                                 animated:animated
-                               completion:^{}];
-        }break;
-        default:
-//            NSLog(@"错误的推进方式");
-            break;
-    }return vc;
-}
-
 #pragma mark - Lifecycle
 -(instancetype)init{
     
@@ -86,33 +41,36 @@
     self.joinNowBtn.alpha = 1;
     [self.view addSubview:self.gameButton];
     [self.gameButton addAction:^(UIButton *btn) {
-        NSURL * url = [NSURL URLWithString:@"tingyun.75://"];
-        BOOL canOpen = [[UIApplication sharedApplication] canOpenURL:url];
-        //先判断是否能打开该url
-        if (canOpen){//打开微信
-            [[UIApplication sharedApplication] openURL:url];
-        }else {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mkSkipHQAppString]
-                                               options:@{}
-                                     completionHandler:nil];
+
+        [NSObject OpenURL:@"tingyun.75://"
+                  options:@{}
+    completionOpenSuccessHandler:^{
+            //TODO
         }
+    completionOpenFailHandler:^{
+            [NSObject OpenURL:mkSkipHQAppString
+                      options:@{}
+        completionOpenSuccessHandler:^{
+                //TODO
+            }
+        completionOpenFailHandler:^{
+                //TODO
+        //        [NSURL URLWithString:mkSkipHQAppString]
+            }];
+        }];
     }];
     [self.gameButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(28*SCREEN_WIDTH/375);
-        make.width.mas_equalTo(319*SCREEN_WIDTH/375);
-        if (IS_IPHONE_X | IS_IPHONE_Xs) {
-            make.top.mas_equalTo(67+BR_STATUSBAR_HEIGHT);
+        make.left.mas_equalTo(28*MAINSCREEN_WIDTH/375);
+        make.width.mas_equalTo(319*MAINSCREEN_WIDTH/375);
+        
+        if (isiPhoneX_series()) {
+            make.top.mas_equalTo(67+rectOfStatusbar());
             make.bottom.mas_equalTo(-261);
-        } else if (IS_IPHONE_Xr){
-            make.top.mas_equalTo(67+BR_STATUSBAR_HEIGHT);
-            make.bottom.mas_equalTo(-281);
-        } else if (IS_IPHONE_Xs_Max){
-            make.top.mas_equalTo(67+BR_STATUSBAR_HEIGHT);
-            make.bottom.mas_equalTo(-281);
-        } else {
-            make.top.mas_equalTo(47+BR_STATUSBAR_HEIGHT);
+        }else{
+            make.top.mas_equalTo(47+rectOfStatusbar());
             make.bottom.mas_equalTo(-186);
         }
+        
     }];
 }
 
@@ -149,15 +107,13 @@
         [self.view addSubview:_bacKIMGV];
         [_bacKIMGV mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.top.equalTo(self.view);
-            if (IS_IPHONE_X | IS_IPHONE_Xs) {
+            
+            if (isiPhoneX_series()) {
                 make.bottom.mas_equalTo(-83);
-            } else if (IS_IPHONE_Xr){
-                make.bottom.mas_equalTo(-83);
-            } else if (IS_IPHONE_Xs_Max){
-                make.bottom.mas_equalTo(-83);
-            } else {
+            }else{
                 make.bottom.mas_equalTo(-49);
             }
+
         }];
     }return _bacKIMGV;
 }
@@ -169,8 +125,8 @@
         [self.view addSubview:_title_1IMGV];
         [_title_1IMGV mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.view);
-            make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(243), SCALING_RATIO(52)));
-            make.top.equalTo(self.view).offset(SCALING_RATIO(59));
+            make.size.mas_equalTo(CGSizeMake(243, 52));
+            make.top.equalTo(self.view).offset(59);
         }];
     }return _title_1IMGV;
 }
@@ -182,8 +138,8 @@
         [self.view addSubview:_title_2IMGV];
         [_title_2IMGV mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.view);
-            make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(175), SCALING_RATIO(136)));
-            make.top.equalTo(self.title_1IMGV.mas_bottom).offset(SCALING_RATIO(113));
+            make.size.mas_equalTo(CGSizeMake(175, 136));
+            make.top.equalTo(self.title_1IMGV.mas_bottom).offset(113);
         }];
     }return _title_2IMGV;
 }
@@ -208,21 +164,16 @@
         [self.view addSubview:_joinNowBtn];
         [_joinNowBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.view);
-            make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(315), SCALING_RATIO(44)));
-//            make.top.equalTo(self.title_2IMGV.mas_bottom).offset(SCALING_RATIO(184));
-//            make.bottom.mas_equalTo(-30-TABBARH);
-            if (IS_IPHONE_X | IS_IPHONE_Xs) {
+            make.size.mas_equalTo(CGSizeMake(315, 44));
+            if (isiPhoneX_series()) {
                 make.bottom.mas_equalTo(-83-30);
-            } else if (IS_IPHONE_Xr){
-                make.bottom.mas_equalTo(-83-30);
-            } else if (IS_IPHONE_Xs_Max){
-                make.bottom.mas_equalTo(-83-30);
-            } else {
+            }else{
                 make.bottom.mas_equalTo(-49-10);
             }
+
         }];
         [UIView cornerCutToCircleWithView:_joinNowBtn
-                          AndCornerRadius:SCALING_RATIO(44 / 2)];
+                          AndCornerRadius:22];
     }return _joinNowBtn;
 }
 

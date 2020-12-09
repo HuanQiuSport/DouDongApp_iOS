@@ -36,11 +36,6 @@ UITableViewDelegate
 ,UIViewControllerInteractivePushGestureDelegate
 >
 
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,copy)MKDataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
-
 @property(nonatomic,strong)UIBarButtonItem *scanBtnItem;
 @property(nonatomic,strong)UIBarButtonItem *msgBtnItem;
 @property(nonatomic,strong)UIBarButtonItem *settingBtnItem;
@@ -56,46 +51,6 @@ UITableViewDelegate
     [[NSNotificationCenter defaultCenter] removeObserver:self name:KLoginSuccessNotifaction object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:KRegisSuccessNotifaction object:nil];
 }
-
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated{
-    MyVC *vc = MyVC.new;
-    vc.successBlock = block;
-    vc.requestParams = requestParams;
-    switch (comingStyle) {
-        case ComingStyle_PUSH:{
-            if (rootVC.navigationController) {
-                vc.isPush = YES;
-                vc.isPresent = NO;
-                [rootVC.navigationController pushViewController:vc
-                                                       animated:animated];
-            }else{
-                vc.isPush = NO;
-                vc.isPresent = YES;
-                [rootVC presentViewController:vc
-                                     animated:animated
-                                   completion:^{}];
-            }
-        }break;
-        case ComingStyle_PRESENT:{
-            vc.isPush = NO;
-            vc.isPresent = YES;
-            //iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-            vc.modalPresentationStyle = presentationStyle;
-            [rootVC presentViewController:vc
-                                 animated:animated
-                               completion:^{}];
-        }break;
-        default:
-            NSLog(@"错误的推进方式");
-            break;
-    }return vc;
-}
-
 #pragma mark - Lifecycle
 -(instancetype)init{
     if (self = [super init]) {
@@ -182,7 +137,11 @@ UITableViewDelegate
 - (void)handerNotification:(NSNotification *)notifi{
     if([notifi.name isEqualToString:MKRecordStartNotification]){
         NSLog(@"发布你的第一个视频");
-        [[MKTools shared] showMBProgressViewOnlyTextInView:self.view text:@"正在开发中的功能" dissmissAfterDeley:2.5];
+        
+        [WHToast showMessage:@"正在开发中的功能"
+                    duration:1
+               finishHandler:nil];
+        
 //          MKRecordVideoVC *vc = MKRecordVideoVC.new;
 //          [self.navigationController pushViewController:vc animated:YES];
     }
@@ -226,13 +185,15 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.row) {
         case 0:{
-            @weakify(self)
-            [EditUserInfoVC ComingFromVC:weak_self
-                             comingStyle:ComingStyle_PUSH
-                       presentationStyle:UIModalPresentationAutomatic
-                           requestParams:nil
-                                 success:^(id data) {}
-                                animated:YES];
+            [UIViewController comingFromVC:self
+                                      toVC:EditUserInfoVC.new
+                               comingStyle:ComingStyle_PUSH
+                         presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                             requestParams:nil
+                  hidesBottomBarWhenPushed:YES
+                                  animated:YES
+                                   success:^(id data) {}];
+            
         }break;
         case 1:{
             
@@ -264,25 +225,26 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 #pragma mark - 关注
                     FSCustomButton *btn = (FSCustomButton *)data;
                     if ([btn.titleLabel.text containsString:@"关注"]) {
-                        [MKAttentionVC ComingFromVC:weak_self
-                                        comingStyle:ComingStyle_PUSH
-                                  presentationStyle:UIModalPresentationAutomatic
-                                      requestParams:@{
-                                          @"mkType":@(0)
-                                      }
-                                            success:^(id data) {}
-                                           animated:YES];
+
+                        [UIViewController comingFromVC:self
+                                                  toVC:MKAttentionVC.new
+                                           comingStyle:ComingStyle_PUSH
+                                     presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                                         requestParams:@{@"mkType":@(0)}
+                              hidesBottomBarWhenPushed:YES
+                                              animated:YES
+                                               success:^(id data) {}];
                         
 #pragma mark - 粉丝
                     }else if ([btn.titleLabel.text containsString:@"粉丝"]){
-                        [MKAttentionVC ComingFromVC:weak_self
-                                        comingStyle:ComingStyle_PUSH
-                                  presentationStyle:UIModalPresentationAutomatic
-                                      requestParams:@{
-                                          @"mkType":@(1)
-                                      }
-                                            success:^(id data) {}
-                                           animated:YES];
+                        [UIViewController comingFromVC:self
+                                                  toVC:MKAttentionVC.new
+                                           comingStyle:ComingStyle_PUSH
+                                     presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                                         requestParams:@{@"mkType":@(1)}
+                              hidesBottomBarWhenPushed:YES
+                                              animated:YES
+                                               success:^(id data) {}];
                         
                     }else{}
                 }
@@ -302,28 +264,31 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 Coin *coin = (Coin *)data;
 #pragma mark - 当前余额
                 if ([coin.tagStr isEqualToString:@"当前余额"]) {
-                    [MyWalletDetailVC ComingFromVC:weak_self
+
+                    [UIViewController comingFromVC:self
+                                              toVC:MyWalletDetailVC.new
                                        comingStyle:ComingStyle_PUSH
-                                 presentationStyle:UIModalPresentationAutomatic
-                                     requestParams:@{
-                                         @"MyWalletStyle":@(MyWalletStyle_CURRENTBALANCE),
-                                         @"balance":self.myVCModel.balance,
-                                         @"goldNumber":self.myVCModel.goldNumber
-                                     }
-                                           success:^(id data) {}
-                                          animated:YES];
+                                 presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                                     requestParams:@{@"MyWalletStyle":@(MyWalletStyle_CURRENTBALANCE),
+                                                     @"balance":self.myVCModel.balance,
+                                                     @"goldNumber":self.myVCModel.goldNumber}
+                          hidesBottomBarWhenPushed:YES
+                                          animated:YES
+                                           success:^(id data) {}];
+                    
 #pragma mark - 当前金币
                 }else if ([coin.tagStr isEqualToString:@"当前金币"]){
-                    [MyWalletDetailVC ComingFromVC:weak_self
+
+                    [UIViewController comingFromVC:self
+                                              toVC:MyWalletDetailVC.new
                                        comingStyle:ComingStyle_PUSH
-                                 presentationStyle:UIModalPresentationAutomatic
-                                     requestParams:@{
-                                         @"MyWalletStyle":@(MyWalletStyle_CURRENTCOIN),
-                                         @"balance":self.myVCModel.balance,
-                                         @"goldNumber":self.myVCModel.goldNumber
-                                     }
-                                           success:^(id data) {}
-                                          animated:YES];
+                                 presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                                     requestParams:@{@"MyWalletStyle":@(MyWalletStyle_CURRENTCOIN),
+                                                     @"balance":self.myVCModel.balance,
+                                                     @"goldNumber":self.myVCModel.goldNumber}
+                          hidesBottomBarWhenPushed:YES
+                                          animated:YES
+                                           success:^(id data) {}];
                 }else{}
             }];
             return cell;
@@ -337,12 +302,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             @weakify(self)
             [cell action:^(id data) {
 #pragma mark - 查看更多
-                [MyVideoVC ComingFromVC:weak_self
-                            comingStyle:ComingStyle_PUSH
-                      presentationStyle:UIModalPresentationAutomatic
-                          requestParams:nil
-                                success:^(id data) {}
-                               animated:YES];
+                [UIViewController comingFromVC:self
+                                          toVC:MyVideoVC.new
+                                   comingStyle:ComingStyle_PUSH
+                             presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                                 requestParams:nil
+                      hidesBottomBarWhenPushed:YES
+                                      animated:YES
+                                       success:^(id data) {}];
             }];
             
             [cell.release_LikeVC.mkLiked requestData:^(id data) {
@@ -396,10 +363,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 #pragma mark - 点击喜欢 跳转 推荐列表
 - (void)didClickLikeVC:(NSMutableDictionary *)tempDic currentPlayerIndex:(NSInteger)index{
-    WeakSelf
-    [RecommendVC ComingFromVC:weakSelf comingStyle:ComingStyle_PUSH presentationStyle:UIModalPresentationFullScreen requestParams:tempDic success:^(id data) {
+
+    [UIViewController comingFromVC:self
+                              toVC:RecommendVC.new
+                       comingStyle:ComingStyle_PUSH
+                 presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                     requestParams:tempDic
+          hidesBottomBarWhenPushed:YES
+                          animated:YES
+                           success:^(id data) {
         
-    } animated:YES];
+    }];
 }
 
 #pragma mark - 扫一扫
@@ -414,13 +388,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         //DIY
     }];
     return;
-//    @weakify(self)
-//    [DIYScanVC ComingFromVC:weak_self
-//                comingStyle:ComingStyle_PUSH
-//          presentationStyle:UIModalPresentationAutomatic
-//              requestParams:nil
-//                    success:^(id data) {}
-//                   animated:YES];
 }
 
 #pragma mark - 消息
@@ -506,8 +473,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.estimatedRowHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;
         _tableView.estimatedSectionHeaderHeight = 0 ;
-        _tableView.mj_header = self.tableViewHeader;
-        _tableView.mj_footer = self.tableViewFooter;
+        _tableView.mj_header = self.mjRefreshGifHeader;
+        _tableView.mj_footer = self.mjRefreshAutoGifFooter;
         _tableView.mj_footer.hidden = NO;
     }return _tableView;
 }

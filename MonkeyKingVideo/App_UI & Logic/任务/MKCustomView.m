@@ -37,15 +37,22 @@
         _infoBtn.layer.masksToBounds = 1;
         [_infoBtn setTitle:@"跟投" forState:UIControlStateNormal];
         [_infoBtn addAction:^(UIButton *btn) {
-            NSURL * url = [NSURL URLWithString:@"tingyun.75://"];
-            BOOL canOpen = [[UIApplication sharedApplication] canOpenURL:url];
-            if (canOpen){//打开微信
-                [[UIApplication sharedApplication] openURL:url];
-            }else {
-            
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mkSkipHQAppString]  options:@{}  completionHandler:nil];
-               
+            [NSObject OpenURL:@"tingyun.75://"
+                      options:@{}
+        completionOpenSuccessHandler:^{
+                //TODO
             }
+        completionOpenFailHandler:^{
+                [NSObject OpenURL:mkSkipHQAppString
+                          options:@{}
+            completionOpenSuccessHandler:^{
+                    //TODO
+                }
+            completionOpenFailHandler:^{
+                    //TODO
+            //        [NSURL URLWithString:mkSkipHQAppString]
+                }];
+            }];
         }];
         [self addSubview:_infoBtn];
     }
@@ -90,7 +97,7 @@
 //    _titleLabel.image = [UIImage imageNamed:@"icon_proclamation"];
 //    [self addSubview:self.titleLabel];
    
-    self.infoBtn.frame = CGRectMake(SCREEN_W - 110, 8, 60, 40-16);
-    self.contentLabel.frame = CGRectMake(0, 8, SCREEN_W - 110, 20);
+    self.infoBtn.frame = CGRectMake(MAINSCREEN_WIDTH - 110, 8, 60, 40-16);
+    self.contentLabel.frame = CGRectMake(0, 8, MAINSCREEN_WIDTH - 110, 20);
 }
 @end

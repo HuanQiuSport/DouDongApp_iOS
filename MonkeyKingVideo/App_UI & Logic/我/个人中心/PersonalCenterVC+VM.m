@@ -25,7 +25,7 @@
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         @strongify(self)
         if (response.isSuccess) {
-            DLog(@"用户关注详情%@",response.reqResult);
+            
             MKPersonalnfoModel *model = [[MKPersonalnfoModel alloc] initWithDictionary:(NSDictionary *)response.reqResult
                                                                                  error:nil];
             self.mkPernalModel = model;
@@ -115,7 +115,7 @@
     @weakify(self)
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         if (response.isSuccess) {
-            DLog(@"用户关注详情%@",response.reqResult);
+            
             if (response.code == 200) {
                 NSError *error;
                 block(@(YES));

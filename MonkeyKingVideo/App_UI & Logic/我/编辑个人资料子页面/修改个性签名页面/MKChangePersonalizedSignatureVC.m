@@ -19,10 +19,6 @@
 @property(nonatomic,strong)SZTextView *textView;
 @property(nonatomic,strong)UILabel *tipsLab;
 
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,copy)MKDataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
 @property(nonatomic,assign)int inputLimit;
 @property(nonatomic,copy)MKDataBlock changePersonalizedSignatureBlock;
 @property (nonatomic, strong) UIButton *sureBtn;
@@ -34,47 +30,6 @@
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
-
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated{
-    MKChangePersonalizedSignatureVC *vc = MKChangePersonalizedSignatureVC.new;
-    vc.successBlock = block;
-    vc.requestParams = requestParams;
-    switch (comingStyle) {
-        case ComingStyle_PUSH:{
-            if (rootVC.navigationController) {
-                vc.isPush = YES;
-                vc.isPresent = NO;
-                [rootVC.navigationController pushViewController:vc
-                                                       animated:animated];
-            }else{
-                vc.isPush = NO;
-                vc.isPresent = YES;
-                [rootVC presentViewController:vc
-                                     animated:animated
-                                   completion:^{}];
-            }
-        }break;
-        case ComingStyle_PRESENT:{
-            vc.isPush = NO;
-            vc.isPresent = YES;
-            
-            //iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-            vc.modalPresentationStyle = presentationStyle;
-            [rootVC presentViewController:vc
-                                 animated:animated
-                               completion:^{}];
-        }break;
-        default:
-            NSLog(@"错误的推进方式");
-            break;
-    }return vc;
-}
-
 #pragma mark - Lifecycle
 -(instancetype)init{
     if (self = [super init]) {
@@ -103,7 +58,7 @@
     self.tipsLab.alpha = 1;
     [self.view addSubview:self.sureBtn];
     [self.sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.offset(SCALING_RATIO(168));
+        make.width.offset(168);
         make.height.offset(28);
         make.centerX.offset(0);
         make.top.mas_equalTo(self.backView.mas_bottom).offset(84);
@@ -196,8 +151,8 @@ shouldChangeTextInRange:(NSRange)range
         [_backView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.offset(11);
             make.right.offset(-11);
-            make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(SCALING_RATIO(16));
-            make.height.mas_equalTo(SCALING_RATIO(130));
+            make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(16);
+            make.height.mas_equalTo(130);
         }];
         _backView.layer.cornerRadius = 16;
         _backView.layer.masksToBounds = 1;

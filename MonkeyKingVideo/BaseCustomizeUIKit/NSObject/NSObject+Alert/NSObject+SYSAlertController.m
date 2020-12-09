@@ -27,8 +27,7 @@
                                                            style:isSeparateStyle ? (i == alertBtnActionArr.count - 1 ? UIAlertActionStyleCancel : UIAlertActionStyleDefault) : UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * _Nonnull action) {
             @strongify(targetVC)
-            [targetVC performSelector:NSSelectorFromString([NSString ensureNonnullString:alertBtnActionArr[i] ReplaceStr:@"defaultFunc"])
-                           withObject:Nil];
+            SuppressPerformSelectorLeakWarning([targetVC performSelector:NSSelectorFromString([NSString ensureNonnullString:alertBtnActionArr[i] ReplaceStr:@"defaultFunc"]) withObject:Nil]);
         }];
         [alertController addAction:okAction];
     }
@@ -51,13 +50,6 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
                                                                              message:message
                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
-    
-//    UIView *firstSubview = alertController.view.subviews.firstObject;
-//    UIView *alertContentView = firstSubview.subviews.firstObject;
-//    for (UIView *subSubView in alertContentView.subviews) {
-//        subSubView.backgroundColor = [UIColor colorWithHexString:@"1f242f"];
-//    }
-    
     UIViewController *vc = alertController;
     @weakify(targetVC)
     for (int i = 0; i < alertBtnActionArr.count; i++) {
@@ -65,8 +57,7 @@
                                                            style:isSeparateStyle ? (i == alertBtnActionArr.count - 1 ? UIAlertActionStyleCancel : UIAlertActionStyleDefault) : UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * _Nonnull action) {
             @strongify(targetVC)
-            [targetVC performSelector:NSSelectorFromString([NSString ensureNonnullString:alertBtnActionArr[i] ReplaceStr:@"defaultFunc"])
-                           withObject:Nil];
+            SuppressPerformSelectorLeakWarning([targetVC performSelector:NSSelectorFromString([NSString ensureNonnullString:alertBtnActionArr[i] ReplaceStr:@"defaultFunc"]) withObject:Nil]);
         }];
         [alertController addAction:okAction];
     }

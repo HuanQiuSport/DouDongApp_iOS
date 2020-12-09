@@ -15,55 +15,11 @@ UITableViewDelegate
 ,UITableViewDataSource
 >
 
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,copy)MKDataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
-
 @end
 @implementation DouCoinDetailVC
 
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
-}
-
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated{
-    DouCoinDetailVC *vc = DouCoinDetailVC.new;
-    vc.successBlock = block;
-    vc.requestParams = requestParams;
-    switch (comingStyle) {
-        case ComingStyle_PUSH:{
-            if (rootVC.navigationController) {
-                vc.isPush = YES;
-                vc.isPresent = NO;
-                [rootVC.navigationController pushViewController:vc
-                                                       animated:animated];
-            }else{
-                vc.isPush = NO;
-                vc.isPresent = YES;
-                [rootVC presentViewController:vc
-                                     animated:animated
-                                   completion:^{}];
-            }
-        }break;
-        case ComingStyle_PRESENT:{
-            vc.isPush = NO;
-            vc.isPresent = YES;
-            //iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-            vc.modalPresentationStyle = presentationStyle;
-            [rootVC presentViewController:vc
-                                 animated:animated
-                               completion:^{}];
-        }break;
-        default:
-            NSLog(@"错误的推进方式");
-            break;
-    }return vc;
 }
 #pragma mark - Lifecycle
 -(instancetype)init{
@@ -122,7 +78,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 #pragma mark ===================== 下拉刷新===================================
 - (void)pullToRefresh {
-    DLog(@"下拉刷新");
+    
     self.page = 1;
     if (self.walletMyFlowsListModelMutArr.count) {
         [self.walletMyFlowsListModelMutArr removeAllObjects];
@@ -132,7 +88,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 #pragma mark ===================== 上拉加载更多===================================
 - (void)loadMoreRefresh {
-    DLog(@"上拉加载更多");
+    
     self.page ++;
     [self netWorking_MKWalletMyFlowsPOST];
     [self.tableView.mj_footer endRefreshing];
@@ -162,8 +118,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.estimatedRowHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;
         _tableView.estimatedSectionHeaderHeight = 0 ;
-        _tableView.mj_header = self.tableViewHeader;
-        _tableView.mj_footer = self.tableViewFooter;
+        _tableView.mj_header = [self mjRefreshGifHeader];
+        _tableView.mj_footer = [self mjRefreshAutoGifFooter];
         _tableView.mj_footer.hidden = NO;
 //        [_tableViewFooter setTitle:@"暂时没有更多了"
 //        forState:MJRefreshStateNoMoreData];

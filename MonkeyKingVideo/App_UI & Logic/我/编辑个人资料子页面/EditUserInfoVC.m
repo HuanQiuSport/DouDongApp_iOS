@@ -26,10 +26,7 @@ UINavigationControllerDelegate
 @property(nonatomic,strong)NSMutableArray *titleMutArr;
 @property(nonatomic,strong)NSString *addressStr;
 @property(nonatomic,strong)NSString *dateStr;
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,copy)MKDataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
+
 @property(nonatomic,strong)UILabel *changeLabel;
 
 @property (nonatomic, strong) UIImagePickerController * pickerController;
@@ -40,50 +37,10 @@ UINavigationControllerDelegate
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
-
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated{
-    EditUserInfoVC *vc = EditUserInfoVC.new;
-    vc.successBlock = block;
-    vc.requestParams = requestParams;
-    switch (comingStyle) {
-        case ComingStyle_PUSH:{
-            if (rootVC.navigationController) {
-                vc.isPush = YES;
-                vc.isPresent = NO;
-                [rootVC.navigationController pushViewController:vc
-                                                       animated:animated];
-            }else{
-                vc.isPush = NO;
-                vc.isPresent = YES;
-                [rootVC presentViewController:vc
-                                     animated:animated
-                                   completion:^{}];
-            }
-        }break;
-        case ComingStyle_PRESENT:{
-            vc.isPush = NO;
-            vc.isPresent = YES;
-            //iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-            vc.modalPresentationStyle = presentationStyle;
-            [rootVC presentViewController:vc
-                                 animated:animated
-                               completion:^{}];
-        }break;
-        default:
-            NSLog(@"错误的推进方式");
-            break;
-    }return vc;
-}
-
 #pragma mark - Lifecycle
 -(instancetype)init{
     if (self = [super init]) {
-        self.imageHeight = SCALING_RATIO(82);//背景图片的高度
+        self.imageHeight = 82;//背景图片的高度
     }return self;
 }
 
@@ -293,94 +250,87 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     @weakify(self)
     if (indexPath.section == 1) {
         if (indexPath.row == 1 && !self.userInfoModel.phone.length) {
-            self.nickName = [MKBindingTelVC ComingFromVC:weak_self
-                                             comingStyle:ComingStyle_PUSH
-                                       presentationStyle:UIModalPresentationFullScreen
-                                           requestParams:@{@"nikcName":self.userInfoModel.nickName}
-                                                 success:^(id data) {}
-                                                animated:YES];
+
+            [UIViewController comingFromVC:self
+                                      toVC:MKBindingTelVC.new
+                               comingStyle:ComingStyle_PUSH
+                         presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                             requestParams:@{@"nikcName":self.userInfoModel.nickName}
+                  hidesBottomBarWhenPushed:YES
+                                  animated:YES
+                                   success:^(id data) {
+                @strongify(self)
+                self.nickName = data;
+            }];
         }
     } else {
         switch (indexPath.row) {
             case 0:{//昵称
-                self.changeNickNameVC = [MKChangeNameController ComingFromVC:weak_self
-                                                                 comingStyle:ComingStyle_PUSH
-                                                           presentationStyle:UIModalPresentationFullScreen
-                                                               requestParams:@{@"nikcName":self.userInfoModel.nickName}
-                                                                     success:^(id data) {}
-                                                                    animated:YES];
-
-                [self.changeNickNameVC actionChangeNickNameBlock:^(id data) {
+                
+                [UIViewController comingFromVC:self
+                                          toVC:MKChangeNameController.new
+                                   comingStyle:ComingStyle_PUSH
+                             presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                                 requestParams:@{@"nikcName":self.userInfoModel.nickName}
+                      hidesBottomBarWhenPushed:YES
+                                      animated:YES
+                                       success:^(id data) {
                     @strongify(self)
-                    if ([data isKindOfClass:UITextField.class]) {
-                        UITextField *tf = (UITextField *)data;
-                        [self requestWithUserID:tf.text
-                                       WithType:UpdateUserInfoType_NickName
-                                          Block:^(id data) {
-                          
-                        }];
-                    }
+                    self.changeNickNameVC = data;
+                    [self.changeNickNameVC actionChangeNickNameBlock:^(id data) {
+                        @strongify(self)
+                        if ([data isKindOfClass:UITextField.class]) {
+                            UITextField *tf = (UITextField *)data;
+                            [self requestWithUserID:tf.text
+                                           WithType:UpdateUserInfoType_NickName
+                                              Block:^(id data) {
+                              
+                            }];
+                        }
+                    }];
                 }];
             }break;
             case 1:{//签名
-                self.changePersonalizedSignatureVC = [MKChangePersonalizedSignatureVC ComingFromVC:weak_self
-                                                                                       comingStyle:ComingStyle_PUSH
-                                                                                 presentationStyle:UIModalPresentationFullScreen
-                                                                                     requestParams:self.userInfoModel.remark
-                                                                                           success:^(id data) {}
-                                                                                          animated:YES];
-              
-                [self.changePersonalizedSignatureVC actionChangePersonalizedSignatureBlock:^(id data) {
-                    @strongify(self)
-                    if ([data isKindOfClass:UITextView.class]) {
-                        UITextView *tv = (UITextView *)data;
-                        [self requestWithUserID:tv.text
-                                       WithType:UpdateUserInfoType_Remark
-                                          Block:^(id data) {
-                              
-                        }];
-                    }
+                
+                [UIViewController comingFromVC:self
+                                          toVC:MKChangePersonalizedSignatureVC.new
+                                   comingStyle:ComingStyle_PUSH
+                             presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                                 requestParams:self.userInfoModel.remark
+                      hidesBottomBarWhenPushed:YES
+                                      animated:YES
+                                       success:^(id data) {
+                    [self.changePersonalizedSignatureVC actionChangePersonalizedSignatureBlock:^(id data) {
+                        @strongify(self)
+                        if ([data isKindOfClass:UITextView.class]) {
+                            UITextView *tv = (UITextView *)data;
+                            [self requestWithUserID:tv.text
+                                           WithType:UpdateUserInfoType_Remark
+                                              Block:^(id data) {
+                                  
+                            }];
+                        }
+                    }];
                 }];
           }break;
           case 2:{//性别
-//              WDAlterSheetModel *m1 = [WDAlterSheetModel setupWithTitle:@"男"
-//                                                             titleColor:UIColor.blackColor
-//                                                              titleFont:[UIFont systemFontOfSize:18]
-//                                                               subTitle:@""
-//                                                          subTitleColor:UIColor.lightGrayColor
-//                                                           subTitleFont:[UIFont systemFontOfSize:11]];
-//              WDAlterSheetModel *m2 = [WDAlterSheetModel setupWithTitle:@"女"
-//                                                             titleColor:UIColor.blackColor
-//                                                              titleFont:[UIFont systemFontOfSize:18]
-//                                                               subTitle:@""
-//                                                          subTitleColor:UIColor.lightGrayColor
-//                                                           subTitleFont:[UIFont systemFontOfSize:11]];
-//              @weakify(self)
-//              [WDAlterSheetView showAlterWithTitleAttItems:@[m1, m2]
-//                                                cancelText:@"取消"
-//                                               cancelColor:[UIColor blackColor]
-//                                            didSelectBlock:^(NSUInteger index) {
-//                  @strongify(self)
-//                  if (index == 0) {
-//                      [self changeSex_Boy];
-//                  } else if (index == 1) {
-//                      [self changeSex_Girl];
-//                  }
-//              }];
-              SPAlertController *alert = [SPAlertController alertControllerWithTitle:@"" message:@"" preferredStyle:SPAlertControllerStyleActionSheet];
 
-              SPAlertAction *action1 = [SPAlertAction actionWithTitle:@"男" style:SPAlertActionStyleDefault handler:^(SPAlertAction * _Nonnull action) {
-                  [self changeSex_Boy];
+              [NSObject SPAlertControllerWithType:NSObject_SPAlertControllerInitType_1
+                                            title:nil
+                                          message:nil
+                                  customAlertView:nil
+                                 customHeaderView:nil
+                         customActionSequenceView:nil
+                                   preferredStyle:SPAlertControllerStyleActionSheet
+                                    animationType:SPAlertAnimationTypeFromBottom
+                              alertActionTitleArr:@[@"男",@"女",@"取消"]
+                              alertActionStyleArr:@[@(SPAlertActionStyleDefault),@(SPAlertActionStyleDestructive),@(SPAlertActionStyleCancel)]
+                                   alertBtnAction:@[@"changeSex_Boy",@"changeSex_Girl",@""]
+                                         targetVC:self
+                                     alertVCBlock:^(id data, id data2) {
+                  
               }];
-              SPAlertAction *action2 = [SPAlertAction actionWithTitle:@"女" style:SPAlertActionStyleDefault handler:^(SPAlertAction * _Nonnull action) {
-                  [self changeSex_Girl];
-              }];
-              SPAlertAction *action3 = [SPAlertAction actionWithTitle:@"取消" style:SPAlertActionStyleCancel handler:^(SPAlertAction * _Nonnull action) {}];
-
-              [alert addAction:action1];
-              [alert addAction:action2];
-              [alert addAction:action3];
-              [self presentViewController: alert animated:YES completion:^{}];
+              
           }break;
           case 3:{//生日
               [self.datePickerView show];
@@ -569,7 +519,7 @@ heightForHeaderInSection:(NSInteger)section {
         _tableViewHeaderView.backgroundColor = UIColor.whiteColor;
         _tableViewHeaderView.frame = CGRectMake(0,
                                                 0,
-                                                SCREEN_WIDTH,
+                                                MAINSCREEN_WIDTH,
                                                 _imageHeight+20 + 20);
 //        UIView *botView = UIView.new;
 //        [_tableViewHeaderView addSubview:botView];

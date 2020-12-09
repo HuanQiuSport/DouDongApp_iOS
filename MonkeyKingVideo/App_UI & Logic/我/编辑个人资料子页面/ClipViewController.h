@@ -19,10 +19,4 @@
 @property (nonatomic, assign) BOOL ovalClip;
 - (instancetype)initWithImage:(UIImage *)originalImage delegate:(id)delegate;
 
-//+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-//      comingStyle:(ComingStyle)comingStyle
-//presentationStyle:(UIModalPresentationStyle)presentationStyle
-//    requestParams:(nullable id)requestParams
-//          success:(MKDataBlock)block
-//         animated:(BOOL)animated;
 @end

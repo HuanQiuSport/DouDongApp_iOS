@@ -214,7 +214,7 @@
     }
     CGFloat screenHeight = UIScreen.mainScreen.bounds.size.height;
     CGFloat screenWidth = UIScreen.mainScreen.bounds.size.width;
-    CGFloat tabbarHeight =  isiPhoneX_series() ? (50 + isiPhoneX_seriesBottom) : 50;
+    CGFloat tabbarHeight =  isiPhoneX_series() ? (50 + 34) : 50;
     if(_tabBarStyleType == LZBTabBarStyleType_middleItemUp) {
         tabbarHeight = tabbarHeight + 30;
         self.backgroundColor = UIColor.clearColor;

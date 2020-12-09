@@ -58,7 +58,7 @@ UITableViewDelegate
         
         make.right.equalTo(self.view);
         
-        make.top.equalTo(self.view.mas_top).offset(kNavigationBarHeight+kStatusBarHeight);
+        make.top.equalTo(self.view.mas_top).offset(44+rectOfStatusbar());
         
         make.bottom.equalTo(self.view);
         
@@ -85,7 +85,7 @@ UITableViewDelegate
     [header.textLabel setTextColor:HEXCOLOR(0xA7A7A7)];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 40 * KDeviceScale;
+    return 40 * 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {

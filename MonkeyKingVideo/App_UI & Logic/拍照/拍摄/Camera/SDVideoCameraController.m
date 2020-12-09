@@ -255,8 +255,11 @@
                    self.playTimeRange = kCMTimeRangeZero;
                    self.videoAssetArray = videoAssetArray;
                    self.effectViewArray = [NSMutableArray arrayWithCapacity:16];
-               [MBProgressHUD wj_showPlainText:@"处理中"
-                                                                view:getMainWindow()];
+            
+            [WHToast showMessage:@"处理中"
+                        duration:1
+                   finishHandler:nil];
+            
 //            [self.navigationController pushViewController:previewViewController animated:YES];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self popViewControllerAction];
@@ -474,7 +477,7 @@
     
     if (_verticalLineLayer == nil) {
         _verticalLineLayer = [[CALayer alloc] init];
-        _verticalLineLayer.frame = CGRectMake(SCREEN_W/2.0, 0, 1.0, SCREEN_H);
+        _verticalLineLayer.frame = CGRectMake(MAINSCREEN_WIDTH/2.0, 0, 1.0, MAINSCREEN_HEIGHT);
         _verticalLineLayer.backgroundColor = [UIColor hexStringToColor:@"00f5ff"].CGColor;
     }
     return _verticalLineLayer;
@@ -484,7 +487,7 @@
     
     if (_horizontalLineLayer == nil) {
         _horizontalLineLayer = [[CALayer alloc] init];
-        _horizontalLineLayer.frame = CGRectMake(0, SCREEN_H/2.0, SCREEN_W, 1.0);
+        _horizontalLineLayer.frame = CGRectMake(0, MAINSCREEN_HEIGHT/2.0, MAINSCREEN_WIDTH, 1.0);
         _horizontalLineLayer.backgroundColor = [UIColor hexStringToColor:@"00f5ff"].CGColor;
     }
     return _horizontalLineLayer;

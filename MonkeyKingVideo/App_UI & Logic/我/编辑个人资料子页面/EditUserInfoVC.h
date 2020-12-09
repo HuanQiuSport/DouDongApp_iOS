@@ -26,14 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)MKUserInfoModel *userInfoModel;
 @property(nonatomic,strong)NSString *sex;
 
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated;
-
-
 @end
 
 NS_ASSUME_NONNULL_END

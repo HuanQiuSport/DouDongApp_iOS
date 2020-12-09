@@ -55,7 +55,7 @@
     [self.view addSubview:self.botView];
     [self.botView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.offset(0);
-        make.height.offset(SCALING_RATIO(62));
+        make.height.offset(62);
     }];
     [self.botView addSubview:self.botIcon];
     [self.botView addSubview:self.botLab];
@@ -64,7 +64,7 @@
 //    [self.field addTarget:self action:@selector(changedTextField:) forControlEvents:UIControlEventEditingChanged];
     [self.keyboardTopView addSubview:self.field];
 //    self.field.font = [UIFont systemFontOfSize:17];
-//    self.field.frame = CGRectMake(57, 0, SCREEN_W-57-13, 62);
+//    self.field.frame = CGRectMake(57, 0, MAINSCREEN_WIDTH-57-13, 62);
 //    self.field.returnKeyType = UIReturnKeySend;
     self.gk_navigationBar.hidden = YES;
     self.gk_statusBarHidden = YES;
@@ -99,8 +99,8 @@
     //计算控制器的view需要平移的距离
     CGFloat transformY = keyboardFrame.origin.y;
     //执行动画
-    self.keyboardTopView.frame = CGRectMake(0, transformY-62, SCREEN_W, 62);
-    self.coverKeyboardView.frame = CGRectMake(0, 0,SCREEN_W, self.keyboardTopView.origin.y);
+    self.keyboardTopView.frame = CGRectMake(0, transformY-62, MAINSCREEN_WIDTH, 62);
+    self.coverKeyboardView.frame = CGRectMake(0, 0,MAINSCREEN_WIDTH, self.keyboardTopView.origin.y);
     @weakify(self)
     [UIView animateWithDuration:duration animations:^{
         @strongify(self)
@@ -151,13 +151,16 @@
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     pasteboard.string = self.firstCommentModel.content;
     
-    [MBProgressHUD wj_showPlainText:@"复制成功"
-                               view:self.view];
+    [WHToast showMessage:@"复制成功"
+                duration:1
+           finishHandler:nil];
     
 }
 
 -(void)Report{
-    [MBProgressHUD wj_showPlainText:@"正在开发中" view:self.view];
+    [WHToast showMessage:@"正在开发中"
+                duration:1
+           finishHandler:nil];
 }
 
 -(void)Cancel{}
@@ -175,19 +178,23 @@
 -(void)copyIt{
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     pasteboard.string = self.childCommentModel.content;
-    [MBProgressHUD wj_showPlainText:@"复制成功"
-                               view:self.view];
+    [WHToast showMessage:@"复制成功"
+                duration:1
+           finishHandler:nil];
+    
+    
 }
 
 -(void)report{
-    [MBProgressHUD wj_showPlainText:@"正在开发中" view:self.view];
+    [WHToast showMessage:@"正在开发中"
+                duration:1
+           finishHandler:nil];
 }
 
 -(void)cancel{}
 #pragma mark ===================== 下拉刷新===================================
 - (void)pullToRefresh {
     self.commentPage = 1;
-    DLog(@"下拉刷新");
     if (self.commentModel.listMytArr.count) {
         [self.commentModel.listMytArr removeAllObjects];
     }
@@ -195,7 +202,6 @@
 }
 #pragma mark ===================== 上拉加载更多===================================
 - (void)loadMore {
-    DLog(@"上拉加载更多");
     self.commentPage++;
     [self netWorking_MKCommentQueryInitListGET];
 }
@@ -221,9 +227,10 @@
             self.field.text = @"";
             [self.field endEditing:1];
         } else {
-            [[MKTools shared] showMBProgressViewOnlyTextInView:self.view
-                                                          text:@"请输入内容"
-                                            dissmissAfterDeley:1.2];
+
+            [WHToast showMessage:@"请输入内容"
+                        duration:1
+                   finishHandler:nil];
         }
     }
     return YES;
@@ -242,19 +249,19 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     MKFirstCommentModel *firstCommentModel = self.commentModel.listMytArr[indexPath.section];
     MKChildCommentModel *child = firstCommentModel.child[indexPath.row];
     if (!firstCommentModel._hasMore) {//是全显示
-        return [NSString textHitWithStirng:child.contentShow font:15.0 widt:kScreenWidth-88-46] + 20 + 20;
+        return [NSString textHitWithStirng:child.contentShow font:15.0 widt:MAINSCREEN_WIDTH-88-46] + 20 + 20;
     }else{//不是全显示
         if (!firstCommentModel.isFullShow) {
             if (indexPath.row == 3) {
                 return 36;
             } else {
-                return [NSString textHitWithStirng:child.contentShow font:15.0 widt:kScreenWidth-88-46] + 20 + 20;
+                return [NSString textHitWithStirng:child.contentShow font:15.0 widt:MAINSCREEN_WIDTH-88-46] + 20 + 20;
             }
         } else {
             if (indexPath.row == firstCommentModel.child.count) {
                 return 36;
             } else {
-                return [NSString textHitWithStirng:child.contentShow font:15.0 widt:kScreenWidth-88-46] + 20 + 20;
+                return [NSString textHitWithStirng:child.contentShow font:15.0 widt:MAINSCREEN_WIDTH-88-46] + 20 + 20;
             }
         }
     }
@@ -422,7 +429,7 @@ heightForHeaderInSection:(NSInteger)section{
     
     MKFirstCommentModel *firstCommentModel = self.commentModel.listMytArr[section];
     NSString *string = [NSString stringWithFormat:@"%@ %@",firstCommentModel.content,firstCommentModel.commentDate];
-    return 18 + 1 + [NSString textHitWithStirng:string font:15 widt:kScreenWidth-60-46] + 11+10;
+    return 18 + 1 + [NSString textHitWithStirng:string font:15 widt:MAINSCREEN_WIDTH-60-46] + 11+10;
 }
 
 - (UIView *)tableView:(UITableView *)tableView
@@ -439,7 +446,6 @@ viewForHeaderInSection:(NSInteger)section{
     [header.backgroundView setBackgroundColor:[UIColor redColor]];
     UIView *backView = [header.subviews firstObject];
     backView.backgroundColor = kClearColor;
-    DLog(@"图层数量%@",header.subviews[0]);
         @weakify(self)
         header.headerBlock = ^(NSDictionary *dic) {
             @strongify(self)
@@ -532,7 +538,7 @@ viewForHeaderInSection:(NSInteger)section{
 forHeaderFooterViewReuseIdentifier:NSStringFromClass(NonHoveringHeaderView.class)];
         [_tableView registerClass:HoveringHeaderView.class
 forHeaderFooterViewReuseIdentifier:NSStringFromClass(HoveringHeaderView.class)];
-        _tableView.mj_header = self.tableViewHeader;
+        _tableView.mj_header = [self mjRefreshGifHeader];
         @weakify(self)
         MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
             @strongify(self)
@@ -663,7 +669,7 @@ forHeaderFooterViewReuseIdentifier:NSStringFromClass(HoveringHeaderView.class)];
         [_field addTarget:self action:@selector(changedTextField:) forControlEvents:UIControlEventEditingChanged];
         _field.font = [UIFont systemFontOfSize:13];
         _field.layer.cornerRadius = 17;
-        _field.frame = CGRectMake(64, 14, SCREEN_W-64-20, 34);
+        _field.frame = CGRectMake(64, 14, MAINSCREEN_WIDTH-64-20, 34);
         _field.returnKeyType = UIReturnKeySend;
         
         NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:@"我也说几句" attributes:@{NSForegroundColorAttributeName:HEXCOLOR(0x999999),
@@ -696,9 +702,9 @@ forHeaderFooterViewReuseIdentifier:NSStringFromClass(HoveringHeaderView.class)];
            // 阴影半径，默认3
         _botView.layer.shadowRadius = 2;
         
-        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(64, SCALING_RATIO(14), SCREEN_WIDTH-64-20, SCALING_RATIO(34))];
+        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(64, 14, MAINSCREEN_WIDTH-64-20, 34)];
         view.backgroundColor = COLOR_HEX(0xEFEFF4, 1);
-        view.layer.cornerRadius = SCALING_RATIO(17);
+        view.layer.cornerRadius = 17;
         [_botView addSubview:view];
     }
     return _botView;
@@ -706,8 +712,8 @@ forHeaderFooterViewReuseIdentifier:NSStringFromClass(HoveringHeaderView.class)];
 - (UIImageView *)botIcon {
     if (!_botIcon) {
         _botIcon = UIImageView.new;
-        _botIcon.frame = CGRectMake(13, SCALING_RATIO(14), SCALING_RATIO(34), SCALING_RATIO(34));
-        _botIcon.layer.cornerRadius = SCALING_RATIO(17);
+        _botIcon.frame = CGRectMake(13, 14, 34, 34);
+        _botIcon.layer.cornerRadius = 17;
         _botIcon.userInteractionEnabled = 1;
         [_botIcon sd_setImageWithURL:[NSURL URLWithString:[MKPublickDataManager sharedPublicDataManage].mkLoginModel.headImage]
          placeholderImage:[UIImage imageNamed:@"default_avatar_white.jpg"]];
@@ -721,7 +727,7 @@ forHeaderFooterViewReuseIdentifier:NSStringFromClass(HoveringHeaderView.class)];
         _botLab.textColor = HEXCOLOR(0x999999);
         _botLab.text = @"我也说几句";
         _botLab.font = [UIFont systemFontOfSize:13];
-        _botLab.frame = CGRectMake(87, 0, SCREEN_W - 87-13, SCALING_RATIO(62));
+        _botLab.frame = CGRectMake(87, 0, MAINSCREEN_WIDTH - 87-13, 62);
     }
     return _botLab;
 }

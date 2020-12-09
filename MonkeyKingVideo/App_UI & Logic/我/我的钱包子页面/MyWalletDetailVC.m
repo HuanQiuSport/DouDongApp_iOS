@@ -18,11 +18,6 @@
 #import "MKWithdrawInfoVC.h"
 @interface MyWalletDetailVC ()<UITableViewDataSource,UITableViewDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 
-
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,copy)MKDataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
 @property(nonatomic,assign)MyWalletStyle myWalletStyle;
 
 @property(nonatomic,strong)NSString *goldNumberStr;
@@ -51,50 +46,15 @@
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
 
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated{
-    MyWalletDetailVC *vc = MyWalletDetailVC.new;
-    vc.successBlock = block;
-    vc.requestParams = requestParams;
-    if ([requestParams isKindOfClass:NSDictionary.class]) {
-        NSDictionary *dic = (NSDictionary *)requestParams;
+-(void)loadView{
+    [super loadView];
+    if ([self.requestParams isKindOfClass:NSDictionary.class]) {
+        NSDictionary *dic = (NSDictionary *)self.requestParams;
         NSLog(@"%@ | %@",dic,dic[@"balance"]);
-        vc.myWalletStyle = [dic[@"MyWalletStyle"] intValue];
+        self.myWalletStyle = [dic[@"MyWalletStyle"] intValue];
 //        vc.balanceStr = [NSString stringWithFormat:@"%@",dic[@"balance"]];//[dic[@"balance"] stringValue];
-        vc.goldNumberStr = [NSString stringWithFormat:@"%@",dic[@"goldNumber"]];//[dic[@"goldNumber"] stringValue];
+        self.goldNumberStr = [NSString stringWithFormat:@"%@",dic[@"goldNumber"]];//[dic[@"goldNumber"] stringValue];
     }
-    switch (comingStyle) {
-        case ComingStyle_PUSH:{
-            if (rootVC.navigationController) {
-                vc.isPush = YES;
-                vc.isPresent = NO;
-                [rootVC.navigationController pushViewController:vc
-                                                       animated:animated];
-            }else{
-                vc.isPush = NO;
-                vc.isPresent = YES;
-                [rootVC presentViewController:vc
-                                     animated:animated
-                                   completion:^{}];
-            }
-        }break;
-        case ComingStyle_PRESENT:{
-            vc.isPush = NO;
-            vc.isPresent = YES;
-            //iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-            vc.modalPresentationStyle = presentationStyle;
-            [rootVC presentViewController:vc
-                                 animated:animated
-                               completion:^{}];
-        }break;
-        default:
-            NSLog(@"错误的推进方式");
-            break;
-    }return vc;
 }
 
 - (void)viewDidLoad {
@@ -181,15 +141,7 @@
 
 
 - (void)withdrawClick {
-//    [[MKTools shared] showMBProgressViewOnlyTextInView:self.view text:@"正在开发中的功能" dissmissAfterDeley:2.5];
-    
-//    WeakSelf
-//    [MKWithdrawBalanceViewController ComingFromVC:weakSelf
-//                    comingStyle:ComingStyle_PUSH
-//              presentationStyle:UIModalPresentationAutomatic
-//                  requestParams:nil
-//                        success:^(id data) {}
-//                       animated:YES];
+
 
     if(self.walletModel == nil) {
         return;
@@ -281,8 +233,6 @@
     @weakify(self)
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         @strongify(self)
-
-//        [[MKTools shared] dissmissLoadingInView:self.view animated:YES];
         if (response.code == 200) {
             NSString *createTime = response.reqResult[@"createTime"];
             NSString *money = response.reqResult[@"money"];
@@ -290,13 +240,18 @@
             if(self.walletModel.qq == nil){
                 qq = @"";
             }
-            @weakify(self)
-            [MKWithdrawInfoVC ComingFromVC:weak_self
-                                 comingStyle:ComingStyle_PUSH
-                           presentationStyle:UIModalPresentationAutomatic
+
+            [UIViewController comingFromVC:self
+                                      toVC:MKWithdrawInfoVC.new
+                               comingStyle:ComingStyle_PUSH
+                         presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
                              requestParams:@{@"balance":money,@"time":createTime,@"qq":qq}
-                                     success:^(id data) {}
-                                    animated:YES];
+                  hidesBottomBarWhenPushed:YES
+                                  animated:YES
+                                   success:^(id data) {
+                
+            }];
+
             [self loadData];
 
         }
@@ -309,15 +264,17 @@
     [self.mTab.mj_header endRefreshing];
 }
 - (void)loadMoreRefresh {
-    DLog(@"上拉加载更多");
     self.page ++;
     [self loadData];
     [self.mTab.mj_footer endRefreshing];
 }
 -(void)loadData{
+    
+    TimeModel.new.currentDate;
+
     NSDictionary *easyDict = @{
         @"type":@(1),
-        @"beginDate":[NSObject getToday],
+        @"beginDate":TimeModel.new.currentDate,
         @"pageSize":@(10),
         @"pageNum":@(self.page)
     };
@@ -403,12 +360,19 @@
         if(self.walletModel.qq == nil){
             qq = @"";
         }
-        [MKWithdrawInfoVC ComingFromVC:self
-                             comingStyle:ComingStyle_PUSH
-                       presentationStyle:UIModalPresentationAutomatic
-                         requestParams:@{@"balance":money,@"time":createTime,@"qq":qq}
-                                 success:^(id data) {}
-                                animated:YES];
+
+        [UIViewController comingFromVC:self
+                                  toVC:MKWithdrawInfoVC.new
+                           comingStyle:ComingStyle_PUSH
+                     presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                         requestParams:@{@"balance":money,
+                                         @"time":createTime,
+                                         @"qq":qq}
+              hidesBottomBarWhenPushed:YES
+                              animated:YES
+                               success:^(id data) {
+            
+        }];
     }
 }
 
@@ -451,17 +415,17 @@
         
         [_topView addSubview:igv];
         [igv mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.offset(SCALING_RATIO(26));
-            make.top.offset(SCALING_RATIO(7));
-            make.width.height.offset(SCALING_RATIO(35));
+            make.left.offset(26);
+            make.top.offset(7);
+            make.width.height.offset(35);
         }];
         igv.image = KIMG(@"wallet_blance_icon");
         igv.contentMode = UIViewContentModeScaleAspectFit;
         UILabel *lab = UILabel.new;
         [_topView addSubview:lab];
         [lab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.topView).offset(SCALING_RATIO(17));
-            make.left.equalTo(igv.mas_right).offset(SCALING_RATIO(8));
+            make.top.equalTo(self.topView).offset(17);
+            make.left.equalTo(igv.mas_right).offset(8);
             make.height.offset(22);
         }];
         lab.text = @"当前余额(元)";
@@ -475,7 +439,7 @@
             make.bottom.equalTo(self.topView.mas_bottom).offset(-10);
             make.height.offset(28);
         }];
-        self.withdrawBtn.layer.cornerRadius =SCALING_RATIO(11);
+        self.withdrawBtn.layer.cornerRadius = 11;
         self.withdrawBtn.layer.masksToBounds = 1;
         
         [self.withdrawBtn setBackgroundImage:KIMG(@"gradualColor") forState:UIControlStateNormal];
@@ -595,7 +559,7 @@
         }];
         lab.textAlignment = NSTextAlignmentCenter;
         lab.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-        lab.textColor =  [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(60), 30)]];
+        lab.textColor =  [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(60, 30)]];
         lab.text = @"余额流水";
         UIView *leftLine = UIView.new;
         [_botView addSubview:leftLine];
@@ -666,7 +630,7 @@
 - (UILabel *)balanceCount {
     if (!_balanceCount) {
         _balanceCount = UILabel.new;
-        _balanceCount.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(200), 20)]];
+        _balanceCount.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(200, 20)]];
         _balanceCount.textAlignment = NSTextAlignmentCenter;
         _balanceCount.font = [UIFont fontWithName:@"PingFangSC-Medium" size:30];
     }
@@ -681,8 +645,8 @@
         _mTab.showsVerticalScrollIndicator = 0;
         _mTab.separatorStyle = 0;
         _mTab.backgroundColor = UIColor.clearColor;
-        _mTab.mj_header = self.tableViewHeader;
-        _mTab.mj_footer = self.tableViewFooter;
+        _mTab.mj_header = [self mjRefreshGifHeader];
+        _mTab.mj_footer = [self mjRefreshAutoGifFooter];
         _mTab.emptyDataSetSource = self;
         _mTab.emptyDataSetDelegate = self;
         _mTab.mj_footer.hidden = NO;

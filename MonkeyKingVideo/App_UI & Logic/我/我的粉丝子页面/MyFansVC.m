@@ -19,10 +19,6 @@ UITableViewDelegate
 
 @property(nonatomic,strong)UITableView * _Nullable tableView;
 
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,copy)MKDataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
 
 @end
 
@@ -31,47 +27,6 @@ UITableViewDelegate
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
-
-
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated{
-    MyFansVC *vc = MyFansVC.new;
-    vc.successBlock = block;
-    vc.requestParams = requestParams;
-    switch (comingStyle) {
-        case ComingStyle_PUSH:{
-            if (rootVC.navigationController) {
-                vc.isPush = YES;
-                vc.isPresent = NO;
-                [rootVC.navigationController pushViewController:vc
-                                                       animated:animated];
-            }else{
-                vc.isPush = NO;
-                vc.isPresent = YES;
-                [rootVC presentViewController:vc
-                                     animated:animated
-                                   completion:^{}];
-            }
-        }break;
-        case ComingStyle_PRESENT:{
-            vc.isPush = NO;
-            vc.isPresent = YES;
-            //iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-            vc.modalPresentationStyle = presentationStyle;
-            [rootVC presentViewController:vc
-                                 animated:animated
-                               completion:^{}];
-        }break;
-        default:
-            NSLog(@"错误的推进方式");
-            break;
-    }return vc;
-}
-
 #pragma mark - Lifecycle
 -(instancetype)init{
     if (self = [super init]) {
@@ -108,17 +63,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    @weakify(self)
-//    [PersonalCenterVC ComingFromVC:weak_self
-//                       comingStyle:ComingStyle_PUSH
-//                 presentationStyle:UIModalPresentationAutomatic
-//                     requestParams:nil
-//                           success:^(id data) {}
-//                          animated:YES];
-//
-//         MKSingeUserCenterVC *vc = [[MKSingeUserCenterVC alloc]init];
-//        vc.requestParams = @{@"videoid":model.authorId};
-//        [self.navigationController pushViewController:vc animated:YES];
+
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
@@ -154,8 +99,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.estimatedRowHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;
         _tableView.estimatedSectionHeaderHeight = 0 ;
-        _tableView.mj_header = self.tableViewHeader;
-        _tableView.mj_footer = self.tableViewFooter;
+        _tableView.mj_header = [self mjRefreshGifHeader];
+        _tableView.mj_footer = [self mjRefreshAutoGifFooter];
         _tableView.ly_emptyView = [EmptyView emptyViewWithImageStr:@"Indeterminate Spinner - Small"
                                                           titleStr:@"没有评论"
                                                          detailStr:@"来发布第一条吧"];

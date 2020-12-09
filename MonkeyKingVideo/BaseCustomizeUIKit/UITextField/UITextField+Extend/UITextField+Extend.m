@@ -22,11 +22,9 @@
     [[button rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self)
         self.text = @"";
-        [[NSNotificationCenter defaultCenter] postNotificationName:ZYTextFiledClearText object:nil];
     }];
     self.rightView = button;
     self.rightViewMode = UITextFieldViewModeWhileEditing;
 }
-
 
 @end

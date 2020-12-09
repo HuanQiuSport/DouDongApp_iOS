@@ -48,7 +48,7 @@
         [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.offset(0);
             make.height.offset(18);
-            make.left.offset(SCALING_RATIO(94));
+            make.left.offset(94);
             make.width.mas_lessThanOrEqualTo(80);
         }];
     }return _titleLab;

@@ -8,8 +8,11 @@
 
 #import "BaseViewController.h"
 
-static const CGFloat JXTableHeaderViewHeight = 289;
-static const CGFloat JXheightForHeaderInSection = 50;
+#if __has_include(<JXPagerListRefreshView/JXPagerListRefreshView.h>)
+#import <JXPagerListRefreshView/JXPagerListRefreshView.h>
+#else
+#import "JXPagerListRefreshView.h"
+#endif
 
 @class MKPersonalnfoModel;
 @class PagingViewTableHeaderView;

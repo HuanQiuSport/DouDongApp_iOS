@@ -25,7 +25,7 @@
     WeakSelf
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         if (response.isSuccess) {
-            DLog(@"系统消息请求结果%@",response.reqResult);
+
             if (response.code == 200) {
                 NSMutableArray *data = response.reqResult[@"list"];
                 NSMutableArray *modelData = NSMutableArray.new;

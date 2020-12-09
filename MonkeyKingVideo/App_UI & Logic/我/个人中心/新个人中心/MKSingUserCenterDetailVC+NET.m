@@ -29,14 +29,14 @@
      [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
          if (response.isSuccess){
              if (response.code == 200) {
-                 DLog(@"个人作品请求的数据%@",response.reqResult);
+                 
                  NSError *error;
            
                  MKPersonalLikeModel *model = [[MKPersonalLikeModel alloc]initWithDictionary:(NSDictionary *)response.reqResult error:&error];
                  if (model.list.count < 10 || model.total == model.list.count) {
-                     weak_self.tableViewFooter.hidden = 1;
+                     weak_self.mjRefreshAutoGifFooter.hidden = 1;
                  } else {
-                     weak_self.tableViewFooter.hidden = 0;
+                     weak_self.mjRefreshAutoGifFooter.hidden = 0;
                  }
                  if (error == nil) {
                      
@@ -54,7 +54,9 @@
                          
                          if(pageNumber >= 1){
                              
-//                             [[MKTools shared] showMBProgressViewOnlyTextInView:weak_self.view text:@"暂无更多数据" dissmissAfterDeley:1.5];
+                             [WHToast showMessage:@"暂无更多数据"
+                                                                duration:1
+                                                           finishHandler:nil];
                              
                          }
                          
@@ -127,9 +129,11 @@
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         
         if (response.isSuccess) {
-//            [[MKTools shared] showMBProgressViewOnlyTextInView:self.view text:@"删除成功" dissmissAfterDeley:2.0f];
-            // 本来应该用重请求数据接口的，不过兼顾到有分页，所以有下拉刷新的方法更快
-            [MBProgressHUD wj_showSuccess:@"删除成功"];
+            
+            [WHToast showMessage:@"删除成功"
+                        duration:1
+                   finishHandler:nil];
+            
             [self refrushData];
         }
     }];

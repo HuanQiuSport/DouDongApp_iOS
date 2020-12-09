@@ -32,11 +32,6 @@ TXScrollLabelViewDelegate
 @property(nonatomic,strong)NSString *Str_2;//兑换会员
 @property(nonatomic,strong)NSString *Str_3;//兑换余额、立即提现
 
-
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,copy)MKDataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
 @property(nonatomic,assign)MyWalletStyle myWalletStyle;
 @property(nonatomic,strong)NSString *balanceStr;
 @property(nonatomic,strong)NSString *goldNumberStr;
@@ -61,57 +56,22 @@ TXScrollLabelViewDelegate
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
-
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated{
-    MyCoinVC *vc = MyCoinVC.new;
-    vc.successBlock = block;
-    vc.requestParams = requestParams;
-    if ([requestParams isKindOfClass:NSDictionary.class]) {
-        NSDictionary *dic = (NSDictionary *)requestParams;
-        NSLog(@"%@ | %@",dic,dic[@"balance"]);
-        vc.myWalletStyle = [dic[@"MyWalletStyle"] intValue];
-        vc.balanceStr = [NSString stringWithFormat:@"%@",dic[@"balance"]];//[dic[@"balance"] stringValue];
-        vc.goldNumberStr = [NSString stringWithFormat:@"%@",dic[@"goldNumber"]];//[dic[@"goldNumber"] stringValue];
-    }
-    switch (comingStyle) {
-        case ComingStyle_PUSH:{
-            if (rootVC.navigationController) {
-                vc.isPush = YES;
-                vc.isPresent = NO;
-                [rootVC.navigationController pushViewController:vc
-                                                       animated:animated];
-            }else{
-                vc.isPush = NO;
-                vc.isPresent = YES;
-                [rootVC presentViewController:vc
-                                     animated:animated
-                                   completion:^{}];
-            }
-        }break;
-        case ComingStyle_PRESENT:{
-            vc.isPush = NO;
-            vc.isPresent = YES;
-            //iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-            vc.modalPresentationStyle = presentationStyle;
-            [rootVC presentViewController:vc
-                                 animated:animated
-                               completion:^{}];
-        }break;
-        default:
-            NSLog(@"错误的推进方式");
-            break;
-    }return vc;
-}
 #pragma mark - Lifecycle
 -(instancetype)init{
     if (self = [super init]) {
         self.TipsStr = @"温馨提示: 若连续30天未登录，未提现收益将清空";
     }return self;
+}
+
+-(void)loadView{
+    [super loadView];
+    if ([self.requestParams isKindOfClass:NSDictionary.class]) {
+        NSDictionary *dic = (NSDictionary *)self.requestParams;
+        NSLog(@"%@ | %@",dic,dic[@"balance"]);
+        self.myWalletStyle = [dic[@"MyWalletStyle"] intValue];
+        self.balanceStr = [NSString stringWithFormat:@"%@",dic[@"balance"]];//[dic[@"balance"] stringValue];
+        self.goldNumberStr = [NSString stringWithFormat:@"%@",dic[@"goldNumber"]];//[dic[@"goldNumber"] stringValue];
+    }
 }
 
 - (void)viewDidLoad {
@@ -153,7 +113,11 @@ TXScrollLabelViewDelegate
         if ((Boolean)data) {
             [self getData];
             [self.douCoinDetailVC pullToRefresh];
-             [[MKTools shared] showMBProgressViewOnlyTextInView:weakSelf.view text:@"兑换成功" dissmissAfterDeley:2.0f];
+            
+            [WHToast showMessage:@"兑换成功"
+                        duration:1
+                   finishHandler:nil];
+            
         }
     }];
 }
@@ -263,7 +227,7 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
 - (UIImageView *)headbgV
 {
     if (!_headbgV) {
-        _headbgV = [[UIImageView alloc] initWithFrame:CGRectMake(10, kTabBarHeight + 22, SCREEN_W - 20, SCREEN_H * 0.175 - 20)];
+        _headbgV = [[UIImageView alloc] initWithFrame:CGRectMake(10, kTabBarHeight + 22, MAINSCREEN_WIDTH - 20, MAINSCREEN_HEIGHT * 0.175 - 20)];
         _headbgV.image = KIMG(@"wallet_info_bg");
     }return _headbgV;
 }
@@ -381,9 +345,11 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
                         }
                         else
                         {
-                            [[MKTools shared] showMBProgressViewOnlyTextInView:self.view
-                                                                          text:self.TipsStr
-                            dissmissAfterDeley:1.0f];
+
+                            [WHToast showMessage:self.TipsStr
+                                        duration:1
+                                   finishHandler:nil];
+                            
                         }
                     }
                     
@@ -392,9 +358,10 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
                 }];
 
             } else {
-                [[MKTools shared] showMBProgressViewOnlyTextInView:self.view
-                                                              text:@"还没有那么多的抖币，赶快去赚吧"
-                                                dissmissAfterDeley:1.5f];
+
+                [WHToast showMessage:@"还没有那么多的抖币，赶快去赚吧"
+                            duration:1
+                       finishHandler:nil];
             }
         }];
     }
@@ -451,7 +418,7 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
         }];
         lab.textAlignment = NSTextAlignmentCenter;
         lab.font = [UIFont fontWithName:@"PingFangSC-Medium" size:16];
-        lab.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(60), 30)]];
+        lab.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(60, 30)]];
         lab.text = @"抖币流水";
         UIView *leftLine = UIView.new;
         [_botView addSubview:leftLine];

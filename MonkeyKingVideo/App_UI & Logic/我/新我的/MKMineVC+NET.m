@@ -58,7 +58,7 @@
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         @strongify(self)
         if (response.isSuccess) {
-            DLog(@"%@",response.reqResult);
+
             MKPersonalnfoModel *model = [[MKPersonalnfoModel alloc] initWithDictionary:(NSDictionary *)response.reqResult
                                                                                  error:nil];
 //            if ([model.headImage rangeOfString:@"headimg"].location != NSNotFound) {
@@ -68,9 +68,11 @@
             self.mkPernalModel = model;
             block(@(YES));
         }else{
-            [[MKTools shared] showMBProgressViewOnlyTextInView:self.view
-                                                          text:@"没有哦oooo～"
-                                            dissmissAfterDeley:1.2];
+
+            [WHToast showMessage:@"没有哦oooo～"
+                        duration:1
+                   finishHandler:nil];
+            
             block(@(NO));
         }
     }];

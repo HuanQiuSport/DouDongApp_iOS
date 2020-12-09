@@ -46,8 +46,8 @@
             make.height.offset(16);
         }];
         imgeV.image = KIMG(@"icon_proclamation");
-        _contentView = [[MKTaskVerticalView alloc] initWithFrame:CGRectMake(67,0,SCREEN_W - 32 - 67,40)];
-//        _paomaView = [[MKPaoMaView alloc] initWithFrame:CGRectMake(67,0,SCREEN_W - 32 - 66 - 67,40) font:[UIFont systemFontOfSize:17] textColor:[UIColor redColor]];
+        _contentView = [[MKTaskVerticalView alloc] initWithFrame:CGRectMake(67,0,MAINSCREEN_WIDTH - 32 - 67,40)];
+//        _paomaView = [[MKPaoMaView alloc] initWithFrame:CGRectMake(67,0,MAINSCREEN_WIDTH - 32 - 66 - 67,40) font:[UIFont systemFontOfSize:17] textColor:[UIColor redColor]];
 //        _paomaView.textColor = [UIColor whiteColor];
 //        _paomaView.font = [UIFont systemFontOfSize:13];// 字体大小
 //        _paomaView.backgroundColor = kClearColor;

@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)NSString *startRow;
 @property(nonatomic,strong)NSString *total;
 
+
 @end
 
 NS_ASSUME_NONNULL_END

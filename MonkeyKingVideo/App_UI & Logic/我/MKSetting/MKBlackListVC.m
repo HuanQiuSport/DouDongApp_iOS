@@ -47,14 +47,14 @@ UITableViewDelegate
     [self.mkInfoTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
-//        make.top.equalTo(self.view.mas_top).offset(kNavigationBarHeight+kStatusBarHeight);
+//        make.top.equalTo(self.view.mas_top).offset(44+rectOfStatusbar());
         make.top.equalTo(self.gk_navigationBar.mas_bottom);
         make.bottom.equalTo(self.view);
     }];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 100 * KDeviceScale;
+    return 100 * 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -87,14 +87,16 @@ UITableViewDelegate
         [weakSelf deleteBalckNameList:modle.id WithBlock:^(id data) {
             
             if((Boolean)data){
-                
-                [[MKTools shared] showMBProgressViewOnlyTextInView:weakSelf.view
-                                                              text:@"解除黑名单成功"
-                                                dissmissAfterDeley:1.2];
+
+                [WHToast showMessage:@"解除黑名单成功"
+                            duration:1
+                       finishHandler:nil];
             }else{
-                [[MKTools shared] showMBProgressViewOnlyTextInView:weakSelf.view
-                                                              text:@"解除黑名单没有成功"
-                                                dissmissAfterDeley:1.2];
+
+                [WHToast showMessage:@"解除黑名单没有成功"
+                            duration:1
+                       finishHandler:nil];
+                
             }
             
           

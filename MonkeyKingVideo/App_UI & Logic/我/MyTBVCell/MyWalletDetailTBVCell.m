@@ -36,7 +36,7 @@
 }
 
 +(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return SCREEN_HEIGHT / 15;
+    return MAINSCREEN_HEIGHT / 15;
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
@@ -107,7 +107,7 @@
         [self.contentView addSubview:_changeNumLab];
         [_changeNumLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.contentView);
-            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-15));
+            make.right.equalTo(self.contentView).offset(-15);
         }];
     }return _changeNumLab;
 }

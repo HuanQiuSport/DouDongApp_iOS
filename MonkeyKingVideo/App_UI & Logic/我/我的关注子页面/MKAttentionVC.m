@@ -20,13 +20,8 @@
 /// 我的关注
 @interface MKAttentionVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 
-
 @property(strong,nonatomic)UITableView *mkInfoTableView;
 
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,copy)MKDataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
 /// 0 我的关注 ｜ 1 我的粉丝    ｜   2  他的关注 ｜  3  他的粉丝
 @property (assign,nonatomic) NSInteger mkType;
 /// pageNumber
@@ -54,53 +49,17 @@
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
-
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated{
-    MKAttentionVC *vc = MKAttentionVC.new;
-    vc.successBlock = block;
-    vc.requestParams = requestParams;
-    vc.mkPersonalModel = (MKPersonalnfoModel *)requestParams[@"dataModel"];
-    vc.mkType = [requestParams[@"mkType"] integerValue];
-    switch (comingStyle) {
-        case ComingStyle_PUSH:{
-            if (rootVC.navigationController) {
-                vc.isPush = YES;
-                vc.isPresent = NO;
-                [rootVC.navigationController pushViewController:vc
-                                                       animated:animated];
-            }else{
-                vc.isPush = NO;
-                vc.isPresent = YES;
-                [rootVC presentViewController:vc
-                                     animated:animated
-                                   completion:^{}];
-            }
-        }break;
-        case ComingStyle_PRESENT:{
-            vc.isPush = NO;
-            vc.isPresent = YES;
-            //iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-            vc.modalPresentationStyle = presentationStyle;
-            [rootVC presentViewController:vc
-                                 animated:animated
-                               completion:^{}];
-        }break;
-        default:
-            NSLog(@"错误的推进方式");
-            break;
-    }return vc;
-}
-
 #pragma mark - Lifecycle
 -(instancetype)init{
     if (self = [super init]) {
         
     }return self;
+}
+
+-(void)loadView{
+    [super loadView];
+    self.mkPersonalModel = (MKPersonalnfoModel *)self.requestParams[@"dataModel"];
+    self.mkType = [self.requestParams[@"mkType"] integerValue];
 }
 
 - (void)viewDidLoad {
@@ -161,7 +120,7 @@
            
            make.right.equalTo(self.view);
            
-           make.top.equalTo(self.view.mas_top).offset(kNavigationBarHeight+kStatusBarHeight);
+           make.top.equalTo(self.view.mas_top).offset(44+rectOfStatusbar());
            
            make.bottom.equalTo(self.view);
            
@@ -181,7 +140,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 80 * KDeviceScale;
+    return 80 * 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView  numberOfRowsInSection:(NSInteger)section{
@@ -198,13 +157,12 @@
     
     cell.backgroundColor = UIColor.whiteColor;
     MKAttentionSubModel *model  = self.mkAttionModel.list[indexPath.row];
-    DLog(@"会员%@",model.isVip);
     cell.vipImgage.hidden = YES;
 
     cell.mkTitleLable.text = model.nickName;
     cell.mkDecripLabel.text = [NSString ensureNonnullString:model.remark ReplaceStr:@"这个家伙很懒，还没有写签名"];
     cell.mkFansLabel.text = [NSString  stringWithFormat:@"粉丝 %@ ",[NSString ensureNonnullString:model.fansNum ReplaceStr:@"0"]];
-//    cell.mkLineView.backgroundColor = MKBakcColor;
+//    cell.mkLineView.backgroundColor = kBlackColor;
     [cell.mKIMGageView sd_setImageWithURL:[NSURL URLWithString:model.headImage] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         
         if (error == nil) {
@@ -250,8 +208,10 @@
                     @strongify(self)
                     @strongify(cell)
                     if((Boolean)data){
-//                        [MBProgressHUD wj_showSuccess:@"取消关注成功"];
-                        [MBProgressHUD wj_showPlainText:@"取消关注" view:nil];
+                        [WHToast showMessage:@"取消关注成功"
+                                    duration:1
+                               finishHandler:nil];
+                        
                         self.mkPageNumber = 1;
                         //
                         [MKTools mkHanderDeleteAttentionOfCurrentLoginWithUseId:model.userId.mutableCopy WithBool:NO];
@@ -275,7 +235,9 @@
                        
                         //
                     }else{
-                        [MBProgressHUD wj_showSuccess:@"取消关注失败"];
+                        [WHToast showMessage:@"取消关注失败"
+                                    duration:1
+                               finishHandler:nil];
                     }
                 }];
             }
@@ -292,8 +254,11 @@
                         cell.mkFansLabel.text = [NSString stringWithFormat:@"粉丝%ld",model.fansNum.integerValue];
                         cell.mkOutListButton.selected = YES;
                         [[MKTools shared] setAtttionStyle:cell.mkOutListButton.selected ToButton:cell.mkOutListButton];
-//                        [MBProgressHUD wj_showSuccess:@"关注成功"];
-                        [MBProgressHUD wj_showPlainText:@"关注成功" view:nil];
+
+                        [WHToast showMessage:@"关注成功"
+                                    duration:1
+                               finishHandler:nil];
+                        
                         model.attention = @"1";
                         [tableView reloadRow:indexPath.row inSection:indexPath.section withRowAnimation:UITableViewRowAnimationNone];
                         if (strongSelf.mkType == 0){
@@ -308,7 +273,9 @@
                         }
                         
                     }else{
-                        [MBProgressHUD wj_showError:@"关注失败"];
+                        [WHToast showMessage:@"关注失败"
+                                    duration:1
+                               finishHandler:nil];
                     }
                 }];
             }
@@ -325,14 +292,20 @@
                         cell.mkOutListButton.selected = 0;
                         [[MKTools shared] setAtttionStyle:0 ToButton:cell.mkOutListButton];
                         [MKTools mkHanderDeleteAttentionOfCurrentLoginWithUseId:model.userId.mutableCopy WithBool:NO];
-//                        [MBProgressHUD wj_showSuccess:@"取消关注成功"];
-                        [MBProgressHUD wj_showPlainText:@"取消关注" view:nil];
+                 
+                        [WHToast showMessage:@"取消关注"
+                                    duration:1
+                               finishHandler:nil];
+                        
                         model.fansNum = [NSString stringWithFormat:@"%@",@(MAX(model.fansNum.integerValue -1, 0))];
                         cell.mkFansLabel.text = [NSString stringWithFormat:@"粉丝%@",@(MAX(model.fansNum.integerValue -1, 0))];
                         model.attention = @"0";
                         [tableView reloadRow:indexPath.row inSection:indexPath.section withRowAnimation:UITableViewRowAnimationNone];
                     }else{
-                        [MBProgressHUD wj_showError:@"取消关注失败"];
+       
+                        [WHToast showMessage:@"取消关注失败"
+                                    duration:1
+                               finishHandler:nil];
                     }
 //                    @strongify(self)
 //                    [weakSelf requestWith:self.mkType WithPageNumber:self.mkPageNumber WithPageSize:10 Block:^(id data) {
@@ -352,12 +325,17 @@
                         cell.mkFansLabel.text = [NSString stringWithFormat:@"粉丝%ld",model.fansNum.integerValue];
                         cell.mkOutListButton.selected = 1;
                         [[MKTools shared] setAtttionStyle:1 ToButton:cell.mkOutListButton];
-//                        [MBProgressHUD wj_showSuccess:@"关注成功"];
-                        [MBProgressHUD wj_showPlainText:@"关注成功" view:nil];
+                        [WHToast showMessage:@"关注成功"
+                                    duration:1
+                               finishHandler:nil];
                         model.attention = @"1";
                         [tableView reloadRow:indexPath.row inSection:indexPath.section withRowAnimation:UITableViewRowAnimationNone];
                     }else{
-                        [MBProgressHUD wj_showError:@"关注失败"];
+          
+                        [WHToast showMessage:@"关注失败"
+                                    duration:1
+                               finishHandler:nil];
+                        
                     }
                 }];
             }
@@ -367,15 +345,10 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     MKAttentionSubModel *model  = self.mkAttionModel.list[indexPath.row];
-//    @weakify(self)//1288002294503227393 //1288002294503227393
-//    // 先放模拟数据
-//    [PersonalCenterVC ComingFromVC:weak_self comingStyle:ComingStyle_PUSH presentationStyle:UIModalPresentationFullScreen requestParams:@{@"videoid":model.userId} success:^(id data) {
-//
-//    } animated:YES];
+
    
       NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
      NSString *nickName  = [userDefault objectForKey:@"nickName"];
-     DLog(@"用户名%@",[MKPublickDataManager sharedPublicDataManage].mkLoginModel.nickName);
     if ([[MKPublickDataManager sharedPublicDataManage].mkLoginModel.nickName isEqualToString:model.nickName]) {
         
         [self.navigationController popToRootViewControllerAnimated:YES];
@@ -412,7 +385,7 @@
     }
     NSDictionary *attributes = @{
         NSFontAttributeName:[UIFont systemFontOfSize:16],
-        NSForegroundColorAttributeName:[UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(120), 30)]]
+        NSForegroundColorAttributeName:[UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(120, 30)]]
     };
     return [[NSAttributedString alloc] initWithString:emptyString attributes:attributes];
 }
@@ -440,9 +413,9 @@
         _mkInfoTableView.dataSource = self;
         _mkInfoTableView.backgroundColor = [UIColor clearColor];
         _mkInfoTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _mkInfoTableView.mj_header = self.tableViewHeader;
-        _mkInfoTableView.mj_footer = self.tableViewFooter;
-        self.tableViewFooter.hidden = 1;
+        _mkInfoTableView.mj_header = [self mjRefreshGifHeader];
+        _mkInfoTableView.mj_footer = [self mjRefreshAutoGifFooter];
+        [self mjRefreshAutoGifFooter].hidden = 1;
         _mkInfoTableView.emptyDataSetSource = self;
         _mkInfoTableView.emptyDataSetDelegate = self;
         _mkInfoTableView.tableFooterView = UIView.new;
@@ -579,8 +552,9 @@
             
         }else{
             block(@(NO));
-            [[MKTools shared] showMBProgressViewOnlyTextInView:self.view text:@"操作失败哦oooo～" dissmissAfterDeley:1.2];
-      
+            [WHToast showMessage:@"操作失败哦oooo～"
+                        duration:1
+                   finishHandler:nil];
         }
     
     }];
@@ -652,7 +626,7 @@
         _mkBackImageView = [[UIImageView alloc]init];
         
         
-//        _mkBackImageView.image = [UIImage imageWithColor:MKBakcColor];
+//        _mkBackImageView.image = [UIImage imageWithColor:kBlackColor];
         
         _mkBackImageView.contentMode = UIViewContentModeScaleToFill;
         

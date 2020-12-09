@@ -18,7 +18,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = MKBakcColor;
+        self.backgroundColor = kBlackColor;
          self.mkDataTitleArray = @[@"我的余额",@"我的抖币",@"邀请好友",@"填写邀请码"];
          self.mkDataImageArray = @[@"withe_profile_blance",@"white_profile_金币",@"white_profile_邀请好友",@"white_profile_invite"];
         self.mkCollectionView.alpha = 1;
@@ -34,9 +34,9 @@
         self.mkDataTitleArray = @[@"我的余额",@"我的抖币",@"邀请好友",@"填写邀请码"];
         self.mkDataImageArray = @[@"withe_profile_blance",@"white_profile_金币",@"white_profile_邀请好友",@"white_profile_invite"];
     } else {
-        self.backgroundColor = MKBakcColor;
-        self.mkCollectionView.backgroundColor = MKBakcColor;
-        self.mkCollectionView.tintColor =  MKBakcColor;
+        self.backgroundColor = kBlackColor;
+        self.mkCollectionView.backgroundColor = kBlackColor;
+        self.mkCollectionView.tintColor =  kBlackColor;
         self.mkDataTitleArray = @[@"我的余额",@"我的抖币",@"邀请好友",@"填写邀请码"];
         self.mkDataImageArray = @[@"withe_profile_blance",@"white_profile_金币",@"white_profile_邀请好友",@"white_profile_invite"];
     }
@@ -50,9 +50,9 @@
         layout.minimumLineSpacing = 20;
         layout.minimumInteritemSpacing = 30;
         layout.sectionInset = UIEdgeInsetsMake(5.0, 25, 5.0, 25);
-        _mkCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-20*KDeviceScale) collectionViewLayout:layout];
-        _mkCollectionView.backgroundColor = MKBakcColor;
-        _mkCollectionView.tintColor =  MKBakcColor;
+        _mkCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-20*1) collectionViewLayout:layout];
+        _mkCollectionView.backgroundColor = kBlackColor;
+        _mkCollectionView.tintColor =  kBlackColor;
 //        [_myCollectionView registerNib:[UINib nibWithNibName:@"CT_MyCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CT_MyCollectionReusableView"];
         //    [_myCollectionView registerClass:[CT_MyCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CT_MyCollectionReusableView"];
 //        [_myCollectionView registerNib:[UINib nibWithNibName:@"CT_MyCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"myCollectionViewCell"];
@@ -60,8 +60,8 @@
         _mkCollectionView.delegate = self;
         [_mkCollectionView registerClass:[MKMenueCell class]
                forCellWithReuseIdentifier:@"MKMenueCell"];
-//        _mkCollectionView.mj_header = self.tableViewHeader;
-//        _mkCollectionView.mj_footer = self.tableViewFooter;
+//        _mkCollectionView.mj_header = [self mjRefreshGifHeader];
+//        _mkCollectionView.mj_footer = [self mjRefreshAutoGifFooter];
         _mkCollectionView.mj_footer.hidden = NO;
         [self addSubview:_mkCollectionView];
         [_mkCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -93,7 +93,7 @@
 #pragma mark - 调整cell 的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
 //    CGFloat width = (([UIScreen mainScreen].bounds.size.width-40)/4);
-    CGSize size = CGSizeMake(47, 52*KDeviceScale);
+    CGSize size = CGSizeMake(47, 52*1);
     return size;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {

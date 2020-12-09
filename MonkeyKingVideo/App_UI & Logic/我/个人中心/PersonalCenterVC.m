@@ -52,7 +52,7 @@
         [self addSubview:_titleLab];
         [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self);
-            make.top.equalTo(self.showNumberLab.mas_bottom).offset(SCALING_RATIO(5));
+            make.top.equalTo(self.showNumberLab.mas_bottom).offset(5);
         }];
     }return _titleLab;
 }
@@ -83,9 +83,7 @@ JXCategoryTitleViewDataSource
 @property(nonatomic,strong)TipsV *tipsV_fans;
 @property(nonatomic,strong)TipsV *tipsV_like;
 
-@property(nonatomic,copy)MKDataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
+
 /// 进入页面属性
 @property (assign,nonatomic) MKGoToPersonalType mkGoToPersonalType;
 
@@ -106,53 +104,16 @@ JXCategoryTitleViewDataSource
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
-
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated{
-    PersonalCenterVC *vc = PersonalCenterVC.new;
-    vc.successBlock = block;
-    vc.requestParams = requestParams;
-    NSNumber *b = (NSNumber *)vc.requestParams[@"MKGoToPersonalType"];
-    vc.mkGoToPersonalType = b.intValue;
-    switch (comingStyle) {
-        case ComingStyle_PUSH:{
-            if (rootVC.navigationController) {
-                vc.isPush = YES;
-                vc.isPresent = NO;
-                [rootVC.navigationController pushViewController:vc
-                                                       animated:animated];
-            }else{
-                vc.isPush = NO;
-                vc.isPresent = YES;
-                [rootVC presentViewController:vc
-                                     animated:animated
-                                   completion:^{}];
-            }
-        }break;
-        case ComingStyle_PRESENT:{
-            vc.isPush = NO;
-            vc.isPresent = YES;
-            //iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-            vc.modalPresentationStyle = presentationStyle;
-            [rootVC presentViewController:vc
-                                 animated:animated
-                               completion:^{}];
-        }break;
-        default:
-            NSLog(@"错误的推进方式");
-            break;
-    }return vc;
-}
-
 #pragma mark - Lifecycle
 -(instancetype)init{
     if (self = [super init]) {
         
     }return self;
+}
+
+-(void)loadView{
+    [super loadView];
+    self.mkGoToPersonalType = [self.requestParams[@"MKGoToPersonalType"] intValue];
 }
 
 - (void)viewDidLoad {
@@ -277,9 +238,16 @@ JXCategoryTitleViewDataSource
 -(void)blacklist{
     [self requestAddBlackListWith:self.mkPernalModel.id WithBlock:^(id data) {
         if ((Boolean)data) {
-            [MBProgressHUD wj_showSuccess:@"加入黑名单成功"];
+
+            [WHToast showMessage:@"加入黑名单成功"
+                        duration:1
+                   finishHandler:nil];
+            
         }else{
-            [MBProgressHUD wj_showSuccess:@"加入黑名单失败"];
+
+            [WHToast showMessage:@"加入黑名单失败"
+                        duration:1
+                   finishHandler:nil];
         }
     }];
 }
@@ -294,7 +262,9 @@ JXCategoryTitleViewDataSource
 #pragma mark - 关注
 -(void)attentionBtnClickEvent:(UIButton *)sender{
     if([self.mkPernalModel.areSelf isEqualToString:@"1"]){
-        [MBProgressHUD wj_showError:@"用户不能对自己进行关注"];
+        [WHToast showMessage:@"用户不能对自己进行关注"
+                    duration:1
+               finishHandler:nil];
         return;
     }
     
@@ -400,7 +370,7 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
         [self.view addSubview:_listContainerView];
         [_listContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
-            make.top.equalTo(self.tipsV_attention.mas_bottom).offset(SCALING_RATIO(10));
+            make.top.equalTo(self.tipsV_attention.mas_bottom).offset(10);
         }];
         [self.view layoutIfNeeded];
     }return _listContainerView;
@@ -431,7 +401,7 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
         [self.view addSubview:_categoryView];
         [_categoryView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
-            make.height.equalTo(@(KDeviceScale * 50));
+            make.height.equalTo(@(1 * 50));
             make.top.equalTo(self.listContainerView);
         }];
     }return _categoryView;
@@ -462,19 +432,19 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
         [_header_nameBtn sd_setImageWithURL:[NSURL URLWithString:@""]
                                    forState:UIControlStateNormal
                            placeholderImage:[UIImage imageNamed:@"default_avatar_white.jpg"]];
-        _header_nameBtn.titleEdgeInsets = UIEdgeInsetsMake(SCALING_RATIO(0),
+        _header_nameBtn.titleEdgeInsets = UIEdgeInsetsMake(0,
                                                            0,
                                                            0,
                                                            0);
-        _header_nameBtn.imageEdgeInsets = UIEdgeInsetsMake(SCALING_RATIO(-50),
+        _header_nameBtn.imageEdgeInsets = UIEdgeInsetsMake(-50,
                                                            0,
                                                            0,
                                                            0);
         [self.view addSubview:_header_nameBtn];
         [_header_nameBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.view).offset(SCALING_RATIO(15));
-            make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(SCALING_RATIO(3));
-            make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(100), SCALING_RATIO(150)));
+            make.left.equalTo(self.view).offset(15);
+            make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(3);
+            make.size.mas_equalTo(CGSizeMake(100, 150));
         }];
     }return _header_nameBtn;
 }
@@ -493,8 +463,8 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
                 forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_attentionBtn];
         [_attentionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.header_nameBtn.mas_right).offset(SCALING_RATIO(15));
-            make.right.equalTo(self.view.mas_right).offset(SCALING_RATIO(-15));
+            make.left.equalTo(self.header_nameBtn.mas_right).offset(15);
+            make.right.equalTo(self.view.mas_right).offset(-15);
             make.top.equalTo(self.header_nameBtn);
         }];
         [UIView cornerCutToCircleWithView:_attentionBtn
@@ -513,8 +483,8 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
         [self.view addSubview:_sex_oldLab];
         [_sex_oldLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.attentionBtn);
-            make.top.equalTo(self.attentionBtn.mas_bottom).offset(SCALING_RATIO(15));
-            make.size.mas_equalTo(CGSizeMake(CGRectGetWidth(self.attentionBtn.frame) / 3 - SCALING_RATIO(7) * 2, CGRectGetHeight(self.attentionBtn.frame)));
+            make.top.equalTo(self.attentionBtn.mas_bottom).offset(15);
+            make.size.mas_equalTo(CGSizeMake(CGRectGetWidth(self.attentionBtn.frame) / 3 - 7 * 2, CGRectGetHeight(self.attentionBtn.frame)));
         }];
         [UIView cornerCutToCircleWithView:_sex_oldLab
                           AndCornerRadius:CGRectGetHeight(self.attentionBtn.frame) / 2];
@@ -566,7 +536,7 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
         [self.view addSubview:_personalizedSignatureLab];
         [_personalizedSignatureLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.attentionBtn);
-            make.top.equalTo(self.constellationLab.mas_bottom).offset(SCALING_RATIO(15));
+            make.top.equalTo(self.constellationLab.mas_bottom).offset(15);
             make.height.mas_equalTo(CGRectGetHeight(self.attentionBtn.frame) * 1.5);
         }];
     }return _personalizedSignatureLab;
@@ -578,23 +548,26 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
                                              showNumber:@"5.1万"];
         [self.view addSubview:_tipsV_attention];
         [_tipsV_attention mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.personalizedSignatureLab.mas_bottom).offset(SCALING_RATIO(5));
-            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH / 6, SCALING_RATIO(50)));
-            make.left.equalTo(self.view).offset(SCALING_RATIO(30));
+            make.top.equalTo(self.personalizedSignatureLab.mas_bottom).offset(5);
+            make.size.mas_equalTo(CGSizeMake(MAINSCREEN_WIDTH / 6, 50));
+            make.left.equalTo(self.view).offset(30);
         }];
         @weakify(self)
         [_tipsV_attention addGestureRecognizer:JHGestureType_Tap block:^(__kindof UIView *view, __kindof UIGestureRecognizer *gesture) {
             
             if (![MKTools mkLoginIsYESWith:weak_self]) { return; }
+
+            [UIViewController comingFromVC:self
+                                      toVC:MKAttentionVC.new
+                               comingStyle:ComingStyle_PUSH
+                         presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                             requestParams:@{@"mkType":@(2),@"dataModel":weak_self.mkPernalModel}
+                  hidesBottomBarWhenPushed:YES
+                                  animated:YES
+                                   success:^(id data) {
+                
+            }];
             
-            [MKAttentionVC ComingFromVC:weak_self
-                            comingStyle:ComingStyle_PUSH
-                      presentationStyle:UIModalPresentationAutomatic
-                          requestParams:@{
-                              @"mkType":@(2),@"dataModel":weak_self.mkPernalModel
-                          }
-                                success:^(id data) {}
-                               animated:YES];
         }];
     }return _tipsV_attention;
 }
@@ -605,24 +578,27 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
                                         showNumber:@"146万"];
         [self.view addSubview:_tipsV_fans];
         [_tipsV_fans mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.personalizedSignatureLab.mas_bottom).offset(SCALING_RATIO(5));
-            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH / 6, SCALING_RATIO(50)));
+            make.top.equalTo(self.personalizedSignatureLab.mas_bottom).offset(5);
+            make.size.mas_equalTo(CGSizeMake(MAINSCREEN_WIDTH / 6, 50));
             make.centerX.equalTo(self.view);
         }];
         @weakify(self)
         [_tipsV_fans addGestureRecognizer:JHGestureType_Tap block:^(__kindof UIView *view, __kindof UIGestureRecognizer *gesture) {
             
             if (![MKTools mkLoginIsYESWith:weak_self]) { return; }
+
+            [UIViewController comingFromVC:self
+                                      toVC:MKAttentionVC.new
+                               comingStyle:ComingStyle_PUSH
+                         presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                             requestParams:@{@"mkType":@(3),
+                                             @"dataModel":weak_self.mkPernalModel}
+                  hidesBottomBarWhenPushed:YES
+                                  animated:YES
+                                   success:^(id data) {
+                
+            }];
             
-            [MKAttentionVC ComingFromVC:weak_self
-                            comingStyle:ComingStyle_PUSH
-                      presentationStyle:UIModalPresentationAutomatic
-                          requestParams:@{
-                              @"mkType":@(3),
-                              @"dataModel":weak_self.mkPernalModel
-                          }
-                                success:^(id data) {}
-                               animated:YES];
         }];
     }return _tipsV_fans;
 }
@@ -633,9 +609,9 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
                                         showNumber:@"8787万"];
         [self.view addSubview:_tipsV_like];
         [_tipsV_like mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.personalizedSignatureLab.mas_bottom).offset(SCALING_RATIO(5));
-            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH / 6, SCALING_RATIO(50)));
-            make.right.equalTo(self.view).offset(SCALING_RATIO(-30));
+            make.top.equalTo(self.personalizedSignatureLab.mas_bottom).offset(5);
+            make.size.mas_equalTo(CGSizeMake(MAINSCREEN_WIDTH / 6, 50));
+            make.right.equalTo(self.view).offset(-30);
         }];
     }return _tipsV_like;
 }
@@ -679,7 +655,7 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
         
         [_mkPersonView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.top.equalTo(self.view);
-            make.height.equalTo(@(KDeviceScale * 250));
+            make.height.equalTo(@(1 * 250));
         }];
         
     }

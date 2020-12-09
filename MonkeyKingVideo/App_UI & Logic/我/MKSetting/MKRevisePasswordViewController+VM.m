@@ -32,7 +32,11 @@
         if (response.isSuccess) {
             if (response.code == 200) {
                 block(@(YES));
-                [MBProgressHUD wj_showPlainText:@"修改成功" view:nil];
+
+                [WHToast showMessage:@"修改成功"
+                            duration:1
+                       finishHandler:nil];
+                
                 [self.navigationController popViewControllerAnimated:YES];
             }else{
                 block(@(NO));

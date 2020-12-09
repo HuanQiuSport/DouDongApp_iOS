@@ -21,10 +21,6 @@ LMHWaterFallLayoutDeleaget
 
 /// 新的View
 @property (strong,nonatomic) UICollectionView *mkCollectionView;
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,copy)MKDataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
 
 @property(nonatomic,strong)NSMutableArray *shops;
 @property(nonatomic,strong)UICollectionView *collectionView;
@@ -39,46 +35,6 @@ LMHWaterFallLayoutDeleaget
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
-
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated{
-    LikedVC *vc = LikedVC.new;
-    vc.successBlock = block;
-    vc.requestParams = requestParams;
-    switch (comingStyle) {
-        case ComingStyle_PUSH:{
-            if (rootVC.navigationController) {
-                vc.isPush = YES;
-                vc.isPresent = NO;
-                [rootVC.navigationController pushViewController:vc
-                                                       animated:animated];
-            }else{
-                vc.isPush = NO;
-                vc.isPresent = YES;
-                [rootVC presentViewController:vc
-                                     animated:animated
-                                   completion:^{}];
-            }
-        }break;
-        case ComingStyle_PRESENT:{
-            vc.isPush = NO;
-            vc.isPresent = YES;
-            //iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-            vc.modalPresentationStyle = presentationStyle;
-            [rootVC presentViewController:vc
-                                 animated:animated
-                               completion:^{}];
-        }break;
-        default:
-            NSLog(@"错误的推进方式");
-            break;
-    }return vc;
-}
-
 #pragma mark - Lifecycle
 -(instancetype)init{
     if (self = [super init]) {
@@ -111,7 +67,7 @@ LMHWaterFallLayoutDeleaget
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
     self.mkPageIndex = 1;
-    [self.tableViewHeader endRefreshing];
+    [[self mjRefreshGifHeader] endRefreshing];
     [self requestWith:0 WithPageNumber:1 WithPageSize:10 WithUserID:self.mkPernalModel.id WithType:@"1" Block:^(id data) {
         if ((Boolean)data) {
 //            [self.collectionView reloadData];
@@ -124,7 +80,7 @@ LMHWaterFallLayoutDeleaget
 #pragma mark -  上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
-    [self.tableViewFooter endRefreshing];
+    [[self mjRefreshAutoGifFooter] endRefreshing];
     self.mkPageIndex += 1;
     [self requestWith:0 WithPageNumber:self.mkPageIndex WithPageSize:10 WithUserID:self.mkPernalModel.id WithType:@"1" Block:^(id data) {
         if ((Boolean)data) {
@@ -159,10 +115,17 @@ LMHWaterFallLayoutDeleaget
 - (void)collectionView:(UICollectionView *)collectionView
 didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"%s", __FUNCTION__);
-      WeakSelf
-    [RecommendVC ComingFromVC:weakSelf comingStyle:ComingStyle_PUSH presentationStyle:UIModalPresentationFullScreen requestParams:@{@"index":@(indexPath.item),@"model":self.mkLikeModel,@"VideoListType":@(MKVideoListType_D)} success:^(id data) {
 
-      } animated:YES];
+    [UIViewController comingFromVC:self
+                              toVC:RecommendVC.new
+                       comingStyle:ComingStyle_PUSH
+                 presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                     requestParams:@{@"index":@(indexPath.item),
+                                     @"model":self.mkLikeModel,
+                                     @"VideoListType":@(MKVideoListType_D)}
+          hidesBottomBarWhenPushed:YES
+                          animated:YES
+                           success:^(id data) {}];
 
 }
 
@@ -174,11 +137,11 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (CGFloat)rowMarginInWaterFallLayout:(LMHWaterFallLayout *)waterFallLayout{
-    return SCALING_RATIO(20);
+    return 20;
 }
 
 - (NSUInteger)columnCountInWaterFallLayout:(LMHWaterFallLayout *)waterFallLayout{
-    return SCALING_RATIO(2);
+    return 2;
 }
 #pragma mark —— lazyLoad
 -(LMHWaterFallLayout *)waterFallLayout{
@@ -191,15 +154,15 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 - (UICollectionView *)collectionView{
     if (!_collectionView) {
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0,
-                                                                             SCALING_RATIO(50),
-                                                                             SCREEN_WIDTH,
-                                                                             SCREEN_HEIGHT)
+                                                                             50,
+                                                                             MAINSCREEN_WIDTH,
+                                                                             MAINSCREEN_HEIGHT)
                                                  collectionViewLayout:self.waterFallLayout];
     }
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
-    _collectionView.mj_header = self.tableViewHeader;
-    _collectionView.mj_footer = self.tableViewFooter;
+    _collectionView.mj_header = [self mjRefreshGifHeader];
+    _collectionView.mj_footer = [self mjRefreshAutoGifFooter];
     _collectionView.mj_footer.hidden = NO;
     [_collectionView setBackgroundColor:kClearColor];
     _collectionView.showsVerticalScrollIndicator = NO;
@@ -244,7 +207,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
         layout.minimumLineSpacing = 5;
         layout.minimumInteritemSpacing = 2.5;
         layout.sectionInset = UIEdgeInsetsMake(5.0, 5.0, 5.0, 5.0);
-        _mkCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 50*KDeviceScale,[UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height- 50*KDeviceScale) collectionViewLayout:layout];
+        _mkCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 50*1,[UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height- 50*1) collectionViewLayout:layout];
       
 //        [_myCollectionView registerNib:[UINib nibWithNibName:@"CT_MyCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CT_MyCollectionReusableView"];
         //    [_myCollectionView registerClass:[CT_MyCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CT_MyCollectionReusableView"];
@@ -254,13 +217,13 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
         _mkCollectionView.delegate = self;
         [_mkCollectionView registerClass:[VideoCell class]
                forCellWithReuseIdentifier:@"VedioCell"];
-        _mkCollectionView.mj_header = self.tableViewHeader;
-        _mkCollectionView.mj_footer = self.tableViewFooter;
+        _mkCollectionView.mj_header = [self mjRefreshGifHeader];
+        _mkCollectionView.mj_footer = [self mjRefreshAutoGifFooter];
         _mkCollectionView.mj_footer.hidden = NO;
         [self.view addSubview:_mkCollectionView];
         [_mkCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
-            make.top.equalTo(self.view.mas_top).offset(KDeviceScale *50);
+            make.top.equalTo(self.view.mas_top).offset(1 *50);
         }];
     }
     return _mkCollectionView;

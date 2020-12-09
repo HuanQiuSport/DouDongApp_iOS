@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BaseViewController : UIViewController
 
+@property(nonatomic,strong)RACSignal *reqSignal;
 @property(nonatomic,assign)BOOL setupNavigationBarHidden;
 
 @end

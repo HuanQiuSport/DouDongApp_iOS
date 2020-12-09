@@ -17,6 +17,7 @@
         [generator impactOccurred];
     } else {
         // Fallback on earlier versions
+        AudioServicesPlaySystemSound(1520);
     }
 }
 ///检测用户是否锁屏：根据屏幕光线来进行判定，而不是系统通知
@@ -34,6 +35,29 @@
 ///iOS 限制自动锁屏 lockSwitch:YES(关闭自动锁屏)
 +(void)autoLockedScreen:(BOOL)lockSwitch{
     [[UIApplication sharedApplication] setIdleTimerDisabled:lockSwitch];
+}
+
+-(void)printRequestMessage:(NSURLSessionDataTask *)task{
+    
+    /*
+    // 请求URL
+    NSLog(@"请求URL:%@\n",task.originalRequest.URL);
+    
+    // 请求方式
+    NSLog(@"请求方式:%@\n",task.originalRequest.HTTPMethod);
+    
+    // 请求头信息
+    NSLog(@"请求头信息:%@\n",task.originalRequest.allHTTPHeaderFields);
+    
+    // 请求正文信息
+    NSLog(@"请求正文信息:%@\n",[[NSString alloc] initWithData:task.originalRequest.HTTPBody encoding:NSUTF8StringEncoding]);
+    */
+
+    // 请求响应时间
+    NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:NSDate.date];
+    NSLog(@"请求响应时间:%@\n",@(time));
+    NSLog(@"\n请求URL:%@\n请求方式:%@\n请求头信息:%@\n请求正文信息:%@\n请求响应时间:%@\n",task.originalRequest.URL,task.originalRequest.HTTPMethod,task.originalRequest.allHTTPHeaderFields,[[NSString alloc] initWithData:task.originalRequest.HTTPBody encoding:NSUTF8StringEncoding],@(time));
+    
 }
 
 @end

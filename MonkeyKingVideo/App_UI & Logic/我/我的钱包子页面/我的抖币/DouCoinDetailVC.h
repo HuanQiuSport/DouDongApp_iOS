@@ -17,12 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)NSMutableArray <MKWalletMyFlowsListModel *>*walletMyFlowsListModelMutArr;
 @property(nonatomic,assign)MyWalletStyle walletStyle;
 - (void)pullToRefresh;
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated;
+
 @end
 
 NS_ASSUME_NONNULL_END

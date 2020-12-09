@@ -20,10 +20,6 @@ UICollectionViewDataSource
 ,LMHWaterFallLayoutDeleaget
 >
 
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,copy)MKDataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
 @property(nonatomic,strong)NSMutableArray *shops;
 @property(nonatomic,assign)NSUInteger columnCount;
 @property(nonatomic,strong)LMHWaterFallLayout *waterFallLayout;
@@ -47,46 +43,6 @@ UICollectionViewDataSource
 - (void)dealloc {
 //    NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
-
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated{
-    AttentionVC *vc = AttentionVC.new;
-    vc.successBlock = block;
-    vc.requestParams = requestParams;
-    switch (comingStyle) {
-        case ComingStyle_PUSH:{
-            if (rootVC.navigationController) {
-                vc.isPush = YES;
-                vc.isPresent = NO;
-                [rootVC.navigationController pushViewController:vc
-                                                       animated:animated];
-            }else{
-                vc.isPush = NO;
-                vc.isPresent = YES;
-                [rootVC presentViewController:vc
-                                     animated:animated
-                                   completion:^{}];
-            }
-        }break;
-        case ComingStyle_PRESENT:{
-            vc.isPush = NO;
-            vc.isPresent = YES;
-            //iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-            vc.modalPresentationStyle = presentationStyle;
-            [rootVC presentViewController:vc
-                                 animated:animated
-                               completion:^{}];
-        }break;
-        default:
-//            NSLog(@"错误的推进方式");
-            break;
-    }return vc;
-}
-
 #pragma mark - Lifecycle
 -(instancetype)init{
     if (self = [super init]) {
@@ -170,40 +126,31 @@ UICollectionViewDataSource
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-//    NSLog(@"点击cell %s", __FUNCTION__);
-    WeakSelf
-    [RecommendVC ComingFromVC:weakSelf comingStyle:ComingStyle_PUSH presentationStyle:UIModalPresentationFullScreen requestParams:@{@"index":@(indexPath.item),@"model":self.mkhAttentionModel,@"VideoListType":@(MKVideoListType_B)} success:^(id data) {
-        
-    } animated:YES];
-//  [RecommendVC ComingFromVC:weakSelf comingStyle:ComingStyle_PUSH presentationStyle:UIModalPresentationFullScreen requestParams:
-//      @{
-//         @"index":@(indexPath.item),
-//
-//         @"model":self.mkLikeModel,@"VideoListType":@(MKVideoListType_D),
-//
-//         @"userId":weakSelf.mkPernalModel.userId,
-//
-//         @"type":self.type // 自定义类型用来区分 喜欢｜作品
-//
-//      }
-//         success:^(id data) {
-//
-//     } animated:YES];
+    [UIViewController comingFromVC:self
+                              toVC:RecommendVC.new
+                       comingStyle:ComingStyle_PUSH
+                 presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                     requestParams:@{@"index":@(indexPath.item),
+                                     @"model":self.mkhAttentionModel,
+                                     @"VideoListType":@(MKVideoListType_B)}
+          hidesBottomBarWhenPushed:YES
+                          animated:YES
+                           success:^(id data) {}];
 }
 
 #pragma mark —— LMHWaterFallLayoutDeleaget
 - (CGFloat)waterFallLayout:(LMHWaterFallLayout *)waterFallLayout
   heightForItemAtIndexPath:(NSUInteger)indexPath
                  itemWidth:(CGFloat)itemWidth{
-    return 274 * KDeviceScale;
+    return 274 * 1;
 }
 
 - (CGFloat)rowMarginInWaterFallLayout:(LMHWaterFallLayout *)waterFallLayout{
-    return SCALING_RATIO(20);
+    return 20;
 }
 
 - (NSUInteger)columnCountInWaterFallLayout:(LMHWaterFallLayout *)waterFallLayout{
-    return SCALING_RATIO(2);
+    return 2;
 }
 
 #pragma mark —— lazyLoad
@@ -228,23 +175,23 @@ UICollectionViewDataSource
         layout.minimumLineSpacing = 5;
         layout.minimumInteritemSpacing = 2.5;
         layout.sectionInset = UIEdgeInsetsMake(5.0, 5.0, 5.0, 5.0);
-        _mkCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kStatusBarHeight + kNavigationBarHeight,[UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height- kStatusBarHeight - kNavigationBarHeight) collectionViewLayout:layout];
+        _mkCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, rectOfStatusbar() + 44,[UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height- rectOfStatusbar() - 44) collectionViewLayout:layout];
         [_mkCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"UICollectionViewCell"];
         _mkCollectionView.dataSource = self;
         _mkCollectionView.delegate = self;
         [_mkCollectionView registerClass:[VideoCell class]
                forCellWithReuseIdentifier:@"VedioCell"];
-        _mkCollectionView.mj_header = self.tableViewHeader;
-        _mkCollectionView.mj_footer = self.tableViewFooter;
+        _mkCollectionView.mj_header = [self mjRefreshGifHeader];
+        _mkCollectionView.mj_footer = [self mjRefreshAutoGifFooter];
 //        _mkCollectionView.mj_footer.hidden = YES;
-        [self.tableViewFooter setTitle:@"暂时没有更多了"
+        [[self mjRefreshAutoGifFooter] setTitle:@"暂时没有更多了"
                forState:MJRefreshStateNoMoreData];
         _mkCollectionView.backgroundColor = [UIColor clearColor];
         [self.view addSubview:_mkCollectionView];
         [_mkCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
             make.bottom.equalTo(self.view.mas_bottom).offset(-kTabBarHeight);
-            make.top.equalTo(self.view.mas_top).offset(kStatusBarHeight + kNavigationBarHeight);
+            make.top.equalTo(self.view.mas_top).offset(rectOfStatusbar() + 44);
         }];
         _mkCollectionView.backgroundColor = HEXCOLOR(0xf8f8f8);
     }
@@ -274,7 +221,7 @@ UICollectionViewDataSource
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat width = (([UIScreen mainScreen].bounds.size.width-15)/2);
-    CGSize size = CGSizeMake(width, 274 * KDeviceScale);
+    CGSize size = CGSizeMake(width, 274 * 1);
     return size;
 }
 - (UIImageView *)mkBackImageView{
@@ -321,7 +268,7 @@ UICollectionViewDataSource
 - (UILabel *)loginLab1 {
     if (!_loginLab1) {
         _loginLab1 = UILabel.new;
-        _loginLab1.frame = CGRectMake(0, SCALING_RATIO(258), kScreenWidth, 28);
+        _loginLab1.frame = CGRectMake(0, 258, MAINSCREEN_WIDTH, 28);
         _loginLab1.text = @"你还没有登录";
         _loginLab1.textColor = HEXCOLOR(0x999999);
         _loginLab1.font = [UIFont fontWithName:@"PingFangSC-Medium" size:20];
@@ -332,7 +279,7 @@ UICollectionViewDataSource
 - (UILabel *)loginLab2 {
     if (!_loginLab2) {
         _loginLab2 = UILabel.new;
-        _loginLab2.frame = CGRectMake(0, SCALING_RATIO(292), kScreenWidth, 17);
+        _loginLab2.frame = CGRectMake(0, 292, MAINSCREEN_WIDTH, 17);
         _loginLab2.text = @"登录账户查看你关注的精彩内容";
         _loginLab2.textColor = HEXCOLOR(0x999999);
         _loginLab2.font = [UIFont systemFontOfSize:12];
@@ -344,7 +291,7 @@ UICollectionViewDataSource
     if (!_loginBtn) {
         _loginBtn = UIButton.new;
         
-        _loginBtn.frame = CGRectMake(SCALING_RATIO(50), SCALING_RATIO(391), kScreenWidth-SCALING_RATIO(100), 44);
+        _loginBtn.frame = CGRectMake(50, 391, MAINSCREEN_WIDTH-100, 44);
         _loginBtn.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:_loginBtn.frame.size]];
 //        [_loginBtn setBackgroundImage:KIMG(@"login_gradualColor") forState:UIControlStateNormal];
         [_loginBtn setTitle:@"登录" forState:UIControlStateNormal];

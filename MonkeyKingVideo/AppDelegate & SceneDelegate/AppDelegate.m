@@ -85,10 +85,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
                                                              object:self];
      });
     [GKConfigure setupCustomConfigure:^(GKNavigationBarConfigure * _Nonnull configure) {
-        configure.gk_translationX = 15;
-        configure.gk_translationY = 20;
-        configure.gk_scaleX = 0.90;
-        configure.gk_scaleY = 0.92;
         // 导航栏背景色
         configure.backgroundColor = UIColor.whiteColor;
         // 导航栏标题颜色
@@ -163,26 +159,26 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 //         }];
 //    }
     
-    extern ZFPlayerController *ZFPlayer_DoorVC;
-    extern ZFPlayerController *ZFPlayer_ForgetCodeVC;
-    if (ZFPlayer_DoorVC) {
-        [ZFPlayer_DoorVC.currentPlayerManager pause];
-    }
-    if (ZFPlayer_ForgetCodeVC) {
-        [ZFPlayer_ForgetCodeVC.currentPlayerManager pause];
-    }
+//    extern ZFPlayerController *ZFPlayer_DoorVC;
+//    extern ZFPlayerController *ZFPlayer_ForgetCodeVC;
+//    if (ZFPlayer_DoorVC) {
+//        [ZFPlayer_DoorVC.currentPlayerManager pause];
+//    }
+//    if (ZFPlayer_ForgetCodeVC) {
+//        [ZFPlayer_ForgetCodeVC.currentPlayerManager pause];
+//    }
 }
 //系统版本低于iOS13.0的设备
 -(void)applicationDidBecomeActive:(UIApplication *)application {
 //    NSLog(@"---applicationDidBecomeActive----");//进入前台
-    extern ZFPlayerController *ZFPlayer_DoorVC;
-    extern ZFPlayerController *ZFPlayer_ForgetCodeVC;
-    if (ZFPlayer_DoorVC) {
-        [ZFPlayer_DoorVC.currentPlayerManager play];
-    }
-    if (ZFPlayer_ForgetCodeVC) {
-        [ZFPlayer_ForgetCodeVC.currentPlayerManager play];
-    }
+//    extern ZFPlayerController *ZFPlayer_DoorVC;
+//    extern ZFPlayerController *ZFPlayer_ForgetCodeVC;
+//    if (ZFPlayer_DoorVC) {
+//        [ZFPlayer_DoorVC.currentPlayerManager play];
+//    }
+//    if (ZFPlayer_ForgetCodeVC) {
+//        [ZFPlayer_ForgetCodeVC.currentPlayerManager play];
+//    }
     [[SceneDelegate sharedInstance] userTimeStart];
 }
 #pragma - mark AWS SDK
@@ -231,10 +227,14 @@ didDiscardSceneSessions:(NSSet<UISceneSession *> *)sceneSessions  API_AVAILABLE(
 //}
 
 - (void)applicationProtectedDataDidBecomeAvailable:(UIApplication *)application{
-//    [MBProgressHUD wj_showError:@"退出锁屏"];
+//    [WHToast showMessage:@"退出锁屏"
+//                duration:1
+//           finishHandler:nil];
 }
 - (void)applicationProtectedDataWillBecomeUnavailable:(UIApplication *)application API_AVAILABLE(ios(4.0)){
-//    [MBProgressHUD wj_showError:@"进入锁屏"];
+//    [WHToast showMessage:@"进入锁屏"
+//                duration:1
+//           finishHandler:nil];
 }
 #pragma mark - Core Data stack
 @synthesize persistentContainer = _persistentContainer;

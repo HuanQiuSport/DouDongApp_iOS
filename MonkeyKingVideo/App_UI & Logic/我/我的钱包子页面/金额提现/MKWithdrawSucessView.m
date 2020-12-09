@@ -47,7 +47,7 @@
                 superView:self];
     
     UIView *line = [[UIView alloc]init];
-    line.frame = CGRectMake(SCREEN_W / 2 - 78, statusView.maxY + 5, 1, 31);
+    line.frame = CGRectMake(MAINSCREEN_WIDTH / 2 - 78, statusView.maxY + 5, 1, 31);
     line.backgroundColor = COLOR_RGB(76 ,82 , 95, 1);
     [self addSubview:line];
     
@@ -60,14 +60,14 @@
     
     //中间
     UIView *moneyView = [[UIView alloc]init];
-    moneyView.backgroundColor = MKBakcColor;
+    moneyView.backgroundColor = kBlackColor;
     moneyView.layer.cornerRadius = 5.0f;
     moneyView.layer.shadowColor = [UIColor blackColor].CGColor;
     moneyView.layer.shadowOpacity = 0.6f;
     moneyView.layer.shadowOffset = CGSizeMake(2.0f,5.0f);
     moneyView.layer.shadowRadius = 15.0f;
     moneyView.layer.masksToBounds = NO;
-    moneyView.frame = CGRectMake(20, timeView.maxY + 40, SCREEN_W - 40, 120);
+    moneyView.frame = CGRectMake(20, timeView.maxY + 40, MAINSCREEN_WIDTH - 40, 120);
     [self addSubview:moneyView];
     
     UIView *detailsMoneyView =
@@ -107,10 +107,10 @@
                   superView:(UIView *)superView {
     
     UIView *statusView = [[UIView alloc]init];
-    statusView.frame = CGRectMake(0, y, SCREEN_WIDTH, 44);
+    statusView.frame = CGRectMake(0, y, MAINSCREEN_WIDTH, 44);
     
     UIImageView *img = [[UIImageView alloc]initWithImage:KIMG(imageName)];
-    img.frame = CGRectMake(SCREEN_W / 2 - 100, 0, statusView.height, statusView.height);
+    img.frame = CGRectMake(MAINSCREEN_WIDTH / 2 - 100, 0, statusView.height, statusView.height);
     [statusView addSubview:img];
     
     UILabel *desLab = [[UILabel alloc]init];
@@ -137,8 +137,8 @@
     
     NSLog(@"%@",desLabel);
     UIView *detailView = [[UIView alloc]init];
-    detailView.backgroundColor = MKBakcColor;
-    detailView.frame = CGRectMake(0, y, SCREEN_WIDTH - 40, 20);
+    detailView.backgroundColor = kBlackColor;
+    detailView.frame = CGRectMake(0, y, MAINSCREEN_WIDTH - 40, 20);
     
     UILabel *titleLab = [[UILabel alloc]init];
     titleLab.text = titleText;

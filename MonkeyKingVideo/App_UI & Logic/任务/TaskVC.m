@@ -16,12 +16,6 @@
 
 @interface TaskVC ()<UIScrollViewDelegate>
 
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,copy)MKDataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
-
-
 @property (nonatomic, strong) UIView *walletView;   // 余额视图
 @property (nonatomic, strong) UIButton *walletBtn;
 @property (nonatomic, strong) UIView *coinView;     // 金币视图
@@ -44,45 +38,6 @@
 @end
 
 @implementation TaskVC
-
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-                 comingStyle:(ComingStyle)comingStyle
-           presentationStyle:(UIModalPresentationStyle)presentationStyle
-               requestParams:(nullable id)requestParams
-                     success:(MKDataBlock)block
-                    animated:(BOOL)animated{
-    TaskVC *vc = TaskVC.new;
-    vc.successBlock = block;
-    vc.requestParams = requestParams;
-    switch (comingStyle) {
-        case ComingStyle_PUSH:{
-            if (rootVC.navigationController) {
-                vc.isPush = YES;
-                vc.isPresent = NO;
-                [rootVC.navigationController pushViewController:vc
-                                                       animated:animated];
-            }else{
-                vc.isPush = NO;
-                vc.isPresent = YES;
-                [rootVC presentViewController:vc
-                                     animated:animated
-                                   completion:^{}];
-            }
-        }break;
-        case ComingStyle_PRESENT:{
-            vc.isPush = NO;
-            vc.isPresent = YES;
-            //iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-            vc.modalPresentationStyle = presentationStyle;
-            [rootVC presentViewController:vc
-                                 animated:animated
-                               completion:^{}];
-        }break;
-        default:
-//            NSLog(@"错误的推进方式");
-            break;
-    }return vc;
-}
 
 #pragma mark - Lifecycle
 -(instancetype)init{
@@ -202,7 +157,7 @@
         self.signView.backgroundColor = HEXCOLOR(0x242a37);
         self.signView.layer.shadowColor = [UIColor blackColor].CGColor;
         self.signTitleLab.textColor = kWhiteColor;
-        self.signLab.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(40), 30)]];
+        self.signLab.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(40, 30)]];
         //------
         self.friendView.backgroundColor = HEXCOLOR(0x242a37);
         self.friendView.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -297,7 +252,7 @@
 - (UIScrollView *)scrollView {
     if (!_scrollView) {
         _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-        _scrollView.contentSize = CGSizeMake(SCREEN_W, SCREEN_H+164);
+        _scrollView.contentSize = CGSizeMake(MAINSCREEN_WIDTH, MAINSCREEN_HEIGHT+164);
         _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [_scrollView setShowsVerticalScrollIndicator:NO];
         [_scrollView setShowsHorizontalScrollIndicator:NO];
@@ -309,7 +264,7 @@
 - (UIView *)bgview
 {
     if (!_bgview) {
-        _bgview = [[UIView alloc] initWithFrame:CGRectMake(0, self.gk_navigationBar.size.height, SCREEN_W, SCREEN_H)];
+        _bgview = [[UIView alloc] initWithFrame:CGRectMake(0, self.gk_navigationBar.size.height, MAINSCREEN_WIDTH, MAINSCREEN_HEIGHT)];
         [self.scrollView addSubview:_bgview];
     }
     return _bgview;
@@ -317,7 +272,7 @@
 -(void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     CGFloat maxY = CGRectGetMaxY(self.rewardView.frame);
-    CGFloat tabbarHeight = isiPhoneX_series() ? (50 + isiPhoneX_seriesBottom) : 49;
+    CGFloat tabbarHeight = isiPhoneX_series() ? (50 + 34) : 49;
     self.bgview.mj_h = maxY + tabbarHeight + 5 + self.gk_navigationBar.size.height;
     self.scrollView.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, self.bgview.mj_h);
 }
@@ -378,19 +333,20 @@
             if (![MKTools mkLoginIsYESWith:weak_self WithiSNeedLogin:NO]) {
                 if ([MKTools mkLoginIsYESWith:weak_self]){return;}
             } else {
-                [MyWalletDetailVC ComingFromVC:weak_self
-                      comingStyle:ComingStyle_PUSH
-                presentationStyle:UIModalPresentationAutomatic
-                    requestParams:@{
-                        @"MyWalletStyle":@(MyWalletStyle_CURRENTBALANCE),
-                        @"balance":self.walletStr,
-                        @"goldNumber":self.coinStr
-                    }
-                          success:^(id data) {}
-                         animated:YES];
+
+                [UIViewController comingFromVC:self
+                                          toVC:MyWalletDetailVC.new
+                                   comingStyle:ComingStyle_PUSH
+                             presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                                 requestParams:@{@"MyWalletStyle":@(MyWalletStyle_CURRENTBALANCE),
+                                                 @"balance":self.walletStr,
+                                                 @"goldNumber":self.coinStr}
+                      hidesBottomBarWhenPushed:YES
+                                      animated:YES
+                                       success:^(id data) {
+                    
+                }];
             }
-            
-            
         }];
         
         UIImageView *imgeV = UIImageView.new;
@@ -461,18 +417,20 @@
             if (![MKTools mkLoginIsYESWith:weak_self WithiSNeedLogin:NO]) {
                 if ([MKTools mkLoginIsYESWith:weak_self]){return;}
             } else {
-               [MyCoinVC ComingFromVC:weak_self
-                      comingStyle:ComingStyle_PUSH
-                presentationStyle:UIModalPresentationAutomatic
-                    requestParams:@{
-                        @"MyWalletStyle":@(MyWalletStyle_CURRENTCOIN),
-                        @"balance":self.walletStr,
-                        @"goldNumber":self.coinStr
-                    }
-                          success:^(id data) {}
-                         animated:YES];
+
+                [UIViewController comingFromVC:self
+                                          toVC:MyCoinVC.new
+                                   comingStyle:ComingStyle_PUSH
+                             presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                                 requestParams:@{@"MyWalletStyle":@(MyWalletStyle_CURRENTCOIN),
+                                                 @"balance":self.walletStr,
+                                                 @"goldNumber":self.coinStr}
+                      hidesBottomBarWhenPushed:YES
+                                      animated:YES
+                                       success:^(id data) {
+                    
+                }];
             }
-            
         }];
         
         UIImageView *imgeV = UIImageView.new;
@@ -518,7 +476,7 @@
             make.left.equalTo(titleLab.mas_right).offset(1);
         }];
         titleLab2.text = @"37.6W抖币";
-        titleLab2.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(40), 30)]];
+        titleLab2.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(40, 30)]];
         titleLab2.font = [UIFont systemFontOfSize:20];
         
         _friendLab = UILabel.new;
@@ -617,7 +575,7 @@
 //        }];
 //        imgeV.image = KIMG(@"icon_proclamation");
 //
-//        _paomaView = [[MKPaoMaView alloc] initWithFrame:CGRectMake(67,0,SCREEN_W - 32 - 66 - 67,40) font:[UIFont systemFontOfSize:17] textColor:[UIColor redColor]];
+//        _paomaView = [[MKPaoMaView alloc] initWithFrame:CGRectMake(67,0,MAINSCREEN_WIDTH - 32 - 66 - 67,40) font:[UIFont systemFontOfSize:17] textColor:[UIColor redColor]];
 //        _paomaView.textColor = [UIColor whiteColor];
 //        _paomaView.font = [UIFont systemFontOfSize:13];// 字体大小
 //        _paomaView.backgroundColor = kClearColor;
@@ -655,7 +613,7 @@
             make.left.equalTo(self.signTitleLab.mas_right).offset(1);
         }];
         _signLab.text = @"88抖币";
-        _signLab.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(40), 30)]];
+        _signLab.textColor = [UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(40, 30)]];
         
         
         // 签到
@@ -674,7 +632,7 @@
         _signBtn.layer.cornerRadius = 15;
         _signBtn.layer.masksToBounds = 1;        
         for (int i = 0 ; i<7; i++) {
-            UIView * bgV = [[UIView alloc] initWithFrame:CGRectMake(i*(SCREEN_W-24-16)/7, 61, (SCREEN_W-24-16)/7, 120)];
+            UIView * bgV = [[UIView alloc] initWithFrame:CGRectMake(i*(MAINSCREEN_WIDTH-24-16)/7, 61, (MAINSCREEN_WIDTH-24-16)/7, 120)];
             [_signView addSubview:bgV];
             
             // 签到

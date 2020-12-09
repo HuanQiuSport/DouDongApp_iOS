@@ -34,7 +34,7 @@ UITableViewDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = MKBakcColor;
+    self.view.backgroundColor = kBlackColor;
     
     self.gk_navTitle = @"系统消息";
     self.gk_navTitleColor = [UIColor whiteColor];
@@ -49,7 +49,7 @@ UITableViewDelegate
 #pragma mark - 添加子视图
 - (void)mkAddSubView{
     [self.view addSubview:self.mkInfoTableView];
-    self.mkInfoTableView.backgroundColor = MKBakcColor;
+    self.mkInfoTableView.backgroundColor = kBlackColor;
 }
 
 #pragma mark - 布局子视图
@@ -58,7 +58,7 @@ UITableViewDelegate
     [self.mkInfoTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
-        make.top.equalTo(self.view.mas_top).offset(kNavigationBarHeight+kStatusBarHeight);
+        make.top.equalTo(self.view.mas_top).offset(44+rectOfStatusbar());
         make.bottom.equalTo(self.view);
     }];
 
@@ -84,7 +84,7 @@ UITableViewDelegate
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     MKSysModel *model = self.mkDataArray[indexPath.row];
     return [model.height floatValue];
-//    return 135 * KDeviceScale;
+//    return 135 * 1;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -100,7 +100,7 @@ UITableViewDelegate
         _mkInfoTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _mkInfoTableView.emptyDataSetSource  = self;
         _mkInfoTableView.emptyDataSetDelegate = self;
-        _mkInfoTableView.backgroundColor = MKBakcColor;
+        _mkInfoTableView.backgroundColor = kBlackColor;
     }
     return _mkInfoTableView;
 }

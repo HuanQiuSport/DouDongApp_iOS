@@ -79,19 +79,24 @@
     } else {
         [self changeWindow];
     }
- 
-//    NSString *url = @"itms-services://?action=download-manifest&url=https://bt.5li2v2.com/channel/ios/hqbetgame_201_6215472_202009132133_4712.plist";
-//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url] options:@{} completionHandler:nil];
-    NSURL * url = [NSURL URLWithString:@"tingyun.75://"];
-    BOOL canOpen = [[UIApplication sharedApplication] canOpenURL:url];
-    //先判断是否能打开该url
-    if (canOpen){//打开微信
-        [[UIApplication sharedApplication] openURL:url];
-    }else {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mkSkipHQAppString]
-                                           options:@{}
-                                 completionHandler:nil];
+
+    [NSObject OpenURL:@"tingyun.75://"
+              options:@{}
+completionOpenSuccessHandler:^{
+        //TODO
     }
+completionOpenFailHandler:^{
+        [NSObject OpenURL:mkSkipHQAppString
+                  options:@{}
+    completionOpenSuccessHandler:^{
+            //TODO
+        }
+    completionOpenFailHandler:^{
+            //TODO
+    //        [NSURL URLWithString:mkSkipHQAppString]
+        }];
+    }];
+
 }
 
 - (void)changeWindow{
@@ -119,7 +124,7 @@
 - (UIView *)locationView{
     if (!_locationView) {
         _locationView = [[UIView alloc]init];
-        _locationView.frame = CGRectMake(SCREEN_W - 100, kStatusBarHeight + 20, 90, 30);
+        _locationView.frame = CGRectMake(MAINSCREEN_WIDTH - 100, rectOfStatusbar() + 20, 90, 30);
         _locationView.backgroundColor = KLightGrayColor;
         _locationView.alpha = 0.5;
         [UIView cornerCutToCircleWithView:_locationView AndCornerRadius:15];

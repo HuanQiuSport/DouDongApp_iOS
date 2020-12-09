@@ -107,7 +107,7 @@
         [self addSubview:_shapLayerView];
         [self.shapLayerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self);
-            make.left.equalTo(self).offset(62 *KDeviceScale);
+            make.left.equalTo(self).offset(62 *1);
             make.height.offset(self.radius+2);
             make.width.offset(self.radius+2);
         }];
@@ -116,8 +116,8 @@
         [imgeV mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.shapLayerView).offset(-2); // 由于图片不是对称的，需要位置微调
             make.centerX.equalTo(self.shapLayerView).offset(-2); // 位置微调
-            make.width.equalTo(@(12 *KDeviceScale));
-            make.height.equalTo(@(20 *KDeviceScale));
+            make.width.equalTo(@(12 *1));
+            make.height.equalTo(@(20 *1));
         }];
         imgeV.image = self.imge;
         
@@ -168,8 +168,8 @@
     return _currentWindow;
 }
 - (void)willMoveToSuperview:(UIView *)newSuperview{
-    self.frame = CGRectMake(SCREEN_W/2 - self.width / 2, SCREEN_H/2 - self.height / 2, self.width,self.height);
-    self.center = CGPointMake(SCREEN_W/2, SCREEN_H/2);
+    self.frame = CGRectMake(MAINSCREEN_WIDTH/2 - self.width / 2, MAINSCREEN_HEIGHT/2 - self.height / 2, self.width,self.height);
+    self.center = CGPointMake(MAINSCREEN_WIDTH/2, MAINSCREEN_HEIGHT/2);
 }
 - (void)shows:(NSString *)progressStr{
     self.hidden = NO;

@@ -19,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = MKBakcColor;
+    self.view.backgroundColor = kBlackColor;
     self.gk_navTitleColor = kWhiteColor;
     self.gk_backStyle = GKNavigationBarBackStyleWhite;
     self.gk_navTitle = @"修改密码";
@@ -34,7 +34,7 @@
         self.gk_navTitleColor = UIColor.blackColor;
         self.gk_backStyle = GKNavigationBarBackStyleBlack;
     } else {
-        self.view.backgroundColor = MKBakcColor;
+        self.view.backgroundColor = kBlackColor;
         self.gk_navTitleColor = kWhiteColor;
         self.gk_backStyle = GKNavigationBarBackStyleWhite;
     }
@@ -123,7 +123,7 @@
     UIButton *btn = UIButton.new;
     [self.view addSubview:btn];
     [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.offset(SCALING_RATIO(192));
+        make.width.offset(192);
         make.height.offset(32);
         make.centerX.offset(0);
         make.top.mas_equalTo(self.confirmNewField.mas_bottom).offset(26);
@@ -141,39 +141,52 @@
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self)
         if (!self.oldField.text.length) {
-            [[MKTools shared] showMBProgressViewOnlyTextInView:self.view
-                                                          text:@"请输入原密码"
-                                            dissmissAfterDeley:1.2];
+            
+            [WHToast showMessage:@"请输入原密码"
+                        duration:1
+                   finishHandler:nil];
+            
             return;
         }
         if (!self.field.text.length) {
-            [[MKTools shared] showMBProgressViewOnlyTextInView:self.view
-                                                          text:@"请输入新密码"
-                                            dissmissAfterDeley:1.2];
+
+            [WHToast showMessage:@"请输入新密码"
+                        duration:1
+                   finishHandler:nil];
+            
             return;
         }
         if (!self.confirmNewField.text.length) {
-            [[MKTools shared] showMBProgressViewOnlyTextInView:self.view
-                                                          text:@"请再次输入密码"
-                                            dissmissAfterDeley:1.2];
+
+            [WHToast showMessage:@"请再次输入密码"
+                        duration:1
+                   finishHandler:nil];
+            
             return;
         }
         if (![self.confirmNewField.text isEqualToString:self.field.text]) {
-            [[MKTools shared] showMBProgressViewOnlyTextInView:self.view
-                                                          text:@"两次密码输入不一致"
-                                            dissmissAfterDeley:1.2];
+            
+            [WHToast showMessage:@"两次密码输入不一致"
+                        duration:1
+                   finishHandler:nil];
+            
+            
             return;
         }
         if (self.field.text.length < 6) {
-            [[MKTools shared] showMBProgressViewOnlyTextInView:self.view
-                                                          text:@"密码至少6位"
-                                            dissmissAfterDeley:1.2];
+
+            [WHToast showMessage:@"密码至少6位"
+                        duration:1
+                   finishHandler:nil];
+            
             return;
         }
         if (self.field.text.length > 12) {
-            [[MKTools shared] showMBProgressViewOnlyTextInView:self.view
-                                                          text:@"密码不能超过12位"
-                                            dissmissAfterDeley:1.2];
+            
+            [WHToast showMessage:@"密码不能超过12位"
+                        duration:1
+                   finishHandler:nil];
+            
             return;
         }
         [self resetPasswordWith:self.oldField.text newPassword:self.field.text confirmPassword:self.confirmNewField.text data:^(id data) {

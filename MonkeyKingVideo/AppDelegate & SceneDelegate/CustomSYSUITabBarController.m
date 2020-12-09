@@ -50,7 +50,7 @@ CGFloat LZB_TABBAR_HEIGHT;
 }
 
 - (void)viewDidLoad {
-    LZB_TABBAR_HEIGHT = isiPhoneX_series() ? (50 + isiPhoneX_seriesBottom) : 49;
+    LZB_TABBAR_HEIGHT = isiPhoneX_series() ? (50 + 34) : 49;
     [super viewDidLoad];
     self.gk_navigationBar.hidden = YES;
     self.navigationController.navigationBar.hidden = NO;
@@ -205,7 +205,7 @@ CGFloat LZB_TABBAR_HEIGHT;
         NSDictionary *unselectTitleAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize:12],
                                      NSForegroundColorAttributeName: UIColor.grayColor,};
         NSDictionary *selectTitleAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize:12],
-                                   NSForegroundColorAttributeName:[UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(24.5), 14)]]};
+                                   NSForegroundColorAttributeName:[UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(24.5, 14)]]};
         
         LZBTabBarItem *item1 = LZBTabBarItem.new;
         item1.title = @"首页";
@@ -253,7 +253,7 @@ CGFloat LZB_TABBAR_HEIGHT;
         NSDictionary *unselectTitleAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize:12],
                                      NSForegroundColorAttributeName: UIColor.whiteColor,};
         NSDictionary *selectTitleAttributes = @{NSFontAttributeName: [UIFont systemFontOfSize:12],
-                                   NSForegroundColorAttributeName:[UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(24.5), 14)]]};
+                                   NSForegroundColorAttributeName:[UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(24.5, 14)]]};
         
         LZBTabBarItem *item1 = LZBTabBarItem.new;
         item1.title = @"首页";

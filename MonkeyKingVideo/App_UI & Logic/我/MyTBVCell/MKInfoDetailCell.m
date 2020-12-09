@@ -8,7 +8,7 @@
 
 #import "MKInfoDetailCell.h"
 #import "MKSysModel.h"
-#import "NSString+MHCommon.h"
+//#import "NSString+MHCommon.h"
 @interface MKInfoDetailCell()
 
 ///底部背景view
@@ -30,7 +30,7 @@
     if (cell == nil) {
         cell = [[MKInfoDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];  
     }
-    cell.backgroundColor = MKBakcColor;
+    cell.backgroundColor = kBlackColor;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -61,9 +61,9 @@
     }
     self.mkTimeLabel.text = model.createTime;
     
-    CGFloat height = [model.context textForLabHeightWithTextWidth:SCREEN_W - 38 * 2 * KDeviceScale font:kFontSize(18) ];
-    height += 80*KDeviceScale;
-    model.height  = [NSString stringWithFormat:@"%lf",height];
+//    CGFloat height = [model.context textForLabHeightWithTextWidth:MAINSCREEN_WIDTH - 38 * 2 * 1 font:kFontSize(18) ];
+//    height += 80*1;
+//    model.height  = [NSString stringWithFormat:@"%lf",height];
 }
 
 #pragma mark - 添加子视图
@@ -77,22 +77,22 @@
 - (void)mkLayOutView{
     
     [self.mkbackgroudView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left).offset(20*KDeviceScale);
-        make.right.equalTo(self.mas_right).offset(-20*KDeviceScale);
-        make.top.equalTo(self.mas_top).offset(15*KDeviceScale);
-        make.bottom.equalTo(self.mas_bottom).offset(-15*KDeviceScale);
+        make.left.equalTo(self.mas_left).offset(20*1);
+        make.right.equalTo(self.mas_right).offset(-20*1);
+        make.top.equalTo(self.mas_top).offset(15*1);
+        make.bottom.equalTo(self.mas_bottom).offset(-15*1);
     }];
     
     [self.mkInfoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left).offset(38*KDeviceScale);
-        make.right.equalTo(self.mas_right).offset(-38*KDeviceScale);
-        make.top.equalTo(self.mas_top).offset(27*KDeviceScale);
+        make.left.equalTo(self.mas_left).offset(38*1);
+        make.right.equalTo(self.mas_right).offset(-38*1);
+        make.top.equalTo(self.mas_top).offset(27*1);
         
     }];
     
     [self.mkTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.mas_equalTo(38*KDeviceScale);
-        make.bottom.mas_equalTo(-25*KDeviceScale);
+        make.left.right.mas_equalTo(38*1);
+        make.bottom.mas_equalTo(-25*1);
     }];
 }
 
@@ -100,7 +100,7 @@
 - (UIView *)mkbackgroudView{
     if (!_mkbackgroudView) {
         _mkbackgroudView = [[UIView alloc]init];
-        _mkbackgroudView.backgroundColor = MKBakcColor;
+        _mkbackgroudView.backgroundColor = kBlackColor;
         
         _mkbackgroudView.clipsToBounds = YES;
         _mkbackgroudView.layer.cornerRadius = 5.0f;

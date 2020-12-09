@@ -33,7 +33,7 @@
                     self.commentModel = [MKCommentModel mj_objectWithKeyValues:response.reqResult];
                     [self updateCommentCount:self.commentModel.total.intValue];
 //                    self.commentCountLab.text = [NSString stringWithFormat:@"%d条评论",self.commentModel.total.intValue];
-                    self.commentNumStr = self.commentModel.total.stringValue;
+//                    self.commentNumStr = self.commentModel.total.stringValue;
 //                    NSLog(@"%d",self.commentModel.endRow.intValue);
                     
                     self.commentModel.listMytArr = [MKFirstCommentModel mj_objectArrayWithKeyValuesArray:response.reqResult[@"list"]];
@@ -130,8 +130,11 @@
                     self.CommentPopUpBlock(@(self.commentCountLab.text.integerValue));
                 }
             }else if([response.reqResult isKindOfClass:NSString.class]){
-                [MBProgressHUD wj_showPlainText:response.reqResult
-                                           view:nil];
+                
+                [WHToast showMessage:response.reqResult
+                            duration:1
+                       finishHandler:nil];
+                
             }
         }
     }];
@@ -187,8 +190,10 @@
                 self.CommentPopUpBlock(@(self.commentCountLab.text.integerValue));
             }
         }else if([response.reqResult isKindOfClass:NSString.class]){
-            [MBProgressHUD wj_showPlainText:response.reqResult
-                                       view:nil];
+            
+            [WHToast showMessage:response.reqResult
+                        duration:1
+                   finishHandler:nil];
         }
     }];
 }

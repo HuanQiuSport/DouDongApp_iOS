@@ -12,5 +12,10 @@
 //所有的Model都在此进行管理
 #import "BaseModel.h"
 #import "VideoModel.h"
+#import "MyVCModel.h"
+#import "MKWalletMyFlowsModel.h"
+#import "MKCommentModel.h"
+#import "MKLaunchingAdModel.h"
+#import "MKUserInfoModel.h"
 
 #endif /* ModelManager_h */

@@ -15,12 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *balance;
 @property(nonatomic,copy)NSString *time;
 @property(nonatomic,copy)NSString *qq;
-+ (instancetype)ComingFromVC:(UIViewController *)rootVC
-      comingStyle:(ComingStyle)comingStyle
-presentationStyle:(UIModalPresentationStyle)presentationStyle
-    requestParams:(nullable id)requestParams
-          success:(MKDataBlock)block
-         animated:(BOOL)animated;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -39,8 +39,9 @@ static SceneDelegate *static_sceneDelegate = nil;
 -(void)KKK:(NSNotification *)noti{
     NSNumber *b = noti.object;
     if (b.intValue == AFNetworkReachabilityStatusNotReachable) {
-        [MBProgressHUD wj_showPlainText:@"没有网络连接"
-                                   view:nil];
+        [WHToast showMessage:@"没有网络连接"
+                    duration:1
+               finishHandler:nil];
     }
 }
 
@@ -70,14 +71,14 @@ willConnectToSession:(UISceneSession *)session
 
 - (void)sceneDidBecomeActive:(UIScene *)scene  API_AVAILABLE(ios(13.0)){
 //    NSLog(@"---applicationDidBecomeActive----");//进入前台
-    extern ZFPlayerController *ZFPlayer_DoorVC;
-    extern ZFPlayerController *ZFPlayer_ForgetCodeVC;
-    if (ZFPlayer_DoorVC) {
-        [ZFPlayer_DoorVC.currentPlayerManager play];
-    }
-    if (ZFPlayer_ForgetCodeVC) {
-        [ZFPlayer_ForgetCodeVC.currentPlayerManager play];
-    }
+//    extern ZFPlayerController *ZFPlayer_DoorVC;
+//    extern ZFPlayerController *ZFPlayer_ForgetCodeVC;
+//    if (ZFPlayer_DoorVC) {
+//        [ZFPlayer_DoorVC.currentPlayerManager play];
+//    }
+//    if (ZFPlayer_ForgetCodeVC) {
+//        [ZFPlayer_ForgetCodeVC.currentPlayerManager play];
+//    }
 }
 
 - (void)sceneWillResignActive:(UIScene *)scene  API_AVAILABLE(ios(13.0)){
@@ -106,14 +107,14 @@ willConnectToSession:(UISceneSession *)session
         [[NSNotificationCenter defaultCenter] postNotificationName:MKNoLockScreenNotification object:nil];
     }
     
-    extern ZFPlayerController *ZFPlayer_DoorVC;
-    extern ZFPlayerController *ZFPlayer_ForgetCodeVC;
-    if (ZFPlayer_DoorVC) {
-        [ZFPlayer_DoorVC.currentPlayerManager pause];
-    }
-    if (ZFPlayer_ForgetCodeVC) {
-        [ZFPlayer_ForgetCodeVC.currentPlayerManager pause];
-    }
+//    extern ZFPlayerController *ZFPlayer_DoorVC;
+//    extern ZFPlayerController *ZFPlayer_ForgetCodeVC;
+//    if (ZFPlayer_DoorVC) {
+//        [ZFPlayer_DoorVC.currentPlayerManager pause];
+//    }
+//    if (ZFPlayer_ForgetCodeVC) {
+//        [ZFPlayer_ForgetCodeVC.currentPlayerManager pause];
+//    }
 }
 
 

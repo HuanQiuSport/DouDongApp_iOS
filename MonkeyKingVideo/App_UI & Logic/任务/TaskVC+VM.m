@@ -46,8 +46,8 @@
                 NSString *text = [NSString stringWithFormat:@"恭喜 “%@”在“%@”中中了%@元",str2,dic[@"gameName"],dic[@"winMoney"]];
                 NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];
 
-                [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(100), 30)]] range:NSMakeRange(3, str2.length+2)];
-                [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(SCALING_RATIO(100), 30)]] range:NSMakeRange(11+str.length+str4.length, str3.length)];
+                [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(100, 30)]] range:NSMakeRange(3, str2.length+2)];
+                [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithPatternImage:[UIImage imageResize:KIMG(@"gradualColor") andResizeTo:CGSizeMake(100, 30)]] range:NSMakeRange(11+str.length+str4.length, str3.length)];
                 [m_arrs addObject:attributedString];
 //                [self.m_rewards addObject:attributedString];
                 
@@ -64,9 +64,10 @@
 //            self.paomaView.text = [self.m_notices componentsJoinedByString:@"  "];
             
         } else {
-            [[MKTools shared] showMBProgressViewOnlyTextInView:self.view
-                                                          text:response.message
-            dissmissAfterDeley:1.2];
+             
+             [WHToast showMessage:response.message
+                         duration:1
+                    finishHandler:nil];
         }
     }];
 }
@@ -82,7 +83,7 @@
     WeakSelf
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         if (response.isSuccess) {
-            DLog(@"%@",response.reqResult);
+
             if ([response.reqResult isKindOfClass:NSDictionary.class]){
                 weakSelf.coinStr = response.reqResult[@"goldNumber"];
                 weakSelf.walletStr = response.reqResult[@"balance"];
@@ -97,15 +98,18 @@
             }
             else
             {
-                [[MKTools shared] showMBProgressViewOnlyTextInView:weakSelf.view
-                                                                         text:response.reqResult
-                                                           dissmissAfterDeley:1.2];
+
+                
+                [WHToast showMessage:response.reqResult
+                            duration:1
+                       finishHandler:nil];
             }
             
         }else{
-            [[MKTools shared] showMBProgressViewOnlyTextInView:weakSelf.view
-                                                          text:@"没有哦oooo～"
-                                            dissmissAfterDeley:1.2];
+
+            [WHToast showMessage:@"没有哦oooo～"
+                        duration:1
+                   finishHandler:nil];
         }
     }];
 }
@@ -201,17 +205,19 @@
             else
             {
                 // 判断是否有数据
-                 [[MKTools shared] showMBProgressViewOnlyTextInView:self.view
-                                                               text:response.reqResult
-                 dissmissAfterDeley:1.2];
+
+                  [WHToast showMessage:response.reqResult
+                              duration:1
+                         finishHandler:nil];
             }
         }
         else
         {
             // 判断是否请求成功
-            [[MKTools shared] showMBProgressViewOnlyTextInView:self.view
-                                                          text:response.message
-            dissmissAfterDeley:1.2];
+             
+             [WHToast showMessage:response.message
+                         duration:1
+                    finishHandler:nil];
         }
     }];
 }
@@ -229,9 +235,10 @@
         if (response.isSuccess) {
             [self mkLoginAlert:nil];
         } else {
-            [[MKTools shared] showMBProgressViewOnlyTextInView:self.view
-                                                          text:response.reqResult
-            dissmissAfterDeley:1.2];
+
+            [WHToast showMessage:response.reqResult
+                                               duration:1
+                                          finishHandler:nil];
         }
     }];
 }
@@ -273,7 +280,7 @@
 //                vc.webblock = ^(NSDictionary * _Nonnull dic) {
 //                    if ([[NSString stringWithFormat:@"%@",dic[@"status"]] isEqualToString:@"0"]) {
 ////                        [weak_self mkLoginAlert:[NSString stringWithFormat:@"%@",dic[@"getCoin"]]];
-//                        MKTaskPopView * alertV = [[MKTaskPopView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_W, SCREEN_H) WithParameter:[NSString stringWithFormat:@"%@",dic[@"getCoin"]]];
+//                        MKTaskPopView * alertV = [[MKTaskPopView alloc]initWithFrame:CGRectMake(0, 0, MAINSCREEN_WIDTH, MAINSCREEN_HEIGHT) WithParameter:[NSString stringWithFormat:@"%@",dic[@"getCoin"]]];
 //                        alertV.popblock = ^{
 //                            MKWebViewVC *vc  = MKWebViewVC.new;
 //                            vc.url = [NSString stringWithFormat:@"%@%@?token=%@",[URL_Manager sharedInstance].BaseUrl_H5,[URL_Manager sharedInstance].MKH5Invit,[MKPublickDataManager sharedPublicDataManage].mkLoginModel.token];
@@ -363,13 +370,13 @@
                         [weak_self.friendListView addSubview:userImgeV];
                         [userImgeV mas_makeConstraints:^(MASConstraintMaker *make) {
 //                            make.top.equalTo(bgV).offset(0);
-                            make.left.equalTo(self.friendListView).offset(i*(61*KDeviceScale)+16);
-                            make.bottom.equalTo(self.friendListView.mas_bottom).offset(-17*KDeviceScale);
-                            make.width.offset(50*KDeviceScale);
-                            make.height.offset(50*KDeviceScale);
+                            make.left.equalTo(self.friendListView).offset(i*(61*1)+16);
+                            make.bottom.equalTo(self.friendListView.mas_bottom).offset(-17*1);
+                            make.width.offset(50*1);
+                            make.height.offset(50*1);
 //                            make.right.equalTo(bgV).offset(0);
                         }];
-                        userImgeV.layer.cornerRadius = 25*KDeviceScale;
+                        userImgeV.layer.cornerRadius = 25*1;
                         userImgeV.layer.masksToBounds = YES;
                         [self MKUserFriendMyInCome_GET];
                     }
@@ -400,9 +407,9 @@
             [weak_self.friendLab setAttributedText:text];
         }
         else {
-            [[MKTools shared] showMBProgressViewOnlyTextInView:self.view
-                                                          text:response.message
-            dissmissAfterDeley:1.2];
+            [WHToast showMessage:response.message
+                                               duration:1
+                                          finishHandler:nil];
         }
     }];
 }
@@ -434,9 +441,9 @@
         }];
        
     };
-    view1.frame = CGRectMake(0, 0, SCREEN_W,SCREEN_H);
+    view1.frame = CGRectMake(0, 0, MAINSCREEN_WIDTH,MAINSCREEN_HEIGHT);
     view1.backgroundColor = [UIColor clearColor];
-    UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_W/2 - (336*KDeviceScale)/2, 57, 336*KDeviceScale,  329*KDeviceScale)];
+    UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(MAINSCREEN_WIDTH/2 - (336*1)/2, 57, 336*1,  329*1)];
     image.image = KIMG(@"icon_task_baoxiang");
     [view1 addSubview:image];
     
@@ -453,7 +460,7 @@
     label.textAlignment = NSTextAlignmentCenter;
     [view1 addSubview:label];
     [label mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(image.mas_bottom).offset(-(21*KDeviceScale));
+        make.bottom.equalTo(image.mas_bottom).offset(-(21*1));
         make.left.equalTo(view1).offset(0);
         make.right.equalTo(view1).offset(0);
     }];
@@ -531,7 +538,7 @@
                }];
     }];
         
-    if ([[[SceneDelegate sharedInstance].customSYSUITabBarController.navigationController.viewControllers lastObject] isKindOfClass:[TaskVC class]]) {
+    if ([[[SceneDelegate sharedInstance].customSYSUITabBarController.navigationController.viewControllers lastObject] isKindOfClass:JobsAppDoorVC_Style1.class]) {
 //        NSLog(@"你他妹的手那么快干啥子呦");
         return;
     }
@@ -551,4 +558,5 @@
     }
                    animateStatus:nil];
 }
+
 @end

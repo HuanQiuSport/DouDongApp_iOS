@@ -26,7 +26,7 @@ static MKPublickDataManager *static_publicDataManage = nil;
 }
 #pragma mark - 登录model
 - (MKLoginModel *)mkLoginModel{
-    MKLoginModel *bdmodel = [[MKLoginModel getUsingLKDBHelper] searchSingle:[MKLoginModel class] where:nil orderBy:nil];
+    MKLoginModel *bdmodel = nil;//[[MKLoginModel getUsingLKDBHelper] searchSingle:[MKLoginModel class] where:nil orderBy:nil];
     return bdmodel;
 }
 #pragma mark - 推荐列表 当前播放视频信息

@@ -36,12 +36,12 @@
     [super viewDidLoad];
     self.mkCollectionView.alpha = 1;
     self.gk_navigationBar.hidden = YES;
-    self.view.backgroundColor = MKBakcColor;
+    self.view.backgroundColor = kBlackColor;
     self.navigationController.navigationBar.hidden = YES;
     [self requestData];
     [self.mkCollectionView addSubview:self.noDataLab];
     [self.noDataLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.offset(kScreenWidth);
+        make.width.offset(MAINSCREEN_WIDTH);
         make.left.offset(0);
         make.height.offset(30);
         make.top.offset(40);
@@ -78,10 +78,10 @@
         self.mkCollectionView.tintColor =  UIColor.whiteColor;
         self.noDataLab.textColor = HEXCOLOR(0x999999);
     } else {
-        self.view.backgroundColor = MKBakcColor;
+        self.view.backgroundColor = kBlackColor;
         self.noDataLab.textColor = RGBCOLOR(131, 145, 175);
-        self.mkCollectionView.backgroundColor = MKBakcColor;
-        self.mkCollectionView.tintColor =  MKBakcColor;
+        self.mkCollectionView.backgroundColor = kBlackColor;
+        self.mkCollectionView.tintColor =  kBlackColor;
     }
 }
 
@@ -122,24 +122,24 @@
         layout.minimumLineSpacing = 5;
         layout.minimumInteritemSpacing = 5;
         layout.sectionInset = UIEdgeInsetsMake(5.0, 5, 5.0, 10.0);
-        _mkCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0,0,SCREEN_W, SCREEN_H-20*KDeviceScale) collectionViewLayout:layout];
-        _mkCollectionView.backgroundColor = MKBakcColor;
-        _mkCollectionView.tintColor =  MKBakcColor;
+        _mkCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0,0,MAINSCREEN_WIDTH, MAINSCREEN_HEIGHT-20*1) collectionViewLayout:layout];
+        _mkCollectionView.backgroundColor = kBlackColor;
+        _mkCollectionView.tintColor =  kBlackColor;
         _mkCollectionView.dataSource = self;
         _mkCollectionView.delegate = self;
         [_mkCollectionView registerClass:[VideoCell class]
                forCellWithReuseIdentifier:@"VedioCell"];
-        _mkCollectionView.mj_header = self.tableViewHeader;
+        _mkCollectionView.mj_header = [self mjRefreshGifHeader];
         _mkCollectionView.mj_header.hidden = 1;
-        _mkCollectionView.mj_footer = self.tableViewFooter;
+        _mkCollectionView.mj_footer = [self mjRefreshAutoGifFooter];
         _mkCollectionView.mj_footer.hidden = 1;
         _mkCollectionView.emptyDataSetSource = self;
         _mkCollectionView.emptyDataSetDelegate = self;
         [self.view addSubview:_mkCollectionView];
         [_mkCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
-            make.top.equalTo(self.view.mas_top).offset(20*KDeviceScale);
-            make.bottom.equalTo(self.view).offset(-72*KDeviceScale);
+            make.top.equalTo(self.view.mas_top).offset(20*1);
+            make.bottom.equalTo(self.view).offset(-72*1);
         }];
     }
     return _mkCollectionView;
@@ -176,13 +176,13 @@
     }
     MKVideoDemandModel *model = self.mkLikeModel.list[indexPath.item];
     [cell richElementsInCellWithModel:model];
-    cell.backgroundColor = MKBakcColor;
+    cell.backgroundColor = kBlackColor;
     return cell;
 }
 #pragma mark - 调整cell 的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat width = (([UIScreen mainScreen].bounds.size.width-40)/3);
-    CGSize size = CGSizeMake(width, 139*KDeviceScale);
+    CGSize size = CGSizeMake(width, 139*1);
     return size;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -205,17 +205,19 @@
     if ([self.type isEqualToString:@"1"]) {
         NSString *page = [NSString stringWithFormat:@"%ld",self.mkPageIndex];
         SetUserDefaultKeyWithObject(@"needrequestData",page);
-        WeakSelf
-        //weakSelf.mkPernalModel.userId
-        [RecommendVC ComingFromVC:weakSelf comingStyle:ComingStyle_PUSH presentationStyle:UIModalPresentationFullScreen requestParams:
-         @{
-             @"index":@(indexPath.item),
-             @"model":self.mkLikeModel,@"VideoListType":@(MKVideoListType_D),
-             @"userId":weakSelf.mkPernalModel.userId,
-             @"type":self.type // 自定义类型用来区分 喜欢｜作品
-         }
-                          success:^(id data) {
-        } animated:YES];
+        [UIViewController comingFromVC:self
+                                  toVC:RecommendVC.new
+                           comingStyle:ComingStyle_PUSH
+                     presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                         requestParams:@{
+                             @"index":@(indexPath.item),
+                             @"model":self.mkLikeModel,@"VideoListType":@(MKVideoListType_D),
+                             @"userId":self.mkPernalModel.userId,
+                             @"type":self.type}// 自定义类型用来区分 喜欢｜作品
+              hidesBottomBarWhenPushed:YES
+                              animated:YES
+                               success:^(id data) {}];
+        
     }
     if ([self.type isEqualToString:@"2"]) {
         switch (model.videoStatus.integerValue) {
@@ -234,29 +236,22 @@
                 break;
             case 1:
             {
-//                NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-////                [userDefault setObject:model.nickName forKey:@"nickName"];
-//                NSString  *nickName = [userDefault objectForKey:@"nickName"];
-//                if (nickName != nil) {
-                    NSString *page = [NSString stringWithFormat:@"%ld",self.mkPageIndex];
-                    SetUserDefaultKeyWithObject(@"needrequestData",page);
-                    WeakSelf
-                    //weakSelf.mkPernalModel.userId
-                    [RecommendVC ComingFromVC:weakSelf comingStyle:ComingStyle_PUSH presentationStyle:UIModalPresentationFullScreen requestParams:
-                     @{
-                         @"index":@(indexPath.item),
-                         @"model":self.mkLikeModel,@"VideoListType":@(MKVideoListType_D),
-                         @"userId":weakSelf.mkPernalModel.userId,
-                         @"type":self.type, // 自定义类型用来区分 喜欢｜作品
-                         @"userHeardNoClick":@(YES)
-                     }
-                                      success:^(id data) {
-                    } animated:YES];
-//                } else {
-//                    [NSObject Login];
-//                }
-               
-                
+
+                NSString *page = [NSString stringWithFormat:@"%ld",self.mkPageIndex];
+                SetUserDefaultKeyWithObject(@"needrequestData",page);
+                [UIViewController comingFromVC:self
+                                          toVC:RecommendVC.new
+                                   comingStyle:ComingStyle_PUSH
+                             presentationStyle:[UIDevice currentDevice].systemVersion.doubleValue >= 13.0 ? UIModalPresentationAutomatic : UIModalPresentationFullScreen
+                                 requestParams:@{@"index":@(indexPath.item),
+                                                 @"model":self.mkLikeModel,
+                                                 @"VideoListType":@(MKVideoListType_D),
+                                                 @"userId":self.mkPernalModel.userId,
+                                                 @"type":self.type, // 自定义类型用来区分 喜欢｜作品
+                                                 @"userHeardNoClick":@(YES)}
+                      hidesBottomBarWhenPushed:YES
+                                      animated:YES
+                                       success:^(id data) {}];
             }
                 break;
             case 2:
@@ -325,10 +320,10 @@
 {
 //    NSLog(@"下拉刷新");
     self.mkPageIndex = 1;
-    [self.tableViewFooter endRefreshing];
+    [[self mjRefreshAutoGifFooter] endRefreshing];
     WeakSelf
     [self requestWith:0 WithPageNumber:1 WithPageSize:10 WithUserID:weakSelf.mkPernalModel.userId WithType:weakSelf.type Block:^(id data) {
-        [weakSelf.tableViewHeader endRefreshing];
+        [weakSelf.mjRefreshGifHeader endRefreshing];
         if ((Boolean)data) {
           
             [weakSelf.mkCollectionView reloadData];
@@ -342,10 +337,10 @@
 -(void)pullToRefresh{
 //    NSLog(@"下拉刷新");
     self.mkPageIndex = 1;
-    [self.tableViewFooter endRefreshing];
+    [[self mjRefreshAutoGifFooter] endRefreshing];
     WeakSelf
     [self requestWith:0 WithPageNumber:1 WithPageSize:10 WithUserID:weakSelf.mkPernalModel.userId WithType:weakSelf.type Block:^(id data) {
-        [weakSelf.tableViewHeader endRefreshing];
+        [weakSelf.mjRefreshGifHeader endRefreshing];
         if ((Boolean)data) {
           
             [weakSelf.mkCollectionView reloadData];
@@ -358,11 +353,11 @@
 #pragma mark -  上拉加载更多
 - (void)loadMoreRefresh{
 //    NSLog(@"上拉加载更多");
-    [self.tableViewHeader endRefreshing];
+    [[self mjRefreshGifHeader] endRefreshing];
     self.mkPageIndex += 1;
     WeakSelf
     [self requestWith:0 WithPageNumber:weakSelf.mkPageIndex WithPageSize:10 WithUserID:weakSelf.mkPernalModel.userId WithType:weakSelf.type Block:^(id data) {
-        [weakSelf.tableViewFooter endRefreshing];
+        [weakSelf.mjRefreshAutoGifFooter endRefreshing];
         if ((Boolean)data) {
             [weakSelf.mkCollectionView reloadData];
         }else{

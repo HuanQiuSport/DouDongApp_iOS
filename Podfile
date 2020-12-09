@@ -86,7 +86,6 @@ def ui
   end
 # 视频相关
 def videoFunc
-  pod 'GPUImage'
   pod 'ZFPlayer'
   pod 'ZFPlayer/ControlView'
   pod 'ZFPlayer/AVPlayer'

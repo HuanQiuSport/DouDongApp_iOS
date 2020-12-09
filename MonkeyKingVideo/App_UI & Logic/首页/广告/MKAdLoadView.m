@@ -44,13 +44,13 @@
     
     [self.mkImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(@(50*KDeviceScale));
+        make.left.equalTo(@(50*1));
         
-        make.width.equalTo(@(80*KDeviceScale));
+        make.width.equalTo(@(80*1));
         
-        make.height.equalTo(@(80*KDeviceScale));
+        make.height.equalTo(@(80*1));
         
-        make.top.equalTo(@(40*KDeviceScale));
+        make.top.equalTo(@(40*1));
         
         
     }];
@@ -59,9 +59,9 @@
         
         make.left.equalTo(self.mkImageView.mas_right).offset(0);
         
-        make.top.equalTo(@(40*KDeviceScale));
+        make.top.equalTo(@(40*1));
         
-        make.right.equalTo(self.mas_right).offset(-50*KDeviceScale);
+        make.right.equalTo(self.mas_right).offset(-50*1);
     }];
     
     
@@ -70,16 +70,16 @@
         
         make.top.equalTo(self.mkImageView.mas_centerY);
                 
-        make.right.equalTo(self.mas_right).offset(-50*KDeviceScale);
+        make.right.equalTo(self.mas_right).offset(-50*1);
     }];
     
     
     [self.mkButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@(50*KDeviceScale));
+        make.left.equalTo(@(50*1));
 
-        make.right.equalTo(@(-50*KDeviceScale));
+        make.right.equalTo(@(-50*1));
         
-        make.height.equalTo(@(46*KDeviceScale));
+        make.height.equalTo(@(46*1));
         
         make.bottom.equalTo(self.mas_bottom).offset(-KBottomHeight);
     }];

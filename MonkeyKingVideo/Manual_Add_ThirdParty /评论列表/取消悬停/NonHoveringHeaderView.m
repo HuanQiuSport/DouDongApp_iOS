@@ -272,9 +272,9 @@
         [self.contentView addSubview:_vipImageView];
         
         [_vipImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@(19 *KDeviceScale));
-            make.height.equalTo(@(17 *KDeviceScale));
-            make.left.equalTo(self.titleLab.mas_right).offset(6*KDeviceScale);
+            make.width.equalTo(@(19 *1));
+            make.height.equalTo(@(17 *1));
+            make.left.equalTo(self.titleLab.mas_right).offset(6*1);
             make.centerY.equalTo(self.titleLab.mas_centerY).offset(0);
         }];
     }

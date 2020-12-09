@@ -24,15 +24,15 @@
         UIImageView *image = [[UIImageView alloc]initWithFrame:frame];
         image.image = [UIImage imageNamed:@"广告图"];
         [self addSubview:image];
-        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-80*KDeviceScale,kStatusBarHeight,60*KDeviceScale,22*KDeviceScale)];
+        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(MAINSCREEN_WIDTH-80*1,rectOfStatusbar(),60*1,22*1)];
         self.button = button;
         [button titleLabel].font = [UIFont systemFontOfSize:10 weight:UIFontWeightThin];
         [button addTapGesture:self sel:@selector(tapClick)];
         button.backgroundColor = [UIColor redColor];
         [self addSubview:button];
-        button.layer.cornerRadius = 11*KDeviceScale;
+        button.layer.cornerRadius = 11*1;
         button.layer.masksToBounds = YES;
-        button.backgroundColor = kHexRGB(0x101010);
+        button.backgroundColor = HEXCOLOR(0x101010);
         button.titleColor = [UIColor whiteColor];
         [button setTitle:@"4" forState:UIControlStateNormal];
         [image mas_makeConstraints:^(MASConstraintMaker *make) {
