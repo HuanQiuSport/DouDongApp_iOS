@@ -5584,8 +5584,8 @@
 				C546BF4A2498709700C189CE /* Sources */,
 				C546BF4B2498709700C189CE /* Frameworks */,
 				C546BF4C2498709700C189CE /* Resources */,
-				AE3CB40086235F189B65FA1E /* [CP] Embed Pods Frameworks */,
-				3406E86A85CB9A968656AD5C /* [CP] Copy Pods Resources */,
+				4669E9E420B282B6D3A34D6D /* [CP] Embed Pods Frameworks */,
+				46093C5332CC674EC919ABA0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -6175,7 +6175,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3406E86A85CB9A968656AD5C /* [CP] Copy Pods Resources */ = {
+		46093C5332CC674EC919ABA0 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -6188,6 +6188,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MonkeyKingVideo/Pods-MonkeyKingVideo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4669E9E420B282B6D3A34D6D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MonkeyKingVideo/Pods-MonkeyKingVideo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		56A7854FC1F0FD562E1569E9 /* [CP] Check Pods Manifest.lock */ = {
@@ -6232,21 +6247,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AE3CB40086235F189B65FA1E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MonkeyKingVideo/Pods-MonkeyKingVideo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EC8DEBF9585B0B43045FA218 /* [CP] Check Pods Manifest.lock */ = {
